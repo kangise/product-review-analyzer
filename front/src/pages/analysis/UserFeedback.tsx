@@ -36,9 +36,9 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
     setSelectedQuotes({ quotes, title })
   }
 
-  // 从results中获取真实数据
-  const consumerLoveData = analysisResult?.consumer_love || {}
-  const starRatingData = analysisResult?.star_rating_root_cause || {}
+  // 从analysisResult中获取数据，适配现有结构
+  const consumerLoveData = analysisResult?.ownBrandAnalysis?.userFeedback?.consumerLove || {}
+  const starRatingData = analysisResult?.ownBrandAnalysis?.userFeedback?.starRating || {}
 
   // 评分分布数据转换为图表格式
   const ratingDistribution = starRatingData.评分分布分析?.总体评分分布 ? [

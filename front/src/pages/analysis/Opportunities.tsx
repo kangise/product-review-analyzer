@@ -26,8 +26,8 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
     setSelectedQuotes({ quotes, title })
   }
 
-  // 从results中获取真实数据
-  const opportunityData = analysisResult?.opportunity || {}
+  // 从analysisResult中获取数据，适配现有结构
+  const opportunityData = analysisResult?.ownBrandAnalysis?.opportunities || {}
 
   const getImpactColor = (impact: string) => {
     switch (impact?.toLowerCase()) {

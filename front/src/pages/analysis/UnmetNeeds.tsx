@@ -25,8 +25,8 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
     setSelectedQuotes({ quotes, title })
   }
 
-  // 从results中获取真实数据
-  const unmetNeedsData = analysisResult?.unmet_needs || {}
+  // 从analysisResult中获取数据，适配现有结构
+  const unmetNeedsData = analysisResult?.ownBrandAnalysis?.unmetNeeds || {}
 
   const getSeverityColor = (severity: string) => {
     const severityValue = parseFloat(severity)

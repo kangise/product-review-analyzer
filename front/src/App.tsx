@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Upload, FileText, TrendingUp, Users, Target, Star, Download, History, BarChart3, PieChart, ArrowRight, CheckCircle, Clock, AlertCircle, Menu, X, ThumbsUp, ThumbsDown, Lightbulb, Zap, MessageSquare, Info, RefreshCw, ChevronDown, ChevronRight, Home, Play, Eye, BarChart2, ShoppingCart, Sparkles, Settings, Bell, User, Moon, Sun, Monitor, Tag, Languages, Search } from 'lucide-react'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from './components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card'
 import { Badge } from './components/ui/badge'
@@ -14,6 +14,12 @@ import { Input } from './components/ui/input'
 import { Label } from './components/ui/label'
 import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip } from 'recharts'
 import { projectId, publicAnonKey } from './utils/supabase/info'
+
+// 导入新创建的分析页面组件
+import { UserInsights } from './pages/analysis/UserInsights'
+import { UserFeedback } from './pages/analysis/UserFeedback'
+import { Opportunities } from './pages/analysis/Opportunities'
+import { UnmetNeeds } from './pages/analysis/UnmetNeeds'
 
 // Translation system
 const translations = {
@@ -1494,184 +1500,45 @@ export default function App() {
 
     if (activeModule === 'own-brand-insights' && analysisResult) {
       return (
-        <motion.div 
-          className="gap-system-xl flex flex-col"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {/* Clean header with breadcrumb-style navigation */}
-          <div className="border-b border-border pb-6">
-            <div className="gap-system-sm flex items-center">
-              <Target className="h-5 w-5 text-primary" />
-              <div>
-                <h2 className="mb-1">{t.nav.ownBrandInsights}</h2>
-                <div className="gap-system-sm flex items-center text-sm text-muted-foreground">
-                  <span>{language === 'en' ? 'Deep insights into your target user groups' : '深度了解您的目标用户群体'}</span>
-                  {analysisResult.targetCategory && (
-                    <>
-                      <Separator orientation="vertical" className="h-3" />
-                      <div className="gap-1 flex items-center">
-                        <Tag className="h-3 w-3" />
-                        <span>{t.analysis.category} {analysisResult.targetCategory}</span>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
+        <UserInsights 
+          language={language}
+          t={t}
+          analysisResult={analysisResult}
+        />
+      )
+    }
 
-          <div className="gap-system-xl flex flex-col">
-            {/* Key User Persona Insights - Clean Google Analytics style */}
-            {analysisResult.ownBrandAnalysis.userInsights.关键用户画像洞察 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <Card className="border-clean shadow-clean">
-                  <CardHeader className="spacing-system-lg border-b border-border">
-                    <CardTitle className="gap-system-sm flex items-center text-base">
-                      <Users className="h-4 w-4 text-primary" />
-                      <span>{t.analysis.keyUserInsights}</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="spacing-system-lg">
-                    <div className="gap-system-lg flex flex-col">
-                      <motion.div 
-                        className="spacing-system-md bg-accent rounded-lg border-clean"
-                        whileHover={{ scale: 1.01 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <h4 className="font-medium mb-2 text-sm">{t.analysis.coreUserPersona}</h4>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {analysisResult.ownBrandAnalysis.userInsights.关键用户画像洞察.核心用户画像}
-                        </p>
-                      </motion.div>
-                      
-                      <div className="gap-system-md grid md:grid-cols-2">
-                        <motion.div 
-                          className="spacing-system-md bg-muted rounded-lg border-clean"
-                          whileHover={{ scale: 1.01 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <h4 className="font-medium mb-2 text-sm">{t.analysis.segmentedUserTypes}</h4>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {analysisResult.ownBrandAnalysis.userInsights.关键用户画像洞察.细分潜力用户类型}
-                          </p>
-                        </motion.div>
-                        
-                        <motion.div 
-                          className="spacing-system-md bg-muted rounded-lg border-clean"
-                          whileHover={{ scale: 1.01 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <h4 className="font-medium mb-2 text-sm">{t.analysis.keyUserBehavior}</h4>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {analysisResult.ownBrandAnalysis.userInsights.关键用户画像洞察.关键用户行为}
-                          </p>
-                        </motion.div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )}
+    if (activeModule === 'own-brand-feedback' && analysisResult) {
+      return (
+        <UserFeedback 
+          language={language}
+          t={t}
+          analysisResult={analysisResult}
+        />
+      )
+    }
 
-            {/* Demographic Analysis - Clean data presentation */}
-            {analysisResult.ownBrandAnalysis.userInsights.消费者画像分析 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <Card className="border-clean shadow-clean">
-                  <CardHeader className="spacing-system-lg border-b border-border">
-                    <CardTitle className="gap-system-sm flex items-center text-base">
-                      <Users className="h-4 w-4 text-primary" />
-                      <span>{t.analysis.demographicAnalysis}</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="spacing-system-lg">
-                    <motion.div 
-                      className="spacing-system-md bg-accent rounded-lg border-clean mb-6"
-                      whileHover={{ scale: 1.01 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <h4 className="font-medium mb-2 text-sm">{t.analysis.coreInsight}</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {analysisResult.ownBrandAnalysis.userInsights.消费者画像分析.人群特征.核心insight}
-                      </p>
-                    </motion.div>
-                    
-                    <div className="gap-system-lg flex flex-col">
-                      <h4 className="font-medium text-sm">{t.analysis.segmentedDetails}</h4>
-                      <div className="gap-system-md flex flex-col">
-                        {analysisResult.ownBrandAnalysis.userInsights.消费者画像分析.人群特征.细分人群.map((group, index) => (
-                          <motion.div 
-                            key={index} 
-                            className="border-clean rounded-lg spacing-system-md shadow-clean"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.3 + index * 0.1 }}
-                            whileHover={{ y: -1 }}
-                          >
-                            <div className="flex items-center justify-between mb-3">
-                              <h5 className="font-medium text-sm">{group.用户人群}</h5>
-                              <Badge variant="outline" className="text-primary border-primary/30 bg-accent text-xs">
-                                {group.比例}%
-                              </Badge>
-                            </div>
-                            
-                            <div className="w-full bg-muted rounded-full h-1.5 mb-3">
-                              <motion.div 
-                                className="bg-primary h-1.5 rounded-full"
-                                initial={{ width: 0 }}
-                                animate={{ width: `${group.比例}%` }}
-                                transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
-                              />
-                            </div>
-                            
-                            <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{group.特征描述}</p>
-                            
-                            <div className="bg-muted spacing-system-sm rounded-md border-clean">
-                              <h6 className="text-xs font-medium mb-1">{t.analysis.keyReviewInfo}</h6>
-                              <p className="text-xs text-muted-foreground italic leading-relaxed">"{group.关键review信息}"</p>
-                            </div>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )}
+    if (activeModule === 'own-brand-unmet' && analysisResult) {
+      return (
+        <UnmetNeeds 
+          language={language}
+          t={t}
+          analysisResult={analysisResult}
+        />
+      )
+    }
 
-            {/* Fallback User Persona */}
-            {!analysisResult.ownBrandAnalysis.userInsights.关键用户画像洞察 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <Card className="border-clean shadow-clean">
-                  <CardHeader className="spacing-system-lg border-b border-border">
-                    <CardTitle className="gap-system-sm flex items-center text-base">
-                      <Users className="h-4 w-4 text-primary" />
-                      <span>{t.analysis.userPersona}</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="spacing-system-lg">
-                    <p className="text-muted-foreground bg-accent spacing-system-md rounded-lg border-clean leading-relaxed text-sm">
-                      {analysisResult.ownBrandAnalysis.userInsights.userPersona}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )}
-          </div>
-        </motion.div>
+    if ((activeModule === 'opportunities-improvement' || 
+         activeModule === 'opportunities-innovation' || 
+         activeModule === 'opportunities-marketing') && analysisResult) {
+      const activeTab = activeModule.replace('opportunities-', '')
+      return (
+        <Opportunities 
+          language={language}
+          t={t}
+          analysisResult={analysisResult}
+          activeTab={activeTab}
+        />
       )
     }
 
