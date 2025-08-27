@@ -239,7 +239,39 @@ def get_analysis_result(analysis_id):
     if analysis_id == 'latest':
         # 特殊处理：加载最新的分析结果
         try:
-            result = load_analysis_results('latest', 'unknown', False)
+            # 尝试从最新的分析结果目录中获取实际的metadata
+            latest_target_category = 'Webcams'  # 默认值
+            latest_has_competitor = False
+            
+            # 查找最新的分析结果目录
+            results_dirs = []
+            for item in os.listdir('.'):
+                if os.path.isdir(item) and item.startswith('analysis_results_'):
+                    results_dirs.append(item)
+            
+            if results_dirs:
+                # 按时间排序，获取最新的
+                results_dirs.sort(reverse=True)
+                latest_dir = results_dirs[0]
+                
+                # 尝试读取metadata文件
+                metadata_file = os.path.join(latest_dir, 'metadata.json')
+                if os.path.exists(metadata_file):
+                    try:
+                        with open(metadata_file, 'r', encoding='utf-8') as f:
+                            metadata = json.load(f)
+                        latest_target_category = metadata.get('targetCategory', 'Webcams')
+                        latest_has_competitor = metadata.get('hasCompetitorData', False)
+                        print(f"✅ Loaded metadata: category={latest_target_category}, competitor={latest_has_competitor}")
+                    except Exception as e:
+                        print(f"❌ Error reading metadata: {e}")
+                
+                # 检查是否有竞品文件
+                competitor_file = os.path.join(latest_dir, 'competitor.json')
+                if os.path.exists(competitor_file):
+                    latest_has_competitor = True
+                
+            result = load_analysis_results('latest', latest_target_category, latest_has_competitor)
             if 'error' in result:
                 return jsonify({'error': 'No analysis results found'}), 404
             return jsonify(result)
@@ -323,7 +355,7 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
             'id': analysis_id,
             'timestamp': datetime.now().isoformat(),
             'hasCompetitorData': bool(results.get('competitor', {})),  # 根据实际数据设置
-            'targetCategory': target_category,
+            'targetCategory': target_category if target_category and target_category.strip() else 'Webcams',  # 使用实际category或默认值
             'ownBrandAnalysis': {
                 'userInsights': results.get('consumer_profile', {}),
                 'userMotivation': results.get('consumer_motivation', {}),
@@ -337,6 +369,22 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
             },
             'competitorAnalysis': results.get('competitor', {})
         }
+        
+        # 保存metadata到分析结果目录
+        if results_dir:
+            metadata = {
+                'id': analysis_id,
+                'timestamp': datetime.now().isoformat(),
+                'targetCategory': target_category if target_category and target_category.strip() else 'Webcams',
+                'hasCompetitorData': bool(results.get('competitor', {}))
+            }
+            metadata_path = os.path.join(results_dir, 'metadata.json')
+            try:
+                with open(metadata_path, 'w', encoding='utf-8') as f:
+                    json.dump(metadata, f, ensure_ascii=False, indent=2)
+                print(f"✅ Saved metadata to {metadata_path}")
+            except Exception as e:
+                print(f"❌ Error saving metadata: {e}")
         
         print(f"✅ Formatted result with {len([k for k, v in results.items() if v])} non-empty analysis modules")
         return formatted_result
