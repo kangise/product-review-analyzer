@@ -184,19 +184,27 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
             <CardContent className="spacing-system-lg">
               {consumerLoveData.消费者洞察总结 && (
                 <div className="gap-system-lg flex flex-col">
-                  <motion.div 
-                    className="spacing-system-md bg-accent rounded-lg border-clean"
-                    whileHover={{ scale: 1.01 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Consumer Insights Summary' : '消费者洞察总结'}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {consumerLoveData.消费者洞察总结}
-                    </p>
-                  </motion.div>
+                  {/* 消费者洞察总结 - 处理对象结构 */}
+                  {typeof consumerLoveData.消费者洞察总结 === 'object' && (
+                    <div className="gap-system-md flex flex-col">
+                      {Object.entries(consumerLoveData.消费者洞察总结).map(([key, value]: [string, any]) => (
+                        <motion.div 
+                          key={key}
+                          className="spacing-system-md bg-accent rounded-lg border-clean"
+                          whileHover={{ scale: 1.01 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <h4 className="font-medium mb-2 text-sm">{key}</h4>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {typeof value === 'string' ? value : JSON.stringify(value)}
+                          </p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
 
                   {/* 核心赞美点分析 */}
-                  {consumerLoveData.核心赞美点分析 && (
+                  {consumerLoveData.核心赞美点分析 && Array.isArray(consumerLoveData.核心赞美点分析) && (
                     <div className="gap-system-md grid md:grid-cols-2">
                       {consumerLoveData.核心赞美点分析.map((praise: any, index: number) => (
                         <motion.div
@@ -272,7 +280,9 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                 >
                   <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Key Insights' : '关键洞察'}</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {starRatingData.评分分布分析.关键洞察}
+                    {typeof starRatingData.评分分布分析.关键洞察 === 'string' 
+                      ? starRatingData.评分分布分析.关键洞察 
+                      : JSON.stringify(starRatingData.评分分布分析.关键洞察)}
                   </p>
                 </motion.div>
               )}
