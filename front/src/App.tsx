@@ -484,6 +484,7 @@ export default function App() {
   const [analysisId, setAnalysisId] = useState<string | null>(null)
   const [analysisSteps, setAnalysisSteps] = useState<any[]>([])
   const [currentStep, setCurrentStep] = useState<string>('')
+  const [analysisProgress, setAnalysisProgress] = useState(0)
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null)
   const [historicalReports, setHistoricalReports] = useState<HistoricalReport[]>([])
   const [activeModule, setActiveModule] = useState<ActiveModule>('dashboard')
