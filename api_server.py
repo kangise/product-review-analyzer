@@ -264,23 +264,17 @@ def get_analysis_result(analysis_id):
 def load_analysis_results(analysis_id, target_category, has_competitor_data):
     """加载分析结果并格式化为前端期望的结构"""
     try:
-        # 只查找analysis_results_TIMESTAMP目录
+        # 查找包含完整结果的analysis_results_TIMESTAMP目录
         import glob
         result_dirs = glob.glob('analysis_results_*')
         if not result_dirs:
             raise Exception("No analysis results found. Please run analysis first.")
         
-        # 使用最新的分析结果目录
+        # 按时间排序，从最新开始查找
         result_dirs.sort(reverse=True)
-        results_dir = result_dirs[0]
         
-        print(f"Loading results from: {results_dir}")
-        
-        # 读取各个分析结果文件
-        results = {}
-        
-        # 读取主要分析结果
-        result_files = [
+        # 必需的结果文件
+        required_files = [
             'consumer_profile.json',
             'consumer_motivation.json', 
             'consumer_scenario.json',
@@ -290,15 +284,38 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
             'opportunity.json'
         ]
         
-        for filename in result_files:
+        results_dir = None
+        for dir_path in result_dirs:
+            # 检查这个目录是否包含所有必需文件
+            has_all_files = True
+            for filename in required_files:
+                filepath = os.path.join(dir_path, filename)
+                if not os.path.exists(filepath):
+                    has_all_files = False
+                    break
+            
+            if has_all_files:
+                results_dir = dir_path
+                break
+        
+        if not results_dir:
+            raise Exception("No complete analysis results found. Latest analysis may still be running.")
+        
+        print(f"Loading results from: {results_dir}")
+        
+        # 读取各个分析结果文件
+        results = {}
+        
+        for filename in required_files:
             filepath = os.path.join(results_dir, filename)
-            if os.path.exists(filepath):
+            try:
                 with open(filepath, 'r', encoding='utf-8') as f:
                     key = filename.replace('.json', '')
                     results[key] = json.load(f)
                     print(f"✅ Loaded {filename}: {len(str(results[key]))} characters")
-            else:
-                print(f"⚠️ File not found: {filepath}")
+            except Exception as e:
+                print(f"❌ Error loading {filename}: {e}")
+                results[key] = {}
         
         # 格式化为前端期望的结构
         formatted_result = {
@@ -319,7 +336,7 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
             }
         }
         
-        print(f"✅ Formatted result with {len(results)} analysis modules")
+        print(f"✅ Formatted result with {len([k for k, v in results.items() if v])} non-empty analysis modules")
         return formatted_result
         
     except Exception as e:
