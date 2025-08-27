@@ -70,7 +70,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
           <div>
             <h2 className="mb-1">{t.nav.ownBrandFeedback}</h2>
             <div className="gap-system-sm flex items-center text-sm text-muted-foreground">
-              <span>{language === 'en' ? 'Analyze what customers love and rating patterns' : '分析用户喜爱点和评分模式'}</span>
+              <span>{language === 'en' ? 'Customer satisfaction analysis and rating insights' : '客户满意度分析和评分洞察'}</span>
               {analysisResult?.targetCategory && (
                 <>
                   <Separator orientation="vertical" className="h-3" />
@@ -99,7 +99,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
             <CardTitle className="gap-system-sm flex items-center justify-between text-base">
               <div className="gap-system-sm flex items-center">
                 <Heart className="h-4 w-4 text-primary" />
-                <span>{language === 'en' ? 'What Customers Love' : '消费者喜爱点分析'}</span>
+                <span>{language === 'en' ? 'Customer Satisfaction Analysis' : '客户满意度分析'}</span>
               </div>
               <motion.div
                 animate={{ rotate: expandedSections.has('consumer-love') ? 90 : 0 }}
@@ -112,119 +112,52 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
           
           {expandedSections.has('consumer-love') && (
             <CardContent className="spacing-system-lg">
-              {/* Core Love Points Summary */}
-              {consumerLoveData.消费者洞察总结 && (
-                <div className="gap-system-lg flex flex-col mb-6">
-                  <div className="gap-system-md grid md:grid-cols-3">
-                    <motion.div 
-                      className="spacing-system-md bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800"
-                      whileHover={{ scale: 1.01 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <h4 className="font-medium mb-2 text-sm text-green-800 dark:text-green-200">
-                        {language === 'en' ? 'Technical Excellence' : '技术规格'}
-                      </h4>
-                      <p className="text-xs text-green-700 dark:text-green-300 leading-relaxed">
-                        {consumerLoveData.消费者洞察总结.技术规格}
-                      </p>
-                    </motion.div>
-                    
-                    <motion.div 
-                      className="spacing-system-md bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-800"
-                      whileHover={{ scale: 1.01 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <h4 className="font-medium mb-2 text-sm text-blue-800 dark:text-blue-200">
-                        {language === 'en' ? 'Feature Attributes' : '功能属性'}
-                      </h4>
-                      <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
-                        {consumerLoveData.消费者洞察总结.功能属性}
-                      </p>
-                    </motion.div>
-                    
-                    <motion.div 
-                      className="spacing-system-md bg-purple-50 dark:bg-purple-950/20 rounded-lg border border-purple-200 dark:border-purple-800"
-                      whileHover={{ scale: 1.01 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <h4 className="font-medium mb-2 text-sm text-purple-800 dark:text-purple-200">
-                        {language === 'en' ? 'Usage Scenarios' : '使用场景'}
-                      </h4>
-                      <p className="text-xs text-purple-700 dark:text-purple-300 leading-relaxed">
-                        {consumerLoveData.消费者洞察总结.使用场景}
-                      </p>
-                    </motion.div>
-                  </div>
-                </div>
-              )}
+              {consumerLoveData.客户满意度洞察 && (
+                <div className="gap-system-lg flex flex-col">
+                  <motion.div 
+                    className="spacing-system-md bg-accent rounded-lg border-clean"
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Core Satisfaction Insights' : '核心满意度洞察'}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {consumerLoveData.客户满意度洞察?.核心满意度洞察}
+                    </p>
+                  </motion.div>
 
-              {/* Love Points Analysis Table */}
-              {consumerLoveData.核心赞美点分析 && (
-                <div className="mb-6">
-                  <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
-                    <ThumbsUp className="h-4 w-4 text-green-500" />
-                    {language === 'en' ? 'Top Love Points Analysis' : '核心赞美点分析'}
-                  </h4>
-                  
-                  <div className="overflow-x-auto">
-                    <table className="w-full border-collapse">
-                      <thead>
-                        <tr className="bg-muted/50 border-b border-border">
-                          <th className="text-left spacing-system-sm text-xs font-medium text-muted-foreground">
-                            {language === 'en' ? 'Love Point' : '赞美点'}
-                          </th>
-                          <th className="text-left spacing-system-sm text-xs font-medium text-muted-foreground">
-                            {language === 'en' ? 'Importance' : '重要性'}
-                          </th>
-                          <th className="text-left spacing-system-sm text-xs font-medium text-muted-foreground">
-                            {language === 'en' ? 'Description' : '消费者描述'}
-                          </th>
-                          <th className="text-center spacing-system-sm text-xs font-medium text-muted-foreground">
-                            {language === 'en' ? 'Examples' : '示例'}
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {consumerLoveData.核心赞美点分析.map((lovePoint: any, index: number) => (
-                          <tr key={index} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
-                            <td className="spacing-system-sm">
-                              <div className="font-medium text-sm text-green-700 dark:text-green-300">
-                                {lovePoint.赞美点}
-                              </div>
-                            </td>
-                            <td className="spacing-system-sm">
-                              <div className="flex items-center gap-2">
-                                <Progress 
-                                  value={parseFloat(lovePoint.赞美点重要性)} 
-                                  className="flex-1 h-2"
-                                />
-                                <Badge variant="outline" className="text-xs bg-green-50 dark:bg-green-950/20 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800">
-                                  {lovePoint.赞美点重要性}
-                                </Badge>
-                              </div>
-                            </td>
-                            <td className="spacing-system-sm">
-                              <p className="text-sm text-muted-foreground leading-relaxed">
-                                {lovePoint.消费者描述}
-                              </p>
-                            </td>
-                            <td className="spacing-system-sm text-center">
-                              {lovePoint.相关评论示例 && (
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => showQuotes(lovePoint.相关评论示例, lovePoint.赞美点)}
-                                  className="w-8 h-8 p-0"
-                                >
-                                  <MessageSquare className="w-3 h-3" />
-                                </Button>
-                              )}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                  {consumerLoveData.客户满意度洞察?.细分满意度类型 && (
+                    <div className="gap-system-md grid md:grid-cols-2">
+                      {consumerLoveData.客户满意度洞察.细分满意度类型.map((satisfaction: any, index: number) => (
+                        <motion.div
+                          key={index}
+                          className="spacing-system-md bg-muted rounded-lg border-clean"
+                          whileHover={{ scale: 1.01 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <h5 className="font-medium text-sm">{satisfaction.满意度类型}</h5>
+                            <Badge variant="outline" className="text-xs">
+                              {satisfaction.比例}
+                            </Badge>
+                          </div>
+                          <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+                            {satisfaction.特征描述}
+                          </p>
+                          {satisfaction.关键review信息 && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => showQuotes([satisfaction.关键review信息], satisfaction.满意度类型)}
+                              className="text-xs h-6 px-2"
+                            >
+                              <MessageSquare className="w-3 h-3 mr-1" />
+                              {language === 'en' ? 'View Quote' : '查看原声'}
+                            </Button>
+                          )}
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </CardContent>
@@ -414,118 +347,6 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                   </motion.div>
                 ))}
               </div>
-            </CardContent>
-          )} 
-                    className="spacing-system-md bg-accent rounded-lg border-clean"
-                    whileHover={{ scale: 1.01 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {starRatingData.评分分布分析?.关键洞察}
-                    </p>
-                  </motion.div>
-
-                  {/* Rating Stats */}
-                  <div className="gap-system-sm flex flex-col mt-4">
-                    {ratingDistribution.map((rating, index) => (
-                      <div key={index} className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <div 
-                            className="w-3 h-3 rounded-full" 
-                            style={{ backgroundColor: rating.color }}
-                          />
-                          <span className="text-sm">{rating.name}</span>
-                        </div>
-                        <Badge variant="outline" className="text-xs">
-                          {rating.value}%
-                        </Badge>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* 5-Star Feedback Analysis */}
-              {starRatingData.按评分划分的消费者反馈?.['5星评价']?.主要满意点 && (
-                <div className="mb-6">
-                  <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
-                    <ThumbsUp className="h-4 w-4 text-green-500" />
-                    {language === 'en' ? '5-Star Satisfaction Points' : '5星满意点分析'}
-                  </h4>
-                  
-                  <div className="gap-system-md grid md:grid-cols-2">
-                    {starRatingData.按评分划分的消费者反馈['5星评价'].主要满意点.map((point: any, index: number) => (
-                      <motion.div
-                        key={index}
-                        className="spacing-system-md bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <h5 className="font-medium text-sm text-green-800 dark:text-green-200">
-                            {point.喜爱点}
-                          </h5>
-                          <Badge variant="outline" className="text-xs bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-300 border-green-300 dark:border-green-700">
-                            {point.频率}
-                          </Badge>
-                        </div>
-                        {point.示例评论 && point.示例评论.length > 0 && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => showQuotes(point.示例评论, point.喜爱点)}
-                            className="text-xs h-6 px-2 text-green-700 dark:text-green-300 hover:bg-green-100 dark:hover:bg-green-900/20"
-                          >
-                            <MessageSquare className="w-3 h-3 mr-1" />
-                            {language === 'en' ? 'View Examples' : '查看示例'}
-                          </Button>
-                        )}
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* 1-Star Issues Analysis */}
-              {starRatingData.按评分划分的消费者反馈?.['1星评价']?.主要不满点 && (
-                <div>
-                  <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
-                    <AlertTriangle className="h-4 w-4 text-red-500" />
-                    {language === 'en' ? '1-Star Critical Issues' : '1星关键问题分析'}
-                  </h4>
-                  
-                  <div className="gap-system-md grid md:grid-cols-2">
-                    {starRatingData.按评分划分的消费者反馈['1星评价'].主要不满点.map((issue: any, index: number) => (
-                      <motion.div
-                        key={index}
-                        className="spacing-system-md bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-800"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <h5 className="font-medium text-sm text-red-800 dark:text-red-200">
-                            {issue.不满点}
-                          </h5>
-                          <Badge variant="outline" className="text-xs bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-300 border-red-300 dark:border-red-700">
-                            {issue.频率}
-                          </Badge>
-                        </div>
-                        {issue.示例评论 && issue.示例评论.length > 0 && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => showQuotes(issue.示例评论, issue.不满点)}
-                            className="text-xs h-6 px-2 text-red-700 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-900/20"
-                          >
-                            <MessageSquare className="w-3 h-3 mr-1" />
-                            {language === 'en' ? 'View Examples' : '查看示例'}
-                          </Button>
-                        )}
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </CardContent>
           )}
         </Card>
