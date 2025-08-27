@@ -281,7 +281,8 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
             'consumer_love.json',
             'star_rating_root_cause.json',
             'unmet_needs.json',
-            'opportunity.json'
+            'opportunity.json',
+            'competitor.json'
         ]
         
         results_dir = None
@@ -333,7 +334,8 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
                 },
                 'unmetNeeds': results.get('unmet_needs', {}),
                 'opportunities': results.get('opportunity', {})
-            }
+            },
+            'competitorAnalysis': results.get('competitor', {})
         }
         
         print(f"✅ Formatted result with {len([k for k, v in results.items() if v])} non-empty analysis modules")
