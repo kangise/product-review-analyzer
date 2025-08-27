@@ -785,9 +785,13 @@ export default function App() {
         const resultResponse = await fetch(`${apiBase}/analysis/${analysisId}/result`)
         if (resultResponse.ok) {
           const analysisResult = await resultResponse.json()
+          console.log('Analysis result received:', analysisResult)
+          console.log('Setting analysisResult and switching to insights page')
           setAnalysisResult(analysisResult)
           setActiveModule('own-brand-insights')
           loadHistoricalReports()
+        } else {
+          console.error('Failed to get analysis result:', resultResponse.status)
         }
         setIsAnalyzing(false)
         setAnalysisProgress(100)

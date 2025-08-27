@@ -36,9 +36,16 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
   }
 
   // 从analysisResult中获取数据，适配现有结构
+  console.log('UserInsights received analysisResult:', analysisResult)
   const consumerProfileData = analysisResult?.ownBrandAnalysis?.userInsights || {}
   const consumerMotivationData = analysisResult?.ownBrandAnalysis?.userMotivation || {}
   const consumerScenarioData = analysisResult?.ownBrandAnalysis?.userScenario || {}
+  
+  console.log('Extracted data:', {
+    consumerProfileData,
+    consumerMotivationData, 
+    consumerScenarioData
+  })
 
   return (
     <motion.div 

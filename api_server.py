@@ -254,6 +254,19 @@ def get_analysis_result(analysis_id):
 def load_analysis_results(analysis_id, target_category, has_competitor_data):
     """加载分析结果并格式化为前端期望的结构"""
     try:
+        # 查找最新的分析结果目录
+        import glob
+        result_dirs = glob.glob('analysis_results_*')
+        if not result_dirs:
+            # 如果没有找到分析结果目录，尝试从results目录读取
+            results_dir = RESULTS_FOLDER
+        else:
+            # 使用最新的分析结果目录
+            result_dirs.sort(reverse=True)
+            results_dir = result_dirs[0]
+        
+        print(f"Loading results from: {results_dir}")
+        
         # 读取各个分析结果文件
         results = {}
         
@@ -269,11 +282,14 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
         ]
         
         for filename in result_files:
-            filepath = os.path.join(RESULTS_FOLDER, filename)
+            filepath = os.path.join(results_dir, filename)
             if os.path.exists(filepath):
                 with open(filepath, 'r', encoding='utf-8') as f:
                     key = filename.replace('.json', '')
                     results[key] = json.load(f)
+                    print(f"Loaded {filename}: {len(str(results[key]))} characters")
+            else:
+                print(f"File not found: {filepath}")
         
         # 格式化为前端期望的结构
         formatted_result = {
@@ -293,6 +309,9 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
                 'opportunities': results.get('opportunity', {})
             }
         }
+        
+        print(f"Formatted result structure: {list(formatted_result.keys())}")
+        print(f"ownBrandAnalysis keys: {list(formatted_result['ownBrandAnalysis'].keys())}")
         
         return formatted_result
         
