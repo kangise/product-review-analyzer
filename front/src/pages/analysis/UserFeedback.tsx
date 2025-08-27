@@ -339,7 +339,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                   </h4>
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
-                      <ScatterChart>
+                      <ScatterChart data={scatterData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis 
                           type="number" 
@@ -356,7 +356,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                         <RechartsTooltip 
                           formatter={(value: any, name: string, props: any) => [
                             `${value}%`, 
-                            props.payload.name
+                            props.payload?.name || name
                           ]}
                           labelFormatter={(value: any) => `${value}星`}
                         />
