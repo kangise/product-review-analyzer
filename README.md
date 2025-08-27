@@ -1,4 +1,4 @@
-# ReviewMind AI - AI-Powered Customer Intelligence Engine
+# Novochocie AI - AI-Powered Customer Intelligence Engine
 
 > Transform Product Reviews into Strategic Market Insights
 
