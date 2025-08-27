@@ -291,7 +291,9 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
                   >
                     <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Technical Specifications' : '技术指标维度'}</h4>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      {consumerMotivationData.购买动机洞察总结?.技术指标维度}
+                      {typeof consumerMotivationData.购买动机洞察总结?.技术指标维度 === 'string' 
+                        ? consumerMotivationData.购买动机洞察总结.技术指标维度 
+                        : JSON.stringify(consumerMotivationData.购买动机洞察总结?.技术指标维度 || '')}
                     </p>
                   </motion.div>
 
@@ -303,7 +305,9 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
                   >
                     <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Feature Attributes' : '功能属性维度'}</h4>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      {consumerMotivationData.购买动机洞察总结?.功能属性维度}
+                      {typeof consumerMotivationData.购买动机洞察总结?.功能属性维度 === 'string' 
+                        ? consumerMotivationData.购买动机洞察总结.功能属性维度 
+                        : JSON.stringify(consumerMotivationData.购买动机洞察总结?.功能属性维度 || '')}
                     </p>
                   </motion.div>
 
@@ -315,7 +319,9 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
                   >
                     <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Usage Scenarios' : '使用场景维度'}</h4>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      {consumerMotivationData.购买动机洞察总结?.使用场景维度}
+                      {typeof consumerMotivationData.购买动机洞察总结?.使用场景维度 === 'string' 
+                        ? consumerMotivationData.购买动机洞察总结.使用场景维度 
+                        : JSON.stringify(consumerMotivationData.购买动机洞察总结?.使用场景维度 || '')}
                     </p>
                   </motion.div>
 
