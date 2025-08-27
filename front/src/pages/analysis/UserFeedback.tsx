@@ -6,7 +6,7 @@ import { Badge } from '../../components/ui/badge'
 import { Button } from '../../components/ui/button'
 import { Separator } from '../../components/ui/separator'
 import { Progress } from '../../components/ui/progress'
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip } from 'recharts'
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid } from 'recharts'
 
 interface UserFeedbackProps {
   language: 'en' | 'zh'
@@ -55,6 +55,41 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
 
   // 处理按评分划分的反馈数据
   const ratingFeedback = starRatingData?.按评分划分的消费者反馈 || {}
+
+  // 创建散点图数据：横轴=分数，纵轴=频率，点=反馈类型
+  const scatterData = []
+  Object.entries(ratingFeedback).forEach(([rating, data]: [string, any]) => {
+    const starNumber = parseInt(rating.replace('星', '').replace('评价', ''))
+    const percentage = parseFloat((ratingDistributionRaw[rating] || '0%').replace('%', ''))
+    
+    // 添加满意点
+    if (data.主要满意点) {
+      data.主要满意点.forEach((point: any, index: number) => {
+        const freq = parseFloat((point.频率 || '0%').replace('%', ''))
+        scatterData.push({
+          x: starNumber,
+          y: freq,
+          type: '满意点',
+          name: point.喜爱点,
+          color: '#22c55e'
+        })
+      })
+    }
+    
+    // 添加不满意点
+    if (data.主要不满意点) {
+      data.主要不满意点.forEach((point: any, index: number) => {
+        const freq = parseFloat((point.频率 || '0%').replace('%', ''))
+        scatterData.push({
+          x: starNumber,
+          y: freq,
+          type: '不满意点',
+          name: point.问题点,
+          color: '#ef4444'
+        })
+      })
+    }
+  })
 
   return (
     <motion.div 
@@ -207,7 +242,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
               )}
 
               {/* Rating Distribution Overview */}
-              <div className="gap-system-lg grid md:grid-cols-2 mb-6">
+              <div className="gap-system-lg grid md:grid-cols-3 mb-6">
                 {/* Bar Chart for Rating Distribution */}
                 <div>
                   <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
@@ -256,6 +291,50 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                           formatter={(value: any) => [`${value}%`, language === 'en' ? 'Percentage' : '百分比']}
                         />
                       </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                {/* Scatter Chart - 横轴=分数，纵轴=频率，点=反馈类型 */}
+                <div>
+                  <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
+                    <AlertTriangle className="h-4 w-4 text-primary" />
+                    {language === 'en' ? 'Feedback Distribution' : '反馈分布图'}
+                  </h4>
+                  <div className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <ScatterChart>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis 
+                          type="number" 
+                          dataKey="x" 
+                          domain={[0.5, 5.5]}
+                          ticks={[1, 2, 3, 4, 5]}
+                          label={{ value: language === 'en' ? 'Rating (Stars)' : '评分 (星)', position: 'insideBottom', offset: -5 }}
+                        />
+                        <YAxis 
+                          type="number" 
+                          dataKey="y"
+                          label={{ value: language === 'en' ? 'Frequency (%)' : '频率 (%)', angle: -90, position: 'insideLeft' }}
+                        />
+                        <RechartsTooltip 
+                          formatter={(value: any, name: string, props: any) => [
+                            `${value}%`, 
+                            props.payload.name
+                          ]}
+                          labelFormatter={(value: any) => `${value}星`}
+                        />
+                        <Scatter 
+                          data={scatterData.filter(d => d.type === '满意点')} 
+                          fill="#22c55e"
+                          name="满意点"
+                        />
+                        <Scatter 
+                          data={scatterData.filter(d => d.type === '不满意点')} 
+                          fill="#ef4444"
+                          name="不满意点"
+                        />
+                      </ScatterChart>
                     </ResponsiveContainer>
                   </div>
                 </div>
@@ -363,41 +442,41 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-2xl max-h-[70vh] mx-4"
+            className="relative w-full max-w-lg max-h-[60vh] mx-4"
           >
             <Card className="border-clean shadow-clean-lg">
-              <CardHeader className="spacing-system-md border-b border-border">
+              <CardHeader className="spacing-system-sm border-b border-border">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-base font-semibold flex items-center gap-system-sm">
+                  <CardTitle className="text-sm font-semibold flex items-center gap-system-sm">
                     <MessageSquare className="w-4 h-4 text-primary" />
-                    {language === 'en' ? 'Customer Reviews' : '客户评论'}
+                    {language === 'en' ? 'Examples' : '示例'}
                   </CardTitle>
                   <Badge variant="secondary" className="text-xs">
-                    {selectedQuotes.quotes.length} {language === 'en' ? 'reviews' : '条评论'}
+                    {selectedQuotes.quotes.length}
                   </Badge>
                 </div>
-                <p className="text-sm text-muted-foreground mt-1">{selectedQuotes.title}</p>
+                <p className="text-xs text-muted-foreground mt-1">{selectedQuotes.title}</p>
               </CardHeader>
-              <CardContent className="spacing-system-md">
-                <div className="max-h-80 overflow-y-auto">
-                  <div className="gap-system-sm flex flex-col">
+              <CardContent className="spacing-system-sm">
+                <div className="max-h-60 overflow-y-auto">
+                  <div className="gap-system-xs flex flex-col">
                     {selectedQuotes.quotes.map((quote, index) => (
                       <motion.div
                         key={index}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.05 }}
-                        className="bg-muted/30 rounded-lg spacing-system-sm border-l-2 border-primary/30"
+                        className="bg-muted/30 rounded spacing-system-xs border-l-2 border-primary/30"
                       >
-                        <p className="text-sm leading-relaxed text-foreground">
+                        <p className="text-xs leading-relaxed text-foreground">
                           "{quote}"
                         </p>
                       </motion.div>
                     ))}
                   </div>
                 </div>
-                <div className="mt-4 text-right">
-                  <Button onClick={() => setSelectedQuotes(null)} variant="outline" size="sm">
+                <div className="mt-3 text-right">
+                  <Button onClick={() => setSelectedQuotes(null)} variant="outline" size="sm" className="text-xs h-7">
                     {language === 'en' ? 'Close' : '关闭'}
                   </Button>
                 </div>

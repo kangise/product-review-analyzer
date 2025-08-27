@@ -20,6 +20,7 @@ import { UserInsights } from './pages/analysis/UserInsights'
 import { UserFeedback } from './pages/analysis/UserFeedback'
 import { Opportunities } from './pages/analysis/Opportunities'
 import { UnmetNeeds } from './pages/analysis/UnmetNeeds'
+import { CompetitorAnalysis } from './pages/analysis/CompetitorAnalysis'
 
 // Translation system
 const translations = {
@@ -472,7 +473,7 @@ interface HistoricalReport {
   targetCategory?: string
 }
 
-type ActiveModule = 'dashboard' | 'upload' | 'own-brand-insights' | 'own-brand-feedback' | 'own-brand-unmet' | 'competitive' | 'opportunities-improvement' | 'opportunities-innovation' | 'opportunities-marketing' | 'history'
+type ActiveModule = 'dashboard' | 'upload' | 'own-brand-insights' | 'own-brand-feedback' | 'own-brand-unmet' | 'competitive' | 'opportunities' | 'history'
 type ThemeMode = 'light' | 'dark' | 'system'
 type Language = 'en' | 'zh'
 
@@ -914,11 +915,7 @@ export default function App() {
       label: t.nav.opportunities,
       icon: Lightbulb,
       available: !!analysisResult,
-      children: [
-        { id: 'opportunities-improvement', label: t.nav.opportunitiesImprovement, icon: Target },
-        { id: 'opportunities-innovation', label: t.nav.opportunitiesInnovation, icon: Zap },
-        { id: 'opportunities-marketing', label: t.nav.opportunitiesMarketing, icon: TrendingUp }
-      ]
+      children: []
     },
     {
       id: 'history',
@@ -1688,16 +1685,23 @@ export default function App() {
       )
     }
 
-    if (activeModule === 'opportunities-improvement' || 
-        activeModule === 'opportunities-innovation' || 
-        activeModule === 'opportunities-marketing') {
-      const activeTab = activeModule.replace('opportunities-', '')
+    if (activeModule === 'competitive') {
+      return (
+        <CompetitorAnalysis 
+          language={language}
+          t={t}
+          analysisResult={analysisResult}
+        />
+      )
+    }
+
+    if (activeModule === 'opportunities') {
       return (
         <Opportunities 
           language={language}
           t={t}
           analysisResult={analysisResult}
-          activeTab={activeTab}
+          activeTab="improvement"
         />
       )
     }
