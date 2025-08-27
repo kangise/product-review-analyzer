@@ -112,18 +112,27 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
         transition={{ delay: 0.2 }}
       >
         <Tabs defaultValue={activeTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 h-12">
-            <TabsTrigger value="improvement" className="flex items-center gap-2 text-sm">
-              <Lightbulb className="h-4 w-4" />
-              <span>{language === 'en' ? 'Product Improvement' : '产品改进'}</span>
+          <TabsList className="grid w-full grid-cols-3 h-auto min-h-[3rem] p-1">
+            <TabsTrigger 
+              value="improvement" 
+              className="flex items-center justify-center gap-2 text-sm py-2 px-3 data-[state=active]:bg-background data-[state=active]:text-foreground"
+            >
+              <Lightbulb className="h-4 w-4 flex-shrink-0" />
+              <span className="whitespace-nowrap">{language === 'en' ? 'Product Improvement' : '产品改进'}</span>
             </TabsTrigger>
-            <TabsTrigger value="innovation" className="flex items-center gap-2 text-sm">
-              <Zap className="h-4 w-4" />
-              <span>{language === 'en' ? 'Product Innovation' : '产品创新'}</span>
+            <TabsTrigger 
+              value="innovation" 
+              className="flex items-center justify-center gap-2 text-sm py-2 px-3 data-[state=active]:bg-background data-[state=active]:text-foreground"
+            >
+              <Zap className="h-4 w-4 flex-shrink-0" />
+              <span className="whitespace-nowrap">{language === 'en' ? 'Product Innovation' : '产品创新'}</span>
             </TabsTrigger>
-            <TabsTrigger value="marketing" className="flex items-center gap-2 text-sm">
-              <Target className="h-4 w-4" />
-              <span>{language === 'en' ? 'Marketing Positioning' : '营销定位'}</span>
+            <TabsTrigger 
+              value="marketing" 
+              className="flex items-center justify-center gap-2 text-sm py-2 px-3 data-[state=active]:bg-background data-[state=active]:text-foreground"
+            >
+              <Target className="h-4 w-4 flex-shrink-0" />
+              <span className="whitespace-nowrap">{language === 'en' ? 'Marketing Positioning' : '营销定位'}</span>
             </TabsTrigger>
           </TabsList>
 
