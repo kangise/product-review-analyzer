@@ -57,59 +57,72 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
   const ratingFeedback = starRatingData?.按评分划分的消费者反馈 || {}
 
   // 创建散点图数据：横轴=分数，纵轴=频率，点=反馈类型
-  const scatterData = []
-  Object.entries(ratingFeedback).forEach(([rating, data]: [string, any]) => {
-    const starNumber = parseInt(rating.replace('星评价', '').replace('星', ''))
-    const percentage = parseFloat((ratingDistributionRaw[rating.replace('评价', '')] || '0%').replace('%', ''))
-    
-    // 添加满意点
-    if (data.主要满意点 && data.主要满意点.length > 0) {
-      data.主要满意点.forEach((point: any, index: number) => {
-        // 如果没有频率信息，使用基于评分分布的估算
-        let freq = 5 // 默认频率
-        if (point.频率) {
-          const freqMatch = point.频率.match(/(\d+\.?\d*)%?/)
-          freq = freqMatch ? parseFloat(freqMatch[1]) : 5
-        } else {
-          // 基于评分分布估算频率
-          freq = percentage * 0.1 + Math.random() * 5
-        }
-        
-        scatterData.push({
-          x: starNumber,
-          y: freq,
-          type: '满意点',
-          name: point.喜爱点 || point.满意点 || `满意点${index + 1}`,
-          color: '#22c55e',
-          rating: rating
+  const scatterData: any[] = []
+  
+  try {
+    Object.entries(ratingFeedback).forEach(([rating, data]: [string, any]) => {
+      // 安全地提取星级数字
+      let starNumber = 1
+      const ratingMatch = rating.match(/(\d+)星/)
+      if (ratingMatch) {
+        starNumber = parseInt(ratingMatch[1])
+      }
+      
+      // 安全地获取百分比
+      const ratingKey = rating.replace('评价', '')
+      const percentage = parseFloat((ratingDistributionRaw[ratingKey] || '0%').replace('%', '')) || 0
+      
+      // 添加满意点
+      if (data.主要满意点 && Array.isArray(data.主要满意点) && data.主要满意点.length > 0) {
+        data.主要满意点.forEach((point: any, index: number) => {
+          // 安全地处理频率
+          let freq = 5 // 默认频率
+          if (point.频率) {
+            const freqMatch = point.频率.match(/(\d+\.?\d*)%?/)
+            freq = freqMatch ? parseFloat(freqMatch[1]) : 5
+          } else {
+            // 基于评分分布估算频率
+            freq = Math.max(1, percentage * 0.1 + Math.random() * 5)
+          }
+          
+          scatterData.push({
+            x: starNumber,
+            y: Math.max(0.1, freq), // 确保y值不为0
+            type: '满意点',
+            name: point.喜爱点 || point.满意点 || `满意点${index + 1}`,
+            color: '#22c55e',
+            rating: rating
+          })
         })
-      })
-    }
-    
-    // 添加不满意点
-    if (data.主要不满意点 && data.主要不满意点.length > 0) {
-      data.主要不满意点.forEach((point: any, index: number) => {
-        // 如果没有频率信息，使用基于评分分布的估算
-        let freq = 5 // 默认频率
-        if (point.频率) {
-          const freqMatch = point.频率.match(/(\d+\.?\d*)%?/)
-          freq = freqMatch ? parseFloat(freqMatch[1]) : 5
-        } else {
-          // 基于评分分布估算频率，不满意点在低分时频率更高
-          freq = (6 - starNumber) * 2 + Math.random() * 3
-        }
-        
-        scatterData.push({
-          x: starNumber,
-          y: freq,
-          type: '不满意点',
-          name: point.问题点 || point.不满意点 || `问题点${index + 1}`,
-          color: '#ef4444',
-          rating: rating
+      }
+      
+      // 添加不满意点
+      if (data.主要不满点 && Array.isArray(data.主要不满点) && data.主要不满点.length > 0) {
+        data.主要不满点.forEach((point: any, index: number) => {
+          // 安全地处理频率
+          let freq = 5 // 默认频率
+          if (point.频率) {
+            const freqMatch = point.频率.match(/(\d+\.?\d*)%?/)
+            freq = freqMatch ? parseFloat(freqMatch[1]) : 5
+          } else {
+            // 基于评分分布估算频率，不满意点在低分时频率更高
+            freq = Math.max(1, (6 - starNumber) * 2 + Math.random() * 3)
+          }
+          
+          scatterData.push({
+            x: starNumber,
+            y: Math.max(0.1, freq), // 确保y值不为0
+            type: '不满意点',
+            name: point.问题点 || point.不满意点 || `问题点${index + 1}`,
+            color: '#ef4444',
+            rating: rating
+          })
         })
-      })
-    }
-  })
+      }
+    })
+  } catch (error) {
+    console.error('Error processing scatter data:', error)
+  }
 
   console.log('Scatter data:', scatterData)
 
