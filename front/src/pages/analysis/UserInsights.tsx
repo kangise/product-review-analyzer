@@ -18,7 +18,9 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
   t,
   analysisResult
 }) => {
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['consumer-profile']))
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(
+    new Set(['consumer-profile', 'consumer-motivation', 'consumer-scenario'])
+  )
   const [selectedQuotes, setSelectedQuotes] = useState<{quotes: string[], title: string} | null>(null)
 
   const toggleSection = (sectionId: string) => {
@@ -341,6 +343,25 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
                               {motivation.动机重要性}
                             </Badge>
                           </div>
+                          
+                          {/* 比例可视化进度条 */}
+                          {motivation.动机重要性 && (
+                            <div className="mb-3">
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="text-xs text-muted-foreground">重要性</span>
+                                <span className="text-xs font-medium">{motivation.动机重要性}</span>
+                              </div>
+                              <div className="w-full bg-muted rounded-full h-2">
+                                <div 
+                                  className="bg-primary rounded-full h-2 transition-all duration-500"
+                                  style={{ 
+                                    width: `${parseFloat(motivation.动机重要性.replace('%', '')) || 0}%` 
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          )}
+                          
                           <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
                             {motivation.消费者描述}
                           </p>

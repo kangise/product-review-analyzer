@@ -19,7 +19,9 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
   t,
   analysisResult
 }) => {
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['consumer-love']))
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(
+    new Set(['consumer-love', 'star-rating'])
+  )
   const [selectedQuotes, setSelectedQuotes] = useState<{quotes: string[], title: string} | null>(null)
 
   const toggleSection = (sectionId: string) => {
@@ -219,6 +221,25 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                               {praise.频率}
                             </Badge>
                           </div>
+                          
+                          {/* 频率可视化进度条 */}
+                          {praise.频率 && (
+                            <div className="mb-3">
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="text-xs text-muted-foreground">频率</span>
+                                <span className="text-xs font-medium">{praise.频率}</span>
+                              </div>
+                              <div className="w-full bg-muted rounded-full h-2">
+                                <div 
+                                  className="bg-green-500 rounded-full h-2 transition-all duration-500"
+                                  style={{ 
+                                    width: `${parseFloat(praise.频率.replace('%', '')) || 0}%` 
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          )}
+                          
                           <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
                             {praise.消费者描述}
                           </p>
@@ -433,6 +454,21 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                                     <Badge variant="secondary" className="text-xs">{point.频率}</Badge>
                                   )}
                                 </div>
+                                
+                                {/* 频率可视化进度条 */}
+                                {point.频率 && (
+                                  <div className="mb-2">
+                                    <div className="w-full bg-green-100 dark:bg-green-900/30 rounded-full h-1.5">
+                                      <div 
+                                        className="bg-green-500 rounded-full h-1.5 transition-all duration-500"
+                                        style={{ 
+                                          width: `${parseFloat(point.频率.replace('%', '')) || 0}%` 
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
+                                )}
+                                
                                 {point.消费者描述 && (
                                   <p className="text-xs text-green-700 dark:text-green-300 mb-2">{point.消费者描述}</p>
                                 )}
@@ -468,6 +504,21 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                                     <Badge variant="destructive" className="text-xs">{point.频率}</Badge>
                                   )}
                                 </div>
+                                
+                                {/* 频率可视化进度条 */}
+                                {point.频率 && (
+                                  <div className="mb-2">
+                                    <div className="w-full bg-red-100 dark:bg-red-900/30 rounded-full h-1.5">
+                                      <div 
+                                        className="bg-red-500 rounded-full h-1.5 transition-all duration-500"
+                                        style={{ 
+                                          width: `${parseFloat(point.频率.replace('%', '')) || 0}%` 
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
+                                )}
+                                
                                 {point.消费者描述 && (
                                   <p className="text-xs text-red-700 dark:text-red-300 mb-2">{point.消费者描述}</p>
                                 )}

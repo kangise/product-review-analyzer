@@ -17,7 +17,9 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
   t,
   analysisResult
 }) => {
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['core-insights']))
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(
+    new Set(['core-insights', 'preference-comparison'])
+  )
   const [selectedQuotes, setSelectedQuotes] = useState<{quotes: string[], title: string} | null>(null)
 
   const toggleSection = (sectionId: string) => {
