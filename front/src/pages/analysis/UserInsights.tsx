@@ -339,9 +339,6 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
                         >
                           <div className="flex items-center justify-between mb-2">
                             <h5 className="font-medium text-sm">{motivation.动机}</h5>
-                            <Badge variant="outline" className="text-xs">
-                              {motivation.动机重要性}
-                            </Badge>
                           </div>
                           
                           {/* 比例可视化进度条 */}
@@ -462,10 +459,26 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
                         >
                           <div className="flex items-center justify-between mb-2">
                             <h5 className="font-medium text-sm">{scenario.场景名称}</h5>
-                            <Badge variant="outline" className="text-xs">
-                              {scenario.场景重要性}
-                            </Badge>
                           </div>
+                          
+                          {/* 场景重要性百分比视觉效果 */}
+                          {scenario.场景重要性 && (
+                            <div className="mb-3">
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="text-xs text-muted-foreground">重要性</span>
+                                <span className="text-xs font-medium">{scenario.场景重要性}</span>
+                              </div>
+                              <div className="w-full bg-muted rounded-full h-2">
+                                <div 
+                                  className="bg-blue-500 rounded-full h-2 transition-all duration-500"
+                                  style={{ 
+                                    width: `${parseFloat(scenario.场景重要性.replace('%', '')) || 0}%` 
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          )}
+                          
                           <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
                             {scenario.场景描述}
                           </p>

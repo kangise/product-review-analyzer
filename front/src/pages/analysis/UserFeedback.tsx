@@ -217,9 +217,6 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                         >
                           <div className="flex items-center justify-between mb-2">
                             <h5 className="font-medium text-sm">{praise.赞美点}</h5>
-                            <Badge variant="outline" className="text-xs">
-                              {praise.频率}
-                            </Badge>
                           </div>
                           
                           {/* 频率可视化进度条 */}
@@ -501,7 +498,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                                 <div className="flex items-center justify-between mb-1">
                                   <span className="text-xs font-medium">{point.问题点 || point.不满意点 || `问题点 ${index + 1}`}</span>
                                   {point.频率 && (
-                                    <Badge variant="destructive" className="text-xs">{point.频率}</Badge>
+                                    <span className="text-xs font-medium text-red-600">{point.频率}</span>
                                   )}
                                 </div>
                                 
