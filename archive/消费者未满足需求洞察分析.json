@@ -1,0 +1,94 @@
+{
+  "消费者未满足需求洞察": {
+    "总结": "产品在硬件可靠性、软件兼容性和客户服务质量方面存在严重缺陷，导致用户体验严重受损，急需在产品质量控制和技术支持方面进行根本性改进。",
+    "技术角度": "硬件可靠性是最大痛点，设备频繁出现连接断开、死机、过热等问题，平均使用寿命不到一年。关键论据：'it died in year one (9 months) from new'、'stopped working out of nowhere'、'Continually froze after a couple of minutes'、'it kept disconnecting'等反复出现的硬件故障投诉。",
+    "功能角度": "软件兼容性问题严重影响用户体验，特别是与Mac系统、Windows 11和主流视频会议软件的兼容性问题。关键论据：'software doesn't work on Mac'、'doesn't work with Windows 11'、'software conflicts with MS Teams'、'buggy menus that prevented accessing settings'等软件功能缺陷。",
+    "场景角度": "产品在专业会议和内容创作等核心使用场景下表现不稳定，无法满足用户对可靠性的基本期望。关键论据：'can't even use as a webcam'、'Turns off during every conference call'、'I was without a camera for about 2 weeks'等在关键使用场景下的失效问题。"
+  },
+  "未满足需求分析": [
+    {
+      "痛点/未满足的需求": "硬件可靠性严重不足",
+      "消费者描述": "设备在使用9-14个月内频繁死机、断开连接或完全停止工作，严重影响重要会议和工作",
+      "问题严重性/频率": "23.5%",
+      "相关评论示例": [
+        "it died in year one (9 months) from new (unresponsive, blue light only). I had to ship it back, it was replaced. it died again, in year two (14 months after first replacement)",
+        "It worked fine for several months but then just stopped working. Wont connect to any computer, no device can detect",
+        "Died on its 40th Day. Don't bother buying a slightly expensive camera. It worked for 39 days. And died on day 40",
+        "Shuts off during every conference call; have to unplug it and plug back in for video to maybe come back up",
+        "I wanted this to work with Zoom running on my 2018 Apple IMac. It continually froze after a couple of minutes"
+      ]
+    },
+    {
+      "痛点/未满足的需求": "软件兼容性问题",
+      "消费者描述": "软件无法在Mac系统正常运行，与Windows 11存在冲突，导致设备变成无用的'砖头'",
+      "问题严重性/频率": "18.7%",
+      "相关评论示例": [
+        "However, the software doesn't work on Mac, which renders the webcam useless. During the update of the webcam that the controller software initiated the webcam turned off on its own and now it's a brick",
+        "Does not work with Windows Hello and software conflicts with MS Teams. Locks up computer at log on",
+        "Calling the support line, I was told that with the newest update to Windows 11, it's just not going to work",
+        "Insta360 Desktop Controller software for MS Windows had buggy menus that prevented accessing the More settings menu needed to update camera firmware",
+        "doesn't work with mac, plug in show up a sec. After plug in menus show up, went into video mode for a second then stop working"
+      ]
+    },
+    {
+      "痛点/未满足的需求": "客户服务质量低下",
+      "消费者描述": "技术支持响应缓慢、解决方案无效，保修政策不合理，客服态度恶劣",
+      "问题严重性/频率": "15.2%",
+      "相关评论示例": [
+        "support has been _significantly worse_ to work with so far. after 10 days of excessive hassle dealing with support, they.....declared it out of warranty",
+        "Three whole weeks of emails, 20 days, and four 1-hour plus phone calls, with no answers. Their solution...? Mail the device to them, they'll repair it and send it back to me within 2-3 weeks",
+        "I spent an hour with customer service with them basically telling me to update my OS, restart my computer, etc. (all the basic troubleshooting techniques) and the webcam still doesn't work",
+        "Company pushed an ota update that bricked the device and wants $120 to fix it",
+        "After days of back and forth with support engineers, I gave up and returned it"
+      ]
+    },
+    {
+      "痛点/未满足的需求": "AI追踪功能不稳定",
+      "消费者描述": "AI面部追踪经常失效，需要频繁手动调整，在重要会议中造成尴尬",
+      "问题严重性/频率": "12.8%",
+      "相关评论示例": [
+        "However, the AI tracking feature can be hit or miss—literally. More often than not, it fails to recognize me, so I end up stuck in one position",
+        "sometimes it doesn't follow your face correctly. In that case you have to unplug it, leave it unplug for 15 seconds, and plug it back in",
+        "the gesture control that is not really responsive, often not working",
+        "If I manually try to adjust the camera, it sometimes goes on the fritz and shuts down",
+        "the camera had trouble focusing on me or where I was trying to get focus on"
+      ]
+    },
+    {
+      "痛点/未满足的需求": "音频质量不达标",
+      "消费者描述": "内置麦克风音质差，存在杂音和回声，无法满足专业会议需求",
+      "问题严重性/频率": "11.3%",
+      "相关评论示例": [
+        "the integrated microphone is completely useless, and I had to purchase another microphone separately",
+        "I did have to switch back to my old mic as folks on the other end said I sounded horrible. A clipping of some sort each time before I spoke",
+        "The part i was disappointed in was the audio, with or without noise cancelling you can get better audio out of a 50 dollar Sennheiser usb headset",
+        "Sounds is not good enough. Camera quality is good. But speed is bad",
+        "the audio is not good, and the sound is mixed"
+      ]
+    },
+    {
+      "痛点/未满足的需求": "价格与价值不匹配",
+      "消费者描述": "产品定价过高，但质量和功能无法匹配价格，性价比严重不足",
+      "问题严重性/频率": "9.8%",
+      "相关评论示例": [
+        "This $200 camera was recommended by the NYTimes and this is the first time the Wirecutter has seriously let me down",
+        "For this price point this is very disturbing and aggravating to say the least",
+        "it's not worth that high of the price. Everything feels average wise like the focus and quality is only so so",
+        "the product itself is over priced and I found a better option so I would need to return this one",
+        "High price and useless. First of all, this is so not worth the price it has listed because it's not as useful and it's pricey"
+      ]
+    },
+    {
+      "痛点/未满足的需求": "固件更新导致设备损坏",
+      "消费者描述": "强制固件更新后设备变砖，无法正常使用，厂商要求付费维修",
+      "问题严重性/频率": "8.7%",
+      "相关评论示例": [
+        "Company pushed an ota update that bricked the device and wants $120 to fix it",
+        "During the update of the webcam that the controller software initiated the webcam turned off on its own and now it's a brick",
+        "It got stuck in U-Disk mode, which I'm assuming is a state of the webcam OS that's meant to accept updates. Now any time I plug the webcam into my computer it just goes straight into that mode",
+        "It's a paper weight now. Windows did an update an bricked this item. I followed the instructions online to try to get it to work and failed",
+        "the only part that I struggled with was getting updates sometimes but that's because I'm not very tech oriented"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "购买动机洞察总结": {
+    "技术指标维度": "4K分辨率和优秀的低光性能是消费者最关心的核心技术指标。消费者普遍认为4K画质带来了'crystal clear'和'crispy'的视觉体验，而良好的低光表现让他们在各种光线条件下都能保持专业形象，这些硬核参数直接影响了他们在视频会议和内容创作中的表现质量。",
+    "功能属性维度": "AI人脸追踪功能是最具吸引力的杀手级功能，让用户在视频通话中始终保持在画面中心，解放了双手。自动对焦、手势控制、背景虚化等智能功能组合创造了'plug-and-play'的无缝体验，大大降低了专业级视频效果的使用门槛。",
+    "使用场景维度": "远程工作视频会议是最核心的使用场景，用户希望在同事和客户面前展现专业形象。内容创作和直播场景也很重要，AI追踪功能让创作者可以自由移动而不用担心出镜问题。教育场景中的白板演示功能解决了在线教学的痛点。"
+  },
+  "具体购买动机": [
+    {
+      "动机": "专业级4K画质提升职场形象",
+      "消费者描述": "我需要在视频会议中展现最佳的专业形象，4K画质让我看起来更清晰、更有说服力",
+      "动机重要性": "28.5%",
+      "相关评论示例": [
+        "The picture quality is outstanding and jam-packed with features that I'll never even use. If you want a webconferencing camera and are willing to pay more for it, this is the one you need.",
+        "coworkers keep commenting how sharp my footage is during calls",
+        "I work for a software company and spend all day in zoom calls so this was a must. I have already recommended this product to all my colleagues. The quality is amazing and I get asked about it all the time.",
+        "Finally, a webcam that rivals my iPhone 13 Pro Max! I'm absolutely loving this cam",
+        "The image quality is top-tier for a webcam. That 1/2\" sensor and HDR setup gets you really close to DSLR-level video without the setup headache."
+      ]
+    },
+    {
+      "动机": "AI智能追踪解放双手",
+      "消费者描述": "我希望在视频通话和内容创作时能自由移动，而不用担心走出画面或手动调整摄像头",
+      "动机重要性": "24.8%",
+      "相关评论示例": [
+        "I love the face tracking and that I can configure it to my stream deck. This camera is great! I use it almost daily and has great quality.",
+        "the ai tracking features are so helpful for keeping me in frame. It is 4k quality as advertised, and all you have to do to connect is plug and play.",
+        "The AI tracking works perfect and the software is easy to use. The magnet mount stays on top of my monitor with ease.",
+        "I use it for group meetings where I can manually trigger a saved spot in the room depending on who is speaking. Works great as a regular webcam with a nice big sensor.",
+        "The tracking feature is nice with three (3) levels of speed. However, most will remain seated in one position; but it will compensate for slight movements."
+      ]
+    },
+    {
+      "动机": "即插即用的便捷体验",
+      "消费者描述": "我不想花时间学习复杂的设置，希望插上就能立即获得专业效果",
+      "动机重要性": "18.7%",
+      "相关评论示例": [
+        "Was simply plug and play with no drivers or software required on a 2021 MacBook Pro running Sequoia 15.3.2 including the AI tracking.",
+        "It works perfectly well. Installation is super easy",
+        "Camera is great and amazing quality track functionality is great! Compatible with my Mac and looks great! Easy to setup!",
+        "I was genuinely impressed by how clear the camera was—it found and focused on me quickly right out of the box.",
+        "all you have to do to connect is plug and play. Easy 5 out of 5 here."
+      ]
+    },
+    {
+      "动机": "优秀的低光表现",
+      "消费者描述": "我的工作环境光线不总是理想，需要摄像头在各种光线条件下都能让我看起来很好",
+      "动机重要性": "15.3%",
+      "相关评论示例": [
+        "Good low-light performance too, since the lens & sensor are so good: low-light image doesn't get all grainy, and the camera automatically increases or decreases the exposure level to adapt.",
+        "I typically work in a reasonably bright room but with no direct light on my face, and the C922 would leave my face in shadow. I bought this camera and a ring light, but it turns out the ring light is unnecessary",
+        "I used in the night with low light and the quality of the image is amazing.",
+        "This thing is near DSLR levels in image quality, great performance in low light. Much better than my brio",
+        "The quality looks really good with just the ceiling light, but looks even better with my desk lights on."
+      ]
+    },
+    {
+      "动机": "多功能创作工具",
+      "消费者描述": "我需要一个既能满足工作会议又能支持内容创作的全能设备",
+      "动机重要性": "12.7%",
+      "相关评论示例": [
+        "I bought this webcam to use in making videos for YouTube. The camera is well designed and well made. It has been flawless in setting up and in using.",
+        "Great for dedicated streaming or people who wanna look their best in zoom meetings. I've been using this webcam for streaming and will soon be using it for zoom",
+        "Love the qaulity. The AI Tracking is very good! Perfect for Live streaming for games!",
+        "I streamed an entire cross country road trip with it, I currently use it as the main cam for my backyard bunny and birds streams",
+        "Great webcam for professionals and live streaming. Great webcam, really good camera and image quality"
+      ]
+    }
+  ]
+}

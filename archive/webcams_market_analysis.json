@@ -1,0 +1,172 @@
+{
+  "product_category": "webcams",
+  "analysis_date": "2025-08-26",
+  "technical_specifications": {
+    "description": "网络摄像头产品最常见的关键技术规格",
+    "specifications": [
+      {
+        "name": "视频分辨率 (Video Resolution)",
+        "common_values": ["720p", "1080p", "4K", "2K"],
+        "importance": "决定视频画质清晰度，是用户选择的首要考虑因素，高分辨率提供更清晰的视频通话和录制体验"
+      },
+      {
+        "name": "帧率 (Frame Rate)",
+        "common_values": ["30fps", "60fps", "120fps"],
+        "importance": "影响视频流畅度，特别是在游戏直播和动态场景录制中至关重要，高帧率提供更平滑的视觉体验"
+      },
+      {
+        "name": "视野角度 (Field of View)",
+        "common_values": ["65°", "78°", "90°", "120°"],
+        "importance": "决定摄像头能够捕捉的画面范围，影响多人会议和直播场景的适用性"
+      },
+      {
+        "name": "自动对焦 (Autofocus)",
+        "common_values": ["固定焦距", "自动对焦", "手动对焦"],
+        "importance": "确保在不同距离下都能保持清晰成像，对于需要频繁移动或多人使用的场景非常重要"
+      },
+      {
+        "name": "麦克风配置 (Microphone)",
+        "common_values": ["内置单麦", "内置双麦", "降噪麦克风", "无麦克风"],
+        "importance": "音频质量直接影响沟通效果，降噪功能在嘈杂环境中尤为重要"
+      },
+      {
+        "name": "连接接口 (Connection Interface)",
+        "common_values": ["USB-A", "USB-C", "USB 2.0", "USB 3.0"],
+        "importance": "决定与设备的兼容性和数据传输速度，USB 3.0支持更高质量的视频传输"
+      },
+      {
+        "name": "低光性能 (Low Light Performance)",
+        "common_values": ["自动光线校正", "HDR", "低光增强", "红外夜视"],
+        "importance": "在光线不足的环境下保持良好的成像质量，对于居家办公和夜间使用场景至关重要"
+      }
+    ]
+  },
+  "product_functions": {
+    "core_functions": {
+      "description": "大部分webcam产品都具备的基础功能",
+      "functions": [
+        {
+          "name": "视频通话",
+          "description": "支持各种视频会议软件进行实时视频通话"
+        },
+        {
+          "name": "视频录制",
+          "description": "能够录制并保存视频文件到本地设备"
+        },
+        {
+          "name": "即插即用",
+          "description": "无需安装驱动程序，连接后即可使用"
+        },
+        {
+          "name": "兼容性支持",
+          "description": "支持Windows、Mac、Linux等主流操作系统"
+        }
+      ]
+    },
+    "differentiated_functions": {
+      "description": "用于产品差异化的特色功能",
+      "functions": [
+        {
+          "name": "AI智能追踪",
+          "description": "自动识别并跟踪人脸或物体，保持主体始终在画面中心"
+        },
+        {
+          "name": "背景虚化/替换",
+          "description": "实时背景模糊或更换虚拟背景，保护隐私并提升专业感"
+        },
+        {
+          "name": "美颜滤镜",
+          "description": "实时美颜、肤色调节、光线优化等功能"
+        },
+        {
+          "name": "手势控制",
+          "description": "通过手势识别控制摄像头开关、录制等功能"
+        },
+        {
+          "name": "多角度调节",
+          "description": "支持360度旋转、俯仰角调节等物理调节功能"
+        },
+        {
+          "name": "隐私保护",
+          "description": "物理遮挡盖、LED指示灯、加密传输等隐私保护措施"
+        }
+      ]
+    }
+  },
+  "user_scenarios": {
+    "description": "webcam产品的典型用户使用场景",
+    "scenarios": [
+      {
+        "scenario_name": "远程办公/视频会议",
+        "description": "在家办公或远程参加公司会议",
+        "key_concerns": [
+          "视频分辨率要清晰（至少1080p）",
+          "麦克风降噪效果好",
+          "自动对焦功能",
+          "背景虚化保护隐私"
+        ],
+        "target_users": "上班族、远程工作者、企业用户"
+      },
+      {
+        "scenario_name": "在线教育/培训",
+        "description": "教师进行在线授课或学生参与网课",
+        "key_concerns": [
+          "广角视野以展示更多内容",
+          "稳定的视频质量",
+          "清晰的音频传输",
+          "长时间使用的稳定性"
+        ],
+        "target_users": "教师、学生、培训师"
+      },
+      {
+        "scenario_name": "游戏直播/内容创作",
+        "description": "游戏主播、UP主进行直播或录制视频内容",
+        "key_concerns": [
+          "高帧率（60fps或更高）",
+          "4K高分辨率",
+          "美颜和滤镜功能",
+          "低延迟性能",
+          "AI追踪功能"
+        ],
+        "target_users": "游戏主播、内容创作者、网红"
+      },
+      {
+        "scenario_name": "家庭视频通话",
+        "description": "与家人朋友进行日常视频聊天",
+        "key_concerns": [
+          "操作简单易用",
+          "价格实惠",
+          "基础画质即可",
+          "兼容性好"
+        ],
+        "target_users": "普通消费者、老年用户、学生"
+      },
+      {
+        "scenario_name": "安防监控",
+        "description": "作为简易监控设备使用",
+        "key_concerns": [
+          "夜视功能",
+          "广角视野",
+          "移动侦测",
+          "远程访问能力"
+        ],
+        "target_users": "小型商户、居家用户"
+      }
+    ]
+  },
+  "market_insights": {
+    "trends": [
+      "4K分辨率逐渐成为主流",
+      "AI功能集成度越来越高",
+      "隐私保护功能受到重视",
+      "无线连接需求增长",
+      "专业直播功能需求上升"
+    ],
+    "price_segments": {
+      "budget": "50-100元，基础1080p功能",
+      "mid_range": "100-300元，增强功能和更好画质",
+      "premium": "300-800元，4K、AI功能、专业级",
+      "professional": "800元以上，广播级质量和专业功能"
+    }
+  }
+}

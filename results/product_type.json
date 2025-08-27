@@ -1,0 +1,181 @@
+{
+  "technical_specifications": [
+    {
+      "name": "Video Resolution",
+      "common_values": [
+        "1080p Full HD",
+        "4K Ultra HD",
+        "720p HD",
+        "1440p QHD"
+      ],
+      "importance": "Critical - determines image clarity and professional appearance"
+    },
+    {
+      "name": "Frame Rate",
+      "common_values": [
+        "30fps",
+        "60fps",
+        "24fps",
+        "120fps"
+      ],
+      "importance": "High - affects video smoothness and streaming quality"
+    },
+    {
+      "name": "Field of View",
+      "common_values": [
+        "78°",
+        "90°",
+        "65°",
+        "110°",
+        "120°"
+      ],
+      "importance": "High - determines how much of the scene is captured"
+    },
+    {
+      "name": "Autofocus",
+      "common_values": [
+        "Fixed focus",
+        "Auto focus",
+        "Manual focus",
+        "Hybrid autofocus"
+      ],
+      "importance": "High - ensures sharp image quality at different distances"
+    },
+    {
+      "name": "Microphone",
+      "common_values": [
+        "Built-in stereo",
+        "Dual microphone",
+        "Noise cancellation",
+        "External mic support"
+      ],
+      "importance": "High - audio quality is crucial for communication"
+    },
+    {
+      "name": "Connection Type",
+      "common_values": [
+        "USB-A",
+        "USB-C",
+        "USB 3.0",
+        "USB 2.0",
+        "Wireless"
+      ],
+      "importance": "Medium - affects compatibility and setup ease"
+    },
+    {
+      "name": "Low Light Performance",
+      "common_values": [
+        "Auto light correction",
+        "HDR support",
+        "Manual exposure",
+        "Night mode"
+      ],
+      "importance": "Medium - important for various lighting conditions"
+    }
+  ],
+  "product_functions": {
+    "core_functions": [
+      "Video recording and streaming",
+      "Real-time video communication",
+      "Plug-and-play setup",
+      "Compatible with major platforms (Zoom, Teams, Skype)",
+      "Basic image adjustment (brightness, contrast)",
+      "Built-in microphone audio capture"
+    ],
+    "differentiated_functions": [
+      "AI-powered background blur/replacement",
+      "Auto-framing and subject tracking",
+      "Privacy shutter/cover",
+      "Multi-device switching",
+      "Advanced noise cancellation",
+      "Gesture recognition",
+      "HDR and low-light enhancement",
+      "Streaming software integration",
+      "Multiple mounting options",
+      "Facial recognition and auto-login"
+    ]
+  },
+  "user_scenarios": [
+    {
+      "scenario_name": "Remote Work Video Calls",
+      "description": "Professional meetings, client calls, and team collaboration from home office",
+      "key_concerns": [
+        "Professional image quality",
+        "Clear audio",
+        "Reliable connection",
+        "Background appearance"
+      ],
+      "usage_frequency": "Daily",
+      "duration": "1-8 hours per day"
+    },
+    {
+      "scenario_name": "Content Creation and Streaming",
+      "description": "YouTube videos, Twitch streaming, online tutorials, and social media content",
+      "key_concerns": [
+        "High resolution",
+        "Smooth frame rate",
+        "Color accuracy",
+        "Advanced features"
+      ],
+      "usage_frequency": "Several times per week",
+      "duration": "2-6 hours per session"
+    },
+    {
+      "scenario_name": "Online Education and Learning",
+      "description": "Virtual classrooms, online courses, tutoring sessions, and educational webinars",
+      "key_concerns": [
+        "Stable performance",
+        "Easy setup",
+        "Good visibility",
+        "Affordable price"
+      ],
+      "usage_frequency": "Regular scheduled sessions",
+      "duration": "1-3 hours per session"
+    },
+    {
+      "scenario_name": "Personal Communication",
+      "description": "Family video calls, social conversations, and casual online interactions",
+      "key_concerns": [
+        "Ease of use",
+        "Decent quality",
+        "Privacy features",
+        "Compatibility"
+      ],
+      "usage_frequency": "Weekly to monthly",
+      "duration": "30 minutes to 2 hours"
+    }
+  ],
+  "market_insights": {
+    "key_trends": [
+      "Increased demand for 4K resolution webcams",
+      "AI-powered features becoming standard",
+      "Privacy and security features gaining importance",
+      "Integration with streaming and content creation tools",
+      "Wireless and portable webcam solutions growing",
+      "Professional-grade features at consumer prices",
+      "Multi-platform compatibility requirements"
+    ],
+    "price_segments": [
+      {
+        "segment": "Budget",
+        "price_range": "$20-50",
+        "features": "Basic 1080p, fixed focus, simple setup"
+      },
+      {
+        "segment": "Mid-range",
+        "price_range": "$50-150",
+        "features": "1080p-4K, autofocus, noise cancellation, some AI features"
+      },
+      {
+        "segment": "Premium",
+        "price_range": "$150-300",
+        "features": "4K, advanced AI, professional software, superior build quality"
+      },
+      {
+        "segment": "Professional",
+        "price_range": "$300+",
+        "features": "Broadcast quality, advanced controls, enterprise features"
+      }
+    ]
+  }
+}

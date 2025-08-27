@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Analysis results (keep only the latest)
+analysis_results_*/
+!analysis_results_20250827_115145/
+
+# Test outputs
+test_*_output/
+debug_*.json
+
+# Temporary files
+*.tmp
+*.temp
+
+# Amazon Q CLI
+.amazonq/
+
+# Large data files (optional - you may want to include cleaned data)
+# data/Customer\ ASIN\ Reviews.csv
+# data/Competitor\ ASIN\ Reviews.csv
