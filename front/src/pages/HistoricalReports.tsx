@@ -57,80 +57,54 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
     try {
       setLoading(true)
       
-      // 获取所有分析结果目录
-      const response = await fetch('/api/reports')
+      // 使用正确的API端点
+      const response = await fetch('http://localhost:8000/reports')
       if (!response.ok) {
         throw new Error('Failed to load reports')
       }
       
       const data = await response.json()
-      setReports(data.reports || [])
+      const reportsData = data.reports || []
+      console.log('📊 HistoricalReports loaded:', reportsData.length, 'reports')
+      setReports(reportsData)
       
     } catch (err) {
       console.error('Failed to load historical reports:', err)
+      setError('Failed to load historical reports')
+      setReports([]) // 不使用模拟数据，显示错误状态
       
-      // 模拟数据作为fallback
-      const mockReports: HistoricalReport[] = [
-        {
-          id: 'analysis_results_20250827_182036',
-          timestamp: '2025-08-27T18:20:36Z',
-          category: 'Consumer Electronics',
-          status: 'completed',
-          hasCompetitorData: true,
-          fileInfo: {
-            ownBrandFile: 'Customer ASIN Reviews.csv',
-            competitorFile: 'Competitor ASIN Reviews.csv'
-          }
-        },
-        {
-          id: 'analysis_results_20250827_153813',
-          timestamp: '2025-08-27T15:38:13Z',
-          category: 'Consumer Electronics',
-          status: 'completed',
-          hasCompetitorData: true,
-          fileInfo: {
-            ownBrandFile: 'Customer ASIN Reviews.csv',
-            competitorFile: 'Competitor ASIN Reviews.csv'
-          }
-        },
-        {
-          id: 'analysis_results_20250827_151525',
-          timestamp: '2025-08-27T15:15:25Z',
-          category: 'Consumer Electronics',
-          status: 'completed',
-          hasCompetitorData: true,
-          fileInfo: {
-            ownBrandFile: 'Customer ASIN Reviews.csv',
-            competitorFile: 'Competitor ASIN Reviews.csv'
-          }
-        }
-      ]
-      
-      setReports(mockReports)
-      setError(null)
     } finally {
       setLoading(false)
     }
   }
 
   const formatTimestamp = (timestamp: string) => {
-    const date = new Date(timestamp)
-    if (language === 'zh') {
-      return date.toLocaleString('zh-CN', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit'
-      })
-    } else {
-      return date.toLocaleString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      })
+    try {
+      // 正确处理UTC时间戳
+      const date = new Date(timestamp.replace('Z', '+00:00'))
+      
+      if (language === 'zh') {
+        return date.toLocaleString('zh-CN', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          timeZone: 'Asia/Shanghai' // 使用中国时区
+        })
+      } else {
+        return date.toLocaleString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          timeZone: 'Asia/Shanghai' // 保持一致的时区
+        })
+      }
+    } catch (error) {
+      console.error('Time format error:', error)
+      return timestamp // 如果格式化失败，返回原始时间戳
     }
   }
 

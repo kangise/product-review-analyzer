@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historical Reports Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .report { border: 1px solid #ccc; margin: 10px 0; padding: 10px; }
+        .error { color: red; }
+        .success { color: green; }
+        button { padding: 10px 20px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Historical Reports API Test</h1>
+    
+    <button onclick="testReportsAPI()">Test Reports API</button>
+    <button onclick="testCurrentAnalysis()">Test Current Analysis</button>
+    
+    <div id="results"></div>
+
+    <script>
+        async function testReportsAPI() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<p>Testing /reports API...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:8000/reports', {
+                    headers: { 'Authorization': 'Bearer demo-key' }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                const reports = data.reports || [];
+                
+                let html = `<div class="success">✅ API Success: Found ${reports.length} reports</div>`;
+                
+                reports.forEach((report, index) => {
+                    html += `
+                        <div class="report">
+                            <strong>${index + 1}. ${report.id}</strong><br>
+                            Time: ${report.timestamp}<br>
+                            Status: ${report.status}<br>
+                            Category: ${report.category}<br>
+                            Modules: ${report.completedModules}/${report.totalModules}<br>
+                            Competitor: ${report.hasCompetitorData ? 'Yes' : 'No'}
+                        </div>
+                    `;
+                });
+                
+                resultsDiv.innerHTML = html;
+                
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="error">❌ API Error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testCurrentAnalysis() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<p>Testing current analysis API...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:8000/analysis/latest/result');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                resultsDiv.innerHTML = `
+                    <div class="success">✅ Current Analysis Success</div>
+                    <div class="report">
+                        <strong>Current Analysis:</strong><br>
+                        ID: ${data.id}<br>
+                        Time: ${data.timestamp}<br>
+                        Category: ${data.targetCategory}<br>
+                        Competitor: ${data.hasCompetitorData ? 'Yes' : 'No'}
+                    </div>
+                `;
+                
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="error">❌ Current Analysis Error: ${error.message}</div>`;
+            }
+        }
+        
+        // Auto-test on page load
+        window.onload = function() {
+            testReportsAPI();
+        };
+    </script>
+</body>
+</html>
