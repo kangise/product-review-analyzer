@@ -20,7 +20,7 @@ import { UserInsights } from './pages/analysis/UserInsights'
 import { UserFeedback } from './pages/analysis/UserFeedback'
 import { Opportunities } from './pages/analysis/Opportunities'
 import { UnmetNeeds } from './pages/analysis/UnmetNeeds'
-import { CompetitorAnalysis } from './pages/analysis/CompetitorAnalysis'
+import { HistoryReports } from './pages/HistoryReports'
 
 // Translation system
 const translations = {
@@ -1971,6 +1971,16 @@ export default function App() {
           t={t}
           analysisResult={analysisResult}
           activeTab="improvement"
+        />
+      )
+    }
+
+    if (activeModule === 'history') {
+      return (
+        <HistoryReports 
+          language={language}
+          t={t}
+          onLoadReport={loadReport}
         />
       )
     }
