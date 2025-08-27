@@ -28,6 +28,14 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
 
   // 从analysisResult中获取数据，适配现有结构
   const opportunityData = analysisResult?.ownBrandAnalysis?.opportunities || {}
+  console.log('Opportunities received data:', opportunityData)
+  
+  // 提取商业机会洞察数据
+  const businessInsights = opportunityData?.商业机会洞察 || {}
+  const coreInsight = businessInsights?.核心洞察总结 || ''
+  const improvementOpportunities = businessInsights?.产品改进机会 || []
+  const innovationOpportunities = businessInsights?.产品创新机会 || []
+  const marketingOpportunities = businessInsights?.营销定位机会 || []
 
   const getImpactColor = (impact: string) => {
     switch (impact?.toLowerCase()) {
@@ -104,18 +112,24 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
         transition={{ delay: 0.2 }}
       >
         <Tabs defaultValue={activeTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="improvement" className="gap-system-xs">
+          <TabsList className="grid w-full grid-cols-3 h-auto">
+            <TabsTrigger value="improvement" className="gap-system-xs flex-col sm:flex-row py-3 px-2 text-xs sm:text-sm">
               <Lightbulb className="h-4 w-4" />
-              {language === 'en' ? 'Product Improvement' : '产品改进'}
+              <span className="text-center">
+                {language === 'en' ? 'Product Improvement' : '产品改进'}
+              </span>
             </TabsTrigger>
-            <TabsTrigger value="innovation" className="gap-system-xs">
+            <TabsTrigger value="innovation" className="gap-system-xs flex-col sm:flex-row py-3 px-2 text-xs sm:text-sm">
               <Zap className="h-4 w-4" />
-              {language === 'en' ? 'Product Innovation' : '产品创新'}
+              <span className="text-center">
+                {language === 'en' ? 'Product Innovation' : '产品创新'}
+              </span>
             </TabsTrigger>
-            <TabsTrigger value="marketing" className="gap-system-xs">
+            <TabsTrigger value="marketing" className="gap-system-xs flex-col sm:flex-row py-3 px-2 text-xs sm:text-sm">
               <Target className="h-4 w-4" />
-              {language === 'en' ? 'Marketing Positioning' : '营销定位'}
+              <span className="text-center">
+                {language === 'en' ? 'Marketing Positioning' : '营销定位'}
+              </span>
             </TabsTrigger>
           </TabsList>
 

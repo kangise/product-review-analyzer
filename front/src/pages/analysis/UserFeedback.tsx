@@ -39,15 +39,22 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
   // 从analysisResult中获取数据，适配现有结构
   const consumerLoveData = analysisResult?.ownBrandAnalysis?.userFeedback?.consumerLove || {}
   const starRatingData = analysisResult?.ownBrandAnalysis?.userFeedback?.starRating || {}
+  
+  console.log('UserFeedback received data:', { consumerLoveData, starRatingData })
 
-  // 评分分布数据转换为图表格式
-  const ratingDistribution = starRatingData.评分分布分析?.总体评分分布 ? [
-    { name: '5星', value: parseFloat(starRatingData.评分分布分析.总体评分分布['5星']), color: '#22c55e' },
-    { name: '4星', value: parseFloat(starRatingData.评分分布分析.总体评分分布['4星']), color: '#84cc16' },
-    { name: '3星', value: parseFloat(starRatingData.评分分布分析.总体评分分布['3星']), color: '#eab308' },
-    { name: '2星', value: parseFloat(starRatingData.评分分布分析.总体评分分布['2星']), color: '#f97316' },
-    { name: '1星', value: parseFloat(starRatingData.评分分布分析.总体评分分布['1星']), color: '#ef4444' }
-  ] : []
+  // 处理评分分布数据
+  const ratingDistributionRaw = starRatingData?.评分分布分析?.总体评分分布 || {}
+  const ratingDistribution = Object.entries(ratingDistributionRaw).map(([rating, percentage]) => ({
+    name: rating,
+    value: parseFloat((percentage as string).replace('%', '')),
+    color: rating === '5星' ? '#22c55e' : 
+           rating === '4星' ? '#84cc16' : 
+           rating === '3星' ? '#eab308' : 
+           rating === '2星' ? '#f97316' : '#ef4444'
+  }))
+
+  // 处理按评分划分的反馈数据
+  const ratingFeedback = starRatingData?.按评分划分的消费者反馈 || {}
 
   return (
     <motion.div 
@@ -417,30 +424,33 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-4xl max-h-[80vh] mx-4"
+            className="relative w-full max-w-2xl max-h-[70vh] mx-4"
           >
             <Card className="border-clean shadow-clean-lg">
-              <CardHeader className="spacing-system-lg border-b border-border">
-                <CardTitle className="text-lg font-semibold flex items-center gap-system-sm">
-                  <MessageSquare className="w-5 h-5 text-primary" />
-                  {language === 'en' ? 'Customer Reviews' : '客户评论'}: {selectedQuotes.title}
-                </CardTitle>
-                <Badge variant="secondary">
-                  {selectedQuotes.quotes.length} {language === 'en' ? 'reviews' : '条评论'}
-                </Badge>
+              <CardHeader className="spacing-system-md border-b border-border">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-base font-semibold flex items-center gap-system-sm">
+                    <MessageSquare className="w-4 h-4 text-primary" />
+                    {language === 'en' ? 'Customer Reviews' : '客户评论'}
+                  </CardTitle>
+                  <Badge variant="secondary" className="text-xs">
+                    {selectedQuotes.quotes.length} {language === 'en' ? 'reviews' : '条评论'}
+                  </Badge>
+                </div>
+                <p className="text-sm text-muted-foreground mt-1">{selectedQuotes.title}</p>
               </CardHeader>
-              <CardContent className="spacing-system-lg">
-                <div className="max-h-96 overflow-y-auto">
-                  <div className="gap-system-md flex flex-col">
+              <CardContent className="spacing-system-md">
+                <div className="max-h-80 overflow-y-auto">
+                  <div className="gap-system-sm flex flex-col">
                     {selectedQuotes.quotes.map((quote, index) => (
                       <motion.div
                         key={index}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.05 }}
-                        className="bg-muted/30 rounded-lg spacing-system-md border-l-4 border-primary/30"
+                        className="bg-muted/30 rounded-lg spacing-system-sm border-l-2 border-primary/30"
                       >
-                        <p className="text-sm leading-relaxed text-foreground italic">
+                        <p className="text-sm leading-relaxed text-foreground">
                           "{quote}"
                         </p>
                       </motion.div>
