@@ -595,6 +595,7 @@ export default function App() {
 
   const loadHistoricalReports = async () => {
     try {
+      console.log('🔄 Loading historical reports...')
       const response = await fetch(`${apiBase}/reports`, {
         headers: { 'Authorization': `Bearer ${publicAnonKey}` }
       })
@@ -608,6 +609,7 @@ export default function App() {
       // API返回格式是 {reports: [...]}，需要提取reports数组
       const reports = data.reports || []
       console.log('📊 Loaded historical reports:', reports.length)
+      console.log('📋 Reports data:', reports.map(r => ({ id: r.id, timestamp: r.timestamp, status: r.status })))
       setHistoricalReports(reports)
     } catch (error) {
       console.error('Failed to load historical reports:', error)
