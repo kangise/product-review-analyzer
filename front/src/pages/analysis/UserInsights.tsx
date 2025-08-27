@@ -357,42 +357,6 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
               )}
             </CardContent>
           )}
-                    <div className="gap-system-md grid md:grid-cols-2">
-                      {consumerMotivationData.购买动机洞察.细分动机类型.map((motivation: any, index: number) => (
-                        <motion.div
-                          key={index}
-                          className="spacing-system-md bg-muted rounded-lg border-clean"
-                          whileHover={{ scale: 1.01 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <div className="flex items-center justify-between mb-2">
-                            <h5 className="font-medium text-sm">{motivation.动机类型}</h5>
-                            <Badge variant="outline" className="text-xs">
-                              {motivation.比例}
-                            </Badge>
-                          </div>
-                          <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
-                            {motivation.特征描述}
-                          </p>
-                          {motivation.关键review信息 && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => showQuotes([motivation.关键review信息], motivation.动机类型)}
-                              className="text-xs h-6 px-2"
-                            >
-                              <MessageSquare className="w-3 h-3 mr-1" />
-                              {language === 'en' ? 'View Quote' : '查看原声'}
-                            </Button>
-                          )}
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-            </CardContent>
-          )}
         </Card>
       </motion.div>
 
@@ -495,40 +459,37 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
                   )}
                 </div>
               )}
-            </CardContent>
-          )}
-                    <div className="gap-system-md grid md:grid-cols-3">
-                      {consumerScenarioData.使用场景洞察.细分场景类型.map((scenario: any, index: number) => (
-                        <motion.div
-                          key={index}
-                          className="spacing-system-md bg-muted rounded-lg border-clean"
-                          whileHover={{ scale: 1.02 }}
-                          transition={{ duration: 0.2 }}
+              {consumerScenarioData.使用场景洞察?.细分场景类型 && (
+                <div className="gap-system-md grid md:grid-cols-3">
+                  {consumerScenarioData.使用场景洞察.细分场景类型.map((scenario: any, index: number) => (
+                    <motion.div
+                      key={index}
+                      className="spacing-system-md bg-muted rounded-lg border-clean"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <h5 className="font-medium text-sm">{scenario.场景类型}</h5>
+                        <Badge variant="secondary" className="text-xs">
+                          {scenario.比例}
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+                        {scenario.特征描述}
+                      </p>
+                      {scenario.关键review信息 && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => showQuotes([scenario.关键review信息], scenario.场景类型)}
+                          className="text-xs h-6 px-2"
                         >
-                          <div className="flex items-center justify-between mb-2">
-                            <h5 className="font-medium text-sm">{scenario.场景类型}</h5>
-                            <Badge variant="secondary" className="text-xs">
-                              {scenario.比例}
-                            </Badge>
-                          </div>
-                          <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
-                            {scenario.特征描述}
-                          </p>
-                          {scenario.关键review信息 && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => showQuotes([scenario.关键review信息], scenario.场景类型)}
-                              className="text-xs h-6 px-2"
-                            >
-                              <MessageSquare className="w-3 h-3 mr-1" />
-                              {language === 'en' ? 'View Quote' : '查看原声'}
-                            </Button>
-                          )}
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
+                          <MessageSquare className="w-3 h-3 mr-1" />
+                          {language === 'en' ? 'View Quote' : '查看原声'}
+                        </Button>
+                      )}
+                    </motion.div>
+                  ))}
                 </div>
               )}
             </CardContent>
