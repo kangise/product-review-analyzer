@@ -548,6 +548,29 @@ export default function App() {
     loadHistoricalReports()
   }, [])
 
+  // Auto-load latest analysis results on app startup
+  useEffect(() => {
+    const autoLoadLatestResults = async () => {
+      try {
+        console.log('🚀 Auto-loading latest analysis results on startup...')
+        const response = await fetch(`${apiBase}/analysis/latest/result`)
+        if (response.ok) {
+          const analysisResult = await response.json()
+          console.log('✅ Auto-loaded latest results:', analysisResult)
+          setAnalysisResult(analysisResult)
+          // Don't automatically switch to insights page, let user stay on dashboard
+          console.log('📊 Latest results loaded, staying on dashboard')
+        } else {
+          console.log('ℹ️ No existing analysis results found, will show demo data when user navigates to analysis')
+        }
+      } catch (error) {
+        console.log('ℹ️ No analysis results available, will show demo data when user navigates to analysis')
+      }
+    }
+
+    autoLoadLatestResults()
+  }, [])
+
   // Auto-expand relevant sections based on active module
   useEffect(() => {
     const newExpanded = new Set(expandedSections)
@@ -857,6 +880,16 @@ export default function App() {
     }
   }
 
+  const viewLatestResults = () => {
+    if (analysisResult) {
+      // If results are already loaded, just navigate to insights page
+      setActiveModule('own-brand-insights')
+    } else {
+      // If no results loaded, try to load them
+      loadExistingResults()
+    }
+  }
+
   const resetAnalysis = () => {
     setAnalysisResult(null)
     setOwnBrandFile(null)
@@ -1064,7 +1097,7 @@ export default function App() {
                   </Button>
                   <Button 
                     variant="outline"
-                    onClick={loadExistingResults}
+                    onClick={viewLatestResults}
                   >
                     <BarChart3 className="mr-2 h-4 w-4" />
                     {language === 'en' ? 'View Latest Results' : '查看最新结果'}
