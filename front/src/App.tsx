@@ -18,6 +18,7 @@ import { projectId, publicAnonKey } from './utils/supabase/info'
 // 导入新创建的分析页面组件
 import { UserInsights } from './pages/analysis/UserInsights'
 import { UserFeedback } from './pages/analysis/UserFeedback'
+import { CompetitorAnalysis } from './pages/analysis/CompetitorAnalysis'
 import { Opportunities } from './pages/analysis/Opportunities'
 import { UnmetNeeds } from './pages/analysis/UnmetNeeds'
 import { HistoryReports } from './pages/HistoryReports'
