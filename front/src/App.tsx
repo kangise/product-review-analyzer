@@ -782,16 +782,23 @@ export default function App() {
       
       if (status.status === 'completed') {
         // 分析完成，获取结果
+        console.log('🎉 Analysis completed! Fetching results...')
         const resultResponse = await fetch(`${apiBase}/analysis/${analysisId}/result`)
         if (resultResponse.ok) {
           const analysisResult = await resultResponse.json()
-          console.log('Analysis result received:', analysisResult)
+          console.log('✅ Analysis result received:', analysisResult)
           console.log('Setting analysisResult and switching to insights page')
           setAnalysisResult(analysisResult)
-          setActiveModule('own-brand-insights')
+          
+          // 显示成功提示
+          setTimeout(() => {
+            setActiveModule('own-brand-insights')
+          }, 1000) // 1秒后跳转，让用户看到完成状态
+          
           loadHistoricalReports()
         } else {
           console.error('Failed to get analysis result:', resultResponse.status)
+          setError('Failed to load analysis results. Please try again.')
         }
         setIsAnalyzing(false)
         setAnalysisProgress(100)
@@ -830,6 +837,23 @@ export default function App() {
 
   const downloadPDF = () => {
     alert(t.success.pdfDeveloping)
+  }
+
+  const loadExistingResults = async () => {
+    try {
+      console.log('Loading existing analysis results...')
+      const response = await fetch(`${apiBase}/analysis/latest/result`)
+      if (response.ok) {
+        const analysisResult = await response.json()
+        console.log('✅ Existing results loaded:', analysisResult)
+        setAnalysisResult(analysisResult)
+        setActiveModule('own-brand-insights')
+      } else {
+        console.log('No existing results found')
+      }
+    } catch (error) {
+      console.error('Error loading existing results:', error)
+    }
   }
 
   const resetAnalysis = () => {
@@ -1040,6 +1064,13 @@ export default function App() {
                   >
                     <Upload className="mr-2 h-4 w-4" />
                     {t.dashboard.startAnalysis}
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    onClick={loadExistingResults}
+                  >
+                    <BarChart3 className="mr-2 h-4 w-4" />
+                    {language === 'en' ? 'View Latest Results' : '查看最新结果'}
                   </Button>
                   <Button 
                     variant="outline"
@@ -1524,16 +1555,32 @@ export default function App() {
                 <Card className="max-w-2xl mx-auto border-clean shadow-clean-md">
                   <CardContent className="spacing-system-lg">
                     <div className="gap-system-md flex flex-col items-center">
-                      <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
-                        <TrendingUp className="h-5 w-5 text-primary animate-pulse" />
+                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                        analysisProgress === 100 ? 'bg-green-100 dark:bg-green-900' : 'bg-accent'
+                      }`}>
+                        {analysisProgress === 100 ? (
+                          <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+                        ) : (
+                          <TrendingUp className="h-5 w-5 text-primary animate-pulse" />
+                        )}
                       </div>
                       <div className="text-center">
-                        <h3 className="font-medium mb-2">AI {language === 'en' ? 'Analyzing Your Data' : '正在分析您的数据'}</h3>
+                        <h3 className="font-medium mb-2">
+                          {analysisProgress === 100 ? (
+                            language === 'en' ? '🎉 Analysis Complete!' : '🎉 分析完成！'
+                          ) : (
+                            `AI ${language === 'en' ? 'Analyzing Your Data' : '正在分析您的数据'}`
+                          )}
+                        </h3>
                         <p className="text-sm text-muted-foreground mb-1">
                           {language === 'en' ? 'Category:' : '类别:'} <span className="text-primary font-medium">{targetCategory}</span>
                         </p>
                         <p className="text-sm text-muted-foreground mb-4">
-                          {language === 'en' ? 'We are deeply analyzing review data to identify user insights and market opportunities...' : '我们正在深度分析评论数据，识别用户洞察和市场机会...'}
+                          {analysisProgress === 100 ? (
+                            language === 'en' ? 'Your comprehensive business insights are ready! Redirecting to results...' : '您的综合商业洞察已准备就绪！正在跳转到结果页面...'
+                          ) : (
+                            language === 'en' ? 'We are deeply analyzing review data to identify user insights and market opportunities...' : '我们正在深度分析评论数据，识别用户洞察和市场机会...'
+                          )}
                         </p>
                       </div>
                       

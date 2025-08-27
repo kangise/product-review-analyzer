@@ -236,6 +236,16 @@ def get_analysis_status(analysis_id):
 @app.route('/analysis/<analysis_id>/result', methods=['GET'])
 def get_analysis_result(analysis_id):
     """获取分析结果"""
+    if analysis_id == 'latest':
+        # 特殊处理：加载最新的分析结果
+        try:
+            result = load_analysis_results('latest', 'unknown', False)
+            if 'error' in result:
+                return jsonify({'error': 'No analysis results found'}), 404
+            return jsonify(result)
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+    
     if analysis_id not in analysis_status:
         return jsonify({'error': 'Analysis not found'}), 404
     
@@ -254,16 +264,15 @@ def get_analysis_result(analysis_id):
 def load_analysis_results(analysis_id, target_category, has_competitor_data):
     """加载分析结果并格式化为前端期望的结构"""
     try:
-        # 查找最新的分析结果目录
+        # 只查找analysis_results_TIMESTAMP目录
         import glob
         result_dirs = glob.glob('analysis_results_*')
         if not result_dirs:
-            # 如果没有找到分析结果目录，尝试从results目录读取
-            results_dir = RESULTS_FOLDER
-        else:
-            # 使用最新的分析结果目录
-            result_dirs.sort(reverse=True)
-            results_dir = result_dirs[0]
+            raise Exception("No analysis results found. Please run analysis first.")
+        
+        # 使用最新的分析结果目录
+        result_dirs.sort(reverse=True)
+        results_dir = result_dirs[0]
         
         print(f"Loading results from: {results_dir}")
         
@@ -287,9 +296,9 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
                 with open(filepath, 'r', encoding='utf-8') as f:
                     key = filename.replace('.json', '')
                     results[key] = json.load(f)
-                    print(f"Loaded {filename}: {len(str(results[key]))} characters")
+                    print(f"✅ Loaded {filename}: {len(str(results[key]))} characters")
             else:
-                print(f"File not found: {filepath}")
+                print(f"⚠️ File not found: {filepath}")
         
         # 格式化为前端期望的结构
         formatted_result = {
@@ -310,13 +319,11 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
             }
         }
         
-        print(f"Formatted result structure: {list(formatted_result.keys())}")
-        print(f"ownBrandAnalysis keys: {list(formatted_result['ownBrandAnalysis'].keys())}")
-        
+        print(f"✅ Formatted result with {len(results)} analysis modules")
         return formatted_result
         
     except Exception as e:
-        print(f"Error loading results: {str(e)}")
+        print(f"❌ Error loading results: {str(e)}")
         return {
             'id': analysis_id,
             'timestamp': datetime.now().isoformat(),
