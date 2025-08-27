@@ -496,7 +496,8 @@ export default function App() {
   const [notifications, setNotifications] = useState(3)
   const [showSettings, setShowSettings] = useState(false)
 
-  const apiBase = `https://${projectId}.supabase.co/functions/v1/make-server-bda2f768`
+  // 本地开发API配置
+  const apiBase = 'http://localhost:8000'
   const t = translations[language]
 
   // Language management
@@ -641,7 +642,6 @@ export default function App() {
 
       const response = await fetch(`${apiBase}/upload`, {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${publicAnonKey}` },
         body: formData
       })
 
@@ -722,8 +722,7 @@ export default function App() {
       const response = await fetch(`${apiBase}/analyze`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${publicAnonKey}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           ownBrandFile: ownBrandFile!.fileName,
@@ -1498,7 +1497,7 @@ export default function App() {
       )
     }
 
-    if (activeModule === 'own-brand-insights' && analysisResult) {
+    if (activeModule === 'own-brand-insights') {
       return (
         <UserInsights 
           language={language}
@@ -1508,7 +1507,7 @@ export default function App() {
       )
     }
 
-    if (activeModule === 'own-brand-feedback' && analysisResult) {
+    if (activeModule === 'own-brand-feedback') {
       return (
         <UserFeedback 
           language={language}
@@ -1518,7 +1517,7 @@ export default function App() {
       )
     }
 
-    if (activeModule === 'own-brand-unmet' && analysisResult) {
+    if (activeModule === 'own-brand-unmet') {
       return (
         <UnmetNeeds 
           language={language}
@@ -1528,9 +1527,9 @@ export default function App() {
       )
     }
 
-    if ((activeModule === 'opportunities-improvement' || 
-         activeModule === 'opportunities-innovation' || 
-         activeModule === 'opportunities-marketing') && analysisResult) {
+    if (activeModule === 'opportunities-improvement' || 
+        activeModule === 'opportunities-innovation' || 
+        activeModule === 'opportunities-marketing') {
       const activeTab = activeModule.replace('opportunities-', '')
       return (
         <Opportunities 
