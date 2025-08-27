@@ -148,19 +148,58 @@ def run_analysis_background(analysis_id, own_brand_path, competitor_path, target
         if competitor_path:
             shutil.copy2(competitor_path, 'data/Competitor ASIN Reviews.csv')
         
-        print(f"Starting analysis for category: {target_category}")
+        print(f"Starting real-time analysis for category: {target_category}")
         
-        # 运行Python分析脚本并监控进度
-        process = subprocess.Popen(['python3', 'run_analysis.py'], 
-                                 stdout=subprocess.PIPE, 
-                                 stderr=subprocess.PIPE, 
-                                 text=True, 
-                                 cwd='.',
-                                 bufsize=1,
-                                 universal_newlines=True)
+        # 运行带有进度跟踪的Python分析脚本
+        process = subprocess.Popen(
+            ['python3', 'run_analysis_with_progress.py', target_category], 
+            stdout=subprocess.PIPE, 
+            stderr=subprocess.PIPE, 
+            text=True, 
+            cwd='.',
+            bufsize=1,
+            universal_newlines=True
+        )
         
-        # 监控分析进度
-        monitor_analysis_progress(analysis_id, process)
+        # 实时读取Python脚本的输出
+        while True:
+            output = process.stdout.readline()
+            if output == '' and process.poll() is not None:
+                break
+            
+            if output:
+                line = output.strip()
+                print(f"Python output: {line}")
+                
+                # 解析进度信息
+                if line.startswith('PROGRESS:'):
+                    try:
+                        progress_json = line[9:]  # 移除 'PROGRESS:' 前缀
+                        progress_data = json.loads(progress_json)
+                        
+                        # 更新分析状态
+                        analysis_status[analysis_id]['progress'] = progress_data['progress']
+                        analysis_status[analysis_id]['current_step'] = progress_data['step_index']
+                        
+                        # 更新步骤状态
+                        step_index = progress_data['step_index']
+                        if step_index < len(analysis_status[analysis_id]['steps']):
+                            # 标记当前步骤为运行中
+                            analysis_status[analysis_id]['steps'][step_index]['status'] = 'running'
+                            
+                            # 标记之前的步骤为完成
+                            for i in range(step_index):
+                                analysis_status[analysis_id]['steps'][i]['status'] = 'completed'
+                        
+                        # 如果步骤完成，标记为完成状态
+                        if progress_data['status'] == 'completed' and step_index > 0:
+                            if step_index - 1 < len(analysis_status[analysis_id]['steps']):
+                                analysis_status[analysis_id]['steps'][step_index - 1]['status'] = 'completed'
+                        
+                        print(f"Progress updated: {progress_data['progress']}% - Step {step_index}")
+                        
+                    except json.JSONDecodeError as e:
+                        print(f"Failed to parse progress JSON: {e}")
         
         # 等待进程完成
         stdout, stderr = process.communicate()
@@ -171,12 +210,11 @@ def run_analysis_background(analysis_id, own_brand_path, competitor_path, target
             analysis_status[analysis_id]['error'] = stderr
             return
         
-        # 分析完成，加载结果
+        # 分析完成，标记所有步骤为完成
         analysis_status[analysis_id]['status'] = 'completed'
         analysis_status[analysis_id]['progress'] = 100
         analysis_status[analysis_id]['end_time'] = datetime.now().isoformat()
         
-        # 标记所有步骤为完成
         for step in analysis_status[analysis_id]['steps']:
             step['status'] = 'completed'
         
@@ -186,33 +224,6 @@ def run_analysis_background(analysis_id, own_brand_path, competitor_path, target
         print(f"Background analysis error: {str(e)}")
         analysis_status[analysis_id]['status'] = 'failed'
         analysis_status[analysis_id]['error'] = str(e)
-
-def monitor_analysis_progress(analysis_id, process):
-    """监控分析进度"""
-    step_index = 0
-    
-    while process.poll() is None:
-        # 检查是否有新的结果文件生成
-        for i, step in enumerate(ANALYSIS_STEPS):
-            result_file = os.path.join(RESULTS_FOLDER, f"{step['id']}.json")
-            if os.path.exists(result_file) and i >= step_index:
-                # 更新当前步骤状态
-                if step_index < len(analysis_status[analysis_id]['steps']):
-                    analysis_status[analysis_id]['steps'][step_index]['status'] = 'completed'
-                
-                step_index = i + 1
-                progress = int((step_index / len(ANALYSIS_STEPS)) * 90) + 5  # 5-95%
-                analysis_status[analysis_id]['progress'] = progress
-                analysis_status[analysis_id]['current_step'] = step_index
-                
-                # 更新下一步状态为运行中
-                if step_index < len(analysis_status[analysis_id]['steps']):
-                    analysis_status[analysis_id]['steps'][step_index]['status'] = 'running'
-                
-                print(f"Analysis progress: {progress}% - Step {step_index}/{len(ANALYSIS_STEPS)}")
-                break
-        
-        time.sleep(2)  # 每2秒检查一次
 
 @app.route('/analysis/<analysis_id>/status', methods=['GET'])
 def get_analysis_status(analysis_id):
