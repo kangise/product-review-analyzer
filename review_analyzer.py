@@ -242,31 +242,46 @@ class ReviewAnalyzer:
         """
         import re
         
-        # 首先清理ANSI颜色代码和控制字符
+        # 改进的ANSI清理：同时处理\x1B和\u001b格式的转义序列
+        # 1. 清理Unicode转义的ANSI序列 (\u001b[...)
+        output = re.sub(r'\\u001b\[[0-9;]*[mK]?', '', output)
+        
+        # 2. 清理实际的ANSI转义序列 (\x1B[...)
         ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
         output = ansi_escape.sub('', output)
         
-        # 清理其他控制字符
+        # 3. 清理其他控制字符和Unicode控制字符
         output = re.sub(r'[\x00-\x1f\x7f-\x9f]', '', output)
+        
+        # 4. 清理可能残留的ANSI相关字符
+        output = re.sub(r'\[0m|\[m', '', output)
+        
+        print(f"🧹 ANSI清理后的输出长度: {len(output)}")
         
         # 方法1: 寻找markdown代码块中的JSON (改进的正则表达式)
         json_block_pattern = r'```(?:json)?\s*(\{.*?\})\s*```'
         json_blocks = re.findall(json_block_pattern, output, re.DOTALL | re.IGNORECASE)
         
         if json_blocks:
+            print(f"📦 找到 {len(json_blocks)} 个JSON代码块")
             # 尝试解析每个找到的JSON块，返回第一个有效的
-            for block in reversed(json_blocks):  # 从最后一个开始尝试
+            for i, block in enumerate(reversed(json_blocks)):  # 从最后一个开始尝试
                 try:
                     json.loads(block)  # 验证JSON有效性
+                    print(f"✅ JSON代码块 {len(json_blocks)-i} 验证成功")
                     return block
-                except json.JSONDecodeError:
+                except json.JSONDecodeError as e:
+                    print(f"❌ JSON代码块 {len(json_blocks)-i} 验证失败: {e}")
                     continue
         
         # 方法2: 寻找最大的完整JSON对象 (改进的括号匹配)
         json_start = output.find('{')
         if json_start == -1:
+            print("❌ 未找到JSON起始标记")
             return None
             
+        print(f"🔍 找到JSON起始位置: {json_start}")
+        
         # 找到匹配的结束括号，处理字符串中的括号
         brace_count = 0
         in_string = False
