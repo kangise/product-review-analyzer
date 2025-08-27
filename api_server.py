@@ -320,12 +320,24 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
                 print(f"❌ Error loading {filename}: {e}")
                 results[key] = {}
         
+        # 从目录名提取实际的分析时间
+        actual_timestamp = datetime.now().isoformat()
+        if results_dir:
+            try:
+                # 从目录名提取时间戳 (格式: analysis_results_YYYYMMDD_HHMMSS)
+                timestamp_str = results_dir.replace('analysis_results_', '')
+                dt = datetime.strptime(timestamp_str, '%Y%m%d_%H%M%S')
+                actual_timestamp = dt.isoformat()
+                print(f"📅 使用实际分析时间: {actual_timestamp} (从目录 {results_dir})")
+            except Exception as e:
+                print(f"⚠️ 无法解析时间戳，使用当前时间: {e}")
+        
         # 格式化为前端期望的结构
         formatted_result = {
             'id': analysis_id,
-            'timestamp': datetime.now().isoformat(),
+            'timestamp': actual_timestamp,
             'hasCompetitorData': bool(results.get('competitor', {})),  # 根据实际数据设置
-            'targetCategory': target_category if target_category and target_category.strip() else 'Webcams',  # 使用实际category或默认值
+            'targetCategory': target_category if target_category and target_category.strip() else 'Consumer Electronics',  # 使用实际category或默认值
             'ownBrandAnalysis': {
                 'userInsights': results.get('consumer_profile', {}),
                 'userMotivation': results.get('consumer_motivation', {}),
@@ -367,8 +379,99 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
 @app.route('/reports', methods=['GET'])
 def get_reports():
     """获取历史报告列表"""
-    # 简单实现：返回空列表
-    return jsonify([])
+    try:
+        import glob
+        import os
+        from datetime import datetime
+        
+        # 获取所有分析结果目录
+        result_dirs = glob.glob('analysis_results_*')
+        result_dirs.sort(reverse=True)  # 按时间倒序
+        
+        reports = []
+        
+        for dir_name in result_dirs:
+            try:
+                # 从目录名提取时间戳
+                timestamp_str = dir_name.replace('analysis_results_', '')
+                
+                # 解析时间戳
+                try:
+                    dt = datetime.strptime(timestamp_str, '%Y%m%d_%H%M%S')
+                    timestamp = dt.isoformat() + 'Z'
+                except:
+                    timestamp = datetime.now().isoformat() + 'Z'
+                
+                # 检查目录中的文件
+                required_files = [
+                    'consumer_profile.json',
+                    'consumer_motivation.json', 
+                    'consumer_scenario.json',
+                    'consumer_love.json',
+                    'star_rating_root_cause.json',
+                    'unmet_needs.json',
+                    'opportunity.json'
+                ]
+                
+                # 检查文件完整性
+                complete_files = 0
+                has_competitor = False
+                
+                for filename in required_files:
+                    filepath = os.path.join(dir_name, filename)
+                    if os.path.exists(filepath):
+                        try:
+                            with open(filepath, 'r', encoding='utf-8') as f:
+                                data = json.load(f)
+                            if 'error' not in data:
+                                complete_files += 1
+                        except:
+                            pass
+                
+                # 检查竞品数据
+                competitor_file = os.path.join(dir_name, 'competitor.json')
+                if os.path.exists(competitor_file):
+                    try:
+                        with open(competitor_file, 'r', encoding='utf-8') as f:
+                            competitor_data = json.load(f)
+                        if 'error' not in competitor_data and competitor_data:
+                            has_competitor = True
+                    except:
+                        pass
+                
+                # 确定状态
+                if complete_files >= 6:  # 至少6个核心文件完整
+                    status = 'completed'
+                elif complete_files > 0:
+                    status = 'partial'
+                else:
+                    status = 'failed'
+                
+                report = {
+                    'id': dir_name,
+                    'timestamp': timestamp,
+                    'category': 'Consumer Electronics',  # 默认类别，可以从文件中读取
+                    'status': status,
+                    'hasCompetitorData': has_competitor,
+                    'completedModules': complete_files,
+                    'totalModules': len(required_files),
+                    'fileInfo': {
+                        'ownBrandFile': 'Customer ASIN Reviews.csv',
+                        'competitorFile': 'Competitor ASIN Reviews.csv' if has_competitor else None
+                    }
+                }
+                
+                reports.append(report)
+                
+            except Exception as e:
+                print(f"Error processing directory {dir_name}: {e}")
+                continue
+        
+        return jsonify({'reports': reports})
+        
+    except Exception as e:
+        print(f"Error getting reports: {e}")
+        return jsonify({'reports': []})
 
 @app.route('/report/<report_id>', methods=['GET'])
 def get_report(report_id):
