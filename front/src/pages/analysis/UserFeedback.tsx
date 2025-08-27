@@ -549,7 +549,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
 
       {/* Quote Modal */}
       {selectedQuotes && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
           <div 
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() => setSelectedQuotes(null)}
@@ -558,7 +558,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-lg max-h-[60vh] mx-4"
+            className="relative w-full max-w-4xl max-h-[70vh] mx-auto"
           >
             <Card className="border-clean shadow-clean-lg">
               <CardHeader className="spacing-system-sm border-b border-border">

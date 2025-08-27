@@ -850,10 +850,279 @@ export default function App() {
         setAnalysisResult(analysisResult)
         setActiveModule('own-brand-insights')
       } else {
-        console.log('No existing results found')
+        console.log('No existing results found, loading demo data...')
+        // 如果没有真实报告，加载demo数据
+        await loadDemoResults()
       }
     } catch (error) {
       console.error('Error loading existing results:', error)
+      console.log('Loading demo data as fallback...')
+      // 出错时也加载demo数据
+      await loadDemoResults()
+    }
+  }
+
+  const loadDemoResults = async () => {
+    try {
+      // 创建简化的demo结果，不涉及任何品牌
+      const demoResult: AnalysisResult = {
+        id: 'demo-analysis',
+        timestamp: new Date().toISOString(),
+        hasCompetitorData: true,
+        targetCategory: 'Consumer Electronics',
+        ownBrandAnalysis: {
+          userInsights: {
+            关键用户画像洞察: {
+              核心用户画像: 'Tech-savvy professionals and content creators who value high-quality video communication tools for remote work and creative projects.',
+              细分潜力用户类型: 'Remote workers, content creators, educators, and small business owners seeking professional-grade video solutions.'
+            }
+          },
+          userMotivation: {
+            购买动机洞察总结: {
+              技术指标维度: 'Users prioritize high-resolution video quality, reliable connectivity, and advanced features like AI tracking for professional applications.',
+              功能属性维度: 'Key features include plug-and-play compatibility, intelligent auto-focus, and seamless integration with popular video platforms.',
+              使用场景维度: 'Primary use cases include video conferencing, content creation, live streaming, and online education delivery.'
+            },
+            具体购买动机: [
+              {
+                动机: 'Professional Video Quality',
+                动机重要性: '85%',
+                消费者描述: 'Users seek crystal-clear video resolution for professional presentations and content creation.',
+                相关评论示例: ['Excellent video quality for meetings', 'Perfect clarity for streaming', 'Professional-grade image quality']
+              },
+              {
+                动机: 'Easy Setup & Compatibility',
+                动机重要性: '78%',
+                消费者描述: 'Plug-and-play functionality with wide device compatibility is highly valued.',
+                相关评论示例: ['Works instantly with my laptop', 'No driver installation needed', 'Compatible with all platforms']
+              },
+              {
+                动机: 'AI Smart Features',
+                动机重要性: '72%',
+                消费者描述: 'Intelligent tracking and auto-focus features enhance user experience significantly.',
+                相关评论示例: ['AI tracking works perfectly', 'Smart auto-focus is amazing', 'Follows movement naturally']
+              }
+            ]
+          },
+          userScenario: {
+            洞察总结: {
+              重要度最高的消费场景: [
+                'Remote work video conferencing and virtual meetings',
+                'Content creation and live streaming for social media'
+              ],
+              小众但被忽视的消费场景: [
+                'Online education and virtual classroom teaching'
+              ]
+            }
+          },
+          userFeedback: {
+            consumerLove: {
+              消费者洞察总结: {
+                使用场景: 'Users love the versatility for both professional meetings and creative content production.',
+                功能属性: 'The combination of high-quality optics and intelligent software features creates exceptional user satisfaction.',
+                技术规格: 'Advanced sensor technology and processing capabilities deliver consistent performance across various lighting conditions.'
+              },
+              核心赞美点分析: [
+                {
+                  赞美点: 'Outstanding Video Quality',
+                  频率: '92%',
+                  消费者描述: 'Users consistently praise the sharp, clear video output that enhances their professional image.',
+                  相关评论示例: ['Crystal clear video', 'Amazing picture quality', 'Professional-grade clarity']
+                },
+                {
+                  赞美点: 'Intelligent Auto-Tracking',
+                  频率: '87%',
+                  消费者描述: 'The AI-powered tracking feature receives high praise for its accuracy and natural movement.',
+                  相关评论示例: ['Tracking works flawlessly', 'Follows me perfectly', 'Smart movement detection']
+                },
+                {
+                  赞美点: 'Plug-and-Play Simplicity',
+                  频率: '83%',
+                  消费者描述: 'Users appreciate the hassle-free setup and broad compatibility across devices and platforms.',
+                  相关评论示例: ['Works immediately', 'No setup required', 'Universal compatibility']
+                }
+              ]
+            },
+            starRating: {
+              评分分布分析: {
+                关键洞察: 'The product maintains consistently high ratings with 89% of users giving 4-5 stars, indicating strong overall satisfaction with performance and features.',
+                总体评分分布: {
+                  '5星': '67%',
+                  '4星': '22%',
+                  '3星': '8%',
+                  '2星': '2%',
+                  '1星': '1%'
+                }
+              },
+              按评分划分的消费者反馈: {
+                '5星评价': {
+                  主要满意点: [
+                    {
+                      喜爱点: 'Exceptional Video Quality',
+                      频率: '95%',
+                      消费者描述: 'Users are thrilled with the professional-grade video output that exceeds expectations.',
+                      示例评论: ['Best video quality I\'ve seen', 'Professional broadcast quality', 'Incredible clarity']
+                    },
+                    {
+                      喜爱点: 'AI Tracking Performance',
+                      频率: '91%',
+                      消费者描述: 'The intelligent tracking feature works seamlessly and adds significant value to user experience.',
+                      示例评论: ['AI tracking is phenomenal', 'Follows perfectly', 'Smart and responsive']
+                    }
+                  ]
+                },
+                '4星评价': {
+                  主要满意点: [
+                    {
+                      喜爱点: 'Good Overall Performance',
+                      频率: '88%',
+                      消费者描述: 'Solid performance with minor areas for improvement.',
+                      示例评论: ['Great device overall', 'Works well for most needs']
+                    }
+                  ],
+                  主要不满点: [
+                    {
+                      问题点: 'Price Point Concerns',
+                      频率: '45%',
+                      消费者描述: 'Some users feel the price is slightly high for the feature set.',
+                      示例评论: ['A bit expensive', 'Could be more affordable']
+                    }
+                  ]
+                },
+                '3星评价': {
+                  主要满意点: [
+                    {
+                      喜爱点: 'Basic Functionality',
+                      频率: '70%',
+                      消费者描述: 'Core features work as expected.',
+                      示例评论: ['Does what it says']
+                    }
+                  ],
+                  主要不满点: [
+                    {
+                      问题点: 'Software Compatibility',
+                      频率: '60%',
+                      消费者描述: 'Occasional compatibility issues with specific software platforms.',
+                      示例评论: ['Some software issues', 'Compatibility problems']
+                    }
+                  ]
+                },
+                '2星评价': {
+                  主要不满点: [
+                    {
+                      问题点: 'Technical Issues',
+                      频率: '80%',
+                      消费者描述: 'Users experienced technical problems affecting performance.',
+                      示例评论: ['Technical problems', 'Connectivity issues']
+                    }
+                  ]
+                },
+                '1星评价': {
+                  主要不满点: [
+                    {
+                      问题点: 'Product Defects',
+                      频率: '90%',
+                      消费者描述: 'Rare cases of product defects or complete failure.',
+                      示例评论: ['Product failed', 'Defective unit']
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          unmetNeeds: {
+            核心未满足需求洞察: {
+              关键洞察: 'Users seek enhanced low-light performance, extended compatibility with emerging platforms, and more affordable pricing options for broader market access.',
+              细分需求类型: [
+                {
+                  需求类型: 'Enhanced Low-Light Performance',
+                  重要性: '78%',
+                  消费者描述: 'Better performance in challenging lighting conditions for various environments.',
+                  相关评论示例: ['Needs better low-light performance', 'Struggles in dim lighting']
+                },
+                {
+                  需求类型: 'Extended Platform Support',
+                  重要性: '65%',
+                  消费者描述: 'Broader compatibility with emerging video platforms and software.',
+                  相关评论示例: ['More platform support needed', 'Limited software compatibility']
+                },
+                {
+                  需求类型: 'Affordable Pricing Options',
+                  重要性: '58%',
+                  消费者描述: 'More accessible pricing tiers to reach broader consumer segments.',
+                  相关评论示例: ['Too expensive for features', 'Need budget-friendly option']
+                }
+              ]
+            }
+          },
+          opportunities: {
+            机会洞察总结: {
+              产品改进机会: [
+                {
+                  机会: 'Enhanced Low-Light Sensor Technology',
+                  优先级: 'High',
+                  商业价值: 'Significant market differentiation and user satisfaction improvement',
+                  实施建议: 'Invest in advanced sensor technology and image processing algorithms'
+                }
+              ],
+              产品创新机会: [
+                {
+                  机会: 'AI-Powered Content Creation Suite',
+                  优先级: 'Medium',
+                  商业价值: 'New revenue streams and market expansion opportunities',
+                  实施建议: 'Develop integrated software solutions for content creators'
+                }
+              ],
+              营销定位机会: [
+                {
+                  机会: 'Professional Remote Work Solution',
+                  优先级: 'High',
+                  商业价值: 'Tap into growing remote work market segment',
+                  实施建议: 'Position as essential tool for professional remote workers'
+                }
+              ]
+            }
+          }
+        },
+        competitorAnalysis: {
+          核心竞争洞察: {
+            我方核心优势: [
+              'Superior AI tracking technology and accuracy',
+              'Exceptional video quality and image processing',
+              'Seamless plug-and-play user experience'
+            ],
+            我方核心劣势: [
+              'Higher price point compared to basic alternatives',
+              'Limited advanced software integration options'
+            ],
+            品类共性关键: [
+              'Video quality is the primary purchase driver',
+              'Ease of setup and compatibility are essential',
+              'Price sensitivity varies by user segment'
+            ]
+          },
+          客户喜爱点对比: {
+            我方独有优势: [
+              'Advanced AI tracking capabilities',
+              'Professional-grade video processing'
+            ],
+            竞品优势领域: [
+              'More affordable pricing options',
+              'Broader software ecosystem integration'
+            ],
+            共同优势: [
+              'High-definition video output',
+              'Cross-platform compatibility'
+            ]
+          }
+        }
+      }
+
+      console.log('✅ Demo results loaded')
+      setAnalysisResult(demoResult)
+      setActiveModule('own-brand-insights')
+    } catch (error) {
+      console.error('Error loading demo results:', error)
     }
   }
 

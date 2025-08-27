@@ -232,7 +232,7 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-lg max-h-[60vh] mx-4"
+            className="relative w-full max-w-4xl max-h-[70vh] mx-auto"
           >
             <Card className="border-clean shadow-clean-lg">
               <CardHeader className="spacing-system-sm border-b border-border">
