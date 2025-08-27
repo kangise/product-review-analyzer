@@ -572,25 +572,25 @@ export default function App() {
     autoLoadLatestResults()
   }, [])
 
-  // Auto-expand relevant sections based on active module
-  useEffect(() => {
-    setExpandedSections(prevExpanded => {
-      const newExpanded = new Set(prevExpanded)
-      let hasChanges = false
-      
-      if (activeModule.startsWith('own-brand') && !newExpanded.has('own-brand')) {
-        newExpanded.add('own-brand')
-        hasChanges = true
-      }
-      if (activeModule.startsWith('opportunities') && !newExpanded.has('opportunities')) {
-        newExpanded.add('opportunities')
-        hasChanges = true
-      }
-      
-      // 只有在实际需要更新时才返回新的Set，否则返回原来的Set
-      return hasChanges ? newExpanded : prevExpanded
-    })
-  }, [activeModule])
+  // 移除自动展开逻辑 - 展开状态完全由用户控制
+  // useEffect(() => {
+  //   setExpandedSections(prevExpanded => {
+  //     const newExpanded = new Set(prevExpanded)
+  //     let hasChanges = false
+  //     
+  //     if (activeModule.startsWith('own-brand') && !newExpanded.has('own-brand')) {
+  //       newExpanded.add('own-brand')
+  //       hasChanges = true
+  //     }
+  //     if (activeModule.startsWith('opportunities') && !newExpanded.has('opportunities')) {
+  //       newExpanded.add('opportunities')
+  //       hasChanges = true
+  //     }
+  //     
+  //     // 只有在实际需要更新时才返回新的Set，否则返回原来的Set
+  //     return hasChanges ? newExpanded : prevExpanded
+  //   })
+  // }, [activeModule])
 
   const loadHistoricalReports = async () => {
     try {
