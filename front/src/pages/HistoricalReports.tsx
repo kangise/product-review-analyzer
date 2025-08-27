@@ -17,7 +17,10 @@ import {
   MessageSquare,
   Lightbulb,
   AlertCircle,
-  ChevronRight
+  ChevronRight,
+  Star,
+  Trash2,
+  Loader2
 } from 'lucide-react'
 
 interface HistoricalReport {
@@ -48,10 +51,134 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
   const [reports, setReports] = useState<HistoricalReport[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [favorites, setFavorites] = useState<Set<string>>(new Set())
+  const [deletingReports, setDeletingReports] = useState<Set<string>>(new Set())
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
+
+  // 过滤和排序报告
+  const filteredReports = reports
+    .filter(report => !showFavoritesOnly || favorites.has(report.id))
+    .sort((a, b) => {
+      // 收藏的报告排在前面
+      const aFavorite = favorites.has(a.id)
+      const bFavorite = favorites.has(b.id)
+      
+      if (aFavorite && !bFavorite) return -1
+      if (!aFavorite && bFavorite) return 1
+      
+      // 然后按时间倒序排列
+      return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    })
 
   useEffect(() => {
     loadHistoricalReports()
+    loadFavorites()
   }, [])
+
+  const loadFavorites = () => {
+    try {
+      const savedFavorites = localStorage.getItem('reviewmind-favorites')
+      if (savedFavorites) {
+        setFavorites(new Set(JSON.parse(savedFavorites)))
+      }
+    } catch (error) {
+      console.error('Failed to load favorites:', error)
+    }
+  }
+
+  const saveFavorites = (newFavorites: Set<string>) => {
+    try {
+      localStorage.setItem('reviewmind-favorites', JSON.stringify(Array.from(newFavorites)))
+      setFavorites(newFavorites)
+    } catch (error) {
+      console.error('Failed to save favorites:', error)
+    }
+  }
+
+  const toggleFavorite = (reportId: string) => {
+    const newFavorites = new Set(favorites)
+    if (newFavorites.has(reportId)) {
+      newFavorites.delete(reportId)
+    } else {
+      newFavorites.add(reportId)
+    }
+    saveFavorites(newFavorites)
+  }
+
+  const deleteReport = async (reportId: string) => {
+    if (!confirm(language === 'en' ? 
+      'Are you sure you want to delete this report? This action cannot be undone.' :
+      '确定要删除这个报告吗？此操作无法撤销。'
+    )) {
+      return
+    }
+
+    setDeletingReports(prev => new Set(prev).add(reportId))
+    
+    try {
+      const response = await fetch(`http://localhost:8000/reports/${reportId}`, {
+        method: 'DELETE'
+      })
+      
+      if (response.ok) {
+        // 从本地状态中移除报告
+        setReports(prev => prev.filter(report => report.id !== reportId))
+        
+        // 从收藏中移除
+        const newFavorites = new Set(favorites)
+        newFavorites.delete(reportId)
+        saveFavorites(newFavorites)
+        
+        console.log('✅ Report deleted:', reportId)
+      } else {
+        throw new Error('Failed to delete report')
+      }
+    } catch (error) {
+      console.error('Failed to delete report:', error)
+      alert(language === 'en' ? 
+        'Failed to delete report. Please try again.' :
+        '删除报告失败，请重试。'
+      )
+    } finally {
+      setDeletingReports(prev => {
+        const newSet = new Set(prev)
+        newSet.delete(reportId)
+        return newSet
+      })
+    }
+  }
+
+  const viewReport = (reportId: string) => {
+    // 切换到该报告并导航到分析页面
+    onSelectReport(reportId)
+    console.log('📊 Viewing report:', reportId)
+  }
+
+  const exportReport = async (reportId: string) => {
+    try {
+      const response = await fetch(`http://localhost:8000/reports/${reportId}/export`)
+      if (response.ok) {
+        const blob = await response.blob()
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `${reportId}_analysis_report.json`
+        document.body.appendChild(a)
+        a.click()
+        window.URL.revokeObjectURL(url)
+        document.body.removeChild(a)
+        console.log('📥 Report exported:', reportId)
+      } else {
+        throw new Error('Export failed')
+      }
+    } catch (error) {
+      console.error('Failed to export report:', error)
+      alert(language === 'en' ? 
+        'Failed to export report. Please try again.' :
+        '导出报告失败，请重试。'
+      )
+    }
+  }
 
   const loadHistoricalReports = async () => {
     try {
@@ -184,8 +311,26 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
               <Separator orientation="vertical" className="h-3" />
               <div className="gap-1 flex items-center">
                 <FileText className="h-3 w-3" />
-                <span>{reports.length} {language === 'en' ? 'reports' : '个报告'}</span>
+                <span>{filteredReports.length} {language === 'en' ? 'reports' : '个报告'}</span>
+                {showFavoritesOnly && (
+                  <span className="text-yellow-600">
+                    ({favorites.size} {language === 'en' ? 'favorites' : '收藏'})
+                  </span>
+                )}
               </div>
+              <Separator orientation="vertical" className="h-3" />
+              <Button
+                variant={showFavoritesOnly ? "default" : "outline"}
+                size="sm"
+                onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+                className="h-6 px-2 text-xs"
+              >
+                <Star className={`mr-1 h-3 w-3 ${showFavoritesOnly ? 'fill-current' : ''}`} />
+                {showFavoritesOnly 
+                  ? (language === 'en' ? 'Show All' : '显示全部')
+                  : (language === 'en' ? 'Favorites Only' : '仅收藏')
+                }
+              </Button>
             </div>
           </div>
         </div>
@@ -212,7 +357,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
             </CardContent>
           </Card>
         ) : (
-          reports.map((report, index) => (
+          filteredReports.map((report, index) => (
             <motion.div
               key={report.id}
               initial={{ opacity: 0, y: 20 }}
@@ -296,24 +441,74 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
                   <div className="gap-system-sm flex items-center justify-between">
                     <div className="gap-system-xs flex items-center text-xs text-muted-foreground">
                       <span>ID: {report.id.replace('analysis_results_', '')}</span>
+                      {favorites.has(report.id) && (
+                        <Star className="h-3 w-3 text-yellow-500 fill-current ml-2" />
+                      )}
                     </div>
                     <div className="gap-system-xs flex">
+                      {/* 收藏按钮 */}
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => onSelectReport(report.id)}
+                        onClick={() => toggleFavorite(report.id)}
+                        className={`h-7 px-3 text-xs ${
+                          favorites.has(report.id) 
+                            ? 'text-yellow-600 border-yellow-300 bg-yellow-50 hover:bg-yellow-100' 
+                            : ''
+                        }`}
+                        title={favorites.has(report.id) 
+                          ? (language === 'en' ? 'Remove from favorites' : '取消收藏')
+                          : (language === 'en' ? 'Add to favorites' : '添加收藏')
+                        }
+                      >
+                        <Star className={`mr-1 h-3 w-3 ${
+                          favorites.has(report.id) ? 'fill-current' : ''
+                        }`} />
+                        {favorites.has(report.id) 
+                          ? (language === 'en' ? 'Starred' : '已收藏')
+                          : (language === 'en' ? 'Star' : '收藏')
+                        }
+                      </Button>
+                      
+                      {/* 查看按钮 */}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => viewReport(report.id)}
                         className="h-7 px-3 text-xs"
                       >
                         <Eye className="mr-1 h-3 w-3" />
                         {language === 'en' ? 'View' : '查看'}
                       </Button>
+                      
+                      {/* 导出按钮 */}
                       <Button
                         variant="outline"
                         size="sm"
+                        onClick={() => exportReport(report.id)}
                         className="h-7 px-3 text-xs"
                       >
                         <Download className="mr-1 h-3 w-3" />
                         {language === 'en' ? 'Export' : '导出'}
+                      </Button>
+                      
+                      {/* 删除按钮 */}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => deleteReport(report.id)}
+                        disabled={deletingReports.has(report.id)}
+                        className="h-7 px-3 text-xs text-red-600 border-red-300 hover:bg-red-50"
+                      >
+                        {deletingReports.has(report.id) ? (
+                          <Loader2 className="mr-1 h-3 w-3 animate-spin" />
+                        ) : (
+                          <Trash2 className="mr-1 h-3 w-3" />
+                        )}
+                        {deletingReports.has(report.id)
+                          ? (language === 'en' ? 'Deleting...' : '删除中...')
+                          : (language === 'en' ? 'Delete' : '删除')
+                        }
                       </Button>
                     </div>
                   </div>

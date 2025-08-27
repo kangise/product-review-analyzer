@@ -11,7 +11,7 @@ import subprocess
 import threading
 import time
 from datetime import datetime
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, make_response
 from flask_cors import CORS
 import tempfile
 import shutil
@@ -375,6 +375,98 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
         print(f"❌ Error loading results: {str(e)}")
         print("Loading demo data as fallback...")
         return load_demo_results()
+
+@app.route('/reports/<report_id>', methods=['DELETE'])
+def delete_report(report_id):
+    """删除指定的历史报告"""
+    try:
+        import shutil
+        
+        # 验证报告ID格式
+        if not report_id.startswith('analysis_results_'):
+            return jsonify({'error': 'Invalid report ID format'}), 400
+        
+        # 检查目录是否存在
+        if not os.path.exists(report_id):
+            return jsonify({'error': 'Report not found'}), 404
+        
+        # 删除整个报告目录
+        shutil.rmtree(report_id)
+        print(f"✅ Deleted report directory: {report_id}")
+        
+        return jsonify({'message': 'Report deleted successfully'})
+        
+    except Exception as e:
+        print(f"❌ Error deleting report {report_id}: {e}")
+        return jsonify({'error': f'Failed to delete report: {str(e)}'}), 500
+
+@app.route('/reports/<report_id>/export', methods=['GET'])
+def export_report(report_id):
+    """导出指定报告的完整数据"""
+    try:
+        # 验证报告ID格式
+        if not report_id.startswith('analysis_results_'):
+            return jsonify({'error': 'Invalid report ID format'}), 400
+        
+        # 检查目录是否存在
+        if not os.path.exists(report_id):
+            return jsonify({'error': 'Report not found'}), 404
+        
+        # 收集所有JSON文件的数据
+        export_data = {
+            'reportId': report_id,
+            'exportTime': datetime.now().isoformat(),
+            'analysisResults': {}
+        }
+        
+        # 读取所有分析结果文件
+        analysis_files = [
+            'product_type.json',
+            'consumer_profile.json',
+            'consumer_motivation.json', 
+            'consumer_scenario.json',
+            'consumer_love.json',
+            'star_rating_root_cause.json',
+            'unmet_needs.json',
+            'opportunity.json',
+            'competitor.json'
+        ]
+        
+        for filename in analysis_files:
+            filepath = os.path.join(report_id, filename)
+            if os.path.exists(filepath):
+                try:
+                    with open(filepath, 'r', encoding='utf-8') as f:
+                        file_data = json.load(f)
+                    
+                    # 检查是否包含错误
+                    if 'error' not in file_data:
+                        module_name = filename.replace('.json', '')
+                        export_data['analysisResults'][module_name] = file_data
+                        
+                except Exception as e:
+                    print(f"Warning: Failed to read {filename}: {e}")
+        
+        # 添加元数据
+        if os.path.exists(os.path.join(report_id, 'metadata.json')):
+            try:
+                with open(os.path.join(report_id, 'metadata.json'), 'r', encoding='utf-8') as f:
+                    metadata = json.load(f)
+                export_data['metadata'] = metadata
+            except:
+                pass
+        
+        # 返回JSON文件下载
+        response = make_response(json.dumps(export_data, ensure_ascii=False, indent=2))
+        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+        response.headers['Content-Disposition'] = f'attachment; filename="{report_id}_export.json"'
+        
+        print(f"✅ Exported report: {report_id}")
+        return response
+        
+    except Exception as e:
+        print(f"❌ Error exporting report {report_id}: {e}")
+        return jsonify({'error': f'Failed to export report: {str(e)}'}), 500
 
 @app.route('/reports', methods=['GET'])
 def get_reports():
