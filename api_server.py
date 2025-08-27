@@ -237,41 +237,9 @@ def get_analysis_status(analysis_id):
 def get_analysis_result(analysis_id):
     """获取分析结果"""
     if analysis_id == 'latest':
-        # 特殊处理：加载最新的分析结果
+        # 特殊处理：加载最新的分析结果或demo数据
         try:
-            # 尝试从最新的分析结果目录中获取实际的metadata
-            latest_target_category = 'Webcams'  # 默认值
-            latest_has_competitor = False
-            
-            # 查找最新的分析结果目录
-            results_dirs = []
-            for item in os.listdir('.'):
-                if os.path.isdir(item) and item.startswith('analysis_results_'):
-                    results_dirs.append(item)
-            
-            if results_dirs:
-                # 按时间排序，获取最新的
-                results_dirs.sort(reverse=True)
-                latest_dir = results_dirs[0]
-                
-                # 尝试读取metadata文件
-                metadata_file = os.path.join(latest_dir, 'metadata.json')
-                if os.path.exists(metadata_file):
-                    try:
-                        with open(metadata_file, 'r', encoding='utf-8') as f:
-                            metadata = json.load(f)
-                        latest_target_category = metadata.get('targetCategory', 'Webcams')
-                        latest_has_competitor = metadata.get('hasCompetitorData', False)
-                        print(f"✅ Loaded metadata: category={latest_target_category}, competitor={latest_has_competitor}")
-                    except Exception as e:
-                        print(f"❌ Error reading metadata: {e}")
-                
-                # 检查是否有竞品文件
-                competitor_file = os.path.join(latest_dir, 'competitor.json')
-                if os.path.exists(competitor_file):
-                    latest_has_competitor = True
-                
-            result = load_analysis_results('latest', latest_target_category, latest_has_competitor)
+            result = load_analysis_results('latest', 'Consumer Electronics', False)
             if 'error' in result:
                 return jsonify({'error': 'No analysis results found'}), 404
             return jsonify(result)
@@ -300,7 +268,8 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
         import glob
         result_dirs = glob.glob('analysis_results_*')
         if not result_dirs:
-            raise Exception("No analysis results found. Please run analysis first.")
+            print("No analysis results found, loading demo data from demoresult folder...")
+            return load_demo_results()
         
         # 按时间排序，从最新开始查找
         result_dirs.sort(reverse=True)
@@ -332,7 +301,8 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
                 break
         
         if not results_dir:
-            raise Exception("No complete analysis results found. Latest analysis may still be running.")
+            print("No complete analysis results found, loading demo data from demoresult folder...")
+            return load_demo_results()
         
         print(f"Loading results from: {results_dir}")
         
@@ -391,13 +361,8 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
         
     except Exception as e:
         print(f"❌ Error loading results: {str(e)}")
-        return {
-            'id': analysis_id,
-            'timestamp': datetime.now().isoformat(),
-            'hasCompetitorData': has_competitor_data,
-            'targetCategory': target_category,
-            'error': str(e)
-        }
+        print("Loading demo data as fallback...")
+        return load_demo_results()
 
 @app.route('/reports', methods=['GET'])
 def get_reports():
@@ -409,6 +374,92 @@ def get_reports():
 def get_report(report_id):
     """获取特定报告"""
     return jsonify({'error': 'Report not found'}), 404
+
+def load_demo_results():
+    """从demoresult文件夹加载demo数据"""
+    try:
+        demo_dir = 'demoresult'
+        if not os.path.exists(demo_dir):
+            raise Exception("Demo results directory not found")
+        
+        print(f"Loading demo results from: {demo_dir}")
+        
+        # 读取demo文件
+        results = {}
+        
+        required_files = [
+            'consumer_profile.json', 'consumer_motivation.json', 'consumer_scenario.json',
+            'consumer_love.json', 'star_rating_root_cause.json', 'unmet_needs.json',
+            'opportunity.json', 'competitor.json', 'product_type.json'
+        ]
+        
+        file_mapping = {
+            'consumer_profile.json': 'consumer_profile',
+            'consumer_motivation.json': 'consumer_motivation', 
+            'consumer_scenario.json': 'consumer_scenario',
+            'consumer_love.json': 'consumer_love',
+            'star_rating_root_cause.json': 'star_rating_root_cause',
+            'unmet_needs.json': 'unmet_needs',
+            'opportunity.json': 'opportunity',
+            'competitor.json': 'competitor',
+            'product_type.json': 'product_type'
+        }
+        
+        for filename in required_files:
+            filepath = os.path.join(demo_dir, filename)
+            key = file_mapping[filename]
+            try:
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    results[key] = json.load(f)
+                    print(f"✅ Loaded demo {filename}: {len(str(results[key]))} characters")
+            except Exception as e:
+                print(f"❌ Error loading demo {filename}: {e}")
+                results[key] = {}
+        
+        # 读取demo metadata
+        demo_metadata = {}
+        metadata_path = os.path.join(demo_dir, 'metadata.json')
+        if os.path.exists(metadata_path):
+            try:
+                with open(metadata_path, 'r', encoding='utf-8') as f:
+                    demo_metadata = json.load(f)
+                print(f"✅ Loaded demo metadata")
+            except Exception as e:
+                print(f"❌ Error loading demo metadata: {e}")
+        
+        # 格式化为前端期望的结构
+        formatted_result = {
+            'id': demo_metadata.get('id', 'demo-analysis'),
+            'timestamp': demo_metadata.get('timestamp', datetime.now().isoformat()),
+            'hasCompetitorData': demo_metadata.get('hasCompetitorData', bool(results.get('competitor', {}))),
+            'targetCategory': demo_metadata.get('targetCategory', 'Consumer Electronics'),
+            'ownBrandAnalysis': {
+                'userInsights': results.get('consumer_profile', {}),
+                'userMotivation': results.get('consumer_motivation', {}),
+                'userScenario': results.get('consumer_scenario', {}),
+                'userFeedback': {
+                    'consumerLove': results.get('consumer_love', {}),
+                    'starRating': results.get('star_rating_root_cause', {})
+                },
+                'unmetNeeds': results.get('unmet_needs', {}),
+                'opportunities': results.get('opportunity', {})
+            },
+            'competitorAnalysis': results.get('competitor', {})
+        }
+        
+        print(f"✅ Demo results loaded with {len([k for k, v in results.items() if v])} modules")
+        return formatted_result
+        
+    except Exception as e:
+        print(f"❌ Error loading demo results: {str(e)}")
+        # 如果连demo数据都加载失败，返回基本错误结构
+        return {
+            'id': 'demo-analysis',
+            'timestamp': datetime.now().isoformat(),
+            'hasCompetitorData': False,
+            'targetCategory': 'Consumer Electronics',
+            'error': f'Failed to load demo data: {str(e)}'
+        }
 
 if __name__ == '__main__':
     print("🚀 Starting ReviewMind AI API Server...")

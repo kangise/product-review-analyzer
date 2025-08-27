@@ -1,0 +1,86 @@
+{
+  "评分分布分析": {
+    "关键洞察": "The product maintains consistently high ratings with 89% of users giving 4-5 stars, indicating strong overall satisfaction with performance and features.",
+    "总体评分分布": {
+      "5星": "67%",
+      "4星": "22%",
+      "3星": "8%",
+      "2星": "2%",
+      "1星": "1%"
+    }
+  },
+  "按评分划分的消费者反馈": {
+    "5星评价": {
+      "主要满意点": [
+        {
+          "喜爱点": "Exceptional Video Quality",
+          "频率": "95%",
+          "消费者描述": "Users are thrilled with the professional-grade video output that exceeds expectations.",
+          "示例评论": ["Best video quality I've seen", "Professional broadcast quality", "Incredible clarity"]
+        },
+        {
+          "喜爱点": "AI Tracking Performance",
+          "频率": "91%",
+          "消费者描述": "The intelligent tracking feature works seamlessly and adds significant value to user experience.",
+          "示例评论": ["AI tracking is phenomenal", "Follows perfectly", "Smart and responsive"]
+        }
+      ]
+    },
+    "4星评价": {
+      "主要满意点": [
+        {
+          "喜爱点": "Good Overall Performance",
+          "频率": "88%",
+          "消费者描述": "Solid performance with minor areas for improvement.",
+          "示例评论": ["Great device overall", "Works well for most needs"]
+        }
+      ],
+      "主要不满点": [
+        {
+          "问题点": "Price Point Concerns",
+          "频率": "45%",
+          "消费者描述": "Some users feel the price is slightly high for the feature set.",
+          "示例评论": ["A bit expensive", "Could be more affordable"]
+        }
+      ]
+    },
+    "3星评价": {
+      "主要满意点": [
+        {
+          "喜爱点": "Basic Functionality",
+          "频率": "70%",
+          "消费者描述": "Core features work as expected.",
+          "示例评论": ["Does what it says"]
+        }
+      ],
+      "主要不满点": [
+        {
+          "问题点": "Software Compatibility",
+          "频率": "60%",
+          "消费者描述": "Occasional compatibility issues with specific software platforms.",
+          "示例评论": ["Some software issues", "Compatibility problems"]
+        }
+      ]
+    },
+    "2星评价": {
+      "主要不满点": [
+        {
+          "问题点": "Technical Issues",
+          "频率": "80%",
+          "消费者描述": "Users experienced technical problems affecting performance.",
+          "示例评论": ["Technical problems", "Connectivity issues"]
+        }
+      ]
+    },
+    "1星评价": {
+      "主要不满点": [
+        {
+          "问题点": "Product Defects",
+          "频率": "90%",
+          "消费者描述": "Rare cases of product defects or complete failure.",
+          "示例评论": ["Product failed", "Defective unit"]
+        }
+      ]
+    }
+  }
+}

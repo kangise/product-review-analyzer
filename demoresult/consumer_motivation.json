@@ -1,0 +1,27 @@
+{
+  "购买动机洞察总结": {
+    "技术指标维度": "Users prioritize high-resolution video quality, reliable connectivity, and advanced features like AI tracking for professional applications.",
+    "功能属性维度": "Key features include plug-and-play compatibility, intelligent auto-focus, and seamless integration with popular video platforms.",
+    "使用场景维度": "Primary use cases include video conferencing, content creation, live streaming, and online education delivery."
+  },
+  "具体购买动机": [
+    {
+      "动机": "Professional Video Quality",
+      "动机重要性": "85%",
+      "消费者描述": "Users seek crystal-clear video resolution for professional presentations and content creation.",
+      "相关评论示例": ["Excellent video quality for meetings", "Perfect clarity for streaming", "Professional-grade image quality"]
+    },
+    {
+      "动机": "Easy Setup & Compatibility",
+      "动机重要性": "78%",
+      "消费者描述": "Plug-and-play functionality with wide device compatibility is highly valued.",
+      "相关评论示例": ["Works instantly with my laptop", "No driver installation needed", "Compatible with all platforms"]
+    },
+    {
+      "动机": "AI Smart Features",
+      "动机重要性": "72%",
+      "消费者描述": "Intelligent tracking and auto-focus features enhance user experience significantly.",
+      "相关评论示例": ["AI tracking works perfectly", "Smart auto-focus is amazing", "Follows movement naturally"]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "核心未满足需求洞察": {
+    "关键洞察": "Users seek enhanced low-light performance, extended compatibility with emerging platforms, and more affordable pricing options for broader market access.",
+    "细分需求类型": [
+      {
+        "需求类型": "Enhanced Low-Light Performance",
+        "重要性": "78%",
+        "消费者描述": "Better performance in challenging lighting conditions for various environments.",
+        "相关评论示例": ["Needs better low-light performance", "Struggles in dim lighting"]
+      },
+      {
+        "需求类型": "Extended Platform Support",
+        "重要性": "65%",
+        "消费者描述": "Broader compatibility with emerging video platforms and software.",
+        "相关评论示例": ["More platform support needed", "Limited software compatibility"]
+      },
+      {
+        "需求类型": "Affordable Pricing Options",
+        "重要性": "58%",
+        "消费者描述": "More accessible pricing tiers to reach broader consumer segments.",
+        "相关评论示例": ["Too expensive for features", "Need budget-friendly option"]
+      }
+    ]
+  }
+}

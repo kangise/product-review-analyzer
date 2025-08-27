@@ -1,0 +1,32 @@
+{
+  "核心竞争洞察": {
+    "我方核心优势": [
+      "Superior AI tracking technology and accuracy",
+      "Exceptional video quality and image processing",
+      "Seamless plug-and-play user experience"
+    ],
+    "我方核心劣势": [
+      "Higher price point compared to basic alternatives",
+      "Limited advanced software integration options"
+    ],
+    "品类共性关键": [
+      "Video quality is the primary purchase driver",
+      "Ease of setup and compatibility are essential",
+      "Price sensitivity varies by user segment"
+    ]
+  },
+  "客户喜爱点对比": {
+    "我方独有优势": [
+      "Advanced AI tracking capabilities",
+      "Professional-grade video processing"
+    ],
+    "竞品优势领域": [
+      "More affordable pricing options",
+      "Broader software ecosystem integration"
+    ],
+    "共同优势": [
+      "High-definition video output",
+      "Cross-platform compatibility"
+    ]
+  }
+}

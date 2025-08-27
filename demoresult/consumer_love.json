@@ -1,0 +1,27 @@
+{
+  "消费者洞察总结": {
+    "使用场景": "Users love the versatility for both professional meetings and creative content production.",
+    "功能属性": "The combination of high-quality optics and intelligent software features creates exceptional user satisfaction.",
+    "技术规格": "Advanced sensor technology and processing capabilities deliver consistent performance across various lighting conditions."
+  },
+  "核心赞美点分析": [
+    {
+      "赞美点": "Outstanding Video Quality",
+      "频率": "92%",
+      "消费者描述": "Users consistently praise the sharp, clear video output that enhances their professional image.",
+      "相关评论示例": ["Crystal clear video", "Amazing picture quality", "Professional-grade clarity"]
+    },
+    {
+      "赞美点": "Intelligent Auto-Tracking",
+      "频率": "87%",
+      "消费者描述": "The AI-powered tracking feature receives high praise for its accuracy and natural movement.",
+      "相关评论示例": ["Tracking works flawlessly", "Follows me perfectly", "Smart movement detection"]
+    },
+    {
+      "赞美点": "Plug-and-Play Simplicity",
+      "频率": "83%",
+      "消费者描述": "Users appreciate the hassle-free setup and broad compatibility across devices and platforms.",
+      "相关评论示例": ["Works immediately", "No setup required", "Universal compatibility"]
+    }
+  ]
+}
