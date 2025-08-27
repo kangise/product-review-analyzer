@@ -303,7 +303,7 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-4xl max-h-[80vh] mx-4"
+            className="relative w-full max-w-2xl max-h-[80vh] mx-4"
           >
             <Card className="border-clean shadow-clean-lg">
               <CardHeader className="spacing-system-lg border-b border-border">
