@@ -259,13 +259,49 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
           
           {expandedSections.has('star-rating') && (
             <CardContent className="spacing-system-lg">
+              {/* 关键洞察 */}
+              {starRatingData?.评分分布分析?.关键洞察 && (
+                <motion.div 
+                  className="spacing-system-md bg-accent rounded-lg border-clean mb-6"
+                  whileHover={{ scale: 1.01 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Key Insights' : '关键洞察'}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {starRatingData.评分分布分析.关键洞察}
+                  </p>
+                </motion.div>
+              )}
+
               {/* Rating Distribution Overview */}
               <div className="gap-system-lg grid md:grid-cols-2 mb-6">
-                {/* Pie Chart */}
+                {/* Bar Chart for Rating Distribution */}
                 <div>
                   <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
                     <TrendingUp className="h-4 w-4 text-primary" />
                     {language === 'en' ? 'Rating Distribution' : '评分分布'}
+                  </h4>
+                  <div className="gap-3 flex flex-col">
+                    {Object.entries(ratingDistributionRaw).map(([rating, percentage]) => (
+                      <div key={rating} className="flex items-center gap-3">
+                        <div className="w-12 text-sm font-medium">{rating}</div>
+                        <div className="flex-1">
+                          <Progress 
+                            value={parseFloat((percentage as string).replace('%', ''))} 
+                            className="h-2"
+                          />
+                        </div>
+                        <div className="w-12 text-sm text-muted-foreground text-right">{percentage}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Pie Chart */}
+                <div>
+                  <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
+                    <Star className="h-4 w-4 text-primary" />
+                    {language === 'en' ? 'Visual Distribution' : '可视化分布'}
                   </h4>
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
@@ -274,8 +310,8 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                           data={ratingDistribution}
                           cx="50%"
                           cy="50%"
-                          innerRadius={60}
-                          outerRadius={100}
+                          innerRadius={40}
+                          outerRadius={80}
                           paddingAngle={2}
                           dataKey="value"
                         >
@@ -284,20 +320,102 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                           ))}
                         </Pie>
                         <RechartsTooltip 
-                          formatter={(value: any) => [`${value}%`, 'Percentage']}
+                          formatter={(value: any) => [`${value}%`, language === 'en' ? 'Percentage' : '百分比']}
                         />
                       </PieChart>
                     </ResponsiveContainer>
                   </div>
                 </div>
+              </div>
 
-                {/* Key Insights */}
-                <div>
-                  <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
-                    <Info className="h-4 w-4 text-primary" />
-                    {language === 'en' ? 'Key Insights' : '关键洞察'}
-                  </h4>
-                  <motion.div 
+              {/* 按评分段详细分析 */}
+              <div className="gap-system-md flex flex-col">
+                <h4 className="font-medium text-sm flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4 text-primary" />
+                  {language === 'en' ? 'Detailed Analysis by Rating' : '按评分段详细分析'}
+                </h4>
+                
+                {Object.entries(ratingFeedback).map(([rating, data]: [string, any]) => (
+                  <motion.div
+                    key={rating}
+                    className="spacing-system-md bg-muted rounded-lg border-clean"
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <h5 className="font-medium text-sm flex items-center gap-2">
+                        <Star className="h-4 w-4" />
+                        {rating}
+                      </h5>
+                      <Badge variant="outline" className="text-xs">
+                        {ratingDistributionRaw[rating] || '0%'}
+                      </Badge>
+                    </div>
+                    
+                    {/* 主要满意点/不满意点 */}
+                    {data.主要满意点 && (
+                      <div className="mb-4">
+                        <h6 className="font-medium text-xs mb-2 text-green-600">
+                          {language === 'en' ? 'Main Satisfaction Points' : '主要满意点'}
+                        </h6>
+                        <div className="gap-2 flex flex-col">
+                          {data.主要满意点.map((point: any, index: number) => (
+                            <div key={index} className="spacing-system-sm bg-green-50 dark:bg-green-900/20 rounded border-l-2 border-green-500">
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="text-xs font-medium">{point.喜爱点}</span>
+                                <Badge variant="secondary" className="text-xs">{point.频率}</Badge>
+                              </div>
+                              {point.示例评论 && point.示例评论.length > 0 && (
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-6 px-2 text-xs"
+                                  onClick={() => showQuotes(point.示例评论, point.喜爱点)}
+                                >
+                                  <MessageSquare className="mr-1 h-3 w-3" />
+                                  {language === 'en' ? 'Examples' : '示例'} ({point.示例评论.length})
+                                </Button>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 主要不满意点 */}
+                    {data.主要不满意点 && (
+                      <div>
+                        <h6 className="font-medium text-xs mb-2 text-red-600">
+                          {language === 'en' ? 'Main Dissatisfaction Points' : '主要不满意点'}
+                        </h6>
+                        <div className="gap-2 flex flex-col">
+                          {data.主要不满意点.map((point: any, index: number) => (
+                            <div key={index} className="spacing-system-sm bg-red-50 dark:bg-red-900/20 rounded border-l-2 border-red-500">
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="text-xs font-medium">{point.问题点}</span>
+                                <Badge variant="destructive" className="text-xs">{point.频率}</Badge>
+                              </div>
+                              {point.示例评论 && point.示例评论.length > 0 && (
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-6 px-2 text-xs"
+                                  onClick={() => showQuotes(point.示例评论, point.问题点)}
+                                >
+                                  <MessageSquare className="mr-1 h-3 w-3" />
+                                  {language === 'en' ? 'Examples' : '示例'} ({point.示例评论.length})
+                                </Button>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </CardContent>
+          )} 
                     className="spacing-system-md bg-accent rounded-lg border-clean"
                     whileHover={{ scale: 1.01 }}
                     transition={{ duration: 0.2 }}

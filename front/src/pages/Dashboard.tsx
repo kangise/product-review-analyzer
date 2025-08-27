@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { 
   Upload, TrendingUp, Users, Target, Star, BarChart3,
   ArrowRight, CheckCircle, Clock, FileText, Zap

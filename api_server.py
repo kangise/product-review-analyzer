@@ -322,7 +322,7 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
         formatted_result = {
             'id': analysis_id,
             'timestamp': datetime.now().isoformat(),
-            'hasCompetitorData': has_competitor_data,
+            'hasCompetitorData': bool(results.get('competitor', {})),  # 根据实际数据设置
             'targetCategory': target_category,
             'ownBrandAnalysis': {
                 'userInsights': results.get('consumer_profile', {}),
