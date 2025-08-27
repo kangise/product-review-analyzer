@@ -496,7 +496,7 @@ export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [uploadingFile, setUploadingFile] = useState<string | null>(null)
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['own-brand', 'opportunities']))
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set())
   const [hoveredUserGroup, setHoveredUserGroup] = useState<UserGroupData | null>(null)
   const [theme, setTheme] = useState<ThemeMode>('system')
   const [language, setLanguage] = useState<Language>('en') // Default to English
@@ -604,7 +604,10 @@ export default function App() {
         return
       }
       
-      const reports = await response.json()
+      const data = await response.json()
+      // API返回格式是 {reports: [...]}，需要提取reports数组
+      const reports = data.reports || []
+      console.log('📊 Loaded historical reports:', reports.length)
       setHistoricalReports(reports)
     } catch (error) {
       console.error('Failed to load historical reports:', error)
@@ -897,7 +900,7 @@ export default function App() {
     setTargetCategory('')
     setActiveModule('dashboard')
     setError(null)
-    setExpandedSections(new Set(['own-brand', 'opportunities']))
+    setExpandedSections(new Set())
   }
 
   const toggleSection = (sectionId: string) => {
