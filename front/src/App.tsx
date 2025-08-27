@@ -28,7 +28,7 @@ import { HistoricalReports } from './pages/HistoricalReports'
 const translations = {
   en: {
     // App title and main branding
-    appTitle: "Amazon Review Intelligence Tool",
+    appTitle: "Novochoice AI - Customer Intelligence Engine",
     appSubtitle: "AI-powered deep analysis to uncover user insights and market opportunities from customer reviews",
     
     // Navigation

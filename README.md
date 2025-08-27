@@ -1,10 +1,10 @@
-# ReviewMind AI - AI-Powered Customer Intelligence Engine
+# Novochoice AI - AI-Powered Customer Intelligence Engine
 
 > Transform Product Reviews into Strategic Market Insights
 
 ## 🎯 Project Overview
 
-ReviewMind AI is an advanced GenAI-powered platform that transforms raw customer review data into actionable business intelligence. Built for the **WWGS 2025 GenAI Shark Tank**, this system provides comprehensive analysis across product improvement, innovation opportunities, and marketing positioning strategies.
+Novochoice AI is an advanced GenAI-powered platform that transforms raw customer review data into actionable business intelligence. Built for the **WWGS 2025 GenAI Shark Tank**, this system provides comprehensive analysis across product improvement, innovation opportunities, and marketing positioning strategies.
 
 ## 🚀 Key Features
 
@@ -32,7 +32,7 @@ ReviewMind AI is an advanced GenAI-powered platform that transforms raw customer
 ## 📁 Project Structure
 
 ```
-ReviewMind AI/
+Novochoice AI/
 ├── 🤖 Core Engine
 │   ├── review_analyzer.py          # Main analysis engine
 │   ├── run_analysis.py            # Quick start script
@@ -55,8 +55,8 @@ ReviewMind AI/
 │   └── cleaned/                   # Preprocessed data
 ├── 📈 Results
 │   └── [Latest analysis results]  # JSON outputs and reports
-└── 📚 Archive
-    └── [Historical files and tests]
+└── 🌐 Frontend
+    └── [React TypeScript Application] # Professional UI interface
 ```
 
 ## 🚀 Quick Start
@@ -85,7 +85,7 @@ python3 validate_prompts.py
 - **Market Speed**: 10x faster time-to-insight for competitive positioning
 
 ### Competitive Advantage vs. Traditional Tools
-| Feature | ReviewMind AI | Traditional Tools | Advantage |
+| Feature | Novochoice AI | Traditional Tools | Advantage |
 |---------|---------------|-------------------|-----------|
 | **AI Depth** | 9-stage comprehensive analysis | Basic sentiment + keywords | 5x more insights |
 | **Context Processing** | 125KB+ context windows | Limited context | Handles complex products |
@@ -159,20 +159,5 @@ The system generates comprehensive insights across three dimensions:
 - **Enterprise Licensing**: $50K-$500K annual contracts
 - **API Integration**: $0.10 per review processed
 - **Consulting Services**: $200K+ implementation projects
-
-## 🏆 WWGS 2025 GenAI Shark Tank
-
-This project represents the future of customer intelligence, turning every review into a strategic advantage. Built on Amazon's enterprise AI infrastructure with proven ROI and scalable architecture.
-
-**Why This Wins:**
-1. **Proven Technology**: Working prototype with real customer validation
-2. **Clear ROI**: Quantifiable business impact with 10x+ return potential  
-3. **Scalable Architecture**: Built on Amazon's enterprise AI infrastructure
-4. **Market Timing**: Perfect intersection of GenAI maturity and e-commerce growth
-5. **Competitive Moat**: Deep AI expertise + cultural intelligence + enterprise integration
-
----
-
-*Built with Amazon Q CLI • Powered by Advanced GenAI • Ready for Enterprise Scale*
 
 **Last Updated**: August 27, 2025

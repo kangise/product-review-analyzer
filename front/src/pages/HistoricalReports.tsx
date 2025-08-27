@@ -77,7 +77,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
 
   const loadFavorites = () => {
     try {
-      const savedFavorites = localStorage.getItem('reviewmind-favorites')
+      const savedFavorites = localStorage.getItem('novochoice-favorites')
       if (savedFavorites) {
         setFavorites(new Set(JSON.parse(savedFavorites)))
       }
@@ -88,7 +88,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
 
   const saveFavorites = (newFavorites: Set<string>) => {
     try {
-      localStorage.setItem('reviewmind-favorites', JSON.stringify(Array.from(newFavorites)))
+      localStorage.setItem('novochoice-favorites', JSON.stringify(Array.from(newFavorites)))
       setFavorites(newFavorites)
     } catch (error) {
       console.error('Failed to save favorites:', error)

@@ -201,7 +201,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <BarChart3 className="w-4 h-4 text-primary-foreground" />
           </div>
           <div>
-            <h1 className="font-semibold text-sidebar-foreground">ReviewMind AI</h1>
+            <h1 className="font-semibold text-sidebar-foreground">Novochoice AI</h1>
             <p className="text-xs text-sidebar-foreground/60">
               {language === 'en' ? 'Customer Intelligence' : '客户智能分析'}
             </p>

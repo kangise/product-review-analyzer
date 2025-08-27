@@ -1,4 +1,4 @@
-// API Types for ReviewMind AI
+// API Types for Novochoice AI
 export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;

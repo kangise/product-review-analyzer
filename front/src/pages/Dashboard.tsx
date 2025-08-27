@@ -17,7 +17,7 @@ interface DashboardProps {
 
 const translations = {
   en: {
-    title: "Amazon Review Intelligence Dashboard",
+    title: "Novochoice AI - Customer Intelligence Dashboard",
     subtitle: "Transform customer reviews into strategic business insights",
     startAnalysis: "Start New Analysis",
     viewFeatures: "View All Features",

@@ -1,4 +1,4 @@
-// Analysis Types for ReviewMind AI
+// Analysis Types for Novochoice AI
 export interface AnalysisResult {
   id: string;
   timestamp: string;

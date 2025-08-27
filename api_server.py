@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ReviewMind AI - Local API Server
+Novochoice AI - Local API Server
 简单的Flask服务器，连接前端和Python分析引擎
 """
 
@@ -46,7 +46,7 @@ def health_check():
     """健康检查端点"""
     return jsonify({
         'status': 'healthy',
-        'message': 'ReviewMind AI API Server is running',
+        'message': 'Novochoice AI API Server is running',
         'timestamp': datetime.now().isoformat()
     })
 
@@ -657,7 +657,7 @@ def load_demo_results():
         }
 
 if __name__ == '__main__':
-    print("🚀 Starting ReviewMind AI API Server...")
+    print("🚀 Starting Novochoice AI API Server...")
     print("📊 Server will run at: http://localhost:8000")
     print("🔗 Frontend should connect to: http://localhost:8000")
     print("💡 Real-time analysis progress tracking enabled!")
