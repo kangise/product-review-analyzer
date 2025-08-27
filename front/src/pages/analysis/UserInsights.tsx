@@ -281,48 +281,22 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
           
           {expandedSections.has('consumer-motivation') && (
             <CardContent className="spacing-system-lg">
-              {consumerMotivationData.购买动机洞察总结 && (
+              {consumerMotivationData.购买动机洞察 && (
                 <div className="gap-system-lg flex flex-col">
-                  {/* 技术指标维度 */}
                   <motion.div 
                     className="spacing-system-md bg-accent rounded-lg border-clean"
                     whileHover={{ scale: 1.01 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Technical Specifications' : '技术指标维度'}</h4>
+                    <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Core Purchase Motivation' : '核心购买动机'}</h4>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      {consumerMotivationData.购买动机洞察总结?.技术指标维度}
+                      {consumerMotivationData.购买动机洞察?.核心购买动机}
                     </p>
                   </motion.div>
 
-                  {/* 功能属性维度 */}
-                  <motion.div 
-                    className="spacing-system-md bg-accent rounded-lg border-clean"
-                    whileHover={{ scale: 1.01 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Feature Attributes' : '功能属性维度'}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {consumerMotivationData.购买动机洞察总结?.功能属性维度}
-                    </p>
-                  </motion.div>
-
-                  {/* 使用场景维度 */}
-                  <motion.div 
-                    className="spacing-system-md bg-accent rounded-lg border-clean"
-                    whileHover={{ scale: 1.01 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Usage Scenarios' : '使用场景维度'}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {consumerMotivationData.购买动机洞察总结?.使用场景维度}
-                    </p>
-                  </motion.div>
-
-                  {/* 具体购买动机 */}
-                  {consumerMotivationData.具体购买动机 && (
+                  {consumerMotivationData.购买动机洞察?.细分动机类型 && (
                     <div className="gap-system-md grid md:grid-cols-2">
-                      {consumerMotivationData.具体购买动机.map((motivation: any, index: number) => (
+                      {consumerMotivationData.购买动机洞察.细分动机类型.map((motivation: any, index: number) => (
                         <motion.div
                           key={index}
                           className="spacing-system-md bg-muted rounded-lg border-clean"
@@ -330,33 +304,20 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
                           transition={{ duration: 0.2 }}
                         >
                           <div className="flex items-center justify-between mb-2">
-                            <h5 className="font-medium text-sm">{motivation.动机}</h5>
+                            <h5 className="font-medium text-sm">{motivation.动机类型}</h5>
                             <Badge variant="outline" className="text-xs">
-                              {motivation.动机重要性}
+                              {motivation.比例}
                             </Badge>
                           </div>
                           <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
-                            {motivation.消费者描述}
+                            {motivation.特征描述}
                           </p>
-                          {motivation.相关评论示例 && motivation.相关评论示例.length > 0 && (
+                          {motivation.关键review信息 && (
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="h-6 px-2 text-xs"
-                              onClick={() => showQuotes(motivation.相关评论示例, motivation.动机)}
-                            >
-                              <MessageSquare className="mr-1 h-3 w-3" />
-                              {language === 'en' ? 'View Examples' : '查看示例'} ({motivation.相关评论示例.length})
-                            </Button>
-                          )}
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-            </CardContent>
-          )}
+                              onClick={() => showQuotes([motivation.关键review信息], motivation.动机类型)}
+                              className="text-xs h-6 px-2"
                             >
                               <MessageSquare className="w-3 h-3 mr-1" />
                               {language === 'en' ? 'View Quote' : '查看原声'}
@@ -400,80 +361,20 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
           
           {expandedSections.has('consumer-scenario') && (
             <CardContent className="spacing-system-lg">
-              {consumerScenarioData.洞察总结 && (
+              {consumerScenarioData.使用场景洞察 && (
                 <div className="gap-system-lg flex flex-col">
-                  {/* 重要度最高的消费场景 */}
                   <motion.div 
                     className="spacing-system-md bg-accent rounded-lg border-clean"
                     whileHover={{ scale: 1.01 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'High Priority Scenarios' : '重要度最高的消费场景'}</h4>
-                    <div className="gap-2 flex flex-col">
-                      {consumerScenarioData.洞察总结?.重要度最高的消费场景?.map((scenario: string, index: number) => (
-                        <p key={index} className="text-sm text-muted-foreground leading-relaxed">
-                          • {scenario}
-                        </p>
-                      ))}
-                    </div>
+                    <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Core Usage Scenarios' : '核心使用场景'}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {consumerScenarioData.使用场景洞察?.核心使用场景}
+                    </p>
                   </motion.div>
 
-                  {/* 小众但被忽视的消费场景 */}
-                  {consumerScenarioData.洞察总结?.小众但被忽视的消费场景 && (
-                    <motion.div 
-                      className="spacing-system-md bg-accent rounded-lg border-clean"
-                      whileHover={{ scale: 1.01 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Niche Opportunities' : '小众但被忽视的消费场景'}</h4>
-                      <div className="gap-2 flex flex-col">
-                        {consumerScenarioData.洞察总结.小众但被忽视的消费场景.map((scenario: string, index: number) => (
-                          <p key={index} className="text-sm text-muted-foreground leading-relaxed">
-                            • {scenario}
-                          </p>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {/* 产品使用场景分析 */}
-                  {consumerScenarioData.产品使用场景分析 && (
-                    <div className="gap-system-md grid md:grid-cols-2">
-                      {consumerScenarioData.产品使用场景分析.map((scenario: any, index: number) => (
-                        <motion.div
-                          key={index}
-                          className="spacing-system-md bg-muted rounded-lg border-clean"
-                          whileHover={{ scale: 1.01 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <div className="flex items-center justify-between mb-2">
-                            <h5 className="font-medium text-sm">{scenario.场景名称}</h5>
-                            <Badge variant="outline" className="text-xs">
-                              {scenario.场景重要性}
-                            </Badge>
-                          </div>
-                          <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
-                            {scenario.场景描述}
-                          </p>
-                          {scenario.相关评论 && scenario.相关评论.length > 0 && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="h-6 px-2 text-xs"
-                              onClick={() => showQuotes(scenario.相关评论, scenario.场景名称)}
-                            >
-                              <MessageSquare className="mr-1 h-3 w-3" />
-                              {language === 'en' ? 'View Examples' : '查看示例'} ({scenario.相关评论.length})
-                            </Button>
-                          )}
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-            </CardContent>
-          )}
+                  {consumerScenarioData.使用场景洞察?.细分场景类型 && (
                     <div className="gap-system-md grid md:grid-cols-3">
                       {consumerScenarioData.使用场景洞察.细分场景类型.map((scenario: any, index: number) => (
                         <motion.div
