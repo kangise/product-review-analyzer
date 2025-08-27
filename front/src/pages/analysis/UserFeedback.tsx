@@ -497,14 +497,15 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                               <div key={index} className="spacing-system-sm bg-red-50 dark:bg-red-900/20 rounded border-l-2 border-red-500">
                                 <div className="flex items-center justify-between mb-1">
                                   <span className="text-xs font-medium">{point.问题点 || point.不满意点 || `问题点 ${index + 1}`}</span>
-                                  {point.频率 && (
-                                    <span className="text-xs font-medium text-red-600">{point.频率}</span>
-                                  )}
                                 </div>
                                 
                                 {/* 频率可视化进度条 */}
                                 {point.频率 && (
                                   <div className="mb-2">
+                                    <div className="flex items-center justify-between mb-1">
+                                      <span className="text-xs text-muted-foreground">频率</span>
+                                      <span className="text-xs font-medium text-red-600">{point.频率}</span>
+                                    </div>
                                     <div className="w-full bg-red-100 dark:bg-red-900/30 rounded-full h-1.5">
                                       <div 
                                         className="bg-red-500 rounded-full h-1.5 transition-all duration-500"

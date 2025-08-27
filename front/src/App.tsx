@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Upload, FileText, TrendingUp, Users, Target, Star, Download, History, BarChart3, PieChart, ArrowRight, CheckCircle, Clock, AlertCircle, Menu, X, ThumbsUp, ThumbsDown, Lightbulb, Zap, MessageSquare, Info, RefreshCw, ChevronDown, ChevronRight, Home, Play, Eye, BarChart2, ShoppingCart, Sparkles, Settings, Bell, User, Moon, Sun, Monitor, Tag, Languages, Search } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from './components/ui/button'
@@ -22,6 +22,7 @@ import { CompetitorAnalysis } from './pages/analysis/CompetitorAnalysis'
 import { Opportunities } from './pages/analysis/Opportunities'
 import { UnmetNeeds } from './pages/analysis/UnmetNeeds'
 import { HistoryReports } from './pages/HistoryReports'
+import { HistoricalReports } from './pages/HistoricalReports'
 
 // Translation system
 const translations = {
@@ -958,22 +959,27 @@ export default function App() {
     }
   ]
 
-  const NavigationContent = ({ isMobile = false }: { isMobile?: boolean }) => (
-    <nav className="gap-system-sm flex flex-col">
-      {navigationItems.map((item) => {
-        const Icon = item.icon
-        const isExpanded = expandedSections.has(item.id)
-        const hasChildren = item.children.length > 0
-        const isDisabled = !item.available
-        const isActive = activeModule === item.id
+  const NavigationContent = ({ isMobile = false }: { isMobile?: boolean }) => {
+    // 使用useMemo稳定导航项计算，避免不必要的重新渲染
+    const stableNavigationItems = useMemo(() => navigationItems, [analysisResult, historicalReports.length])
+    
+    return (
+      <nav className="gap-system-sm flex flex-col">
+        {stableNavigationItems.map((item) => {
+          const Icon = item.icon
+          const isExpanded = expandedSections.has(item.id)
+          const hasChildren = item.children.length > 0
+          const isDisabled = !item.available
+          const isActive = activeModule === item.id
 
-        return (
+          return (
           <div key={item.id}>
             <motion.button
               whileHover={!isDisabled ? { x: 2 } : {}}
               whileTap={!isDisabled ? { scale: 0.98 } : {}}
               onClick={() => {
                 if (hasChildren && item.available) {
+                  // 只有点击父级标题时才切换展开状态，子项点击不影响父级状态
                   toggleSection(item.id)
                   if (!isExpanded && item.children.length > 0) {
                     setActiveModule(item.children[0].id as ActiveModule)
@@ -1011,9 +1017,10 @@ export default function App() {
 
             {/* Children items */}
             {(sidebarOpen || isMobile) && hasChildren && (
-              <AnimatePresence>
+              <AnimatePresence mode="wait">
                 {isExpanded && (
                   <motion.div
+                    key={`${item.id}-children`}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -1052,7 +1059,8 @@ export default function App() {
         )
       })}
     </nav>
-  )
+    )
+  }
 
   const renderMainContent = () => {
     if (activeModule === 'dashboard') {
@@ -1723,10 +1731,15 @@ export default function App() {
 
     if (activeModule === 'history') {
       return (
-        <HistoryReports 
+        <HistoricalReports 
           language={language}
           t={t}
-          onLoadReport={loadReport}
+          onSelectReport={(reportId) => {
+            // 加载选中的报告
+            console.log('Loading report:', reportId)
+            // 这里可以添加加载特定报告的逻辑
+          }}
+          currentReportId={analysisResult?.id}
         />
       )
     }

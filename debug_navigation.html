@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigation Debug</title>
+    <style>
+        .section { border: 1px solid #ccc; margin: 10px; padding: 10px; }
+        .expanded { background: #f0f0f0; }
+        .collapsed { background: #fff; }
+        .child { margin-left: 20px; padding: 5px; background: #e0e0e0; }
+    </style>
+</head>
+<body>
+    <h1>Navigation Debug Test</h1>
+    
+    <div class="section expanded" id="own-brand">
+        <div onclick="toggleSection('own-brand')">
+            <strong>自有品牌分析 (点击切换)</strong>
+        </div>
+        <div class="children" id="own-brand-children">
+            <div class="child" onclick="setActiveModule('own-brand-insights')">User Insights</div>
+            <div class="child" onclick="setActiveModule('own-brand-feedback')">User Feedback</div>
+            <div class="child" onclick="setActiveModule('own-brand-unmet')">Unmet Needs</div>
+        </div>
+    </div>
+    
+    <div id="log"></div>
+    
+    <script>
+        let expandedSections = new Set(['own-brand']);
+        let activeModule = 'dashboard';
+        
+        function log(message) {
+            document.getElementById('log').innerHTML += '<div>' + new Date().toLocaleTimeString() + ': ' + message + '</div>';
+        }
+        
+        function toggleSection(sectionId) {
+            log('toggleSection called for: ' + sectionId);
+            if (expandedSections.has(sectionId)) {
+                expandedSections.delete(sectionId);
+                document.getElementById(sectionId).className = 'section collapsed';
+                document.getElementById(sectionId + '-children').style.display = 'none';
+            } else {
+                expandedSections.add(sectionId);
+                document.getElementById(sectionId).className = 'section expanded';
+                document.getElementById(sectionId + '-children').style.display = 'block';
+            }
+        }
+        
+        function setActiveModule(module) {
+            log('setActiveModule called for: ' + module);
+            activeModule = module;
+            // 这里不应该调用toggleSection
+        }
+        
+        log('Debug page loaded');
+    </script>
+</body>
+</html>
