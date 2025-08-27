@@ -8,6 +8,8 @@ import os
 import json
 import uuid
 import subprocess
+import threading
+import time
 from datetime import datetime
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
@@ -22,6 +24,22 @@ UPLOAD_FOLDER = 'uploads'
 RESULTS_FOLDER = 'results'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(RESULTS_FOLDER, exist_ok=True)
+
+# 全局变量存储分析状态
+analysis_status = {}
+
+# 分析步骤定义（与Python脚本中的9个步骤对应）
+ANALYSIS_STEPS = [
+    {"id": "product_type", "name": "Product Classification", "name_zh": "产品分类分析"},
+    {"id": "consumer_profile", "name": "Consumer Profile Analysis", "name_zh": "消费者画像分析"},
+    {"id": "consumer_scenario", "name": "Usage Scenario Analysis", "name_zh": "使用场景分析"},
+    {"id": "consumer_motivation", "name": "Purchase Motivation Analysis", "name_zh": "购买动机分析"},
+    {"id": "consumer_love", "name": "Customer Satisfaction Analysis", "name_zh": "客户满意度分析"},
+    {"id": "unmet_needs", "name": "Unmet Needs Analysis", "name_zh": "未满足需求分析"},
+    {"id": "opportunity", "name": "Business Opportunity Analysis", "name_zh": "商业机会分析"},
+    {"id": "star_rating_root_cause", "name": "Rating Root Cause Analysis", "name_zh": "评分根因分析"},
+    {"id": "competitor", "name": "Competitive Analysis", "name_zh": "竞争分析"}
+]
 
 @app.route('/health', methods=['GET'])
 def health_check():
@@ -80,6 +98,18 @@ def start_analysis():
         # 生成分析ID
         analysis_id = str(uuid.uuid4())
         
+        # 初始化分析状态
+        analysis_status[analysis_id] = {
+            'status': 'starting',
+            'progress': 0,
+            'current_step': 0,
+            'total_steps': len(ANALYSIS_STEPS),
+            'steps': [{'id': step['id'], 'name': step['name'], 'name_zh': step['name_zh'], 'status': 'pending'} for step in ANALYSIS_STEPS],
+            'start_time': datetime.now().isoformat(),
+            'target_category': target_category,
+            'has_competitor_data': bool(competitor_file)
+        }
+        
         # 准备文件路径
         own_brand_path = os.path.join(UPLOAD_FOLDER, own_brand_file)
         competitor_path = os.path.join(UPLOAD_FOLDER, competitor_file) if competitor_file else None
@@ -90,28 +120,125 @@ def start_analysis():
         if competitor_file and not os.path.exists(competitor_path):
             return jsonify({'error': 'Competitor file not found'}), 404
         
+        # 在后台线程中运行分析
+        thread = threading.Thread(target=run_analysis_background, 
+                                args=(analysis_id, own_brand_path, competitor_path, target_category))
+        thread.daemon = True
+        thread.start()
+        
+        return jsonify({
+            'analysis_id': analysis_id,
+            'status': 'started',
+            'message': 'Analysis started successfully'
+        })
+        
+    except Exception as e:
+        print(f"Analysis error: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+def run_analysis_background(analysis_id, own_brand_path, competitor_path, target_category):
+    """在后台运行分析的函数"""
+    try:
+        # 更新状态为运行中
+        analysis_status[analysis_id]['status'] = 'running'
+        analysis_status[analysis_id]['progress'] = 5
+        
         # 复制文件到data目录（Python脚本期望的位置）
         shutil.copy2(own_brand_path, 'data/Customer ASIN Reviews.csv')
         if competitor_path:
             shutil.copy2(competitor_path, 'data/Competitor ASIN Reviews.csv')
         
-        # 运行Python分析脚本
         print(f"Starting analysis for category: {target_category}")
-        result = subprocess.run(['python3', 'run_analysis.py'], 
-                              capture_output=True, text=True, cwd='.')
         
-        if result.returncode != 0:
-            print(f"Analysis failed: {result.stderr}")
-            return jsonify({'error': f'Analysis failed: {result.stderr}'}), 500
+        # 运行Python分析脚本并监控进度
+        process = subprocess.Popen(['python3', 'run_analysis.py'], 
+                                 stdout=subprocess.PIPE, 
+                                 stderr=subprocess.PIPE, 
+                                 text=True, 
+                                 cwd='.',
+                                 bufsize=1,
+                                 universal_newlines=True)
         
-        # 读取分析结果
-        analysis_result = load_analysis_results(analysis_id, target_category, bool(competitor_file))
+        # 监控分析进度
+        monitor_analysis_progress(analysis_id, process)
         
-        return jsonify(analysis_result)
+        # 等待进程完成
+        stdout, stderr = process.communicate()
+        
+        if process.returncode != 0:
+            print(f"Analysis failed: {stderr}")
+            analysis_status[analysis_id]['status'] = 'failed'
+            analysis_status[analysis_id]['error'] = stderr
+            return
+        
+        # 分析完成，加载结果
+        analysis_status[analysis_id]['status'] = 'completed'
+        analysis_status[analysis_id]['progress'] = 100
+        analysis_status[analysis_id]['end_time'] = datetime.now().isoformat()
+        
+        # 标记所有步骤为完成
+        for step in analysis_status[analysis_id]['steps']:
+            step['status'] = 'completed'
+        
+        print(f"Analysis {analysis_id} completed successfully")
         
     except Exception as e:
-        print(f"Analysis error: {str(e)}")
-        return jsonify({'error': str(e)}), 500
+        print(f"Background analysis error: {str(e)}")
+        analysis_status[analysis_id]['status'] = 'failed'
+        analysis_status[analysis_id]['error'] = str(e)
+
+def monitor_analysis_progress(analysis_id, process):
+    """监控分析进度"""
+    step_index = 0
+    
+    while process.poll() is None:
+        # 检查是否有新的结果文件生成
+        for i, step in enumerate(ANALYSIS_STEPS):
+            result_file = os.path.join(RESULTS_FOLDER, f"{step['id']}.json")
+            if os.path.exists(result_file) and i >= step_index:
+                # 更新当前步骤状态
+                if step_index < len(analysis_status[analysis_id]['steps']):
+                    analysis_status[analysis_id]['steps'][step_index]['status'] = 'completed'
+                
+                step_index = i + 1
+                progress = int((step_index / len(ANALYSIS_STEPS)) * 90) + 5  # 5-95%
+                analysis_status[analysis_id]['progress'] = progress
+                analysis_status[analysis_id]['current_step'] = step_index
+                
+                # 更新下一步状态为运行中
+                if step_index < len(analysis_status[analysis_id]['steps']):
+                    analysis_status[analysis_id]['steps'][step_index]['status'] = 'running'
+                
+                print(f"Analysis progress: {progress}% - Step {step_index}/{len(ANALYSIS_STEPS)}")
+                break
+        
+        time.sleep(2)  # 每2秒检查一次
+
+@app.route('/analysis/<analysis_id>/status', methods=['GET'])
+def get_analysis_status(analysis_id):
+    """获取分析状态"""
+    if analysis_id not in analysis_status:
+        return jsonify({'error': 'Analysis not found'}), 404
+    
+    return jsonify(analysis_status[analysis_id])
+
+@app.route('/analysis/<analysis_id>/result', methods=['GET'])
+def get_analysis_result(analysis_id):
+    """获取分析结果"""
+    if analysis_id not in analysis_status:
+        return jsonify({'error': 'Analysis not found'}), 404
+    
+    if analysis_status[analysis_id]['status'] != 'completed':
+        return jsonify({'error': 'Analysis not completed yet'}), 400
+    
+    # 加载并返回分析结果
+    result = load_analysis_results(
+        analysis_id, 
+        analysis_status[analysis_id]['target_category'],
+        analysis_status[analysis_id]['has_competitor_data']
+    )
+    
+    return jsonify(result)
 
 def load_analysis_results(analysis_id, target_category, has_competitor_data):
     """加载分析结果并格式化为前端期望的结构"""
@@ -183,6 +310,6 @@ if __name__ == '__main__':
     print("🚀 Starting ReviewMind AI API Server...")
     print("📊 Server will run at: http://localhost:8000")
     print("🔗 Frontend should connect to: http://localhost:8000")
-    print("💡 Make sure to update frontend API configuration!")
+    print("💡 Real-time analysis progress tracking enabled!")
     
     app.run(host='0.0.0.0', port=8000, debug=True)

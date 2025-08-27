@@ -481,6 +481,9 @@ export default function App() {
   const [competitorFile, setCompetitorFile] = useState<UploadedFile | null>(null)
   const [targetCategory, setTargetCategory] = useState<string>('')
   const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [analysisId, setAnalysisId] = useState<string | null>(null)
+  const [analysisSteps, setAnalysisSteps] = useState<any[]>([])
+  const [currentStep, setCurrentStep] = useState<string>('')
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null)
   const [historicalReports, setHistoricalReports] = useState<HistoricalReport[]>([])
   const [activeModule, setActiveModule] = useState<ActiveModule>('dashboard')
@@ -711,6 +714,8 @@ export default function App() {
     try {
       setIsAnalyzing(true)
       setError(null)
+      setAnalysisSteps([])
+      setCurrentStep('')
 
       console.log('Starting analysis with files and category:', {
         ownBrand: ownBrandFile!.fileName,
@@ -739,15 +744,62 @@ export default function App() {
       }
 
       const result = await response.json()
-      console.log('Analysis successful:', result.id)
+      console.log('Analysis started:', result.analysis_id)
       
-      setAnalysisResult(result)
-      setActiveModule('own-brand-insights')
-      loadHistoricalReports()
+      setAnalysisId(result.analysis_id)
+      
+      // 开始轮询分析进度
+      pollAnalysisProgress(result.analysis_id)
+      
     } catch (error) {
       console.error('Analysis error:', error)
       setError(error instanceof Error ? `${t.errors.analysisFailed} ${error.message}` : t.errors.retryAnalysis)
-    } finally {
+      setIsAnalyzing(false)
+    }
+  }
+
+  const pollAnalysisProgress = async (analysisId: string) => {
+    try {
+      const response = await fetch(`${apiBase}/analysis/${analysisId}/status`)
+      
+      if (!response.ok) {
+        throw new Error('Failed to get analysis status')
+      }
+      
+      const status = await response.json()
+      console.log('Analysis status:', status)
+      
+      // 更新进度
+      setAnalysisProgress(status.progress || 0)
+      setAnalysisSteps(status.steps || [])
+      
+      // 更新当前步骤
+      if (status.current_step < status.steps?.length) {
+        const currentStepData = status.steps[status.current_step]
+        setCurrentStep(language === 'en' ? currentStepData?.name : currentStepData?.name_zh)
+      }
+      
+      if (status.status === 'completed') {
+        // 分析完成，获取结果
+        const resultResponse = await fetch(`${apiBase}/analysis/${analysisId}/result`)
+        if (resultResponse.ok) {
+          const analysisResult = await resultResponse.json()
+          setAnalysisResult(analysisResult)
+          setActiveModule('own-brand-insights')
+          loadHistoricalReports()
+        }
+        setIsAnalyzing(false)
+        setAnalysisProgress(100)
+      } else if (status.status === 'failed') {
+        throw new Error(status.error || 'Analysis failed')
+      } else if (status.status === 'running' || status.status === 'starting') {
+        // 继续轮询
+        setTimeout(() => pollAnalysisProgress(analysisId), 2000)
+      }
+      
+    } catch (error) {
+      console.error('Progress polling error:', error)
+      setError(error instanceof Error ? error.message : 'Failed to get analysis progress')
       setIsAnalyzing(false)
     }
   }
@@ -1455,7 +1507,7 @@ export default function App() {
             </motion.div>
           </div>
 
-          {/* Analysis progress - cleaner styling */}
+          {/* Analysis progress - Real-time progress tracking */}
           <AnimatePresence>
             {isAnalyzing && (
               <motion.div
@@ -1464,7 +1516,7 @@ export default function App() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
               >
-                <Card className="max-w-md mx-auto border-clean shadow-clean-md">
+                <Card className="max-w-2xl mx-auto border-clean shadow-clean-md">
                   <CardContent className="spacing-system-lg">
                     <div className="gap-system-md flex flex-col items-center">
                       <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
@@ -1473,20 +1525,77 @@ export default function App() {
                       <div className="text-center">
                         <h3 className="font-medium mb-2">AI {language === 'en' ? 'Analyzing Your Data' : '正在分析您的数据'}</h3>
                         <p className="text-sm text-muted-foreground mb-1">
-                          {t.upload.category} <span className="text-primary font-medium">{targetCategory}</span>
+                          {language === 'en' ? 'Category:' : '类别:'} <span className="text-primary font-medium">{targetCategory}</span>
                         </p>
                         <p className="text-sm text-muted-foreground mb-4">
-                          {t.upload.analysisProgress}
+                          {language === 'en' ? 'We are deeply analyzing review data to identify user insights and market opportunities...' : '我们正在深度分析评论数据，识别用户洞察和市场机会...'}
                         </p>
                       </div>
-                      <div className="w-full bg-muted rounded-full h-1">
-                        <motion.div 
-                          className="bg-primary h-1 rounded-full"
-                          initial={{ width: '0%' }}
-                          animate={{ width: '100%' }}
-                          transition={{ duration: 30, ease: 'linear' }}
-                        />
+                      
+                      {/* Overall Progress Bar */}
+                      <div className="w-full">
+                        <div className="flex justify-between text-xs text-muted-foreground mb-2">
+                          <span>{language === 'en' ? 'Overall Progress' : '总体进度'}</span>
+                          <span>{analysisProgress}%</span>
+                        </div>
+                        <div className="w-full bg-muted rounded-full h-2">
+                          <motion.div 
+                            className="bg-primary h-2 rounded-full"
+                            initial={{ width: '0%' }}
+                            animate={{ width: `${analysisProgress}%` }}
+                            transition={{ duration: 0.5, ease: 'easeOut' }}
+                          />
+                        </div>
                       </div>
+
+                      {/* Current Step */}
+                      {currentStep && (
+                        <div className="text-center">
+                          <p className="text-sm font-medium text-primary">
+                            {language === 'en' ? 'Current Step:' : '当前步骤:'} {currentStep}
+                          </p>
+                        </div>
+                      )}
+
+                      {/* Step Progress List */}
+                      {analysisSteps.length > 0 && (
+                        <div className="w-full max-w-md">
+                          <h4 className="text-sm font-medium mb-3 text-center">
+                            {language === 'en' ? 'Analysis Steps' : '分析步骤'}
+                          </h4>
+                          <div className="gap-2 flex flex-col">
+                            {analysisSteps.map((step, index) => (
+                              <motion.div
+                                key={step.id}
+                                className="flex items-center gap-3 text-sm"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                              >
+                                <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
+                                  step.status === 'completed' ? 'bg-green-500' :
+                                  step.status === 'running' ? 'bg-primary animate-pulse' :
+                                  'bg-muted'
+                                }`}>
+                                  {step.status === 'completed' && (
+                                    <CheckCircle className="w-3 h-3 text-white" />
+                                  )}
+                                  {step.status === 'running' && (
+                                    <Clock className="w-3 h-3 text-white animate-spin" />
+                                  )}
+                                </div>
+                                <span className={`flex-1 ${
+                                  step.status === 'completed' ? 'text-green-600 dark:text-green-400' :
+                                  step.status === 'running' ? 'text-primary font-medium' :
+                                  'text-muted-foreground'
+                                }`}>
+                                  {language === 'en' ? step.name : step.name_zh}
+                                </span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
