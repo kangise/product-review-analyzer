@@ -881,16 +881,6 @@ export default function App() {
     }
   }
 
-  const viewLatestResults = () => {
-    if (analysisResult) {
-      // If results are already loaded, just navigate to insights page
-      setActiveModule('own-brand-insights')
-    } else {
-      // If no results loaded, try to load them
-      loadExistingResults()
-    }
-  }
-
   const resetAnalysis = () => {
     setAnalysisResult(null)
     setOwnBrandFile(null)
@@ -1095,23 +1085,6 @@ export default function App() {
                   >
                     <Upload className="mr-2 h-4 w-4" />
                     {t.dashboard.startAnalysis}
-                  </Button>
-                  <Button 
-                    variant="outline"
-                    onClick={viewLatestResults}
-                  >
-                    <BarChart3 className="mr-2 h-4 w-4" />
-                    {language === 'en' ? 'View Latest Results' : '查看最新结果'}
-                  </Button>
-                  <Button 
-                    variant="outline"
-                    onClick={() => {
-                      document.getElementById('features-section')?.scrollIntoView({ 
-                        behavior: 'smooth' 
-                      })
-                    }}
-                  >
-                    {t.dashboard.viewFeatures}
                   </Button>
                 </motion.div>
               </div>
