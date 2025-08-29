@@ -248,7 +248,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                                         cx="40"
                                         cy="40"
                                         r="30"
-                                        stroke="#fef3c7"
+                                        stroke="rgba(251, 191, 36, 0.2)"
                                         strokeWidth="6"
                                         fill="transparent"
                                       />
