@@ -421,6 +421,19 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
           
           {expandedSections.has('star-rating') && (
             <CardContent className="spacing-system-lg">
+              {/* 散点图测试 - 移到最前面 */}
+              <div className="w-full h-40 bg-blue-500 text-white p-4 mb-4">
+                <h3 className="text-lg font-bold mb-2">散点图测试区域</h3>
+                <div className="relative w-full h-20 bg-white">
+                  <div className="absolute top-2 left-2 w-4 h-4 bg-red-500 rounded-full"></div>
+                  <div className="absolute top-2 left-8 w-4 h-4 bg-green-500 rounded-full"></div>
+                  <div className="absolute top-2 left-14 w-4 h-4 bg-yellow-500 rounded-full"></div>
+                  <div className="absolute top-8 left-2 w-4 h-4 bg-purple-500 rounded-full"></div>
+                  <div className="absolute top-8 left-8 w-4 h-4 bg-pink-500 rounded-full"></div>
+                </div>
+                <p className="text-sm mt-2">应该看到5个彩色圆点</p>
+              </div>
+              
               {/* 强制显示测试 */}
               <div className="w-full h-20 bg-red-500 text-white text-center flex items-center justify-center text-xl font-bold mb-4">
                 🔴 测试区域 - 如果看到这个红色区域说明star-rating已展开
