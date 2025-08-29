@@ -421,22 +421,54 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
           
           {expandedSections.has('star-rating') && (
             <CardContent className="spacing-system-lg">
-              {/* 散点图测试 - 移到最前面 */}
-              <div className="w-full h-40 bg-blue-500 text-white p-4 mb-4">
-                <h3 className="text-lg font-bold mb-2">散点图测试区域</h3>
-                <div className="relative w-full h-20 bg-white">
-                  <div className="absolute top-2 left-2 w-4 h-4 bg-red-500 rounded-full"></div>
-                  <div className="absolute top-2 left-8 w-4 h-4 bg-green-500 rounded-full"></div>
-                  <div className="absolute top-2 left-14 w-4 h-4 bg-yellow-500 rounded-full"></div>
-                  <div className="absolute top-8 left-2 w-4 h-4 bg-purple-500 rounded-full"></div>
-                  <div className="absolute top-8 left-8 w-4 h-4 bg-pink-500 rounded-full"></div>
+              {/* 无条件强制显示测试 */}
+              <div style={{
+                width: '100%',
+                height: '200px',
+                backgroundColor: 'blue',
+                color: 'white',
+                padding: '20px',
+                marginBottom: '20px',
+                border: '5px solid red'
+              }}>
+                <h3 style={{fontSize: '24px', fontWeight: 'bold', marginBottom: '10px'}}>
+                  强制显示测试
+                </h3>
+                <div style={{
+                  position: 'relative',
+                  width: '100%',
+                  height: '100px',
+                  backgroundColor: 'white'
+                }}>
+                  <div style={{
+                    position: 'absolute',
+                    top: '10px',
+                    left: '10px',
+                    width: '20px',
+                    height: '20px',
+                    backgroundColor: 'red',
+                    borderRadius: '50%'
+                  }}></div>
+                  <div style={{
+                    position: 'absolute',
+                    top: '10px',
+                    left: '40px',
+                    width: '20px',
+                    height: '20px',
+                    backgroundColor: 'green',
+                    borderRadius: '50%'
+                  }}></div>
+                  <div style={{
+                    position: 'absolute',
+                    top: '10px',
+                    left: '70px',
+                    width: '20px',
+                    height: '20px',
+                    backgroundColor: 'yellow',
+                    borderRadius: '50%'
+                  }}></div>
                 </div>
-                <p className="text-sm mt-2">应该看到5个彩色圆点</p>
-              </div>
-              
-              {/* 强制显示测试 */}
-              <div className="w-full h-20 bg-red-500 text-white text-center flex items-center justify-center text-xl font-bold mb-4">
-                🔴 测试区域 - 如果看到这个红色区域说明star-rating已展开
+                <p style={{marginTop: '10px'}}>应该看到3个圆点</p>
               </div>
               
               {/* 关键洞察 */}
