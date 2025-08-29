@@ -38,9 +38,29 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
     setSelectedQuotes({ quotes, title })
   }
 
-  // 从analysisResult中获取数据 - 数据结构确认正确
+  // 从analysisResult中获取数据 - 添加详细调试
+  console.log('=== UserFeedback Debug Start ===');
+  console.log('Raw analysisResult:', analysisResult);
+  console.log('analysisResult type:', typeof analysisResult);
+  console.log('analysisResult keys:', analysisResult ? Object.keys(analysisResult) : 'null');
+  
+  if (analysisResult?.ownBrandAnalysis) {
+    console.log('ownBrandAnalysis keys:', Object.keys(analysisResult.ownBrandAnalysis));
+    if (analysisResult.ownBrandAnalysis.userFeedback) {
+      console.log('userFeedback keys:', Object.keys(analysisResult.ownBrandAnalysis.userFeedback));
+    } else {
+      console.log('❌ userFeedback is missing');
+    }
+  } else {
+    console.log('❌ ownBrandAnalysis is missing');
+  }
+  
   const consumerLoveData = analysisResult?.ownBrandAnalysis?.userFeedback?.consumerLove || {}
   const starRatingData = analysisResult?.ownBrandAnalysis?.userFeedback?.starRating || {}
+  
+  console.log('Extracted consumerLoveData:', consumerLoveData);
+  console.log('Extracted starRatingData:', starRatingData);
+  console.log('=== UserFeedback Debug End ===');
   
   console.log('UserFeedback received data:', { 
     consumerLoveData, 

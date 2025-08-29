@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Debug</title>
+</head>
+<body>
+    <h1>Data Debug Test</h1>
+    <div id="output"></div>
+    
+    <script>
+        async function testData() {
+            try {
+                console.log('Testing API...');
+                const response = await fetch('http://localhost:8000/analysis/latest/result');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Full API Response:', data);
+                    
+                    // 检查数据路径
+                    const consumerLove = data?.ownBrandAnalysis?.userFeedback?.consumerLove;
+                    const starRating = data?.ownBrandAnalysis?.userFeedback?.starRating;
+                    
+                    console.log('Consumer Love Data:', consumerLove);
+                    console.log('Star Rating Data:', starRating);
+                    
+                    if (starRating) {
+                        console.log('Star Rating Keys:', Object.keys(starRating));
+                        console.log('Rating Distribution:', starRating?.评分分布分析?.总体评分分布);
+                        console.log('Rating Feedback:', starRating?.按评分划分的消费者反馈);
+                    }
+                    
+                    document.getElementById('output').innerHTML = `
+                        <h2>API Test Results:</h2>
+                        <p>Response Size: ${JSON.stringify(data).length} bytes</p>
+                        <p>Has ownBrandAnalysis: ${!!data.ownBrandAnalysis}</p>
+                        <p>Has userFeedback: ${!!data.ownBrandAnalysis?.userFeedback}</p>
+                        <p>Has consumerLove: ${!!consumerLove}</p>
+                        <p>Has starRating: ${!!starRating}</p>
+                        <p>Consumer Love Items: ${consumerLove?.核心赞美点分析?.length || 0}</p>
+                        <p>Star Rating Keys: ${starRating ? Object.keys(starRating).join(', ') : 'None'}</p>
+                        <pre>${JSON.stringify({consumerLove, starRating}, null, 2)}</pre>
+                    `;
+                } else {
+                    console.error('API Error:', response.status);
+                    document.getElementById('output').innerHTML = `<p>API Error: ${response.status}</p>`;
+                }
+            } catch (error) {
+                console.error('Test Error:', error);
+                document.getElementById('output').innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+        
+        testData();
+    </script>
+</body>
+</html>
