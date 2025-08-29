@@ -208,68 +208,78 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                   {/* 核心赞美点分析 */}
                   {consumerLoveData.核心赞美点分析 && Array.isArray(consumerLoveData.核心赞美点分析) && (
                     <div className="gap-system-md flex flex-col">
-                      {/* 总体统计概览 */}
-                      <div className="spacing-system-md bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
+                      {/* Top 3 满意度概览 */}
+                      <div className="spacing-system-md bg-gradient-to-r from-yellow-50 to-amber-50 rounded-lg border border-yellow-200">
                         <div className="flex items-center justify-between mb-3">
                           <h4 className="font-medium text-sm flex items-center gap-2">
-                            <Heart className="h-4 w-4 text-green-600" />
-                            {language === 'en' ? 'Customer Satisfaction Overview' : '客户满意度概览'}
+                            <Heart className="h-4 w-4 text-yellow-600" />
+                            {language === 'en' ? 'Top 3 Customer Satisfaction' : 'Top 3 客户满意度'}
                           </h4>
-                          <div className="text-xs text-green-700 bg-green-100 px-2 py-1 rounded">
-                            {consumerLoveData.核心赞美点分析.length} {language === 'en' ? 'Key Strengths' : '个核心优势'}
+                          <div className="text-xs text-yellow-700 bg-yellow-100 px-2 py-1 rounded">
+                            {language === 'en' ? 'Most Loved Features' : '最受喜爱功能'}
                           </div>
                         </div>
                         
-                        {/* 满意度分布饼图风格的进度环 */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                          {consumerLoveData.核心赞美点分析.slice(0, 4).map((praise: any, index: number) => {
-                            const percentage = parseFloat(praise.赞美点重要性?.replace('%', '')) || 0;
-                            const circumference = 2 * Math.PI * 20;
-                            const strokeDasharray = circumference;
-                            const strokeDashoffset = circumference - (percentage / 100) * circumference;
-                            
-                            return (
-                              <div key={index} className="flex flex-col items-center">
-                                <div className="relative w-12 h-12 mb-2">
-                                  <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 50 50">
-                                    <circle
-                                      cx="25"
-                                      cy="25"
-                                      r="20"
-                                      stroke="currentColor"
-                                      strokeWidth="4"
-                                      fill="transparent"
-                                      className="text-green-200"
-                                    />
-                                    <circle
-                                      cx="25"
-                                      cy="25"
-                                      r="20"
-                                      stroke="currentColor"
-                                      strokeWidth="4"
-                                      fill="transparent"
-                                      strokeDasharray={strokeDasharray}
-                                      strokeDashoffset={strokeDashoffset}
-                                      className="text-green-600 transition-all duration-1000 ease-out"
-                                      strokeLinecap="round"
-                                    />
-                                  </svg>
-                                  <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-xs font-semibold text-green-700">
-                                      {percentage.toFixed(0)}%
-                                    </span>
+                        {/* Top 3 满意度项目 */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          {consumerLoveData.核心赞美点分析
+                            .sort((a: any, b: any) => {
+                              const aImportance = parseFloat(a.赞美点重要性?.replace('%', '')) || 0;
+                              const bImportance = parseFloat(b.赞美点重要性?.replace('%', '')) || 0;
+                              return bImportance - aImportance;
+                            })
+                            .slice(0, 3)
+                            .map((praise: any, index: number) => {
+                              const percentage = parseFloat(praise.赞美点重要性?.replace('%', '')) || 0;
+                              const circumference = 2 * Math.PI * 24;
+                              const strokeDasharray = circumference;
+                              const strokeDashoffset = circumference - (percentage / 100) * circumference;
+                              
+                              return (
+                                <div key={index} className="flex flex-col items-center text-center">
+                                  <div className="relative w-16 h-16 mb-3">
+                                    <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 60 60">
+                                      <circle
+                                        cx="30"
+                                        cy="30"
+                                        r="24"
+                                        stroke="currentColor"
+                                        strokeWidth="4"
+                                        fill="transparent"
+                                        className="text-yellow-200"
+                                      />
+                                      <circle
+                                        cx="30"
+                                        cy="30"
+                                        r="24"
+                                        stroke="currentColor"
+                                        strokeWidth="4"
+                                        fill="transparent"
+                                        strokeDasharray={strokeDasharray}
+                                        strokeDashoffset={strokeDashoffset}
+                                        className="text-yellow-500 transition-all duration-1000 ease-out"
+                                        strokeLinecap="round"
+                                      />
+                                    </svg>
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                      <span className="text-sm font-bold text-yellow-700">
+                                        {percentage.toFixed(0)}%
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="text-sm font-medium text-yellow-800 mb-1">
+                                    {praise.赞美点}
+                                  </div>
+                                  <div className="text-xs text-yellow-600">
+                                    #{index + 1} {language === 'en' ? 'Most Loved' : '最受喜爱'}
                                   </div>
                                 </div>
-                                <div className="text-xs text-center text-green-700 font-medium">
-                                  {praise.赞美点.length > 12 ? praise.赞美点.substring(0, 12) + '...' : praise.赞美点}
-                                </div>
-                              </div>
-                            );
-                          })}
+                              );
+                            })}
                         </div>
                       </div>
 
-                      {/* 详细赞美点分析 */}
+                      {/* 详细赞美点分析 - 使用Progress组件 */}
                       <div className="gap-system-md grid md:grid-cols-2">
                         {consumerLoveData.核心赞美点分析.map((praise: any, index: number) => {
                           const importance = parseFloat(praise.赞美点重要性?.replace('%', '')) || 0;
@@ -278,71 +288,46 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                           return (
                             <motion.div
                               key={index}
-                              className="spacing-system-md bg-muted rounded-lg border-clean relative overflow-hidden"
+                              className="spacing-system-md bg-muted rounded-lg border-clean"
                               whileHover={{ scale: 1.01 }}
                               transition={{ duration: 0.2 }}
                             >
-                              {/* 重要性指示器 */}
-                              <div 
-                                className="absolute top-0 left-0 h-1 bg-gradient-to-r from-green-500 to-emerald-500 transition-all duration-1000"
-                                style={{ width: `${importance}%` }}
-                              />
-                              
                               <div className="flex items-center justify-between mb-3">
                                 <h5 className="font-medium text-sm pr-2">{praise.赞美点}</h5>
-                                <div className="flex items-center gap-2 text-xs">
-                                  {praise.赞美点重要性 && (
-                                    <div className="bg-green-100 text-green-700 px-2 py-1 rounded font-medium">
-                                      {praise.赞美点重要性}
-                                    </div>
-                                  )}
-                                </div>
+                                {praise.赞美点重要性 && (
+                                  <Badge variant="secondary" className="text-xs">
+                                    {praise.赞美点重要性}
+                                  </Badge>
+                                )}
                               </div>
                               
-                              {/* 双重进度条：重要性和频率 */}
-                              <div className="space-y-3 mb-3">
-                                {/* 重要性进度条 */}
-                                {praise.赞美点重要性 && (
-                                  <div>
-                                    <div className="flex items-center justify-between mb-1">
-                                      <span className="text-xs text-muted-foreground flex items-center gap-1">
-                                        <TrendingUp className="h-3 w-3" />
-                                        {language === 'en' ? 'Importance' : '重要性'}
-                                      </span>
-                                      <span className="text-xs font-medium text-green-600">{praise.赞美点重要性}</span>
-                                    </div>
-                                    <div className="w-full bg-muted-foreground/20 rounded-full h-2">
-                                      <motion.div 
-                                        className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-full h-2"
-                                        initial={{ width: 0 }}
-                                        animate={{ width: `${importance}%` }}
-                                        transition={{ duration: 1, delay: index * 0.1 }}
-                                      />
-                                    </div>
+                              {/* 重要性进度条 - 类似User Segmentation */}
+                              {praise.赞美点重要性 && (
+                                <div className="mb-3">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <span className="text-xs text-muted-foreground flex items-center gap-1">
+                                      <TrendingUp className="h-3 w-3" />
+                                      {language === 'en' ? 'Importance' : '重要性'}
+                                    </span>
+                                    <span className="text-xs font-medium">{praise.赞美点重要性}</span>
                                   </div>
-                                )}
-                                
-                                {/* 频率进度条 */}
-                                {praise.频率 && (
-                                  <div>
-                                    <div className="flex items-center justify-between mb-1">
-                                      <span className="text-xs text-muted-foreground flex items-center gap-1">
-                                        <BarChart3 className="h-3 w-3" />
-                                        {language === 'en' ? 'Frequency' : '提及频率'}
-                                      </span>
-                                      <span className="text-xs font-medium text-blue-600">{praise.频率}</span>
-                                    </div>
-                                    <div className="w-full bg-muted-foreground/20 rounded-full h-2">
-                                      <motion.div 
-                                        className="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full h-2"
-                                        initial={{ width: 0 }}
-                                        animate={{ width: `${frequency}%` }}
-                                        transition={{ duration: 1, delay: index * 0.1 + 0.2 }}
-                                      />
-                                    </div>
+                                  <Progress value={importance} className="h-2" />
+                                </div>
+                              )}
+                              
+                              {/* 频率进度条 */}
+                              {praise.频率 && (
+                                <div className="mb-3">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <span className="text-xs text-muted-foreground flex items-center gap-1">
+                                      <BarChart3 className="h-3 w-3" />
+                                      {language === 'en' ? 'Frequency' : '提及频率'}
+                                    </span>
+                                    <span className="text-xs font-medium">{praise.频率}</span>
                                   </div>
-                                )}
-                              </div>
+                                  <Progress value={frequency} className="h-2" />
+                                </div>
+                              )}
                               
                               <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
                                 {praise.消费者描述}
