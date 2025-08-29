@@ -421,6 +421,11 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
           
           {expandedSections.has('star-rating') && (
             <CardContent className="spacing-system-lg">
+              {/* 强制显示测试 */}
+              <div className="w-full h-20 bg-red-500 text-white text-center flex items-center justify-center text-xl font-bold mb-4">
+                🔴 测试区域 - 如果看到这个红色区域说明star-rating已展开
+              </div>
+              
               {/* 关键洞察 */}
               {starRatingData?.评分分布分析?.关键洞察 && (
                 <motion.div 
