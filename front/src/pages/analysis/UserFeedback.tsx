@@ -67,7 +67,8 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
     ratingDistributionRaw, 
     ratingDistribution,
     hasStarRatingData: !!starRatingData,
-    starRatingKeys: starRatingData ? Object.keys(starRatingData) : []
+    starRatingKeys: starRatingData ? Object.keys(starRatingData) : [],
+    ratingFeedback: starRatingData?.按评分划分的消费者反馈
   })
 
   // 处理按评分划分的反馈数据
@@ -85,55 +86,57 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
         starNumber = parseInt(ratingMatch[1])
       }
       
-      // 安全地获取百分比
-      const ratingKey = rating.replace('评价', '')
-      const percentage = parseFloat((ratingDistributionRaw[ratingKey] || '0%').replace('%', '')) || 0
+      console.log(`Processing ${rating}:`, data)
       
       // 添加满意点
       if (data.主要满意点 && Array.isArray(data.主要满意点) && data.主要满意点.length > 0) {
         data.主要满意点.forEach((point: any, index: number) => {
-          // 安全地处理频率
+          // 解析频率
           let freq = 5 // 默认频率
           if (point.频率) {
             const freqMatch = point.频率.match(/(\d+\.?\d*)%?/)
             freq = freqMatch ? parseFloat(freqMatch[1]) : 5
-          } else {
-            // 基于评分分布估算频率
-            freq = Math.max(1, percentage * 0.1 + Math.random() * 5)
           }
+          
+          const pointName = point.喜爱点 || point.满意点 || `满意点${index + 1}`
           
           scatterData.push({
             x: starNumber,
-            y: Math.max(0.1, freq), // 确保y值不为0
+            y: Math.max(0.1, freq),
             type: '满意点',
-            name: point.喜爱点 || point.满意点 || `满意点${index + 1}`,
+            name: pointName,
             color: '#22c55e',
-            rating: rating
+            rating: rating,
+            frequency: point.频率 || `${freq.toFixed(1)}%`
           })
+          
+          console.log(`Added positive point: ${pointName} at ${starNumber} stars with ${freq}% frequency`)
         })
       }
       
       // 添加不满意点
       if (data.主要不满点 && Array.isArray(data.主要不满点) && data.主要不满点.length > 0) {
         data.主要不满点.forEach((point: any, index: number) => {
-          // 安全地处理频率
+          // 解析频率
           let freq = 5 // 默认频率
           if (point.频率) {
             const freqMatch = point.频率.match(/(\d+\.?\d*)%?/)
             freq = freqMatch ? parseFloat(freqMatch[1]) : 5
-          } else {
-            // 基于评分分布估算频率，不满意点在低分时频率更高
-            freq = Math.max(1, (6 - starNumber) * 2 + Math.random() * 3)
           }
+          
+          const pointName = point.问题点 || point.不满意点 || `问题点${index + 1}`
           
           scatterData.push({
             x: starNumber,
-            y: Math.max(0.1, freq), // 确保y值不为0
+            y: Math.max(0.1, freq),
             type: '不满意点',
-            name: point.问题点 || point.不满意点 || `问题点${index + 1}`,
+            name: pointName,
             color: '#ef4444',
-            rating: rating
+            rating: rating,
+            frequency: point.频率 || `${freq.toFixed(1)}%`
           })
+          
+          console.log(`Added negative point: ${pointName} at ${starNumber} stars with ${freq}% frequency`)
         })
       }
     })
@@ -141,7 +144,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
     console.error('Error processing scatter data:', error)
   }
 
-  console.log('Scatter data:', scatterData)
+  console.log('Final scatterData:', scatterData)
 
   return (
     <motion.div 
