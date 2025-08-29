@@ -148,7 +148,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
             freq = freqMatch ? parseFloat(freqMatch[1]) : 5
           }
           
-          const pointName = point.问题点 || point.不满意点 || `问题点${index + 1}`
+          const pointName = point.未满足的需求 || point.问题点 || point.不满意点 || `问题点${index + 1}`
           
           scatterData.push({
             x: starNumber,
@@ -506,7 +506,12 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                     {scatterData.length > 0 ? (
                       <div className="h-80">
                         <ResponsiveContainer width="100%" height="100%">
-                          <ScatterChart data={scatterData} margin={{ top: 20, right: 20, bottom: 60, left: 60 }}>
+                          <ScatterChart 
+                            width={800} 
+                            height={320}
+                            data={scatterData} 
+                            margin={{ top: 20, right: 20, bottom: 60, left: 60 }}
+                          >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis 
                               type="number" 
@@ -522,6 +527,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                             <YAxis 
                               type="number" 
                               dataKey="y"
+                              domain={[0, 60]}
                               label={{ 
                                 value: language === 'en' ? 'Theme Frequency (%)' : '主题频率 (%)', 
                                 angle: -90, 
@@ -535,13 +541,11 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                               ]}
                               labelFormatter={(value: any) => `${value}星评分`}
                             />
-                            {/* 正向评分 - 绿色点 */}
                             <Scatter 
                               data={scatterData.filter(d => d.type === '满意点')} 
                               fill="#22c55e"
                               name={language === 'en' ? 'Positive Themes' : '正向主题'}
                             />
-                            {/* 负向评分 - 红色点 */}
                             <Scatter 
                               data={scatterData.filter(d => d.type === '不满意点')} 
                               fill="#ef4444"
@@ -706,7 +710,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                                   <div className="flex items-center justify-between mb-2">
                                     <span className="text-xs font-medium flex items-center gap-1">
                                       {isTop3 && <span className="text-yellow-600 text-xs">#{index + 1}</span>}
-                                      {point.问题点 || point.不满意点 || `问题点 ${index + 1}`}
+                                      {point.未满足的需求 || point.问题点 || point.不满意点 || `问题点 ${index + 1}`}
                                     </span>
                                   </div>
                                   
@@ -729,7 +733,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                                       variant="ghost"
                                       size="sm"
                                       className="h-6 px-2 text-xs"
-                                      onClick={() => showQuotes(point.示例评论, point.问题点 || point.不满意点 || '问题点')}
+                                      onClick={() => showQuotes(point.示例评论, point.未满足的需求 || point.问题点 || point.不满意点 || '问题点')}
                                     >
                                       <MessageSquare className="mr-1 h-3 w-3" />
                                       {language === 'en' ? 'Examples' : '示例'} ({point.示例评论.length})
