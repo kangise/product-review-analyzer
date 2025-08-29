@@ -228,50 +228,57 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                           </div>
                         </div>
                         
-                        {/* 强制显示测试数据 */}
+                        {/* Top 3 满意度项目 - 使用真实数据 */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                          {[
-                            { name: '卓越的4K画质表现', percentage: 72 },
-                            { name: '智能AI追踪功能', percentage: 60 },
-                            { name: '即插即用的便捷性', percentage: 50 }
-                          ].map((item, index) => (
-                            <div key={index} className="flex flex-col items-center text-center">
-                              <div className="relative w-20 h-20 mb-3">
-                                <svg width="80" height="80" className="transform -rotate-90" viewBox="0 0 80 80">
-                                  <circle
-                                    cx="40"
-                                    cy="40"
-                                    r="30"
-                                    stroke="#fef3c7"
-                                    strokeWidth="6"
-                                    fill="transparent"
-                                  />
-                                  <circle
-                                    cx="40"
-                                    cy="40"
-                                    r="30"
-                                    stroke="#f59e0b"
-                                    strokeWidth="6"
-                                    fill="transparent"
-                                    strokeDasharray={`${2 * Math.PI * 30}`}
-                                    strokeDashoffset={`${2 * Math.PI * 30 * (1 - item.percentage / 100)}`}
-                                    strokeLinecap="round"
-                                  />
-                                </svg>
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                  <span className="text-lg font-bold text-yellow-700">
-                                    {item.percentage}%
-                                  </span>
+                          {consumerLoveData.核心赞美点分析
+                            .sort((a: any, b: any) => {
+                              const aImportance = parseFloat(a.赞美点重要性?.replace('%', '')) || 0;
+                              const bImportance = parseFloat(b.赞美点重要性?.replace('%', '')) || 0;
+                              return bImportance - aImportance;
+                            })
+                            .slice(0, 3)
+                            .map((praise: any, index: number) => {
+                              const percentage = parseFloat(praise.赞美点重要性?.replace('%', '')) || 0;
+                              
+                              return (
+                                <div key={index} className="flex flex-col items-center text-center">
+                                  <div className="relative w-20 h-20 mb-3">
+                                    <svg width="80" height="80" className="transform -rotate-90" viewBox="0 0 80 80">
+                                      <circle
+                                        cx="40"
+                                        cy="40"
+                                        r="30"
+                                        stroke="#fef3c7"
+                                        strokeWidth="6"
+                                        fill="transparent"
+                                      />
+                                      <circle
+                                        cx="40"
+                                        cy="40"
+                                        r="30"
+                                        stroke="#f59e0b"
+                                        strokeWidth="6"
+                                        fill="transparent"
+                                        strokeDasharray={`${2 * Math.PI * 30}`}
+                                        strokeDashoffset={`${2 * Math.PI * 30 * (1 - percentage / 100)}`}
+                                        strokeLinecap="round"
+                                      />
+                                    </svg>
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                      <span className="text-lg font-bold text-yellow-700">
+                                        {percentage.toFixed(0)}%
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="text-sm font-medium text-yellow-800 mb-1">
+                                    {praise.赞美点}
+                                  </div>
+                                  <div className="text-xs text-yellow-600 bg-yellow-100 px-2 py-1 rounded">
+                                    #{index + 1} {language === 'en' ? 'Most Loved' : '最受喜爱'}
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="text-sm font-medium text-yellow-800 mb-1">
-                                {item.name}
-                              </div>
-                              <div className="text-xs text-yellow-600 bg-yellow-100 px-2 py-1 rounded">
-                                #{index + 1} {language === 'en' ? 'Most Loved' : '最受喜爱'}
-                              </div>
-                            </div>
-                          ))}
+                              );
+                            })}
                         </div>
                       </div>
 
