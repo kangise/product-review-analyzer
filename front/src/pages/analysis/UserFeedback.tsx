@@ -38,9 +38,9 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
     setSelectedQuotes({ quotes, title })
   }
 
-  // 从analysisResult中获取数据，修复数据路径
-  const consumerLoveData = analysisResult?.consumer_love || {}
-  const starRatingData = analysisResult?.star_rating_root_cause || {}
+  // 从analysisResult中获取数据，恢复正确的嵌套结构
+  const consumerLoveData = analysisResult?.ownBrandAnalysis?.userFeedback?.consumerLove || {}
+  const starRatingData = analysisResult?.ownBrandAnalysis?.userFeedback?.starRating || {}
   
   console.log('UserFeedback received data:', { 
     consumerLoveData, 
@@ -49,7 +49,8 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
     consumerLoveCount: consumerLoveData?.核心赞美点分析?.length || 0,
     hasStarRating: !!starRatingData,
     starRatingKeys: starRatingData ? Object.keys(starRatingData) : [],
-    analysisResultKeys: analysisResult ? Object.keys(analysisResult) : []
+    analysisResultKeys: analysisResult ? Object.keys(analysisResult) : [],
+    fullAnalysisResult: analysisResult
   })
 
   // 检查是否有核心赞美点分析数据
