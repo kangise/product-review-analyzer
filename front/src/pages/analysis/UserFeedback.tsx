@@ -548,85 +548,33 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                       </div>
                     )}
 
-                    {/* 散点图 - CSS版本作为备选 */}
-                    {scatterData.length > 0 ? (
-                      <div>
-                        {/* Recharts版本 */}
-                        <div className="h-80 border-2 border-blue-300 bg-white mb-4">
-                          <ResponsiveContainer width="100%" height="100%">
-                            <ScatterChart 
-                              data={scatterData} 
-                              margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-                            >
-                              <CartesianGrid strokeDasharray="3 3" />
-                              <XAxis 
-                                type="number" 
-                                dataKey="x" 
-                                domain={[0, 6]}
-                              />
-                              <YAxis 
-                                type="number" 
-                                dataKey="y"
-                              />
-                              <RechartsTooltip 
-                                formatter={(value, name, props) => [`${value}%`, props.payload.name]}
-                              />
-                              <Scatter 
-                                data={scatterData} 
-                                fill={(entry) => entry.color}
-                              />
-                            </ScatterChart>
-                          </ResponsiveContainer>
-                        </div>
-
-                        {/* CSS版本散点图 */}
-                        <div className="h-80 border-2 border-green-300 bg-white relative">
-                          <div className="absolute inset-4">
-                            <div className="text-xs text-gray-600 mb-2">CSS散点图 (备选方案)</div>
-                            <div className="relative w-full h-full">
-                              {/* 网格线 */}
-                              <svg className="absolute inset-0 w-full h-full">
-                                {[1,2,3,4,5].map(i => (
-                                  <line key={i} x1={`${i*20}%`} y1="0%" x2={`${i*20}%`} y2="100%" stroke="#e5e7eb" strokeDasharray="2,2"/>
-                                ))}
-                                {[0,20,40,60,80,100].map(i => (
-                                  <line key={i} x1="0%" y1={`${100-i}%`} x2="100%" y2={`${100-i}%`} stroke="#e5e7eb" strokeDasharray="2,2"/>
-                                ))}
-                              </svg>
-                              
-                              {/* 数据点 */}
-                              {scatterData.map((point, i) => (
-                                <div
-                                  key={i}
-                                  className={`absolute w-3 h-3 rounded-full ${point.type === '满意点' ? 'bg-green-500' : 'bg-red-500'} cursor-pointer`}
-                                  style={{
-                                    left: `${(point.x / 5) * 100}%`,
-                                    bottom: `${(point.y / 60) * 100}%`,
-                                    transform: 'translate(-50%, 50%)'
-                                  }}
-                                  title={`${point.name} - ${point.x}星, ${point.y}%`}
-                                />
-                              ))}
-                              
-                              {/* 坐标轴标签 */}
-                              <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-600">
-                                <span>1星</span><span>2星</span><span>3星</span><span>4星</span><span>5星</span>
-                              </div>
-                              <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-xs text-gray-600">
-                                <span>60%</span><span>40%</span><span>20%</span><span>0%</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                    {/* 最简单的测试散点图 */}
+                    <div className="h-80 bg-gray-100 border-2 border-black p-4">
+                      <h3 className="text-lg font-bold mb-4">散点图测试</h3>
+                      
+                      {/* 固定测试点 */}
+                      <div className="relative w-full h-60 bg-white border">
+                        <div className="absolute top-4 left-4 w-4 h-4 bg-red-500 rounded-full"></div>
+                        <div className="absolute top-8 left-8 w-4 h-4 bg-green-500 rounded-full"></div>
+                        <div className="absolute top-12 left-12 w-4 h-4 bg-blue-500 rounded-full"></div>
+                        <p className="absolute bottom-2 left-2 text-xs">固定测试点 - 如果看到3个彩色圆点说明CSS正常</p>
                       </div>
-                    ) : (
-                      <div className="h-80 flex items-center justify-center border-2 border-red-300 bg-red-50">
-                        <div className="text-center text-red-600">
-                          <p>❌ 没有散点图数据</p>
-                          <p className="text-xs">scatterData.length = {scatterData.length}</p>
-                        </div>
+                      
+                      {/* 数据驱动的点 */}
+                      <div className="relative w-full h-60 bg-yellow-50 border mt-4">
+                        {scatterData.slice(0, 5).map((point, i) => (
+                          <div
+                            key={i}
+                            className="absolute w-3 h-3 bg-purple-500 rounded-full"
+                            style={{
+                              left: `${10 + i * 50}px`,
+                              top: `${10 + i * 20}px`
+                            }}
+                          />
+                        ))}
+                        <p className="absolute bottom-2 left-2 text-xs">数据驱动点 - 应该看到5个紫色点</p>
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
               </div>
