@@ -496,15 +496,62 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                   </div>
                 </div>
 
-                {/* 评分主题频率分析 - 修复渲染 */}
+                {/* 评分主题频率分析 - 强制渲染调试 */}
                 <div>
                   <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
                     <TrendingUp className="h-4 w-4 text-primary" />
                     {language === 'en' ? 'Rating Theme Analysis' : '评分主题分析'}
                   </h4>
                   <div className="bg-gradient-to-br from-slate-50 to-gray-50 p-6 rounded-lg border">
+                    
+                    {/* 调试信息 */}
+                    <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-xs">
+                      <p><strong>调试信息:</strong></p>
+                      <p>scatterData.length: {scatterData.length}</p>
+                      <p>正向主题: {scatterData.filter(d => d.type === '满意点').length}</p>
+                      <p>负向主题: {scatterData.filter(d => d.type === '不满意点').length}</p>
+                      {scatterData.length > 0 && (
+                        <div className="mt-2">
+                          <p><strong>前3个数据点:</strong></p>
+                          {scatterData.slice(0, 3).map((point, i) => (
+                            <p key={i}>• {point.name} ({point.type}) - {point.x}星, {point.y}%</p>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* 简单表格显示数据 */}
+                    {scatterData.length > 0 && (
+                      <div className="mb-4 overflow-x-auto">
+                        <table className="w-full text-xs border-collapse border border-gray-300">
+                          <thead>
+                            <tr className="bg-gray-100">
+                              <th className="border border-gray-300 p-1">评分</th>
+                              <th className="border border-gray-300 p-1">主题</th>
+                              <th className="border border-gray-300 p-1">类型</th>
+                              <th className="border border-gray-300 p-1">频率</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {scatterData.map((point, i) => (
+                              <tr key={i}>
+                                <td className="border border-gray-300 p-1">{point.x}星</td>
+                                <td className="border border-gray-300 p-1">{point.name}</td>
+                                <td className="border border-gray-300 p-1 text-center">
+                                  <span className={`inline-block w-3 h-3 rounded-full ${point.type === '满意点' ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                                </td>
+                                <td className="border border-gray-300 p-1">{point.y}%</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+
+                    {/* 散点图 */}
                     {scatterData.length > 0 ? (
-                      <div className="h-80">
+                      <div className="h-80 border-2 border-blue-300 bg-white">
+                        <p className="text-xs text-blue-600 p-2">散点图容器 (应该在这里显示图表)</p>
                         <ResponsiveContainer width="100%" height="100%">
                           <ScatterChart 
                             width={800} 
@@ -518,80 +565,32 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                               dataKey="x" 
                               domain={[0.5, 5.5]}
                               ticks={[1, 2, 3, 4, 5]}
-                              label={{ 
-                                value: language === 'en' ? 'Rating (Stars)' : '评分 (星)', 
-                                position: 'insideBottom', 
-                                offset: -10 
-                              }}
                             />
                             <YAxis 
                               type="number" 
                               dataKey="y"
                               domain={[0, 60]}
-                              label={{ 
-                                value: language === 'en' ? 'Theme Frequency (%)' : '主题频率 (%)', 
-                                angle: -90, 
-                                position: 'insideLeft' 
-                              }}
                             />
-                            <RechartsTooltip 
-                              formatter={(value: any, name: string, props: any) => [
-                                `${value}%`, 
-                                props.payload?.name || name
-                              ]}
-                              labelFormatter={(value: any) => `${value}星评分`}
-                            />
+                            <RechartsTooltip />
                             <Scatter 
                               data={scatterData.filter(d => d.type === '满意点')} 
                               fill="#22c55e"
-                              name={language === 'en' ? 'Positive Themes' : '正向主题'}
                             />
                             <Scatter 
                               data={scatterData.filter(d => d.type === '不满意点')} 
                               fill="#ef4444"
-                              name={language === 'en' ? 'Negative Themes' : '负向主题'}
                             />
                           </ScatterChart>
                         </ResponsiveContainer>
                       </div>
                     ) : (
-                      <div className="h-80 flex items-center justify-center">
-                        <div className="text-center text-muted-foreground">
-                          <TrendingUp className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                          <p>正在加载散点图数据...</p>
-                          <p className="text-xs">数据点数量: {scatterData.length}</p>
+                      <div className="h-80 flex items-center justify-center border-2 border-red-300 bg-red-50">
+                        <div className="text-center text-red-600">
+                          <p>❌ 没有散点图数据</p>
+                          <p className="text-xs">scatterData.length = {scatterData.length}</p>
                         </div>
                       </div>
                     )}
-                    
-                    {/* 图例说明 */}
-                    <div className="flex justify-center mt-4 gap-6">
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-green-500" />
-                        <span className="text-sm text-muted-foreground">
-                          {language === 'en' ? 'Positive Themes' : '正向主题'} ({scatterData.filter(d => d.type === '满意点').length})
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-red-500" />
-                        <span className="text-sm text-muted-foreground">
-                          {language === 'en' ? 'Negative Themes' : '负向主题'} ({scatterData.filter(d => d.type === '不满意点').length})
-                        </span>
-                      </div>
-                    </div>
-                    
-                    {/* 主要发现 */}
-                    <div className="mt-4 p-4 bg-white rounded-lg border">
-                      <h5 className="font-medium text-sm mb-2">
-                        {language === 'en' ? 'Key Findings' : '主要发现'}
-                      </h5>
-                      <div className="text-xs text-muted-foreground space-y-1">
-                        <p>• 总数据点: {scatterData.length} 个主题</p>
-                        <p>• 正向主题: {scatterData.filter(d => d.type === '满意点').length} 个</p>
-                        <p>• 负向主题: {scatterData.filter(d => d.type === '不满意点').length} 个</p>
-                        <p>• {language === 'en' ? 'Higher ratings show more positive themes' : '高评分显示更多正向主题'}</p>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
