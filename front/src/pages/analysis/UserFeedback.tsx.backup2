@@ -389,8 +389,39 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                   )}
                 </div>
               )}
+            </CardContent>
+          )}
+        </Card>
+      </motion.div>
 
-              {/* 评论主题分析散点图 */}
+      {/* Star Rating Root Cause Module */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        <Card className="border-clean shadow-clean">
+          <CardHeader 
+            className="spacing-system-lg border-b border-border cursor-pointer"
+            onClick={() => toggleSection('star-rating')}
+          >
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+              <div className="gap-system-sm flex items-center">
+                <Star className="h-4 w-4 text-primary" />
+                <span>{language === 'en' ? 'Star Rating Root Cause Analysis' : '评分根因分析'}</span>
+              </div>
+              <motion.div
+                animate={{ rotate: expandedSections.has('star-rating') ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </motion.div>
+            </CardTitle>
+          </CardHeader>
+          
+          {expandedSections.has('star-rating') && (
+            <CardContent className="spacing-system-lg">
+              {/* 完整散点图 - 内联样式版本 */}
               <div style={{
                 width: '100%',
                 marginBottom: '24px'
@@ -403,7 +434,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                   alignItems: 'center',
                   gap: '8px'
                 }}>
-                  📊 {language === 'en' ? 'Review Theme Analysis' : '评论主题分析'}
+                  📊 {language === 'en' ? 'Rating Theme Analysis' : '评分主题分析'}
                 </h4>
                 
                 <div style={{
@@ -515,7 +546,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                         borderRadius: '50%'
                       }}></div>
                       <span style={{fontSize: '14px', color: '#6b7280'}}>
-                        {language === 'en' ? 'Positive Themes' : '正向主题'} ({scatterData.filter(d => d.type === '满意点').length})
+                        正向主题 ({scatterData.filter(d => d.type === '满意点').length})
                       </span>
                     </div>
                     <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
@@ -526,45 +557,12 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                         borderRadius: '50%'
                       }}></div>
                       <span style={{fontSize: '14px', color: '#6b7280'}}>
-                        {language === 'en' ? 'Negative Themes' : '负向主题'} ({scatterData.filter(d => d.type === '不满意点').length})
+                        负向主题 ({scatterData.filter(d => d.type === '不满意点').length})
                       </span>
                     </div>
                   </div>
                 </div>
               </div>
-            </CardContent>
-          )}
-        </Card>
-      </motion.div>
-
-      {/* Star Rating Root Cause Module */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-      >
-        <Card className="border-clean shadow-clean">
-          <CardHeader 
-            className="spacing-system-lg border-b border-border cursor-pointer"
-            onClick={() => toggleSection('star-rating')}
-          >
-            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
-              <div className="gap-system-sm flex items-center">
-                <Star className="h-4 w-4 text-primary" />
-                <span>{language === 'en' ? 'Star Rating Root Cause Analysis' : '评分根因分析'}</span>
-              </div>
-              <motion.div
-                animate={{ rotate: expandedSections.has('star-rating') ? 90 : 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <ChevronRight className="h-4 w-4" />
-              </motion.div>
-            </CardTitle>
-          </CardHeader>
-          
-          {expandedSections.has('star-rating') && (
-            <CardContent className="spacing-system-lg">
-              {/* 完整散点图 - 内联样式版本 */}
               
               {/* 关键洞察 */}
               {starRatingData?.评分分布分析?.关键洞察 && (
