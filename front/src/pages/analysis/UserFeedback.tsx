@@ -389,149 +389,6 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                   )}
                 </div>
               )}
-
-              {/* 评论主题分析散点图 */}
-              <div style={{
-                width: '100%',
-                marginBottom: '24px'
-              }}>
-                <h4 style={{
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  marginBottom: '16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px'
-                }}>
-                  📊 {language === 'en' ? 'Review Theme Analysis' : '评论主题分析'}
-                </h4>
-                
-                <div style={{
-                  background: 'linear-gradient(to bottom right, #f8fafc, #f1f5f9)',
-                  padding: '24px',
-                  borderRadius: '8px',
-                  border: '1px solid #e2e8f0'
-                }}>
-                  {/* 散点图容器 */}
-                  <div style={{
-                    position: 'relative',
-                    width: '100%',
-                    height: '400px',
-                    backgroundColor: 'white',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '4px'
-                  }}>
-                    {/* 网格线 */}
-                    <svg style={{
-                      position: 'absolute',
-                      top: '0',
-                      left: '0',
-                      width: '100%',
-                      height: '100%'
-                    }}>
-                      {[1,2,3,4,5].map(i => (
-                        <line 
-                          key={`v${i}`}
-                          x1={`${i*18 + 10}%`} 
-                          y1="5%" 
-                          x2={`${i*18 + 10}%`} 
-                          y2="85%" 
-                          stroke="#e5e7eb" 
-                          strokeDasharray="2,2"
-                        />
-                      ))}
-                      {[0,20,40,60,80].map(i => (
-                        <line 
-                          key={`h${i}`}
-                          x1="10%" 
-                          y1={`${85-i*0.8}%`} 
-                          x2="90%" 
-                          y2={`${85-i*0.8}%`} 
-                          stroke="#e5e7eb" 
-                          strokeDasharray="2,2"
-                        />
-                      ))}
-                    </svg>
-                    
-                    {/* 数据点 */}
-                    {scatterData.map((point, i) => (
-                      <div
-                        key={i}
-                        style={{
-                          position: 'absolute',
-                          left: `${10 + (point.x - 1) * 18}%`,
-                          bottom: `${15 + (point.y / 60) * 70}%`,
-                          width: '8px',
-                          height: '8px',
-                          backgroundColor: point.type === '满意点' ? '#22c55e' : '#ef4444',
-                          borderRadius: '50%',
-                          cursor: 'pointer',
-                          transform: 'translate(-50%, 50%)'
-                        }}
-                        title={`${point.name} - ${point.x}星, ${point.y}%`}
-                      />
-                    ))}
-                    
-                    {/* 坐标轴标签 */}
-                    <div style={{
-                      position: 'absolute',
-                      bottom: '5px',
-                      left: '10%',
-                      right: '10%',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      fontSize: '12px',
-                      color: '#6b7280'
-                    }}>
-                      <span>1星</span><span>2星</span><span>3星</span><span>4星</span><span>5星</span>
-                    </div>
-                    <div style={{
-                      position: 'absolute',
-                      left: '5px',
-                      top: '5%',
-                      bottom: '15%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      fontSize: '12px',
-                      color: '#6b7280'
-                    }}>
-                      <span>60%</span><span>40%</span><span>20%</span><span>0%</span>
-                    </div>
-                  </div>
-                  
-                  {/* 图例 */}
-                  <div style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: '24px',
-                    marginTop: '16px'
-                  }}>
-                    <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-                      <div style={{
-                        width: '12px',
-                        height: '12px',
-                        backgroundColor: '#22c55e',
-                        borderRadius: '50%'
-                      }}></div>
-                      <span style={{fontSize: '14px', color: '#6b7280'}}>
-                        {language === 'en' ? 'Positive Themes' : '正向主题'} ({scatterData.filter(d => d.type === '满意点').length})
-                      </span>
-                    </div>
-                    <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-                      <div style={{
-                        width: '12px',
-                        height: '12px',
-                        backgroundColor: '#ef4444',
-                        borderRadius: '50%'
-                      }}></div>
-                      <span style={{fontSize: '14px', color: '#6b7280'}}>
-                        {language === 'en' ? 'Negative Themes' : '负向主题'} ({scatterData.filter(d => d.type === '不满意点').length})
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </CardContent>
           )}
         </Card>
@@ -648,7 +505,124 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                     {language === 'en' ? 'Rating Theme Analysis' : '评分主题分析'}
                   </h4>
                   <div className="bg-gradient-to-br from-slate-50 to-gray-50 p-6 rounded-lg border">
+                    {/* 散点图容器 */}
+                    <div style={{
+                      position: 'relative',
+                      width: '100%',
+                      height: '400px',
+                      backgroundColor: 'white',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '4px'
+                    }}>
+                      {/* 网格线 */}
+                      <svg style={{
+                        position: 'absolute',
+                        top: '0',
+                        left: '0',
+                        width: '100%',
+                        height: '100%'
+                      }}>
+                        {[1,2,3,4,5].map(i => (
+                          <line 
+                            key={`v${i}`}
+                            x1={`${i*18 + 10}%`} 
+                            y1="5%" 
+                            x2={`${i*18 + 10}%`} 
+                            y2="85%" 
+                            stroke="#e5e7eb" 
+                            strokeDasharray="2,2"
+                          />
+                        ))}
+                        {[0,20,40,60,80].map(i => (
+                          <line 
+                            key={`h${i}`}
+                            x1="10%" 
+                            y1={`${85-i*0.8}%`} 
+                            x2="90%" 
+                            y2={`${85-i*0.8}%`} 
+                            stroke="#e5e7eb" 
+                            strokeDasharray="2,2"
+                          />
+                        ))}
+                      </svg>
+                      
+                      {/* 数据点 */}
+                      {scatterData.map((point, i) => (
+                        <div
+                          key={i}
+                          style={{
+                            position: 'absolute',
+                            left: `${10 + (point.x - 1) * 18}%`,
+                            bottom: `${15 + (point.y / 60) * 70}%`,
+                            width: '8px',
+                            height: '8px',
+                            backgroundColor: point.type === '满意点' ? '#22c55e' : '#ef4444',
+                            borderRadius: '50%',
+                            cursor: 'pointer',
+                            transform: 'translate(-50%, 50%)'
+                          }}
+                          title={`${point.name} - ${point.x}星, ${point.y}%`}
+                        />
+                      ))}
+                      
+                      {/* 坐标轴标签 */}
+                      <div style={{
+                        position: 'absolute',
+                        bottom: '5px',
+                        left: '10%',
+                        right: '10%',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        fontSize: '12px',
+                        color: '#6b7280'
+                      }}>
+                        <span>1星</span><span>2星</span><span>3星</span><span>4星</span><span>5星</span>
+                      </div>
+                      <div style={{
+                        position: 'absolute',
+                        left: '5px',
+                        top: '5%',
+                        bottom: '15%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        fontSize: '12px',
+                        color: '#6b7280'
+                      }}>
+                        <span>60%</span><span>40%</span><span>20%</span><span>0%</span>
+                      </div>
+                    </div>
                     
+                    {/* 图例 */}
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      gap: '24px',
+                      marginTop: '16px'
+                    }}>
+                      <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                        <div style={{
+                          width: '12px',
+                          height: '12px',
+                          backgroundColor: '#22c55e',
+                          borderRadius: '50%'
+                        }}></div>
+                        <span style={{fontSize: '14px', color: '#6b7280'}}>
+                          {language === 'en' ? 'Positive Themes' : '正向主题'} ({scatterData.filter(d => d.type === '满意点').length})
+                        </span>
+                      </div>
+                      <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                        <div style={{
+                          width: '12px',
+                          height: '12px',
+                          backgroundColor: '#ef4444',
+                          borderRadius: '50%'
+                        }}></div>
+                        <span style={{fontSize: '14px', color: '#6b7280'}}>
+                          {language === 'en' ? 'Negative Themes' : '负向主题'} ({scatterData.filter(d => d.type === '不满意点').length})
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
