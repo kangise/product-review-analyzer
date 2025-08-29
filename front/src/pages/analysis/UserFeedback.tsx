@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Heart, Star, ChevronDown, ChevronRight, MessageSquare, Info, Tag, ThumbsUp, ThumbsDown, TrendingUp, AlertTriangle, BarChart3 } from 'lucide-react'
+import { Heart, Star, ChevronDown, ChevronRight, MessageSquare, Info, Tag, ThumbsUp, ThumbsDown, TrendingUp, AlertTriangle, BarChart3, Crown } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card'
 import { Badge } from '../../components/ui/badge'
 import { Button } from '../../components/ui/button'
@@ -403,37 +403,54 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                 </motion.div>
               )}
 
-              {/* Rating Distribution Overview */}
-              <div className="gap-system-lg grid md:grid-cols-3 mb-6">
-                {/* Bar Chart for Rating Distribution */}
-                <div>
+              {/* Rating Distribution Overview - 优化布局 */}
+              <div className="gap-system-md grid md:grid-cols-2 mb-6">
+                {/* 主要评分分布图 - 参考rating图片设计 */}
+                <div className="col-span-2 md:col-span-1">
                   <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-primary" />
+                    <Star className="h-4 w-4 text-primary" />
                     {language === 'en' ? 'Rating Distribution' : '评分分布'}
                   </h4>
-                  <div className="gap-3 flex flex-col">
-                    {Object.entries(ratingDistributionRaw).map(([rating, percentage]) => (
-                      <div key={rating} className="flex items-center gap-3">
-                        <div className="w-12 text-sm font-medium">{rating}</div>
-                        <div className="flex-1">
-                          <Progress 
-                            value={parseFloat((percentage as string).replace('%', ''))} 
-                            className="h-2"
-                          />
-                        </div>
-                        <div className="w-12 text-sm text-muted-foreground text-right">{percentage}</div>
-                      </div>
-                    ))}
+                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg border">
+                    <div className="gap-2 flex flex-col">
+                      {Object.entries(ratingDistributionRaw)
+                        .sort(([a], [b]) => parseInt(b.replace('星', '')) - parseInt(a.replace('星', '')))
+                        .map(([rating, percentage], index) => {
+                          const numericRating = parseInt(rating.replace('星', ''));
+                          const percentValue = parseFloat((percentage as string).replace('%', ''));
+                          const isTop3 = index < 3;
+                          
+                          return (
+                            <div key={rating} className="flex items-center gap-3 py-2">
+                              <div className="w-16 text-sm font-medium flex items-center gap-1">
+                                {isTop3 && <Crown className="h-3 w-3 text-yellow-500" />}
+                                <div className="flex items-center gap-1">
+                                  {Array.from({ length: numericRating }, (_, i) => (
+                                    <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                                  ))}
+                                </div>
+                              </div>
+                              <div className="flex-1">
+                                <Progress 
+                                  value={percentValue} 
+                                  className="h-3"
+                                />
+                              </div>
+                              <div className="w-12 text-sm font-medium text-right">{percentage}</div>
+                            </div>
+                          );
+                        })}
+                    </div>
                   </div>
                 </div>
 
-                {/* Pie Chart */}
+                {/* 可视化分布饼图 */}
                 <div>
                   <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
-                    <Star className="h-4 w-4 text-primary" />
+                    <TrendingUp className="h-4 w-4 text-primary" />
                     {language === 'en' ? 'Visual Distribution' : '可视化分布'}
                   </h4>
-                  <div className="h-64">
+                  <div className="h-64 bg-gradient-to-br from-slate-50 to-gray-50 p-4 rounded-lg border">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
                         <Pie
@@ -453,50 +470,6 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                           formatter={(value: any) => [`${value}%`, language === 'en' ? 'Percentage' : '百分比']}
                         />
                       </PieChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-
-                {/* Scatter Chart - 横轴=分数，纵轴=频率，点=反馈类型 */}
-                <div>
-                  <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
-                    <AlertTriangle className="h-4 w-4 text-primary" />
-                    {language === 'en' ? 'Feedback Distribution' : '反馈分布图'}
-                  </h4>
-                  <div className="h-64">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <ScatterChart data={scatterData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis 
-                          type="number" 
-                          dataKey="x" 
-                          domain={[0.5, 5.5]}
-                          ticks={[1, 2, 3, 4, 5]}
-                          label={{ value: language === 'en' ? 'Rating (Stars)' : '评分 (星)', position: 'insideBottom', offset: -5 }}
-                        />
-                        <YAxis 
-                          type="number" 
-                          dataKey="y"
-                          label={{ value: language === 'en' ? 'Frequency (%)' : '频率 (%)', angle: -90, position: 'insideLeft' }}
-                        />
-                        <RechartsTooltip 
-                          formatter={(value: any, name: string, props: any) => [
-                            `${value}%`, 
-                            props.payload?.name || name
-                          ]}
-                          labelFormatter={(value: any) => `${value}星`}
-                        />
-                        <Scatter 
-                          data={scatterData.filter(d => d.type === '满意点')} 
-                          fill="#22c55e"
-                          name="满意点"
-                        />
-                        <Scatter 
-                          data={scatterData.filter(d => d.type === '不满意点')} 
-                          fill="#ef4444"
-                          name="不满意点"
-                        />
-                      </ScatterChart>
                     </ResponsiveContainer>
                   </div>
                 </div>
@@ -534,103 +507,120 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                         </Badge>
                       </div>
                       
-                      {/* 主要满意点 */}
+                      {/* 主要满意点 - 优化可视化 */}
                       {data.主要满意点 && data.主要满意点.length > 0 && (
                         <div className="mb-4">
-                          <h6 className="font-medium text-xs mb-2 text-green-600">
+                          <h6 className="font-medium text-xs mb-3 text-green-600 flex items-center gap-2">
+                            <ThumbsUp className="h-3 w-3" />
                             {language === 'en' ? 'Main Satisfaction Points' : '主要满意点'}
                           </h6>
-                          <div className="gap-2 flex flex-col">
-                            {data.主要满意点.map((point: any, index: number) => (
-                              <div key={index} className="spacing-system-sm bg-green-50 dark:bg-green-900/20 rounded border-l-2 border-green-500">
-                                <div className="flex items-center justify-between mb-1">
-                                  <span className="text-xs font-medium">{point.喜爱点 || point.满意点 || `满意点 ${index + 1}`}</span>
+                          <div className="gap-3 grid md:grid-cols-2">
+                            {data.主要满意点.map((point: any, index: number) => {
+                              const isTop3 = index < 3;
+                              const frequency = parseFloat(point.频率?.replace('%', '')) || 0;
+                              
+                              return (
+                                <div key={index} className="spacing-system-sm bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 relative">
+                                  {isTop3 && (
+                                    <div className="absolute -top-1 -right-1">
+                                      <Crown className="h-4 w-4 text-yellow-500 bg-white rounded-full p-0.5 shadow-sm" />
+                                    </div>
+                                  )}
+                                  
+                                  <div className="flex items-center justify-between mb-2">
+                                    <span className="text-xs font-medium flex items-center gap-1">
+                                      {isTop3 && <span className="text-yellow-600 text-xs">#{index + 1}</span>}
+                                      {point.喜爱点 || point.满意点 || `满意点 ${index + 1}`}
+                                    </span>
+                                  </div>
+                                  
+                                  {/* 使用Progress组件 */}
                                   {point.频率 && (
-                                    <Badge variant="secondary" className="text-xs">{point.频率}</Badge>
+                                    <div className="mb-2">
+                                      <div className="flex items-center justify-between mb-1">
+                                        <span className="text-xs text-muted-foreground">频率</span>
+                                        <span className="text-xs font-medium text-green-600">{point.频率}</span>
+                                      </div>
+                                      <Progress value={frequency} className="h-2" />
+                                    </div>
+                                  )}
+                                  
+                                  {point.消费者描述 && (
+                                    <p className="text-xs text-green-700 dark:text-green-300 mb-2 leading-relaxed">{point.消费者描述}</p>
+                                  )}
+                                  {point.示例评论 && point.示例评论.length > 0 && (
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className="h-6 px-2 text-xs"
+                                      onClick={() => showQuotes(point.示例评论, point.喜爱点 || point.满意点 || '满意点')}
+                                    >
+                                      <MessageSquare className="mr-1 h-3 w-3" />
+                                      {language === 'en' ? 'Examples' : '示例'} ({point.示例评论.length})
+                                    </Button>
                                   )}
                                 </div>
-                                
-                                {/* 频率可视化进度条 */}
-                                {point.频率 && (
-                                  <div className="mb-2">
-                                    <div className="w-full bg-green-100 dark:bg-green-900/30 rounded-full h-1.5">
-                                      <div 
-                                        className="bg-green-500 rounded-full h-1.5 transition-all duration-500"
-                                        style={{ 
-                                          width: `${parseFloat(point.频率.replace('%', '')) || 0}%` 
-                                        }}
-                                      />
-                                    </div>
-                                  </div>
-                                )}
-                                
-                                {point.消费者描述 && (
-                                  <p className="text-xs text-green-700 dark:text-green-300 mb-2">{point.消费者描述}</p>
-                                )}
-                                {point.示例评论 && point.示例评论.length > 0 && (
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="h-6 px-2 text-xs"
-                                    onClick={() => showQuotes(point.示例评论, point.喜爱点 || point.满意点 || '满意点')}
-                                  >
-                                    <MessageSquare className="mr-1 h-3 w-3" />
-                                    {language === 'en' ? 'Examples' : '示例'} ({point.示例评论.length})
-                                  </Button>
-                                )}
-                              </div>
-                            ))}
+                              );
+                            })}
                           </div>
                         </div>
                       )}
 
-                      {/* 主要不满意点 */}
+                      {/* 主要不满意点 - 优化可视化 */}
                       {data.主要不满点 && data.主要不满点.length > 0 && (
                         <div>
-                          <h6 className="font-medium text-xs mb-2 text-red-600">
+                          <h6 className="font-medium text-xs mb-3 text-red-600 flex items-center gap-2">
+                            <ThumbsDown className="h-3 w-3" />
                             {language === 'en' ? 'Main Dissatisfaction Points' : '主要不满意点'}
                           </h6>
-                          <div className="gap-2 flex flex-col">
-                            {data.主要不满点.map((point: any, index: number) => (
-                              <div key={index} className="spacing-system-sm bg-red-50 dark:bg-red-900/20 rounded border-l-2 border-red-500">
-                                <div className="flex items-center justify-between mb-1">
-                                  <span className="text-xs font-medium">{point.问题点 || point.不满意点 || `问题点 ${index + 1}`}</span>
-                                </div>
-                                
-                                {/* 频率可视化进度条 */}
-                                {point.频率 && (
-                                  <div className="mb-2">
-                                    <div className="flex items-center justify-between mb-1">
-                                      <span className="text-xs text-muted-foreground">频率</span>
-                                      <span className="text-xs font-medium text-red-600">{point.频率}</span>
+                          <div className="gap-3 grid md:grid-cols-2">
+                            {data.主要不满点.map((point: any, index: number) => {
+                              const isTop3 = index < 3;
+                              const frequency = parseFloat(point.频率?.replace('%', '')) || 0;
+                              
+                              return (
+                                <div key={index} className="spacing-system-sm bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 relative">
+                                  {isTop3 && (
+                                    <div className="absolute -top-1 -right-1">
+                                      <Crown className="h-4 w-4 text-yellow-500 bg-white rounded-full p-0.5 shadow-sm" />
                                     </div>
-                                    <div className="w-full bg-red-100 dark:bg-red-900/30 rounded-full h-1.5">
-                                      <div 
-                                        className="bg-red-500 rounded-full h-1.5 transition-all duration-500"
-                                        style={{ 
-                                          width: `${parseFloat(point.频率.replace('%', '')) || 0}%` 
-                                        }}
-                                      />
-                                    </div>
+                                  )}
+                                  
+                                  <div className="flex items-center justify-between mb-2">
+                                    <span className="text-xs font-medium flex items-center gap-1">
+                                      {isTop3 && <span className="text-yellow-600 text-xs">#{index + 1}</span>}
+                                      {point.问题点 || point.不满意点 || `问题点 ${index + 1}`}
+                                    </span>
                                   </div>
-                                )}
-                                
-                                {point.消费者描述 && (
-                                  <p className="text-xs text-red-700 dark:text-red-300 mb-2">{point.消费者描述}</p>
-                                )}
-                                {point.示例评论 && point.示例评论.length > 0 && (
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="h-6 px-2 text-xs"
-                                    onClick={() => showQuotes(point.示例评论, point.问题点 || point.不满意点 || '问题点')}
-                                  >
-                                    <MessageSquare className="mr-1 h-3 w-3" />
-                                    {language === 'en' ? 'Examples' : '示例'} ({point.示例评论.length})
-                                  </Button>
-                                )}
-                              </div>
-                            ))}
+                                  
+                                  {/* 使用Progress组件 */}
+                                  {point.频率 && (
+                                    <div className="mb-2">
+                                      <div className="flex items-center justify-between mb-1">
+                                        <span className="text-xs text-muted-foreground">频率</span>
+                                        <span className="text-xs font-medium text-red-600">{point.频率}</span>
+                                      </div>
+                                      <Progress value={frequency} className="h-2" />
+                                    </div>
+                                  )}
+                                  
+                                  {point.消费者描述 && (
+                                    <p className="text-xs text-red-700 dark:text-red-300 mb-2 leading-relaxed">{point.消费者描述}</p>
+                                  )}
+                                  {point.示例评论 && point.示例评论.length > 0 && (
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className="h-6 px-2 text-xs"
+                                      onClick={() => showQuotes(point.示例评论, point.问题点 || point.不满意点 || '问题点')}
+                                    >
+                                      <MessageSquare className="mr-1 h-3 w-3" />
+                                      {language === 'en' ? 'Examples' : '示例'} ({point.示例评论.length})
+                                    </Button>
+                                  )}
+                                </div>
+                              );
+                            })}
                           </div>
                         </div>
                       )}
