@@ -411,55 +411,55 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
               )}
 
               {/* Rating Distribution Overview - 环形Progress组件 */}
-              <div className="gap-system-md grid md:grid-cols-2 mb-6">
+              <div className="gap-system-md flex flex-col mb-6">
                 {/* 评分分布 - 五个环形组件横向排列 */}
-                <div className="col-span-2 md:col-span-1">
+                <div>
                   <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
                     <Star className="h-4 w-4 text-primary" />
                     {language === 'en' ? 'Rating Distribution' : '评分分布'}
                   </h4>
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg border">
-                    <div className="grid grid-cols-5 gap-4">
+                  <div className="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-lg border border-yellow-200">
+                    <div className="flex justify-center items-center gap-8">
                       {['5星', '4星', '3星', '2星', '1星'].map((rating, index) => {
                         const percentage = parseFloat((ratingDistributionRaw[rating] || '0%').replace('%', ''));
                         const numericRating = 5 - index; // 5, 4, 3, 2, 1
                         
                         return (
                           <div key={rating} className="flex flex-col items-center text-center">
-                            <div className="relative w-16 h-16 mb-2">
-                              <svg width="64" height="64" className="transform -rotate-90" viewBox="0 0 64 64">
+                            <div className="relative w-20 h-20 mb-3">
+                              <svg width="80" height="80" className="transform -rotate-90" viewBox="0 0 80 80">
                                 <circle
-                                  cx="32"
-                                  cy="32"
-                                  r="24"
-                                  stroke="rgba(59, 130, 246, 0.2)"
-                                  strokeWidth="4"
+                                  cx="40"
+                                  cy="40"
+                                  r="30"
+                                  stroke="rgba(251, 191, 36, 0.2)"
+                                  strokeWidth="6"
                                   fill="transparent"
                                 />
                                 <circle
-                                  cx="32"
-                                  cy="32"
-                                  r="24"
-                                  stroke="#3b82f6"
-                                  strokeWidth="4"
+                                  cx="40"
+                                  cy="40"
+                                  r="30"
+                                  stroke="#f59e0b"
+                                  strokeWidth="6"
                                   fill="transparent"
-                                  strokeDasharray={`${2 * Math.PI * 24}`}
-                                  strokeDashoffset={`${2 * Math.PI * 24 * (1 - percentage / 100)}`}
+                                  strokeDasharray={`${2 * Math.PI * 30}`}
+                                  strokeDashoffset={`${2 * Math.PI * 30 * (1 - percentage / 100)}`}
                                   strokeLinecap="round"
                                 />
                               </svg>
                               <div className="absolute inset-0 flex items-center justify-center">
-                                <span className="text-sm font-bold text-blue-700">
+                                <span className="text-lg font-bold text-yellow-700">
                                   {percentage.toFixed(0)}%
                                 </span>
                               </div>
                             </div>
                             <div className="flex items-center gap-1 mb-1">
                               {Array.from({ length: numericRating }, (_, i) => (
-                                <Star key={i} className="h-2.5 w-2.5 fill-yellow-400 text-yellow-400" />
+                                <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                               ))}
                             </div>
-                            <div className="text-xs text-blue-700 font-medium">
+                            <div className="text-sm font-medium text-yellow-800">
                               {rating}
                             </div>
                           </div>
@@ -469,23 +469,23 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                   </div>
                 </div>
 
-                {/* 可视化分布饼图 - 修复数据显示 */}
+                {/* 桌面图形参考的评分趋势图表 */}
                 <div>
                   <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
                     <TrendingUp className="h-4 w-4 text-primary" />
-                    {language === 'en' ? 'Visual Distribution' : '可视化分布'}
+                    {language === 'en' ? 'Rating Trend Analysis' : '评分趋势分析'}
                   </h4>
-                  <div className="h-64 bg-gradient-to-br from-slate-50 to-gray-50 p-4 rounded-lg border">
-                    {ratingDistribution.length > 0 ? (
+                  <div className="bg-gradient-to-br from-slate-50 to-gray-50 p-6 rounded-lg border">
+                    <div className="h-64">
                       <ResponsiveContainer width="100%" height="100%">
                         <PieChart>
                           <Pie
                             data={ratingDistribution}
                             cx="50%"
                             cy="50%"
-                            innerRadius={40}
-                            outerRadius={80}
-                            paddingAngle={2}
+                            innerRadius={60}
+                            outerRadius={100}
+                            paddingAngle={3}
                             dataKey="value"
                           >
                             {ratingDistribution.map((entry, index) => (
@@ -498,14 +498,24 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                           />
                         </PieChart>
                       </ResponsiveContainer>
-                    ) : (
-                      <div className="flex items-center justify-center h-full text-muted-foreground">
-                        <div className="text-center">
-                          <Star className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                          <p className="text-sm">{language === 'en' ? 'No rating data available' : '暂无评分数据'}</p>
-                        </div>
+                    </div>
+                    
+                    {/* 图例 */}
+                    <div className="flex justify-center mt-4">
+                      <div className="flex flex-wrap gap-4">
+                        {ratingDistribution.map((entry, index) => (
+                          <div key={index} className="flex items-center gap-2">
+                            <div 
+                              className="w-3 h-3 rounded-full" 
+                              style={{ backgroundColor: entry.color }}
+                            />
+                            <span className="text-sm text-muted-foreground">
+                              {entry.name} ({entry.value}%)
+                            </span>
+                          </div>
+                        ))}
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
               </div>
