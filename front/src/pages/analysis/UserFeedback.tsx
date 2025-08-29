@@ -63,6 +63,13 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
            rating === '2星' ? '#f97316' : '#ef4444'
   }))
 
+  console.log('Rating Distribution Data:', { 
+    ratingDistributionRaw, 
+    ratingDistribution,
+    hasStarRatingData: !!starRatingData,
+    starRatingKeys: starRatingData ? Object.keys(starRatingData) : []
+  })
+
   // 处理按评分划分的反馈数据
   const ratingFeedback = starRatingData?.按评分划分的消费者反馈 || {}
 
@@ -403,74 +410,102 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                 </motion.div>
               )}
 
-              {/* Rating Distribution Overview - 优化布局 */}
+              {/* Rating Distribution Overview - 环形Progress组件 */}
               <div className="gap-system-md grid md:grid-cols-2 mb-6">
-                {/* 主要评分分布图 - 参考rating图片设计 */}
+                {/* 评分分布 - 五个环形组件横向排列 */}
                 <div className="col-span-2 md:col-span-1">
                   <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
                     <Star className="h-4 w-4 text-primary" />
                     {language === 'en' ? 'Rating Distribution' : '评分分布'}
                   </h4>
                   <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg border">
-                    <div className="gap-2 flex flex-col">
-                      {Object.entries(ratingDistributionRaw)
-                        .sort(([a], [b]) => parseInt(b.replace('星', '')) - parseInt(a.replace('星', '')))
-                        .map(([rating, percentage], index) => {
-                          const numericRating = parseInt(rating.replace('星', ''));
-                          const percentValue = parseFloat((percentage as string).replace('%', ''));
-                          const isTop3 = index < 3;
-                          
-                          return (
-                            <div key={rating} className="flex items-center gap-3 py-2">
-                              <div className="w-16 text-sm font-medium flex items-center gap-1">
-                                {isTop3 && <Crown className="h-3 w-3 text-yellow-500" />}
-                                <div className="flex items-center gap-1">
-                                  {Array.from({ length: numericRating }, (_, i) => (
-                                    <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                                  ))}
-                                </div>
-                              </div>
-                              <div className="flex-1">
-                                <Progress 
-                                  value={percentValue} 
-                                  className="h-3"
+                    <div className="grid grid-cols-5 gap-4">
+                      {['5星', '4星', '3星', '2星', '1星'].map((rating, index) => {
+                        const percentage = parseFloat((ratingDistributionRaw[rating] || '0%').replace('%', ''));
+                        const numericRating = 5 - index; // 5, 4, 3, 2, 1
+                        
+                        return (
+                          <div key={rating} className="flex flex-col items-center text-center">
+                            <div className="relative w-16 h-16 mb-2">
+                              <svg width="64" height="64" className="transform -rotate-90" viewBox="0 0 64 64">
+                                <circle
+                                  cx="32"
+                                  cy="32"
+                                  r="24"
+                                  stroke="rgba(59, 130, 246, 0.2)"
+                                  strokeWidth="4"
+                                  fill="transparent"
                                 />
+                                <circle
+                                  cx="32"
+                                  cy="32"
+                                  r="24"
+                                  stroke="#3b82f6"
+                                  strokeWidth="4"
+                                  fill="transparent"
+                                  strokeDasharray={`${2 * Math.PI * 24}`}
+                                  strokeDashoffset={`${2 * Math.PI * 24 * (1 - percentage / 100)}`}
+                                  strokeLinecap="round"
+                                />
+                              </svg>
+                              <div className="absolute inset-0 flex items-center justify-center">
+                                <span className="text-sm font-bold text-blue-700">
+                                  {percentage.toFixed(0)}%
+                                </span>
                               </div>
-                              <div className="w-12 text-sm font-medium text-right">{percentage}</div>
                             </div>
-                          );
-                        })}
+                            <div className="flex items-center gap-1 mb-1">
+                              {Array.from({ length: numericRating }, (_, i) => (
+                                <Star key={i} className="h-2.5 w-2.5 fill-yellow-400 text-yellow-400" />
+                              ))}
+                            </div>
+                            <div className="text-xs text-blue-700 font-medium">
+                              {rating}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
 
-                {/* 可视化分布饼图 */}
+                {/* 可视化分布饼图 - 修复数据显示 */}
                 <div>
                   <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
                     <TrendingUp className="h-4 w-4 text-primary" />
                     {language === 'en' ? 'Visual Distribution' : '可视化分布'}
                   </h4>
                   <div className="h-64 bg-gradient-to-br from-slate-50 to-gray-50 p-4 rounded-lg border">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={ratingDistribution}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={40}
-                          outerRadius={80}
-                          paddingAngle={2}
-                          dataKey="value"
-                        >
-                          {ratingDistribution.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Pie>
-                        <RechartsTooltip 
-                          formatter={(value: any) => [`${value}%`, language === 'en' ? 'Percentage' : '百分比']}
-                        />
-                      </PieChart>
-                    </ResponsiveContainer>
+                    {ratingDistribution.length > 0 ? (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={ratingDistribution}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={40}
+                            outerRadius={80}
+                            paddingAngle={2}
+                            dataKey="value"
+                          >
+                            {ratingDistribution.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={entry.color} />
+                            ))}
+                          </Pie>
+                          <RechartsTooltip 
+                            formatter={(value: any) => [`${value}%`, language === 'en' ? 'Percentage' : '百分比']}
+                            labelFormatter={(label: any) => label}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    ) : (
+                      <div className="flex items-center justify-center h-full text-muted-foreground">
+                        <div className="text-center">
+                          <Star className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                          <p className="text-sm">{language === 'en' ? 'No rating data available' : '暂无评分数据'}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
