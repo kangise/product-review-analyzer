@@ -112,7 +112,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
       
       console.log(`Processing ${rating}:`, data)
       
-      // 添加满意点
+      // 添加满意点 - 使用喜爱点字段
       if (data.主要满意点 && Array.isArray(data.主要满意点) && data.主要满意点.length > 0) {
         data.主要满意点.forEach((point: any, index: number) => {
           // 解析频率
@@ -138,7 +138,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
         })
       }
       
-      // 添加不满意点
+      // 添加不满意点 - 使用未满足的需求字段
       if (data.主要不满点 && Array.isArray(data.主要不满点) && data.主要不满点.length > 0) {
         data.主要不满点.forEach((point: any, index: number) => {
           // 解析频率
