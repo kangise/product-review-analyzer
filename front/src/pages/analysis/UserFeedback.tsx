@@ -38,29 +38,26 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
     setSelectedQuotes({ quotes, title })
   }
 
-  // 从analysisResult中获取数据，使用正确的数据源
+  // 从analysisResult中获取数据 - 数据结构确认正确
   const consumerLoveData = analysisResult?.ownBrandAnalysis?.userFeedback?.consumerLove || {}
-  
-  // 散点图数据需要从原始分析结果获取
-  const starRatingRawData = analysisResult?.star_rating_root_cause || {}
-  // 保持原有的starRatingData为空，避免影响其他组件
   const starRatingData = analysisResult?.ownBrandAnalysis?.userFeedback?.starRating || {}
   
   console.log('UserFeedback received data:', { 
     consumerLoveData, 
     starRatingData,
-    starRatingRawData,
     hasConsumerLove: !!consumerLoveData?.核心赞美点分析,
     consumerLoveCount: consumerLoveData?.核心赞美点分析?.length || 0,
-    hasStarRatingRaw: !!starRatingRawData,
-    starRatingRawKeys: starRatingRawData ? Object.keys(starRatingRawData) : []
+    hasStarRating: !!starRatingData,
+    starRatingKeys: starRatingData ? Object.keys(starRatingData) : [],
+    starRatingFeedback: starRatingData?.按评分划分的消费者反馈,
+    starRatingDistribution: starRatingData?.评分分布分析
   })
 
   // 检查是否有核心赞美点分析数据
   const hasConsumerLoveData = consumerLoveData?.核心赞美点分析 && Array.isArray(consumerLoveData.核心赞美点分析) && consumerLoveData.核心赞美点分析.length > 0
 
-  // 处理评分分布数据 - 使用原始数据
-  const ratingDistributionRaw = starRatingRawData?.评分分布分析?.总体评分分布 || {}
+  // 处理评分分布数据 - 使用正确的嵌套数据
+  const ratingDistributionRaw = starRatingData?.评分分布分析?.总体评分分布 || {}
   const ratingDistribution = Object.entries(ratingDistributionRaw).map(([rating, percentage]) => ({
     name: rating,
     value: parseFloat((percentage as string).replace('%', '')),
@@ -73,13 +70,13 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
   console.log('Rating Distribution Data:', { 
     ratingDistributionRaw, 
     ratingDistribution,
-    hasStarRatingRaw: !!starRatingRawData,
-    starRatingRawKeys: starRatingRawData ? Object.keys(starRatingRawData) : [],
-    ratingFeedback: starRatingRawData?.按评分划分的消费者反馈
+    hasStarRatingData: !!starRatingData,
+    starRatingKeys: starRatingData ? Object.keys(starRatingData) : [],
+    ratingFeedback: starRatingData?.按评分划分的消费者反馈
   })
 
-  // 处理按评分划分的反馈数据 - 使用原始数据
-  const ratingFeedback = starRatingRawData?.按评分划分的消费者反馈 || {}
+  // 处理按评分划分的反馈数据 - 使用正确的嵌套数据
+  const ratingFeedback = starRatingData?.按评分划分的消费者反馈 || {}
 
   // 创建散点图数据：横轴=分数，纵轴=频率，点=反馈类型
   const scatterData: any[] = []
