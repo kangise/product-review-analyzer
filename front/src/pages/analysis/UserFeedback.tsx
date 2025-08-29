@@ -220,7 +220,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                           </div>
                         </div>
                         
-                        {/* Top 3 满意度项目 */}
+                        {/* Top 3 满意度项目 - 确保黄色圆形进度条显示 */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           {consumerLoveData.核心赞美点分析
                             .sort((a: any, b: any) => {
@@ -231,38 +231,43 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                             .slice(0, 3)
                             .map((praise: any, index: number) => {
                               const percentage = parseFloat(praise.赞美点重要性?.replace('%', '')) || 0;
-                              const circumference = 2 * Math.PI * 24;
-                              const strokeDasharray = circumference;
-                              const strokeDashoffset = circumference - (percentage / 100) * circumference;
                               
                               return (
-                                <div key={index} className="flex flex-col items-center text-center">
-                                  <div className="relative w-16 h-16 mb-3">
-                                    <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 60 60">
+                                <motion.div 
+                                  key={index} 
+                                  className="flex flex-col items-center text-center"
+                                  initial={{ opacity: 0, scale: 0.8 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                                >
+                                  <div className="relative w-20 h-20 mb-3">
+                                    {/* 背景圆环 */}
+                                    <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 80 80">
                                       <circle
-                                        cx="30"
-                                        cy="30"
-                                        r="24"
-                                        stroke="currentColor"
-                                        strokeWidth="4"
+                                        cx="40"
+                                        cy="40"
+                                        r="30"
+                                        stroke="#fef3c7"
+                                        strokeWidth="6"
                                         fill="transparent"
-                                        className="text-yellow-200"
                                       />
+                                      {/* 进度圆环 - 黄色 */}
                                       <circle
-                                        cx="30"
-                                        cy="30"
-                                        r="24"
-                                        stroke="currentColor"
-                                        strokeWidth="4"
+                                        cx="40"
+                                        cy="40"
+                                        r="30"
+                                        stroke="#f59e0b"
+                                        strokeWidth="6"
                                         fill="transparent"
-                                        strokeDasharray={strokeDasharray}
-                                        strokeDashoffset={strokeDashoffset}
-                                        className="text-yellow-500 transition-all duration-1000 ease-out"
+                                        strokeDasharray={`${2 * Math.PI * 30}`}
+                                        strokeDashoffset={`${2 * Math.PI * 30 * (1 - percentage / 100)}`}
                                         strokeLinecap="round"
+                                        className="transition-all duration-1000 ease-out"
                                       />
                                     </svg>
+                                    {/* 百分比文字 */}
                                     <div className="absolute inset-0 flex items-center justify-center">
-                                      <span className="text-sm font-bold text-yellow-700">
+                                      <span className="text-lg font-bold text-yellow-700">
                                         {percentage.toFixed(0)}%
                                       </span>
                                     </div>
@@ -270,16 +275,16 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                                   <div className="text-sm font-medium text-yellow-800 mb-1">
                                     {praise.赞美点}
                                   </div>
-                                  <div className="text-xs text-yellow-600">
+                                  <div className="text-xs text-yellow-600 bg-yellow-100 px-2 py-1 rounded">
                                     #{index + 1} {language === 'en' ? 'Most Loved' : '最受喜爱'}
                                   </div>
-                                </div>
+                                </motion.div>
                               );
                             })}
                         </div>
                       </div>
 
-                      {/* 详细赞美点分析 - 使用Progress组件 */}
+                      {/* 详细赞美点分析 - 移除重复百分比 */}
                       <div className="gap-system-md grid md:grid-cols-2">
                         {consumerLoveData.核心赞美点分析.map((praise: any, index: number) => {
                           const importance = parseFloat(praise.赞美点重要性?.replace('%', '')) || 0;
@@ -294,14 +299,9 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                             >
                               <div className="flex items-center justify-between mb-3">
                                 <h5 className="font-medium text-sm pr-2">{praise.赞美点}</h5>
-                                {praise.赞美点重要性 && (
-                                  <Badge variant="secondary" className="text-xs">
-                                    {praise.赞美点重要性}
-                                  </Badge>
-                                )}
                               </div>
                               
-                              {/* 重要性进度条 - 类似User Segmentation */}
+                              {/* 重要性进度条 - 移除重复百分比 */}
                               {praise.赞美点重要性 && (
                                 <div className="mb-3">
                                   <div className="flex items-center justify-between mb-2">
