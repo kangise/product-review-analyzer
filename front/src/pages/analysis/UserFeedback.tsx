@@ -469,51 +469,85 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                   </div>
                 </div>
 
-                {/* 桌面图形参考的评分趋势图表 */}
+                {/* 评分主题频率分析 */}
                 <div>
                   <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
                     <TrendingUp className="h-4 w-4 text-primary" />
-                    {language === 'en' ? 'Rating Trend Analysis' : '评分趋势分析'}
+                    {language === 'en' ? 'Rating Theme Analysis' : '评分主题分析'}
                   </h4>
                   <div className="bg-gradient-to-br from-slate-50 to-gray-50 p-6 rounded-lg border">
-                    <div className="h-64">
+                    <div className="h-80">
                       <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                          <Pie
-                            data={ratingDistribution}
-                            cx="50%"
-                            cy="50%"
-                            innerRadius={60}
-                            outerRadius={100}
-                            paddingAngle={3}
-                            dataKey="value"
-                          >
-                            {ratingDistribution.map((entry, index) => (
-                              <Cell key={`cell-${index}`} fill={entry.color} />
-                            ))}
-                          </Pie>
-                          <RechartsTooltip 
-                            formatter={(value: any) => [`${value}%`, language === 'en' ? 'Percentage' : '百分比']}
-                            labelFormatter={(label: any) => label}
+                        <ScatterChart data={scatterData} margin={{ top: 20, right: 20, bottom: 60, left: 60 }}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis 
+                            type="number" 
+                            dataKey="x" 
+                            domain={[0.5, 5.5]}
+                            ticks={[1, 2, 3, 4, 5]}
+                            label={{ 
+                              value: language === 'en' ? 'Rating (Stars)' : '评分 (星)', 
+                              position: 'insideBottom', 
+                              offset: -10 
+                            }}
                           />
-                        </PieChart>
+                          <YAxis 
+                            type="number" 
+                            dataKey="y"
+                            label={{ 
+                              value: language === 'en' ? 'Theme Frequency (%)' : '主题频率 (%)', 
+                              angle: -90, 
+                              position: 'insideLeft' 
+                            }}
+                          />
+                          <RechartsTooltip 
+                            formatter={(value: any, name: string, props: any) => [
+                              `${value}%`, 
+                              props.payload?.name || name
+                            ]}
+                            labelFormatter={(value: any) => `${value}星评分`}
+                          />
+                          {/* 正向评分 - 绿色点 */}
+                          <Scatter 
+                            data={scatterData.filter(d => d.type === '满意点')} 
+                            fill="#22c55e"
+                            name={language === 'en' ? 'Positive Themes' : '正向主题'}
+                          />
+                          {/* 负向评分 - 红色点 */}
+                          <Scatter 
+                            data={scatterData.filter(d => d.type === '不满意点')} 
+                            fill="#ef4444"
+                            name={language === 'en' ? 'Negative Themes' : '负向主题'}
+                          />
+                        </ScatterChart>
                       </ResponsiveContainer>
                     </div>
                     
-                    {/* 图例 */}
-                    <div className="flex justify-center mt-4">
-                      <div className="flex flex-wrap gap-4">
-                        {ratingDistribution.map((entry, index) => (
-                          <div key={index} className="flex items-center gap-2">
-                            <div 
-                              className="w-3 h-3 rounded-full" 
-                              style={{ backgroundColor: entry.color }}
-                            />
-                            <span className="text-sm text-muted-foreground">
-                              {entry.name} ({entry.value}%)
-                            </span>
-                          </div>
-                        ))}
+                    {/* 图例说明 */}
+                    <div className="flex justify-center mt-4 gap-6">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-green-500" />
+                        <span className="text-sm text-muted-foreground">
+                          {language === 'en' ? 'Positive Themes' : '正向主题'}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-red-500" />
+                        <span className="text-sm text-muted-foreground">
+                          {language === 'en' ? 'Negative Themes' : '负向主题'}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    {/* 主要发现 */}
+                    <div className="mt-4 p-4 bg-white rounded-lg border">
+                      <h5 className="font-medium text-sm mb-2">
+                        {language === 'en' ? 'Key Findings' : '主要发现'}
+                      </h5>
+                      <div className="text-xs text-muted-foreground space-y-1">
+                        <p>• {language === 'en' ? 'Higher ratings (4-5 stars) show more positive themes' : '高评分(4-5星)显示更多正向主题'}</p>
+                        <p>• {language === 'en' ? 'Lower ratings (1-2 stars) concentrate negative themes' : '低评分(1-2星)集中负向主题'}</p>
+                        <p>• {language === 'en' ? 'Theme frequency indicates customer priority areas' : '主题频率反映客户关注重点'}</p>
                       </div>
                     </div>
                   </div>
