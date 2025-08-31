@@ -1775,7 +1775,7 @@ export default function App() {
                               <h4 className="text-sm font-medium mb-3 text-center">
                                 {language === 'en' ? 'Analysis Steps' : '分析步骤'}
                               </h4>
-                              <div className="gap-2 flex flex-col">
+                              <div className="flex flex-col" style={{ gap: '24px' }}>
                                 {analysisSteps.map((step, index) => (
                                   <motion.div
                                     key={step.id}
@@ -1816,8 +1816,7 @@ export default function App() {
                             language={language}
                             currentStep={currentStep}
                             analysisId={analysisId}
-                            analysisProgress={analysisProgress}
-                            analysisStatus={analysisSteps}
+                            isDarkMode={theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)}
                           />
                         </div>
                       </div>

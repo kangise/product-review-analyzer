@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
+import { moduleContents } from './moduleContents';
 
 // 每个模块对应的AI说话方式的说明
 const moduleScripts = {
-  "Product Classification": `# 产品分类分析
+  "Product Classification": {
+    zh: `# 产品分类分析
 
 你好！我正在为你分析产品的基本属性和市场定位。通过深度学习算法和自然语言处理技术，我会从数千条用户评论中提取关键信息，为你构建完整的产品画像。
 
@@ -32,119 +34,87 @@ const moduleScripts = {
 **如果你是创业者**：可以了解你进入的是什么市场，竞争激烈程度如何。通过分类分析把握市场机会和挑战，制定更精准的商业策略
 
 记住，准确的产品分类是后续所有洞察的基础！这就像建房子的地基，只有地基牢固，上面的分析才会有价值。`,
+    en: `# Product Classification Analysis
 
-  "Consumer Profile Analysis": `# 消费者画像分析
+Hello! I'm analyzing your product's fundamental attributes and market positioning. Using deep learning algorithms and natural language processing, I'll extract key insights from thousands of user reviews to build a comprehensive product profile.
 
-我正在分析谁在买你的产品，以及他们的特征。
+## What You'll See
 
-## 你将看到什么信息
+I will identify:
+- **Product Category** - Whether it's electronics, home goods, or other types. I analyze user descriptions, feature mentions, and comparison objects across multiple dimensions to accurately determine the core category, ensuring classification precision
+- **Specific Sub-categories** - Precise classification within the main category. Beyond broad categories, I'll identify specific subcategories like security devices, entertainment systems, or lifestyle assistants within smart home products
+- **Core Functional Features** - What the product's main functions are. By analyzing the most frequently mentioned features, usage scenarios, and satisfaction feedback, I identify the core value proposition
+- **Target User Groups** - Who primarily uses this product. From reviewers' language styles, usage scenario descriptions, and need expressions, I infer the main user personas and demographic characteristics
 
-我会从评论中提取出：
-- **用户的大致年龄段** - 通过语言风格和提及的使用场景推断
-- **职业背景** - 从他们描述的使用环境判断
-- **技术水平** - 看他们对产品功能的理解程度
-- **消费习惯** - 他们关注价格还是更看重功能
+## Why This Information Matters
 
-## 为什么要分析用户画像
+Product classification is the foundation of all analysis. Like a doctor needs accurate diagnosis, I must precisely identify your product type to:
+- Find appropriate competitors for comparison - Only accurate classification ensures we're comparing truly similar products, avoiding apples-to-oranges comparisons
+- Understand category user characteristics - Different categories have distinctly different need patterns, purchasing habits, and usage behaviors
+- Provide targeted improvement suggestions - Based on accurate product positioning, I can offer truly valuable optimization directions
 
-了解用户是谁，就能知道：
-- 他们真正在意什么
-- 用什么方式和他们沟通最有效
-- 还有哪些类似的人群可以开发
+## How This Helps You
 
-这就像开店要知道顾客是谁一样重要。
+**If you're a Product Manager**: Confirm whether product positioning is accurate and if functional focus needs adjustment. Understand your product's actual market position through real user feedback and identify positioning gaps
 
-## 这些信息如何帮助你
+**If you're a Marketing Professional**: Clarify target user groups and choose appropriate promotion channels and marketing language. Understand how users describe and perceive your product to optimize marketing messaging
 
-**精准营销**：知道用户特征后，你就知道在哪里找到更多这样的客户
+**If you're an Entrepreneur**: Understand what market you're entering and the competitive intensity. Grasp market opportunities and challenges through classification analysis to develop more precise business strategies
 
-**产品优化**：了解用户的技术水平，就能决定产品功能要做得多复杂
-
-**定价策略**：知道用户的消费能力，就能制定合适的价格
-
-**客户服务**：了解用户背景，就能提供更贴心的服务
-
-用户画像越清晰，你的决策就越精准！`,
-
-  "Consumer Scenario Analysis": `# 消费场景分析
-
-我在分析用户在什么情况下使用你的产品。
-
-## 你将看到什么信息
-
-我会识别出：
-- **主要使用场景** - 用户最常在什么情况下使用产品
-- **使用频率** - 每个场景下的使用频繁程度
-- **满意度表现** - 在不同场景下用户的满意程度
-- **具体需求** - 每个场景下用户最关心什么
-
-## 为什么场景分析很重要
-
-同一个产品在不同场景下，用户的需求完全不同。比如：
-- 在家使用 vs 在办公室使用
-- 个人使用 vs 多人使用
-- 日常使用 vs 特殊场合使用
-
-了解这些差异，你就能针对性地优化产品。
-
-## 这些信息如何帮助你
-
-**功能优先级**：知道哪个场景最重要，就知道先优化哪些功能
-
-**营销内容**：可以制作针对不同场景的宣传材料
-
-**产品设计**：可以为高频场景设计专门的功能模式
-
-**市场拓展**：发现新的使用场景，就找到了新的市场机会
-
-场景越清楚，产品就越好用！`,
-
-  "Consumer Motivation Analysis": `# 购买动机分析
-
-我在分析用户为什么要买你的产品。
-
-## 你将看到什么信息
-
-我会发现：
-- **功能性需求** - 用户希望产品解决什么实际问题
-- **情感性需求** - 产品给用户带来什么感受（比如专业感、安全感）
-- **社交性需求** - 产品如何影响用户的社交形象
-- **触发因素** - 什么事情让用户决定要买这个产品
-
-## 为什么要分析购买动机
-
-人们买东西不只是因为功能，更多时候是因为感受。了解真正的购买动机，你就能：
-- 找到产品的真正价值点
-- 设计打动人心的营销信息
-- 预测用户的购买行为
-
-## 这些信息如何帮助你
-
-**产品定位**：知道用户真正想要什么，就能突出最重要的卖点
-
-**营销策略**：了解用户的情感需求，就能写出打动人的文案
-
-**销售话术**：知道用户的顾虑和期待，就能更好地说服客户
-
-**产品开发**：理解深层需求，就能开发出用户真正想要的功能
-
-动机比功能更重要，因为动机决定购买！`
+Remember, accurate product classification is the foundation for all subsequent insights! It's like building a house - only with a solid foundation can the analysis above be valuable.`
+  },
+  ...moduleContents
 };
 
 interface StreamingJsonGeneratorProps {
   language?: 'en' | 'zh';
   currentStep?: string;
   analysisId?: string;
+  isDarkMode?: boolean;
 }
 
-export function StreamingJsonGenerator({ language = 'en', currentStep, analysisId }: StreamingJsonGeneratorProps) {
+export function StreamingJsonGenerator({ language = 'en', currentStep, analysisId, isDarkMode = false }: StreamingJsonGeneratorProps) {
   const [isGenerating, setIsGenerating] = useState(true);
   const [currentContent, setCurrentContent] = useState('');
   const intervalRef = useRef<NodeJS.Timeout>();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+  // 根据模式设置样式
+  const getStyles = () => {
+    if (isDarkMode) {
+      return {
+        cardBg: '#2a2a2a',
+        cardBorder: '#404040',
+        containerBg: '#1a1a1a',
+        textColor: '#f0f6fc',
+        titleColor: '#58a6ff',
+        subtitleColor: '#56d364',
+        subheadColor: '#f2cc60',
+        boldColor: '#ff7b72',
+        bulletColor: '#58a6ff',
+        placeholderColor: '#7d8590'
+      };
+    } else {
+      return {
+        cardBg: '#ffffff',
+        cardBorder: '#e5e7eb',
+        containerBg: '#fafafa',
+        textColor: '#374151',
+        titleColor: '#1e40af',
+        subtitleColor: '#059669',
+        subheadColor: '#d97706',
+        boldColor: '#be185d',
+        bulletColor: '#1e40af',
+        placeholderColor: '#9ca3af'
+      };
+    }
+  };
+
+  const styles = getStyles();
+
   const startGeneration = () => {
-    const script = moduleScripts[currentStep as keyof typeof moduleScripts] || moduleScripts["Product Classification"];
+    const moduleData = moduleScripts[currentStep as keyof typeof moduleScripts] || moduleScripts["Product Classification"];
+    const script = typeof moduleData === 'string' ? moduleData : moduleData[language] || moduleData.zh;
     const totalLength = script.length;
 
     setIsGenerating(true);
@@ -161,7 +131,7 @@ export function StreamingJsonGenerator({ language = 'en', currentStep, analysisI
         setIsGenerating(false);
         clearInterval(intervalRef.current!);
       }
-    }, 20 + Math.random() * 60); // 慢20%：20-80ms (原来17-53ms)
+    }, 20 + Math.random() * 60);
   };
 
   useEffect(() => {
@@ -178,68 +148,51 @@ export function StreamingJsonGenerator({ language = 'en', currentStep, analysisI
         clearInterval(intervalRef.current);
       }
     };
-  }, [currentStep]);
+  }, [currentStep, language]);
 
   return (
-    <div className="w-full space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            {language === 'en' ? 'AI Analysis Stream' : 'AI 分析流式输出'}
-            <Badge variant={isGenerating ? "default" : "secondary"}>
-              {isGenerating 
-                ? (language === 'en' ? 'Generating' : '生成中')
-                : (language === 'en' ? 'Complete' : '完成')
-              }
-            </Badge>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Card className="bg-muted/30" style={{ backgroundColor: '#1a1a1a', border: '1px solid #333' }}>
-            <CardContent className="p-0">
+    <Card className="bg-muted/30" style={{ backgroundColor: styles.cardBg, border: `1px solid ${styles.cardBorder}` }}>
+      <CardContent className="p-0">
+        <div 
+          ref={scrollContainerRef}
+          className="h-96 overflow-y-auto overflow-x-hidden"
+          style={{ 
+            height: '384px',
+            backgroundColor: 'transparent'
+          }}
+        >
+          <div className="p-4">
+            {currentContent ? (
               <div 
-                ref={scrollContainerRef}
-                className="h-96 overflow-y-auto overflow-x-hidden"
-                style={{ 
-                  height: '384px',
-                  backgroundColor: '#0d1117'
+                className="whitespace-pre-wrap font-mono"
+                style={{
+                  fontSize: '13px',
+                  lineHeight: '1.6',
+                  color: styles.textColor
                 }}
-              >
-                <div className="p-4">
-                  {currentContent ? (
-                    <div 
-                      className="whitespace-pre-wrap font-mono"
-                      style={{
-                        fontSize: '13px',
-                        lineHeight: '1.6',
-                        color: '#f0f6fc'
-                      }}
-                      dangerouslySetInnerHTML={{
-                        __html: currentContent
-                          .replace(/^# (.*$)/gm, '<div style="font-size: 13px; font-weight: bold; color: #58a6ff; margin: 16px 0 12px 0; border-left: 3px solid #58a6ff; padding-left: 12px; background: rgba(88, 166, 255, 0.1); padding: 8px 12px; border-radius: 4px;">$1</div>')
-                          .replace(/^## (.*$)/gm, '<div style="font-size: 13px; font-weight: 600; color: #56d364; margin: 12px 0 8px 0; padding: 4px 0;">$1</div>')
-                          .replace(/^### (.*$)/gm, '<div style="font-size: 13px; font-weight: 500; color: #f2cc60; margin: 8px 0 6px 0;">$1</div>')
-                          .replace(/^\- (.*$)/gm, '<div style="font-size: 13px; color: #e6edf3; margin: 4px 0; padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: #58a6ff; font-weight: bold;">•</span>$1</div>')
-                          .replace(/^\*\*(.*?)\*\*/gm, '<span style="font-size: 13px; font-weight: 600; color: #ff7b72; background: rgba(255, 123, 114, 0.1); padding: 2px 4px; border-radius: 3px;">$1</span>')
-                          .replace(/\n\n/g, '<div style="height: 12px;"></div>')
-                          .replace(/^(?!<[ds])/gm, '<div style="font-size: 13px; color: #e6edf3; margin: 6px 0; line-height: 1.6;">')
-                          .replace(/$/gm, '</div>')
-                      }}
-                    />
-                  ) : (
-                    <div className="text-muted-foreground text-center py-8">
-                      {language === 'en' 
-                        ? 'Initializing analysis stream...'
-                        : '正在初始化分析流...'
-                      }
-                    </div>
-                  )}
-                </div>
+                dangerouslySetInnerHTML={{
+                  __html: currentContent
+                    .replace(/^# (.*$)/gm, `<div style="font-size: 13px; font-weight: bold; color: ${styles.titleColor}; margin: 16px 0 12px 0; border-left: 3px solid ${styles.titleColor}; padding-left: 12px; background: ${isDarkMode ? 'rgba(88, 166, 255, 0.1)' : 'rgba(30, 64, 175, 0.1)'}; padding: 8px 12px; border-radius: 4px;">$1</div>`)
+                    .replace(/^## (.*$)/gm, `<div style="font-size: 13px; font-weight: 600; color: ${styles.subtitleColor}; margin: 12px 0 8px 0; padding: 4px 0;">$1</div>`)
+                    .replace(/^### (.*$)/gm, `<div style="font-size: 13px; font-weight: 500; color: ${styles.subheadColor}; margin: 8px 0 6px 0;">$1</div>`)
+                    .replace(/^\- (.*$)/gm, `<div style="font-size: 13px; color: ${styles.textColor}; margin: 4px 0; padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: ${styles.bulletColor}; font-weight: bold;">•</span>$1</div>`)
+                    .replace(/^\*\*(.*?)\*\*/gm, `<span style="font-size: 13px; font-weight: 600; color: ${styles.boldColor}; background: ${isDarkMode ? 'rgba(255, 123, 114, 0.1)' : 'rgba(190, 24, 93, 0.1)'}; padding: 2px 4px; border-radius: 3px;">$1</span>`)
+                    .replace(/\n\n/g, '<div style="height: 12px;"></div>')
+                    .replace(/^(?!<[ds])/gm, `<div style="font-size: 13px; color: ${styles.textColor}; margin: 6px 0; line-height: 1.6;">`)
+                    .replace(/$/gm, '</div>')
+                }}
+              />
+            ) : (
+              <div className="text-center py-8" style={{ color: styles.placeholderColor }}>
+                {language === 'en' 
+                  ? 'Initializing analysis stream...'
+                  : '正在初始化分析流...'
+                }
               </div>
-            </CardContent>
-          </Card>
-        </CardContent>
-      </Card>
-    </div>
+            )}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
