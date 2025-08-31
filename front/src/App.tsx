@@ -22,6 +22,7 @@ import { UserFeedback } from './pages/analysis/UserFeedback'
 import { CompetitorAnalysis } from './pages/analysis/CompetitorAnalysis'
 import { Opportunities } from './pages/analysis/Opportunities'
 import { UnmetNeeds } from './pages/analysis/UnmetNeeds'
+import { StreamingJsonGenerator } from './components/analysis/StreamingJsonGenerator'
 import { HistoryReports } from './pages/HistoryReports'
 import { HistoricalReports } from './pages/HistoricalReports'
 
@@ -1698,16 +1699,16 @@ export default function App() {
             </motion.div>
           </div>
 
-          {/* Analysis progress - Real-time progress tracking */}
+          {/* Analysis progress - Real-time progress tracking with streaming JSON */}
           <AnimatePresence>
             {isAnalyzing && (
               <motion.div
-                className="text-center"
+                className="w-full"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
               >
-                <Card className="max-w-2xl mx-auto border-clean shadow-clean-md">
+                <Card className="max-w-7xl mx-auto border-clean shadow-clean-md">
                   <CardContent className="spacing-system-lg">
                     <div className="gap-system-md flex flex-col items-center">
                       <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
@@ -1755,54 +1756,67 @@ export default function App() {
                         </div>
                       </div>
 
-                      {/* Current Step */}
-                      {currentStep && (
-                        <div className="text-center">
-                          <p className="text-sm font-medium text-primary">
-                            {language === 'en' ? 'Current Step:' : '当前步骤:'} {currentStep}
-                          </p>
-                        </div>
-                      )}
+                      {/* Left-Right Layout: Steps and JSON Stream */}
+                      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Left: Current Step and Steps List */}
+                        <div className="space-y-4">
+                          {/* Current Step */}
+                          {currentStep && (
+                            <div className="text-center">
+                              <p className="text-sm font-medium text-primary">
+                                {language === 'en' ? 'Current Step:' : '当前步骤:'} {currentStep}
+                              </p>
+                            </div>
+                          )}
 
-                      {/* Step Progress List */}
-                      {analysisSteps.length > 0 && (
-                        <div className="w-full max-w-md">
-                          <h4 className="text-sm font-medium mb-3 text-center">
-                            {language === 'en' ? 'Analysis Steps' : '分析步骤'}
-                          </h4>
-                          <div className="gap-2 flex flex-col">
-                            {analysisSteps.map((step, index) => (
-                              <motion.div
-                                key={step.id}
-                                className="flex items-center gap-3 text-sm"
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                              >
-                                <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                                  step.status === 'completed' ? 'bg-green-500' :
-                                  step.status === 'running' ? 'bg-primary animate-pulse' :
-                                  'bg-muted'
-                                }`}>
-                                  {step.status === 'completed' && (
-                                    <CheckCircle className="w-3 h-3 text-white" />
-                                  )}
-                                  {step.status === 'running' && (
-                                    <Clock className="w-3 h-3 text-white animate-spin" />
-                                  )}
-                                </div>
-                                <span className={`flex-1 ${
-                                  step.status === 'completed' ? 'text-green-600 dark:text-green-400' :
-                                  step.status === 'running' ? 'text-primary font-medium' :
-                                  'text-muted-foreground'
-                                }`}>
-                                  {language === 'en' ? step.name : step.name_zh}
-                                </span>
-                              </motion.div>
-                            ))}
-                          </div>
+                          {/* Step Progress List */}
+                          {analysisSteps.length > 0 && (
+                            <div className="w-full">
+                              <h4 className="text-sm font-medium mb-3 text-center">
+                                {language === 'en' ? 'Analysis Steps' : '分析步骤'}
+                              </h4>
+                              <div className="gap-2 flex flex-col">
+                                {analysisSteps.map((step, index) => (
+                                  <motion.div
+                                    key={step.id}
+                                    className="flex items-center gap-3 text-sm"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: index * 0.1 }}
+                                  >
+                                    <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
+                                      step.status === 'completed' ? 'bg-green-500' :
+                                      step.status === 'running' ? 'bg-primary animate-pulse' :
+                                      'bg-muted'
+                                    }`}>
+                                      {step.status === 'completed' && (
+                                        <CheckCircle className="w-3 h-3 text-white" />
+                                      )}
+                                      {step.status === 'running' && (
+                                        <Clock className="w-3 h-3 text-white animate-spin" />
+                                      )}
+                                    </div>
+                                    <span className={`flex-1 ${
+                                      step.status === 'completed' ? 'text-green-600 dark:text-green-400' :
+                                      step.status === 'running' ? 'text-primary font-medium' :
+                                      'text-muted-foreground'
+                                    }`}>
+                                      {language === 'en' ? step.name : step.name_zh}
+                                    </span>
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
-                      )}
+
+                        {/* Right: AI Analysis Stream */}
+                        <div className="w-full">
+                          <StreamingJsonGenerator 
+                            language={language}
+                          />
+                        </div>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
