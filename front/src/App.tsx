@@ -1814,6 +1814,10 @@ export default function App() {
                         <div className="w-full">
                           <StreamingJsonGenerator 
                             language={language}
+                            currentStep={currentStep}
+                            analysisId={analysisId}
+                            analysisProgress={analysisProgress}
+                            analysisStatus={analysisSteps}
                           />
                         </div>
                       </div>

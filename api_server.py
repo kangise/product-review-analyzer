@@ -226,6 +226,74 @@ def run_analysis_background(analysis_id, own_brand_path, competitor_path, target
         analysis_status[analysis_id]['status'] = 'failed'
         analysis_status[analysis_id]['error'] = str(e)
 
+@app.route('/analysis/<analysis_id>/stream', methods=['GET'])
+def stream_analysis_output(analysis_id):
+    """实时流式输出分析内容"""
+    def generate():
+        if analysis_id not in analysis_status:
+            yield f"data: {json.dumps({'error': 'Analysis not found'})}\n\n"
+            return
+        
+        # 模拟实时输出正在生成的内容
+        status = analysis_status[analysis_id]
+        if status['status'] == 'running':
+            # 根据当前步骤返回相应的实时内容
+            current_step = status.get('current_step', 0)
+            steps = status.get('steps', [])
+            
+            if current_step < len(steps):
+                step_name = steps[current_step]['name']
+                # 这里应该返回真实的AI生成内容
+                # 暂时返回模拟的实时内容
+                content = {
+                    "current_analysis": step_name,
+                    "progress": status['progress'],
+                    "partial_result": f"正在分析{step_name}...",
+                    "timestamp": datetime.now().isoformat()
+                }
+                yield f"data: {json.dumps(content)}\n\n"
+        
+        yield f"data: {json.dumps({'status': 'complete'})}\n\n"
+    
+    return Response(generate(), mimetype='text/plain')
+
+@app.route('/analysis/<analysis_id>/latest-output', methods=['GET'])
+def get_latest_output(analysis_id):
+    """获取最新的分析输出内容"""
+    if analysis_id not in analysis_status:
+        return jsonify({'error': 'Analysis not found'}), 404
+    
+    status = analysis_status[analysis_id]
+    
+    # 如果分析完成，返回完整结果
+    if status['status'] == 'completed':
+        try:
+            result = load_analysis_results(analysis_id, '', False)
+            return jsonify({'content': json.dumps(result, ensure_ascii=False, indent=2)})
+        except:
+            pass
+    
+    # 如果分析进行中，返回当前步骤的实时内容
+    if status['status'] == 'running':
+        current_step = status.get('current_step', 0)
+        steps = status.get('steps', [])
+        
+        if current_step < len(steps):
+            step_name = steps[current_step]['name']
+            # 这里应该返回真实的AI正在生成的内容
+            # 暂时返回模拟内容
+            content = {
+                "🔄 实时分析状态": "正在进行中",
+                "📊 当前步骤": f"{current_step + 1}/9 - {step_name}",
+                "📈 完成进度": f"{status['progress']}%",
+                "🤖 AI引擎": "Amazon Q Developer",
+                "⏰ 分析时间": status.get('start_time', ''),
+                "🔍 实时洞察": f"正在深度分析{step_name}，AI正在处理数据并生成洞察..."
+            }
+            return jsonify({'content': json.dumps(content, ensure_ascii=False, indent=2)})
+    
+    return jsonify({'content': '{"status": "等待分析开始..."}'})
+
 @app.route('/analysis/<analysis_id>/status', methods=['GET'])
 def get_analysis_status(analysis_id):
     """获取分析状态"""
