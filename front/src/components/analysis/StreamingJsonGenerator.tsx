@@ -1,33 +1,37 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { Badge } from '../ui/badge';
+
 // 每个模块对应的AI说话方式的说明
 const moduleScripts = {
   "Product Classification": `# 产品分类分析
 
-你好！我正在为你分析产品的基本属性和市场定位。
+你好！我正在为你分析产品的基本属性和市场定位。通过深度学习算法和自然语言处理技术，我会从数千条用户评论中提取关键信息，为你构建完整的产品画像。
 
 ## 你将看到什么信息
 
 我会告诉你：
-- **产品属于什么类别** - 比如是电子产品、家居用品还是其他类型
-- **具体的细分类型** - 在大类下的更精确分类
-- **主要功能特点** - 这个产品的核心功能是什么
-- **目标用户群体** - 主要是哪些人在使用这个产品
+- **产品属于什么类别** - 比如是电子产品、家居用品还是其他类型。我会从用户的使用描述、功能提及、比较对象等多个维度来准确判断产品的核心类别，确保分类的精准性
+- **具体的细分类型** - 在大类下的更精确分类。不仅仅是大的品类，还会细分到具体的子类别，比如智能家居中的安防设备、娱乐设备或者生活辅助设备
+- **主要功能特点** - 这个产品的核心功能是什么。通过分析用户最常提及的功能点、使用场景和满意度反馈，识别出产品的核心价值主张
+- **目标用户群体** - 主要是哪些人在使用这个产品。从评论者的语言风格、使用场景描述、需求表达等方面推断出主要的用户画像和人群特征
 
 ## 为什么这些信息很重要
 
 产品分类是所有分析的基础。就像医生看病要先确诊一样，我需要先准确识别你的产品类型，才能：
-- 找到合适的竞争对手进行对比
-- 了解这个品类的用户特点
-- 给出针对性的改进建议
+- 找到合适的竞争对手进行对比 - 只有准确的分类才能确保我们比较的是真正的同类产品，避免苹果和橘子的无效对比
+- 了解这个品类的用户特点 - 不同品类的用户有着截然不同的需求模式、购买习惯和使用行为
+- 给出针对性的改进建议 - 基于准确的产品定位，我才能提供真正有价值的优化方向
 
 ## 这些信息如何帮助你
 
-**如果你是产品经理**：可以确认产品定位是否准确，是否需要调整功能重点
+**如果你是产品经理**：可以确认产品定位是否准确，是否需要调整功能重点。通过用户的真实反馈了解产品在市场中的实际位置，发现定位偏差
 
-**如果你是营销人员**：可以明确目标用户群体，选择合适的推广渠道和营销语言
+**如果你是营销人员**：可以明确目标用户群体，选择合适的推广渠道和营销语言。了解用户如何描述和理解你的产品，优化营销信息的表达方式
 
-**如果你是创业者**：可以了解你进入的是什么市场，竞争激烈程度如何
+**如果你是创业者**：可以了解你进入的是什么市场，竞争激烈程度如何。通过分类分析把握市场机会和挑战，制定更精准的商业策略
 
-记住，准确的产品分类是后续所有洞察的基础！`,
+记住，准确的产品分类是后续所有洞察的基础！这就像建房子的地基，只有地基牢固，上面的分析才会有价值。`,
 
   "Consumer Profile Analysis": `# 消费者画像分析
 
@@ -157,7 +161,7 @@ export function StreamingJsonGenerator({ language = 'en', currentStep, analysisI
         setIsGenerating(false);
         clearInterval(intervalRef.current!);
       }
-    }, 17 + Math.random() * 36); // 70%速度：17-53ms
+    }, 20 + Math.random() * 60); // 慢20%：20-80ms (原来17-53ms)
   };
 
   useEffect(() => {
@@ -191,26 +195,35 @@ export function StreamingJsonGenerator({ language = 'en', currentStep, analysisI
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <Card className="bg-muted/30">
+          <Card className="bg-muted/30" style={{ backgroundColor: '#1a1a1a', border: '1px solid #333' }}>
             <CardContent className="p-0">
               <div 
                 ref={scrollContainerRef}
                 className="h-96 overflow-y-auto overflow-x-hidden"
-                style={{ height: '384px' }}
+                style={{ 
+                  height: '384px',
+                  backgroundColor: '#0d1117'
+                }}
               >
-                <div className="p-4 prose prose-sm max-w-none dark:prose-invert">
+                <div className="p-4">
                   {currentContent ? (
                     <div 
-                      className="whitespace-pre-wrap"
+                      className="whitespace-pre-wrap font-mono"
+                      style={{
+                        fontSize: '13px',
+                        lineHeight: '1.6',
+                        color: '#f0f6fc'
+                      }}
                       dangerouslySetInnerHTML={{
                         __html: currentContent
-                          .replace(/^# (.*$)/gm, '<h1 class="text-xl font-bold mb-3 text-primary">$1</h1>')
-                          .replace(/^## (.*$)/gm, '<h2 class="text-lg font-semibold mb-2 text-foreground">$1</h2>')
-                          .replace(/^### (.*$)/gm, '<h3 class="text-base font-medium mb-2 text-foreground">$1</h3>')
-                          .replace(/^\- (.*$)/gm, '<li class="ml-4">$1</li>')
-                          .replace(/^\*\*(.*?)\*\*/gm, '<strong class="font-semibold">$1</strong>')
-                          .replace(/\n\n/g, '</p><p class="mb-2">')
-                          .replace(/^(?!<[h|l])/gm, '<p class="mb-2">')
+                          .replace(/^# (.*$)/gm, '<div style="font-size: 13px; font-weight: bold; color: #58a6ff; margin: 16px 0 12px 0; border-left: 3px solid #58a6ff; padding-left: 12px; background: rgba(88, 166, 255, 0.1); padding: 8px 12px; border-radius: 4px;">$1</div>')
+                          .replace(/^## (.*$)/gm, '<div style="font-size: 13px; font-weight: 600; color: #56d364; margin: 12px 0 8px 0; padding: 4px 0;">$1</div>')
+                          .replace(/^### (.*$)/gm, '<div style="font-size: 13px; font-weight: 500; color: #f2cc60; margin: 8px 0 6px 0;">$1</div>')
+                          .replace(/^\- (.*$)/gm, '<div style="font-size: 13px; color: #e6edf3; margin: 4px 0; padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: #58a6ff; font-weight: bold;">•</span>$1</div>')
+                          .replace(/^\*\*(.*?)\*\*/gm, '<span style="font-size: 13px; font-weight: 600; color: #ff7b72; background: rgba(255, 123, 114, 0.1); padding: 2px 4px; border-radius: 3px;">$1</span>')
+                          .replace(/\n\n/g, '<div style="height: 12px;"></div>')
+                          .replace(/^(?!<[ds])/gm, '<div style="font-size: 13px; color: #e6edf3; margin: 6px 0; line-height: 1.6;">')
+                          .replace(/$/gm, '</div>')
                       }}
                     />
                   ) : (
