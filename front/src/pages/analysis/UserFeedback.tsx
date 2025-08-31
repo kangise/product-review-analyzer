@@ -34,8 +34,15 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
     setExpandedSections(newExpanded)
   }
 
-  const showQuotes = (quotes: string[], title: string) => {
-    setSelectedQuotes({ quotes, title })
+  const showQuotes = (quotes: string | string[], title: string) => {
+    let quotesArray: string[] = []
+    if (typeof quotes === 'string') {
+      // 如果是字符串，按常见分隔符分割
+      quotesArray = quotes.split(/\n|；|;|\|/).filter(q => q.trim().length > 0)
+    } else if (Array.isArray(quotes)) {
+      quotesArray = quotes
+    }
+    setSelectedQuotes({ quotes: quotesArray, title })
   }
 
   // 从analysisResult中获取数据 - 添加详细调试
@@ -333,14 +340,10 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                                 <h5 className="font-medium text-sm pr-2">{praise.赞美点}</h5>
                               </div>
                               
-                              {/* 重要性进度条 */}
+                              {/* 进度条 */}
                               {praise.赞美点重要性 && (
                                 <div className="mb-3">
-                                  <div className="flex items-center justify-between mb-2">
-                                    <span className="text-xs text-muted-foreground flex items-center gap-1">
-                                      <TrendingUp className="h-3 w-3" />
-                                      {language === 'en' ? 'Importance' : '重要性'}
-                                    </span>
+                                  <div className="flex items-center justify-end mb-2">
                                     <span className="text-xs font-medium">{praise.赞美点重要性}</span>
                                   </div>
                                   <Progress value={importance} className="h-2" />

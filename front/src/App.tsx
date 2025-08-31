@@ -12,6 +12,7 @@ import { Sheet, SheetContent, SheetTrigger } from './components/ui/sheet'
 import { Switch } from './components/ui/switch'
 import { Input } from './components/ui/input'
 import { Label } from './components/ui/label'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select'
 import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip } from 'recharts'
 import { projectId, publicAnonKey } from './utils/supabase/info'
 
@@ -93,6 +94,13 @@ const translations = {
         placeholder: "e.g., Wireless Headphones, Laptops, Sports Shoes, Skincare Products, etc.",
         helpText: "Clear category description helps provide more accurate analysis results",
         commonCategories: "Common Categories:"
+      },
+      outputLanguage: {
+        title: "Analysis Output Language",
+        description: "Choose the language for analysis results",
+        label: "Output Language",
+        english: "English",
+        chinese: "Chinese"
       },
       ownBrand: {
         title: "Own Brand Reviews",
@@ -247,6 +255,13 @@ const translations = {
         placeholder: "例如：无线耳机、笔记本电脑、运动鞋、护肤品等",
         helpText: "清晰的品类描述有助于提供更准确的分析结果",
         commonCategories: "常见品类："
+      },
+      outputLanguage: {
+        title: "分析结果语言",
+        description: "选择分析结果的输出语言",
+        label: "输出语言",
+        english: "英文",
+        chinese: "中文"
       },
       ownBrand: {
         title: "自有品牌评论",
@@ -483,6 +498,7 @@ export default function App() {
   const [ownBrandFile, setOwnBrandFile] = useState<UploadedFile | null>(null)
   const [competitorFile, setCompetitorFile] = useState<UploadedFile | null>(null)
   const [targetCategory, setTargetCategory] = useState<string>('')
+  const [outputLanguage, setOutputLanguage] = useState<'en' | 'zh'>('en')
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [analysisId, setAnalysisId] = useState<string | null>(null)
   const [analysisSteps, setAnalysisSteps] = useState<any[]>([])
@@ -773,7 +789,8 @@ export default function App() {
           ownBrandFile: ownBrandFile!.fileName,
           competitorFile: competitorFile?.fileName || null,
           targetCategory: targetCategory.trim(),
-          language: language
+          language: language,
+          outputLanguage: outputLanguage
         })
       })
 
@@ -900,6 +917,7 @@ export default function App() {
     setOwnBrandFile(null)
     setCompetitorFile(null)
     setTargetCategory('')
+    setOutputLanguage('en')
     setActiveModule('dashboard')
     setError(null)
     setExpandedSections(new Set())
@@ -966,7 +984,7 @@ export default function App() {
 
   const NavigationContent = ({ isMobile = false }: { isMobile?: boolean }) => {
     // 使用useMemo稳定导航项计算，避免不必要的重新渲染
-    const stableNavigationItems = useMemo(() => navigationItems, [analysisResult, historicalReports.length])
+    const stableNavigationItems = useMemo(() => navigationItems, [!!analysisResult, historicalReports.length])
     
     return (
       <nav className="gap-system-sm flex flex-col">
@@ -1300,6 +1318,25 @@ export default function App() {
                       <span>{t.upload.targetCategory.helpText}</span>
                       <span>{targetCategory.length}/50</span>
                     </div>
+                  </div>
+
+                  {/* Output Language Selection */}
+                  <div className="gap-system-sm flex flex-col">
+                    <Label htmlFor="outputLanguage" className="text-sm">
+                      {t.upload.outputLanguage.label}
+                    </Label>
+                    <Select value={outputLanguage} onValueChange={(value: 'en' | 'zh') => setOutputLanguage(value)}>
+                      <SelectTrigger className="border-clean">
+                        <SelectValue placeholder={t.upload.outputLanguage.label} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="en">{t.upload.outputLanguage.english}</SelectItem>
+                        <SelectItem value="zh">{t.upload.outputLanguage.chinese}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <p className="text-xs text-muted-foreground">
+                      {t.upload.outputLanguage.description}
+                    </p>
                   </div>
 
                   {/* Category suggestions - cleaner styling */}
