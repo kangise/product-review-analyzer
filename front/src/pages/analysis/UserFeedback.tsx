@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Heart, Star, ChevronDown, ChevronRight, MessageSquare, Info, Tag, ThumbsUp, ThumbsDown, TrendingUp, AlertTriangle, BarChart3, Crown } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card'
@@ -101,6 +101,24 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
     starRatingKeys: starRatingData ? Object.keys(starRatingData) : [],
     ratingFeedback: starRatingData?.按评分划分的消费者反馈
   })
+
+  // 检测系统主题
+  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [hoveredPoint, setHoveredPoint] = useState(null)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  
+  useEffect(() => {
+    const checkTheme = () => {
+      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      setIsDarkMode(isDark)
+    }
+    
+    checkTheme()
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    mediaQuery.addEventListener('change', checkTheme)
+    
+    return () => mediaQuery.removeEventListener('change', checkTheme)
+  }, [])
 
   // 处理按评分划分的反馈数据 - 使用正确的嵌套数据
   const ratingFeedback = starRatingData?.按评分划分的消费者反馈 || {}
@@ -238,19 +256,26 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                   {/* 消费者洞察总结 - 处理对象结构 */}
                   {typeof consumerLoveData.消费者洞察总结 === 'object' && (
                     <div className="gap-system-md flex flex-col">
-                      {Object.entries(consumerLoveData.消费者洞察总结).map(([key, value]: [string, any]) => (
-                        <motion.div 
-                          key={key}
-                          className="spacing-system-md bg-accent rounded-lg border-clean"
-                          whileHover={{ scale: 1.01 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <h4 className="font-medium mb-2 text-sm">{key}</h4>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {typeof value === 'string' ? value : JSON.stringify(value)}
-                          </p>
-                        </motion.div>
-                      ))}
+                      {Object.entries(consumerLoveData.消费者洞察总结).map(([key, value]: [string, any]) => {
+                        // 翻译中文键名
+                        const translatedKey = key === '技术规格' ? t.analysis.technicalSpecs :
+                                            key === '功能属性' ? t.analysis.functionalAttributes :
+                                            key === '使用场景' ? t.analysis.usageScenarios : key;
+                        
+                        return (
+                          <motion.div 
+                            key={key}
+                            className="spacing-system-md bg-accent rounded-lg border-clean"
+                            whileHover={{ scale: 1.01 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <h4 className="font-medium mb-2 text-sm">{translatedKey}</h4>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                              {typeof value === 'string' ? value : JSON.stringify(value)}
+                            </p>
+                          </motion.div>
+                        );
+                      })}
                     </div>
                   )}
 
@@ -265,7 +290,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                             {language === 'en' ? 'Top 3 Customer Satisfaction' : 'Top 3 客户满意度'}
                           </h4>
                           <div className="text-xs text-yellow-700 bg-yellow-100 px-2 py-1 rounded">
-                            {language === 'en' ? 'Most Loved Features' : '最受喜爱功能'}
+                            {t.analysis.mostLovedFeatures}
                           </div>
                         </div>
                         
@@ -353,13 +378,6 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                               {/* 频率进度条 */}
                               {praise.频率 && (
                                 <div className="mb-3">
-                                  <div className="flex items-center justify-between mb-2">
-                                    <span className="text-xs text-muted-foreground flex items-center gap-1">
-                                      <BarChart3 className="h-3 w-3" />
-                                      {language === 'en' ? 'Frequency' : '提及频率'}
-                                    </span>
-                                    <span className="text-xs font-medium">{praise.频率}</span>
-                                  </div>
                                   <Progress value={frequency} className="h-2" />
                                 </div>
                               )}
@@ -424,148 +442,6 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
           
           {expandedSections.has('star-rating') && (
             <CardContent className="spacing-system-lg">
-              {/* 完整散点图 - 内联样式版本 */}
-              <div style={{
-                width: '100%',
-                marginBottom: '24px'
-              }}>
-                <h4 style={{
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  marginBottom: '16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px'
-                }}>
-                  📊 {language === 'en' ? 'Rating Theme Analysis' : '评分主题分析'}
-                </h4>
-                
-                <div style={{
-                  background: 'linear-gradient(to bottom right, #f8fafc, #f1f5f9)',
-                  padding: '24px',
-                  borderRadius: '8px',
-                  border: '1px solid #e2e8f0'
-                }}>
-                  {/* 散点图容器 */}
-                  <div style={{
-                    position: 'relative',
-                    width: '100%',
-                    height: '400px',
-                    backgroundColor: 'white',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '4px'
-                  }}>
-                    {/* 网格线 */}
-                    <svg style={{
-                      position: 'absolute',
-                      top: '0',
-                      left: '0',
-                      width: '100%',
-                      height: '100%'
-                    }}>
-                      {[1,2,3,4,5].map(i => (
-                        <line 
-                          key={`v${i}`}
-                          x1={`${i*18 + 10}%`} 
-                          y1="5%" 
-                          x2={`${i*18 + 10}%`} 
-                          y2="85%" 
-                          stroke="#e5e7eb" 
-                          strokeDasharray="2,2"
-                        />
-                      ))}
-                      {[0,20,40,60,80].map(i => (
-                        <line 
-                          key={`h${i}`}
-                          x1="10%" 
-                          y1={`${85-i*0.8}%`} 
-                          x2="90%" 
-                          y2={`${85-i*0.8}%`} 
-                          stroke="#e5e7eb" 
-                          strokeDasharray="2,2"
-                        />
-                      ))}
-                    </svg>
-                    
-                    {/* 数据点 */}
-                    {scatterData.map((point, i) => (
-                      <div
-                        key={i}
-                        style={{
-                          position: 'absolute',
-                          left: `${10 + (point.x - 1) * 18}%`,
-                          bottom: `${15 + (point.y / 60) * 70}%`,
-                          width: '8px',
-                          height: '8px',
-                          backgroundColor: point.type === '满意点' ? '#22c55e' : '#ef4444',
-                          borderRadius: '50%',
-                          cursor: 'pointer',
-                          transform: 'translate(-50%, 50%)'
-                        }}
-                        title={`${point.name} - ${point.x}星, ${point.y}%`}
-                      />
-                    ))}
-                    
-                    {/* 坐标轴标签 */}
-                    <div style={{
-                      position: 'absolute',
-                      bottom: '5px',
-                      left: '10%',
-                      right: '10%',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      fontSize: '12px',
-                      color: '#6b7280'
-                    }}>
-                      <span>1星</span><span>2星</span><span>3星</span><span>4星</span><span>5星</span>
-                    </div>
-                    <div style={{
-                      position: 'absolute',
-                      left: '5px',
-                      top: '5%',
-                      bottom: '15%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      fontSize: '12px',
-                      color: '#6b7280'
-                    }}>
-                      <span>60%</span><span>40%</span><span>20%</span><span>0%</span>
-                    </div>
-                  </div>
-                  
-                  {/* 图例 */}
-                  <div style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: '24px',
-                    marginTop: '16px'
-                  }}>
-                    <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-                      <div style={{
-                        width: '12px',
-                        height: '12px',
-                        backgroundColor: '#22c55e',
-                        borderRadius: '50%'
-                      }}></div>
-                      <span style={{fontSize: '14px', color: '#6b7280'}}>
-                        正向主题 ({scatterData.filter(d => d.type === '满意点').length})
-                      </span>
-                    </div>
-                    <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-                      <div style={{
-                        width: '12px',
-                        height: '12px',
-                        backgroundColor: '#ef4444',
-                        borderRadius: '50%'
-                      }}></div>
-                      <span style={{fontSize: '14px', color: '#6b7280'}}>
-                        负向主题 ({scatterData.filter(d => d.type === '不满意点').length})
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
               
               {/* 关键洞察 */}
               {starRatingData?.评分分布分析?.关键洞察 && (
@@ -592,7 +468,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                     {language === 'en' ? 'Rating Distribution' : '评分分布'}
                   </h4>
                   <div className="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-lg border border-yellow-200">
-                    <div className="flex justify-center items-center gap-8">
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '60px' }}>
                       {['5星', '4星', '3星', '2星', '1星'].map((rating, index) => {
                         const percentage = parseFloat((ratingDistributionRaw[rating] || '0%').replace('%', ''));
                         const numericRating = 5 - index; // 5, 4, 3, 2, 1
@@ -646,10 +522,196 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                 <div>
                   <h4 className="font-medium mb-4 text-sm flex items-center gap-2">
                     <TrendingUp className="h-4 w-4 text-primary" />
-                    {language === 'en' ? 'Rating Theme Analysis' : '评分主题分析'}
+                    {t.analysis.ratingThemeAnalysis}
                   </h4>
                   <div className="bg-gradient-to-br from-slate-50 to-gray-50 p-6 rounded-lg border">
-                    
+                    {/* 完整散点图 - 内联样式版本 */}
+                    <div style={{
+                      width: '100%',
+                      marginBottom: '24px'
+                    }}>
+                      <div style={{
+                        background: isDarkMode 
+                          ? 'linear-gradient(to bottom right, #000000, #333333)'
+                          : 'linear-gradient(to bottom right, #f8fafc, #f1f5f9)',
+                        padding: '24px',
+                        borderRadius: '8px',
+                        border: isDarkMode ? '1px solid #666666' : '1px solid #e2e8f0'
+                      }}>
+                        {/* 散点图容器 */}
+                        <div style={{
+                          position: 'relative',
+                          width: '100%',
+                          height: '400px',
+                          backgroundColor: isDarkMode ? '#000000' : '#ffffff',
+                          border: isDarkMode ? '1px solid #666666' : '1px solid #d1d5db',
+                          borderRadius: '4px'
+                        }}>
+                          {/* 网格线 */}
+                          <svg style={{
+                            position: 'absolute',
+                            top: '0',
+                            left: '0',
+                            width: '100%',
+                            height: '100%'
+                          }}>
+                            {[1,2,3,4,5].map(i => (
+                              <line 
+                                key={`v${i}`}
+                                x1={`${i*18 + 10}%`} 
+                                y1="5%" 
+                                x2={`${i*18 + 10}%`} 
+                                y2="85%" 
+                                stroke={isDarkMode ? "#666666" : "#e5e7eb"} 
+                                strokeDasharray="2,2"
+                              />
+                            ))}
+                            {[0,20,40,60,80].map(i => (
+                              <line 
+                                key={`h${i}`}
+                                x1="10%" 
+                                y1={`${85-i*0.8}%`} 
+                                x2="90%" 
+                                y2={`${85-i*0.8}%`} 
+                                stroke={isDarkMode ? "#666666" : "#e5e7eb"} 
+                                strokeDasharray="2,2"
+                              />
+                            ))}
+                          </svg>
+                          
+                          {/* 数据点 */}
+                          {scatterData.map((point, i) => (
+                            <div
+                              key={i}
+                              style={{
+                                position: 'absolute',
+                                left: `${10 + (point.x - 1) * 18}%`,
+                                bottom: `${15 + (point.y / 60) * 70}%`,
+                                width: '10px',
+                                height: '10px',
+                                backgroundColor: point.type === '满意点' ? '#10b981' : '#ef4444',
+                                borderRadius: '50%',
+                                cursor: 'pointer',
+                                transform: 'translate(-50%, 50%)',
+                                border: isDarkMode ? '2px solid #ffffff' : '2px solid #000000',
+                                transition: 'all 0.2s ease',
+                                zIndex: 10
+                              }}
+                              onMouseEnter={(e) => {
+                                e.target.style.transform = 'translate(-50%, 50%) scale(1.5)';
+                                e.target.style.boxShadow = point.type === '满意点' ? '0 0 15px rgba(16, 185, 129, 0.8)' : '0 0 15px rgba(239, 68, 68, 0.8)';
+                                setHoveredPoint(point);
+                                const rect = e.target.getBoundingClientRect();
+                                setMousePosition({ x: rect.left + rect.width / 2, y: rect.top });
+                              }}
+                              onMouseLeave={(e) => {
+                                e.target.style.transform = 'translate(-50%, 50%) scale(1)';
+                                e.target.style.boxShadow = 'none';
+                                setHoveredPoint(null);
+                              }}
+                            />
+                          ))}
+                          
+                          {/* Tooltip */}
+                          {hoveredPoint && (
+                            <div
+                              style={{
+                                position: 'fixed',
+                                left: mousePosition.x,
+                                top: mousePosition.y - 10,
+                                transform: 'translate(-50%, -100%)',
+                                backgroundColor: isDarkMode ? '#000000' : '#ffffff',
+                                border: isDarkMode ? '1px solid #666666' : '1px solid #d1d5db',
+                                borderRadius: '8px',
+                                padding: '12px',
+                                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                                zIndex: 1000,
+                                minWidth: '200px',
+                                color: isDarkMode ? '#ffffff' : '#111827'
+                              }}
+                            >
+                              <div style={{ fontWeight: 'bold', marginBottom: '8px', fontSize: '14px' }}>
+                                {language === 'en' ? 'Theme Details' : '主题详情'}
+                              </div>
+                              <div style={{ fontSize: '13px', lineHeight: '1.4' }}>
+                                <div><strong>{language === 'en' ? 'Theme' : '主题'}:</strong> {hoveredPoint.name}</div>
+                                <div><strong>{language === 'en' ? 'Rating' : '评分'}:</strong> {hoveredPoint.x}{language === 'en' ? ' stars' : '星'}</div>
+                                <div><strong>{language === 'en' ? 'Mention Rate' : '提及率'}:</strong> {hoveredPoint.y}%</div>
+                                <div><strong>{language === 'en' ? 'Type' : '类型'}:</strong> 
+                                  <span style={{ 
+                                    color: hoveredPoint.type === '满意点' ? '#10b981' : '#ef4444',
+                                    fontWeight: 'bold',
+                                    marginLeft: '4px'
+                                  }}>
+                                    {hoveredPoint.type === '满意点' ? t.analysis.positiveThemes.slice(0, -1) : t.analysis.negativeThemes.slice(0, -1)}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                          
+                          {/* 坐标轴标签 */}
+                          <div style={{
+                            position: 'absolute',
+                            bottom: '5px',
+                            left: '10%',
+                            right: '10%',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            fontSize: '12px',
+                            color: isDarkMode ? '#9ca3af' : '#6b7280'
+                          }}>
+                            <span>1星</span><span>2星</span><span>3星</span><span>4星</span><span>5星</span>
+                          </div>
+                          <div style={{
+                            position: 'absolute',
+                            left: '5px',
+                            top: '5%',
+                            bottom: '15%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            fontSize: '12px',
+                            color: isDarkMode ? '#9ca3af' : '#6b7280'
+                          }}>
+                            <span>60%</span><span>40%</span><span>20%</span><span>0%</span>
+                          </div>
+                        </div>
+                        
+                        {/* 图例 */}
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          gap: '24px',
+                          marginTop: '16px'
+                        }}>
+                          <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                            <div style={{
+                              width: '12px',
+                              height: '12px',
+                              backgroundColor: '#10b981',
+                              borderRadius: '50%',
+                              border: isDarkMode ? '2px solid #ffffff' : '2px solid #000000'
+                            }}></div>
+                            <span style={{fontSize: '14px', color: isDarkMode ? '#d1d5db' : '#374151'}}>
+                              {t.analysis.positiveThemes} ({scatterData.filter(d => d.type === '满意点').length})
+                            </span>
+                          </div>
+                          <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                            <div style={{
+                              width: '12px',
+                              height: '12px',
+                              backgroundColor: '#ef4444',
+                              borderRadius: '50%',
+                              border: isDarkMode ? '2px solid #ffffff' : '2px solid #000000'
+                            }}></div>
+                            <span style={{fontSize: '14px', color: isDarkMode ? '#d1d5db' : '#374151'}}>
+                              {t.analysis.negativeThemes} ({scatterData.filter(d => d.type === '不满意点').length})
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -658,7 +720,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
               <div className="gap-system-md flex flex-col">
                 <h4 className="font-medium text-sm flex items-center gap-2">
                   <AlertTriangle className="h-4 w-4 text-primary" />
-                  {language === 'en' ? 'Detailed Analysis by Rating' : '按评分段详细分析'}
+                  {t.analysis.detailedAnalysisByRating}
                 </h4>
                 
                 {/* 按评分从高到低排序显示 */}
@@ -691,7 +753,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                         <div className="mb-4">
                           <h6 className="font-medium text-xs mb-3 text-green-600 flex items-center gap-2">
                             <ThumbsUp className="h-3 w-3" />
-                            {language === 'en' ? 'Main Satisfaction Points' : '主要满意点'}
+                            {t.analysis.mainSatisfactionPoints}
                           </h6>
                           <div className="gap-3 grid md:grid-cols-2">
                             {data.主要满意点.map((point: any, index: number) => {
@@ -716,10 +778,6 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                                   {/* 使用Progress组件 */}
                                   {point.频率 && (
                                     <div className="mb-2">
-                                      <div className="flex items-center justify-between mb-1">
-                                        <span className="text-xs text-muted-foreground">频率</span>
-                                        <span className="text-xs font-medium text-green-600">{point.频率}</span>
-                                      </div>
                                       <Progress value={frequency} className="h-2" />
                                     </div>
                                   )}
@@ -750,7 +808,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                         <div>
                           <h6 className="font-medium text-xs mb-3 text-red-600 flex items-center gap-2">
                             <ThumbsDown className="h-3 w-3" />
-                            {language === 'en' ? 'Main Dissatisfaction Points' : '主要不满意点'}
+                            {t.analysis.mainDissatisfactionPoints}
                           </h6>
                           <div className="gap-3 grid md:grid-cols-2">
                             {data.主要不满点.map((point: any, index: number) => {
@@ -775,10 +833,6 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                                   {/* 使用Progress组件 */}
                                   {point.频率 && (
                                     <div className="mb-2">
-                                      <div className="flex items-center justify-between mb-1">
-                                        <span className="text-xs text-muted-foreground">频率</span>
-                                        <span className="text-xs font-medium text-red-600">{point.频率}</span>
-                                      </div>
                                       <Progress value={frequency} className="h-2" />
                                     </div>
                                   )}

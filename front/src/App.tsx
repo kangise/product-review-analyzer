@@ -35,7 +35,7 @@ const translations = {
     // Navigation
     nav: {
       dashboard: "Dashboard",
-      upload: "Data Upload",
+      upload: "Start Analysis",
       ownBrand: "Own Brand Analysis", 
       ownBrandInsights: "User Insights",
       ownBrandFeedback: "User Feedback Analysis",
@@ -135,7 +135,20 @@ const translations = {
       segmentedDetails: "Segmented Details",
       keyReviewInfo: "Key Review Information",
       userPersona: "User Persona",
-      category: "Category"
+      category: "Category",
+      // Customer Satisfaction Analysis
+      technicalSpecs: "Technical Specifications",
+      functionalAttributes: "Functional Attributes", 
+      usageScenarios: "Usage Scenarios",
+      satisfactionPoints: "Satisfaction Points",
+      dissatisfactionPoints: "Dissatisfaction Points",
+      positiveThemes: "Positive Themes",
+      negativeThemes: "Negative Themes",
+      mainSatisfactionPoints: "Main Satisfaction Points",
+      mainDissatisfactionPoints: "Main Dissatisfaction Points",
+      mostLovedFeatures: "Most Loved Features",
+      ratingThemeAnalysis: "Rating Theme Analysis",
+      detailedAnalysisByRating: "Detailed Analysis by Rating"
     },
     
     // Common UI elements
@@ -148,6 +161,31 @@ const translations = {
       userCenter: "User Center",
       downloadReport: "Download Report",
       newAnalysis: "New Analysis",
+      save: "Save",
+      cancel: "Cancel",
+      delete: "Delete",
+      edit: "Edit",
+      add: "Add",
+      remove: "Remove",
+      update: "Update",
+      create: "Create",
+      back: "Back",
+      next: "Next",
+      previous: "Previous",
+      continue: "Continue",
+      finish: "Finish",
+      start: "Start",
+      stop: "Stop",
+      close: "Close",
+      examples: "Examples",
+      viewDetails: "View Details",
+      showMore: "Show More",
+      showLess: "Show Less",
+      loadMore: "Load More",
+      readMore: "Read More",
+      seeAll: "See All",
+      expand: "Expand",
+      collapse: "Collapse",
       uploadProgress: "Upload Progress:",
       developing: "Under Development",
       featureDeveloping: "This feature is under development, stay tuned!",
@@ -196,7 +234,7 @@ const translations = {
     // Navigation
     nav: {
       dashboard: "仪表盘",
-      upload: "数据上传",
+      upload: "开始分析",
       ownBrand: "自有品牌分析",
       ownBrandInsights: "用户洞察", 
       ownBrandFeedback: "用户反馈分析",
@@ -296,7 +334,20 @@ const translations = {
       segmentedDetails: "细分人群详情",
       keyReviewInfo: "关键评论信息",
       userPersona: "用户画像",
-      category: "品类:"
+      category: "品类:",
+      // Customer Satisfaction Analysis
+      technicalSpecs: "技术规格",
+      functionalAttributes: "功能属性",
+      usageScenarios: "使用场景",
+      satisfactionPoints: "满意点",
+      dissatisfactionPoints: "不满意点",
+      positiveThemes: "正向主题",
+      negativeThemes: "负向主题",
+      mainSatisfactionPoints: "主要满意点",
+      mainDissatisfactionPoints: "主要不满意点",
+      mostLovedFeatures: "最受喜爱功能",
+      ratingThemeAnalysis: "评分主题分析",
+      detailedAnalysisByRating: "按评分段详细分析"
     },
     
     // Common UI elements
@@ -314,7 +365,32 @@ const translations = {
       featureDeveloping: "该功能正在开发中，敬请期待！",
       english: "English",
       chinese: "中文",
-      search: "搜索"
+      search: "搜索",
+      save: "保存",
+      cancel: "取消",
+      delete: "删除",
+      edit: "编辑",
+      add: "添加",
+      remove: "移除",
+      update: "更新",
+      create: "创建",
+      back: "返回",
+      next: "下一步",
+      previous: "上一步",
+      continue: "继续",
+      finish: "完成",
+      start: "开始",
+      stop: "停止",
+      close: "关闭",
+      examples: "示例",
+      viewDetails: "查看详情",
+      showMore: "显示更多",
+      showLess: "显示更少",
+      loadMore: "加载更多",
+      readMore: "阅读更多",
+      seeAll: "查看全部",
+      expand: "展开",
+      collapse: "收起",
     },
     
     // Error messages
@@ -912,6 +988,17 @@ export default function App() {
     }
   }
 
+  // 确保own-brand菜单在相关页面时保持展开
+  useEffect(() => {
+    if (activeModule.startsWith('own-brand')) {
+      setExpandedSections(prev => {
+        const newExpanded = new Set(prev)
+        newExpanded.add('own-brand')
+        return newExpanded
+      })
+    }
+  }, [activeModule])
+
   const resetAnalysis = () => {
     setAnalysisResult(null)
     setOwnBrandFile(null)
@@ -925,6 +1012,12 @@ export default function App() {
 
   const toggleSection = (sectionId: string) => {
     const newExpanded = new Set(expandedSections)
+    
+    // 如果是own-brand菜单且当前在own-brand相关页面，不允许收起
+    if (sectionId === 'own-brand' && activeModule.startsWith('own-brand')) {
+      return
+    }
+    
     if (newExpanded.has(sectionId)) {
       newExpanded.delete(sectionId)
     } else {

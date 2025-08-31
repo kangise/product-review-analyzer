@@ -352,7 +352,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
                 }
               </p>
               <Button onClick={() => window.location.href = '#upload'}>
-                {language === 'en' ? 'Start Analysis' : '开始分析'}
+                {t.ui.start + (language === 'en' ? ' Analysis' : '分析')}
               </Button>
             </CardContent>
           </Card>
@@ -457,8 +457,8 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
                             : ''
                         }`}
                         title={favorites.has(report.id) 
-                          ? (language === 'en' ? 'Remove from favorites' : '取消收藏')
-                          : (language === 'en' ? 'Add to favorites' : '添加收藏')
+                          ? t.ui.remove + (language === 'en' ? ' from favorites' : '收藏')
+                          : t.ui.add + (language === 'en' ? ' to favorites' : '收藏')
                         }
                       >
                         <Star className={`mr-1 h-3 w-3 ${
@@ -507,7 +507,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
                         )}
                         {deletingReports.has(report.id)
                           ? (language === 'en' ? 'Deleting...' : '删除中...')
-                          : (language === 'en' ? 'Delete' : '删除')
+                          : t.ui.delete
                         }
                       </Button>
                     </div>

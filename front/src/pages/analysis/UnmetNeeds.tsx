@@ -218,14 +218,6 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
 
                     {/* Severity Progress Bar */}
                     <div className="mb-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs text-muted-foreground">
-                          {language === 'en' ? 'Impact Frequency' : '影响频率'}
-                        </span>
-                        <span className="text-xs font-medium">
-                          {need['问题严重性/频率']}
-                        </span>
-                      </div>
                       <Progress 
                         value={parseFloat(need['问题严重性/频率'])} 
                         className="h-2"
