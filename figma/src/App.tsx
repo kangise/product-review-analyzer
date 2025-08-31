@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Upload, FileText, TrendingUp, Users, Target, Star, Download, History, BarChart3, PieChart, ArrowRight, CheckCircle, Clock, AlertCircle, Menu, X, ThumbsUp, ThumbsDown, Lightbulb, Zap, MessageSquare, Info, RefreshCw, ChevronDown, ChevronRight, Home, Play, Eye, BarChart2, ShoppingCart, Sparkles, Settings, Bell, User, Moon, Sun, Monitor, Tag, Languages, Search } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 import { Button } from './components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card'
 import { Badge } from './components/ui/badge'
@@ -12,33 +12,20 @@ import { Sheet, SheetContent, SheetTrigger } from './components/ui/sheet'
 import { Switch } from './components/ui/switch'
 import { Input } from './components/ui/input'
 import { Label } from './components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select'
 import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip } from 'recharts'
 import { projectId, publicAnonKey } from './utils/supabase/info'
-
-// 导入新创建的分析页面组件
-import { UserInsights } from './pages/analysis/UserInsights'
-import Dashboard from './pages/Dashboard'
-import NIcon from './components/icons/NIcon'
-import { UserFeedback } from './pages/analysis/UserFeedback'
-import { CompetitorAnalysis } from './pages/analysis/CompetitorAnalysis'
-import { Opportunities } from './pages/analysis/Opportunities'
-import { UnmetNeeds } from './pages/analysis/UnmetNeeds'
-import { StreamingJsonGenerator } from './components/analysis/StreamingJsonGenerator'
-import { HistoryReports } from './pages/HistoryReports'
-import { HistoricalReports } from './pages/HistoricalReports'
 
 // Translation system
 const translations = {
   en: {
     // App title and main branding
-    appTitle: "Novochoice AI - Customer Intelligence Engine",
-    appSubtitle: "AI-powered deep analysis to uncover user insights and market opportunities from customer reviews",
+    appTitle: "Regen AI",
+    appSubtitle: "Review Genius - Transform customer feedback into actionable business intelligence",
     
     // Navigation
     nav: {
       dashboard: "Dashboard",
-      upload: "Start Analysis",
+      upload: "Data Upload",
       ownBrand: "Own Brand Analysis", 
       ownBrandInsights: "User Insights",
       ownBrandFeedback: "User Feedback Analysis",
@@ -49,7 +36,7 @@ const translations = {
       opportunitiesInnovation: "Product Innovation",
       opportunitiesMarketing: "Marketing Positioning",
       history: "Historical Reports",
-      analyticsTools: "Novochoice AI"
+      analyticsTools: "Analytics Tools"
     },
     
     // Dashboard content
@@ -98,13 +85,6 @@ const translations = {
         helpText: "Clear category description helps provide more accurate analysis results",
         commonCategories: "Common Categories:"
       },
-      outputLanguage: {
-        title: "Analysis Output Language",
-        description: "Choose the language for analysis results",
-        label: "Output Language",
-        english: "English",
-        chinese: "Chinese"
-      },
       ownBrand: {
         title: "Own Brand Reviews",
         description: "Upload your brand's customer review data (Required)",
@@ -138,20 +118,7 @@ const translations = {
       segmentedDetails: "Segmented Details",
       keyReviewInfo: "Key Review Information",
       userPersona: "User Persona",
-      category: "Category",
-      // Customer Satisfaction Analysis
-      technicalSpecs: "Technical Specifications",
-      functionalAttributes: "Functional Attributes", 
-      usageScenarios: "Usage Scenarios",
-      satisfactionPoints: "Satisfaction Points",
-      dissatisfactionPoints: "Dissatisfaction Points",
-      positiveThemes: "Positive Themes",
-      negativeThemes: "Negative Themes",
-      mainSatisfactionPoints: "Main Satisfaction Points",
-      mainDissatisfactionPoints: "Main Dissatisfaction Points",
-      mostLovedFeatures: "Most Loved Features",
-      ratingThemeAnalysis: "Rating Theme Analysis",
-      detailedAnalysisByRating: "Detailed Analysis by Rating"
+      category: "Category"
     },
     
     // Common UI elements
@@ -164,31 +131,6 @@ const translations = {
       userCenter: "User Center",
       downloadReport: "Download Report",
       newAnalysis: "New Analysis",
-      save: "Save",
-      cancel: "Cancel",
-      delete: "Delete",
-      edit: "Edit",
-      add: "Add",
-      remove: "Remove",
-      update: "Update",
-      create: "Create",
-      back: "Back",
-      next: "Next",
-      previous: "Previous",
-      continue: "Continue",
-      finish: "Finish",
-      start: "Start",
-      stop: "Stop",
-      close: "Close",
-      examples: "Examples",
-      viewDetails: "View Details",
-      showMore: "Show More",
-      showLess: "Show Less",
-      loadMore: "Load More",
-      readMore: "Read More",
-      seeAll: "See All",
-      expand: "Expand",
-      collapse: "Collapse",
       uploadProgress: "Upload Progress:",
       developing: "Under Development",
       featureDeveloping: "This feature is under development, stay tuned!",
@@ -231,13 +173,13 @@ const translations = {
   },
   zh: {
     // App title and main branding
-    appTitle: "亚马逊评论智能分析工具",
-    appSubtitle: "通过AI驱动的深度分析，挖掘客户评论中的用户洞察和市场机会",
+    appTitle: "Regen AI",
+    appSubtitle: "评论天才 - 将客户反馈转化为可操作的商业智能",
     
     // Navigation
     nav: {
       dashboard: "仪表盘",
-      upload: "开始分析",
+      upload: "数据上传",
       ownBrand: "自有品牌分析",
       ownBrandInsights: "用户洞察", 
       ownBrandFeedback: "用户反馈分析",
@@ -248,7 +190,7 @@ const translations = {
       opportunitiesInnovation: "产品创新机会", 
       opportunitiesMarketing: "营销定位机会",
       history: "历史报告",
-      analyticsTools: "Novochoice AI"
+      analyticsTools: "分析工具"
     },
     
     // Dashboard content
@@ -297,13 +239,6 @@ const translations = {
         helpText: "清晰的品类描述有助于提供更准确的分析结果",
         commonCategories: "常见品类："
       },
-      outputLanguage: {
-        title: "分析结果语言",
-        description: "选择分析结果的输出语言",
-        label: "输出语言",
-        english: "英文",
-        chinese: "中文"
-      },
       ownBrand: {
         title: "自有品牌评论",
         description: "上传您品牌产品的客户评论数据 (必须)",
@@ -337,20 +272,7 @@ const translations = {
       segmentedDetails: "细分人群详情",
       keyReviewInfo: "关键评论信息",
       userPersona: "用户画像",
-      category: "品类:",
-      // Customer Satisfaction Analysis
-      technicalSpecs: "技术规格",
-      functionalAttributes: "功能属性",
-      usageScenarios: "使用场景",
-      satisfactionPoints: "满意点",
-      dissatisfactionPoints: "不满意点",
-      positiveThemes: "正向主题",
-      negativeThemes: "负向主题",
-      mainSatisfactionPoints: "主要满意点",
-      mainDissatisfactionPoints: "主要不满意点",
-      mostLovedFeatures: "最受喜爱功能",
-      ratingThemeAnalysis: "评分主题分析",
-      detailedAnalysisByRating: "按评分段详细分析"
+      category: "品类:"
     },
     
     // Common UI elements
@@ -368,32 +290,7 @@ const translations = {
       featureDeveloping: "该功能正在开发中，敬请期待！",
       english: "English",
       chinese: "中文",
-      search: "搜索",
-      save: "保存",
-      cancel: "取消",
-      delete: "删除",
-      edit: "编辑",
-      add: "添加",
-      remove: "移除",
-      update: "更新",
-      create: "创建",
-      back: "返回",
-      next: "下一步",
-      previous: "上一步",
-      continue: "继续",
-      finish: "完成",
-      start: "开始",
-      stop: "停止",
-      close: "关闭",
-      examples: "示例",
-      viewDetails: "查看详情",
-      showMore: "显示更多",
-      showLess: "显示更少",
-      loadMore: "加载更多",
-      readMore: "阅读更多",
-      seeAll: "查看全部",
-      expand: "展开",
-      collapse: "收起",
+      search: "搜索"
     },
     
     // Error messages
@@ -487,7 +384,7 @@ interface AnalysisResult {
             关键review信息: string
           }>
         }
-        使用时刻: {
+        使用时机: {
           核心insight: string
           细分场景: Array<{
             使用时刻: string
@@ -569,7 +466,7 @@ interface HistoricalReport {
   targetCategory?: string
 }
 
-type ActiveModule = 'dashboard' | 'upload' | 'own-brand-insights' | 'own-brand-feedback' | 'own-brand-unmet' | 'competitive' | 'opportunities' | 'history'
+type ActiveModule = 'dashboard' | 'upload' | 'own-brand-insights' | 'own-brand-feedback' | 'own-brand-unmet' | 'competitive' | 'opportunities-improvement' | 'opportunities-innovation' | 'opportunities-marketing' | 'history'
 type ThemeMode = 'light' | 'dark' | 'system'
 type Language = 'en' | 'zh'
 
@@ -577,29 +474,23 @@ export default function App() {
   const [ownBrandFile, setOwnBrandFile] = useState<UploadedFile | null>(null)
   const [competitorFile, setCompetitorFile] = useState<UploadedFile | null>(null)
   const [targetCategory, setTargetCategory] = useState<string>('')
-  const [outputLanguage, setOutputLanguage] = useState<'en' | 'zh'>('en')
   const [isAnalyzing, setIsAnalyzing] = useState(false)
-  const [analysisId, setAnalysisId] = useState<string | null>(null)
-  const [analysisSteps, setAnalysisSteps] = useState<any[]>([])
-  const [currentStep, setCurrentStep] = useState<string>('')
-  const [analysisProgress, setAnalysisProgress] = useState(0)
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null)
   const [historicalReports, setHistoricalReports] = useState<HistoricalReport[]>([])
-  const [activeModule, setActiveModule] = useState<ActiveModule>('upload')
+  const [activeModule, setActiveModule] = useState<ActiveModule>('dashboard')
   const [uploadProgress, setUploadProgress] = useState(0)
   const [error, setError] = useState<string | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [uploadingFile, setUploadingFile] = useState<string | null>(null)
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set())
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set()) // Changed to default collapsed
   const [hoveredUserGroup, setHoveredUserGroup] = useState<UserGroupData | null>(null)
   const [theme, setTheme] = useState<ThemeMode>('system')
   const [language, setLanguage] = useState<Language>('en') // Default to English
   const [notifications, setNotifications] = useState(3)
   const [showSettings, setShowSettings] = useState(false)
 
-  // 本地开发API配置
-  const apiBase = 'http://localhost:8000'
+  const apiBase = `https://${projectId}.supabase.co/functions/v1/make-server-bda2f768`
   const t = translations[language]
 
   // Language management
@@ -645,52 +536,8 @@ export default function App() {
     loadHistoricalReports()
   }, [])
 
-  // Auto-load latest analysis results on app startup
-  useEffect(() => {
-    const autoLoadLatestResults = async () => {
-      try {
-        console.log('🚀 Auto-loading latest analysis results on startup...')
-        const response = await fetch(`${apiBase}/analysis/latest/result`)
-        if (response.ok) {
-          const analysisResult = await response.json()
-          console.log('✅ Auto-loaded latest results:', analysisResult)
-          setAnalysisResult(analysisResult)
-          // Don't automatically switch to insights page, let user stay on dashboard
-          console.log('📊 Latest results loaded, staying on dashboard')
-        } else {
-          console.log('ℹ️ No existing analysis results found, will show demo data when user navigates to analysis')
-        }
-      } catch (error) {
-        console.log('ℹ️ No analysis results available, will show demo data when user navigates to analysis')
-      }
-    }
-
-    autoLoadLatestResults()
-  }, [])
-
-  // 移除自动展开逻辑 - 展开状态完全由用户控制
-  // useEffect(() => {
-  //   setExpandedSections(prevExpanded => {
-  //     const newExpanded = new Set(prevExpanded)
-  //     let hasChanges = false
-  //     
-  //     if (activeModule.startsWith('own-brand') && !newExpanded.has('own-brand')) {
-  //       newExpanded.add('own-brand')
-  //       hasChanges = true
-  //     }
-  //     if (activeModule.startsWith('opportunities') && !newExpanded.has('opportunities')) {
-  //       newExpanded.add('opportunities')
-  //       hasChanges = true
-  //     }
-  //     
-  //     // 只有在实际需要更新时才返回新的Set，否则返回原来的Set
-  //     return hasChanges ? newExpanded : prevExpanded
-  //   })
-  // }, [activeModule])
-
   const loadHistoricalReports = async () => {
     try {
-      console.log('🔄 Loading historical reports...')
       const response = await fetch(`${apiBase}/reports`, {
         headers: { 'Authorization': `Bearer ${publicAnonKey}` }
       })
@@ -700,11 +547,7 @@ export default function App() {
         return
       }
       
-      const data = await response.json()
-      // API返回格式是 {reports: [...]}，需要提取reports数组
-      const reports = data.reports || []
-      console.log('📊 Loaded historical reports:', reports.length)
-      console.log('📋 Reports data:', reports.map(r => ({ id: r.id, timestamp: r.timestamp, status: r.status })))
+      const reports = await response.json()
       setHistoricalReports(reports)
     } catch (error) {
       console.error('Failed to load historical reports:', error)
@@ -780,6 +623,7 @@ export default function App() {
 
       const response = await fetch(`${apiBase}/upload`, {
         method: 'POST',
+        headers: { 'Authorization': `Bearer ${publicAnonKey}` },
         body: formData
       })
 
@@ -849,8 +693,6 @@ export default function App() {
     try {
       setIsAnalyzing(true)
       setError(null)
-      setAnalysisSteps([])
-      setCurrentStep('')
 
       console.log('Starting analysis with files and category:', {
         ownBrand: ownBrandFile!.fileName,
@@ -862,14 +704,14 @@ export default function App() {
       const response = await fetch(`${apiBase}/analyze`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${publicAnonKey}`
         },
         body: JSON.stringify({
           ownBrandFile: ownBrandFile!.fileName,
           competitorFile: competitorFile?.fileName || null,
           targetCategory: targetCategory.trim(),
-          language: language,
-          outputLanguage: outputLanguage
+          language: language
         })
       })
 
@@ -880,73 +722,17 @@ export default function App() {
       }
 
       const result = await response.json()
-      console.log('Analysis started:', result.analysis_id)
+      console.log('Analysis successful:', result.id)
       
-      setAnalysisId(result.analysis_id)
-      
-      // 开始轮询分析进度
-      pollAnalysisProgress(result.analysis_id)
-      
+      setAnalysisResult(result)
+      setActiveModule('own-brand-insights')
+      // Ensure own-brand section is expanded when analysis is complete
+      setExpandedSections(prev => new Set([...prev, 'own-brand']))
+      loadHistoricalReports()
     } catch (error) {
       console.error('Analysis error:', error)
       setError(error instanceof Error ? `${t.errors.analysisFailed} ${error.message}` : t.errors.retryAnalysis)
-      setIsAnalyzing(false)
-    }
-  }
-
-  const pollAnalysisProgress = async (analysisId: string) => {
-    try {
-      const response = await fetch(`${apiBase}/analysis/${analysisId}/status`)
-      
-      if (!response.ok) {
-        throw new Error('Failed to get analysis status')
-      }
-      
-      const status = await response.json()
-      console.log('Analysis status:', status)
-      
-      // 更新进度
-      setAnalysisProgress(status.progress || 0)
-      setAnalysisSteps(status.steps || [])
-      
-      // 更新当前步骤
-      if (status.current_step < status.steps?.length) {
-        const currentStepData = status.steps[status.current_step]
-        setCurrentStep(language === 'en' ? currentStepData?.name : currentStepData?.name_zh)
-      }
-      
-      if (status.status === 'completed') {
-        // 分析完成，获取结果
-        console.log('🎉 Analysis completed! Fetching results...')
-        const resultResponse = await fetch(`${apiBase}/analysis/${analysisId}/result`)
-        if (resultResponse.ok) {
-          const analysisResult = await resultResponse.json()
-          console.log('✅ Analysis result received:', analysisResult)
-          console.log('Setting analysisResult and switching to insights page')
-          setAnalysisResult(analysisResult)
-          
-          // 显示成功提示
-          setTimeout(() => {
-            setActiveModule('own-brand-insights')
-          }, 1000) // 1秒后跳转，让用户看到完成状态
-          
-          loadHistoricalReports()
-        } else {
-          console.error('Failed to get analysis result:', resultResponse.status)
-          setError('Failed to load analysis results. Please try again.')
-        }
-        setIsAnalyzing(false)
-        setAnalysisProgress(100)
-      } else if (status.status === 'failed') {
-        throw new Error(status.error || 'Analysis failed')
-      } else if (status.status === 'running' || status.status === 'starting') {
-        // 继续轮询
-        setTimeout(() => pollAnalysisProgress(analysisId), 2000)
-      }
-      
-    } catch (error) {
-      console.error('Progress polling error:', error)
-      setError(error instanceof Error ? error.message : 'Failed to get analysis progress')
+    } finally {
       setIsAnalyzing(false)
     }
   }
@@ -964,6 +750,8 @@ export default function App() {
       const report = await response.json()
       setAnalysisResult(report)
       setActiveModule('own-brand-insights')
+      // Ensure own-brand section is expanded when loading a historical report
+      setExpandedSections(prev => new Set([...prev, 'own-brand']))
     } catch (error) {
       console.error('Failed to load report:', error)
       setError(t.errors.loadReportFailed)
@@ -974,53 +762,18 @@ export default function App() {
     alert(t.success.pdfDeveloping)
   }
 
-  const loadExistingResults = async () => {
-    try {
-      console.log('Loading existing analysis results...')
-      const response = await fetch(`${apiBase}/analysis/latest/result`)
-      if (response.ok) {
-        const analysisResult = await response.json()
-        console.log('✅ Results loaded (real or demo):', analysisResult)
-        setAnalysisResult(analysisResult)
-        setActiveModule('own-brand-insights')
-      } else {
-        console.log('No results available')
-      }
-    } catch (error) {
-      console.error('Error loading results:', error)
-    }
-  }
-
-  // 确保own-brand菜单在相关页面时保持展开
-  useEffect(() => {
-    if (activeModule.startsWith('own-brand')) {
-      setExpandedSections(prev => {
-        const newExpanded = new Set(prev)
-        newExpanded.add('own-brand')
-        return newExpanded
-      })
-    }
-  }, [activeModule])
-
   const resetAnalysis = () => {
     setAnalysisResult(null)
     setOwnBrandFile(null)
     setCompetitorFile(null)
     setTargetCategory('')
-    setOutputLanguage('en')
-    setActiveModule('upload')
+    setActiveModule('dashboard')
     setError(null)
-    setExpandedSections(new Set())
+    setExpandedSections(new Set()) // Reset to default collapsed state
   }
 
   const toggleSection = (sectionId: string) => {
     const newExpanded = new Set(expandedSections)
-    
-    // 如果是own-brand菜单且当前在own-brand相关页面，不允许收起
-    if (sectionId === 'own-brand' && activeModule.startsWith('own-brand')) {
-      return
-    }
-    
     if (newExpanded.has(sectionId)) {
       newExpanded.delete(sectionId)
     } else {
@@ -1029,7 +782,55 @@ export default function App() {
     setExpandedSections(newExpanded)
   }
 
+  // Helper function to handle navigation clicks with proper state management
+  const handleNavigationClick = (item: any, isMobile: boolean = false) => {
+    const hasChildren = item.children.length > 0
+    const isExpanded = expandedSections.has(item.id)
+    
+    if (hasChildren && item.available) {
+      if (isExpanded) {
+        // If already expanded, just collapse without changing activeModule
+        toggleSection(item.id)
+      } else {
+        // If collapsed, expand and navigate to first child
+        toggleSection(item.id)
+        if (item.children.length > 0) {
+          setActiveModule(item.children[0].id as ActiveModule)
+        }
+      }
+    } else if (item.available) {
+      // For items without children, just navigate
+      setActiveModule(item.id as ActiveModule)
+    }
+    
+    if (isMobile) {
+      setMobileMenuOpen(false)
+    }
+  }
+
+  // Helper function to handle child navigation clicks
+  const handleChildNavigationClick = (childId: string, parentId: string, isMobile: boolean = false) => {
+    // Ensure parent section is expanded
+    if (!expandedSections.has(parentId)) {
+      setExpandedSections(prev => new Set([...prev, parentId]))
+    }
+    
+    // Navigate to child
+    setActiveModule(childId as ActiveModule)
+    
+    if (isMobile) {
+      setMobileMenuOpen(false)
+    }
+  }
+
   const navigationItems = [
+    {
+      id: 'dashboard',
+      label: t.nav.dashboard,
+      icon: Home,
+      available: true,
+      children: []
+    },
     {
       id: 'upload',
       label: t.nav.upload,
@@ -1060,7 +861,11 @@ export default function App() {
       label: t.nav.opportunities,
       icon: Lightbulb,
       available: !!analysisResult,
-      children: []
+      children: [
+        { id: 'opportunities-improvement', label: t.nav.opportunitiesImprovement, icon: Target },
+        { id: 'opportunities-innovation', label: t.nav.opportunitiesInnovation, icon: Zap },
+        { id: 'opportunities-marketing', label: t.nav.opportunitiesMarketing, icon: TrendingUp }
+      ]
     },
     {
       id: 'history',
@@ -1068,46 +873,24 @@ export default function App() {
       icon: History,
       available: historicalReports.length > 0,
       children: []
-    },
-    {
-      id: 'dashboard',
-      label: t.nav.analyticsTools,
-      icon: NIcon,
-      available: true,
-      children: []
     }
   ]
 
-  const NavigationContent = ({ isMobile = false }: { isMobile?: boolean }) => {
-    // 使用useMemo稳定导航项计算，避免不必要的重新渲染
-    const stableNavigationItems = useMemo(() => navigationItems, [!!analysisResult, historicalReports.length])
-    
-    return (
-      <nav className="gap-system-sm flex flex-col">
-        {stableNavigationItems.map((item) => {
-          const Icon = item.icon
-          const isExpanded = expandedSections.has(item.id)
-          const hasChildren = item.children.length > 0
-          const isDisabled = !item.available
-          const isActive = activeModule === item.id
+  const NavigationContent = ({ isMobile = false }: { isMobile?: boolean }) => (
+    <nav className="gap-system-sm flex flex-col">
+      {navigationItems.map((item) => {
+        const Icon = item.icon
+        const isExpanded = expandedSections.has(item.id)
+        const hasChildren = item.children.length > 0
+        const isDisabled = !item.available
+        const isActive = activeModule === item.id
 
-          return (
+        return (
           <div key={item.id}>
             <motion.button
               whileHover={!isDisabled ? { x: 2 } : {}}
               whileTap={!isDisabled ? { scale: 0.98 } : {}}
-              onClick={() => {
-                if (hasChildren && item.available) {
-                  // 只有点击父级标题时才切换展开状态，子项点击不影响父级状态
-                  toggleSection(item.id)
-                  if (!isExpanded && item.children.length > 0) {
-                    setActiveModule(item.children[0].id as ActiveModule)
-                  }
-                } else if (item.available) {
-                  setActiveModule(item.id as ActiveModule)
-                  if (isMobile) setMobileMenuOpen(false)
-                }
-              }}
+              onClick={() => handleNavigationClick(item, isMobile)}
               disabled={isDisabled}
               className={`w-full flex items-center gap-system-sm px-3 py-2 rounded-lg text-left transition-all duration-200 ${
                 isActive 
@@ -1136,10 +919,9 @@ export default function App() {
 
             {/* Children items */}
             {(sidebarOpen || isMobile) && hasChildren && (
-              <AnimatePresence mode="wait">
+              <AnimatePresence>
                 {isExpanded && (
                   <motion.div
-                    key={`${item.id}-children`}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -1155,10 +937,7 @@ export default function App() {
                           key={child.id}
                           whileHover={{ x: 2 }}
                           whileTap={{ scale: 0.98 }}
-                          onClick={() => {
-                            setActiveModule(child.id as ActiveModule)
-                            if (isMobile) setMobileMenuOpen(false)
-                          }}
+                          onClick={() => handleChildNavigationClick(child.id, item.id, isMobile)}
                           className={`w-full flex items-center gap-system-sm px-2 py-1.5 rounded-md text-left transition-all duration-200 ${
                             isActive
                               ? 'bg-sidebar-accent text-sidebar-primary'
@@ -1178,18 +957,583 @@ export default function App() {
         )
       })}
     </nav>
-    )
-  }
+  )
 
   const renderMainContent = () => {
     if (activeModule === 'dashboard') {
       return (
-        <Dashboard 
-          language={language} 
-          onPageChange={setActiveModule}
-        />
+        <div className="fixed inset-0 bg-black text-white z-50">
+          {/* Language Toggle - Fixed position */}
+          <div className="fixed top-6 right-6 z-10">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleLanguage}
+              className="h-10 px-4 gap-2 bg-white/10 border border-white/20 text-white hover:bg-white/20 backdrop-blur-sm"
+            >
+              <Languages className="h-4 w-4" />
+              <span className="text-sm font-medium">
+                {language === 'en' ? 'EN' : '中文'}
+              </span>
+            </Button>
+          </div>
+
+          {/* Scrollable Content Container */}
+          <div className="h-screen overflow-y-auto hide-scrollbar" 
+               style={{ scrollBehavior: 'smooth' }}>
+            
+            {/* Hero Section */}
+            <section className="min-h-screen flex items-center justify-center px-6 relative">
+              {/* Background Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
+              
+              {/* Animated Background Elements */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/3 rounded-full blur-3xl animate-pulse delay-1000" />
+              </div>
+
+              <div className="relative z-10 text-center max-w-6xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="mb-8"
+                >
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-6">
+                    <Sparkles className="h-4 w-4 text-primary" />
+                    <span className="text-sm text-white/80">
+                      {language === 'en' ? 'Review Genius • AI-Powered Business Intelligence' : '评论天才 • AI驱动的商业智能'}
+                    </span>
+                  </div>
+                  
+                  <h1 className="text-6xl md:text-8xl font-light mb-6 leading-none">
+                    <span className="text-primary font-medium">Regen</span>{' '}
+                    <span className="text-white">AI</span>
+                  </h1>
+                  
+                  <p className="text-xl md:text-2xl text-white/60 mb-8 max-w-3xl mx-auto leading-relaxed">
+                    {language === 'en' 
+                      ? 'Turn customer feedback into competitive advantage. Discover hidden insights, understand user behavior, and unlock growth opportunities with our AI-powered review analysis platform.'
+                      : '将客户反馈转化为竞争优势。通过我们的AI驱动评论分析平台，发现隐藏洞察，了解用户行为，解锁增长机会。'
+                    }
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                  className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+                >
+                  <Button
+                    size="lg"
+                    className="bg-primary hover:bg-primary/90 text-black font-medium px-8 py-4 text-lg rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    onClick={() => setActiveModule('upload')}
+                  >
+                    <ArrowRight className="mr-2 h-5 w-5" />
+                    {language === 'en' ? 'Start Analysis' : '开始分析'}
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="border-white/20 text-white hover:bg-white/5 px-8 py-4 text-lg rounded-xl transition-all duration-300"
+                  >
+                    <Play className="mr-2 h-5 w-5" />
+                    {language === 'en' ? 'View Demo' : '查看演示'}
+                  </Button>
+                </motion.div>
+
+                {/* Scroll Indicator */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1, duration: 0.8 }}
+                  className="text-center"
+                >
+                  <p className="text-white/40 text-sm mb-2">
+                    {language === 'en' ? 'Scroll to explore' : '向下滚动探索'}
+                  </p>
+                  <motion.div
+                    animate={{ y: [0, 8, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="inline-block"
+                  >
+                    <ChevronDown className="h-4 w-4 text-white/40" />
+                  </motion.div>
+                </motion.div>
+              </div>
+            </section>
+
+            {/* Video Demo Section */}
+            <section className="py-24 px-6 relative">
+              <div className="max-w-7xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                  className="text-center mb-16"
+                >
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-6">
+                    <Play className="h-4 w-4 text-emerald-400" />
+                    <span className="text-sm text-emerald-300">
+                      {language === 'en' ? 'Watch how it works' : '观看工作原理'}
+                    </span>
+                  </div>
+                  <h2 className="text-4xl md:text-5xl font-light mb-4 text-white">
+                    {language === 'en' ? 'See the Magic in Action' : '观看神奇的过程'}
+                  </h2>
+                  <p className="text-xl text-white/60 max-w-2xl mx-auto">
+                    {language === 'en' 
+                      ? 'Experience how Regen AI transforms thousands of reviews into actionable insights within minutes'
+                      : '体验Regen AI如何在几分钟内将数千条评论转化为可操作的洞察'}
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="relative max-w-5xl mx-auto"
+                >
+                  {/* Video Container */}
+                  <div className="relative aspect-video bg-gray-900/90 backdrop-blur border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+                    {/* Video Player Interface */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+                      {/* Fake video content */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-violet-500/5">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          {/* Play button overlay */}
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="w-20 h-20 bg-primary/20 backdrop-blur border border-primary/30 rounded-full flex items-center justify-center group hover:bg-primary/30 transition-all duration-300"
+                          >
+                            <Play className="h-8 w-8 text-primary ml-1 group-hover:text-white transition-colors" />
+                          </motion.button>
+                        </div>
+                        
+                        {/* Animated data visualization overlay */}
+                        <div className="absolute inset-4">
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: [0, 0.3, 0] }}
+                            transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+                            className="absolute top-4 left-4 bg-white/10 backdrop-blur border border-white/20 rounded-lg p-3"
+                          >
+                            <div className="flex items-center gap-2 text-xs text-white/80">
+                              <BarChart3 className="h-3 w-3 text-primary" />
+                              <span>{language === 'en' ? 'Processing 2,847 reviews...' : '处理中 2,847 条评论...'}</span>
+                            </div>
+                          </motion.div>
+                          
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: [0, 0.4, 0] }}
+                            transition={{ duration: 4, repeat: Infinity, delay: 2 }}
+                            className="absolute top-4 right-4 bg-white/10 backdrop-blur border border-white/20 rounded-lg p-3"
+                          >
+                            <div className="flex items-center gap-2 text-xs text-white/80">
+                              <Users className="h-3 w-3 text-emerald-400" />
+                              <span>{language === 'en' ? 'User insights generated' : '用户洞察已生成'}</span>
+                            </div>
+                          </motion.div>
+                          
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: [0, 0.4, 0] }}
+                            transition={{ duration: 4, repeat: Infinity, delay: 3 }}
+                            className="absolute bottom-4 left-4 bg-white/10 backdrop-blur border border-white/20 rounded-lg p-3"
+                          >
+                            <div className="flex items-center gap-2 text-xs text-white/80">
+                              <Lightbulb className="h-3 w-3 text-yellow-400" />
+                              <span>{language === 'en' ? 'Opportunities identified' : '机会识别完成'}</span>
+                            </div>
+                          </motion.div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Video Controls Bar */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur p-4">
+                      <div className="flex items-center gap-4">
+                        <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 p-2">
+                          <Play className="h-4 w-4" />
+                        </Button>
+                        
+                        <div className="flex-1">
+                          <div className="w-full bg-white/20 rounded-full h-1.5">
+                            <motion.div 
+                              className="bg-primary h-1.5 rounded-full"
+                              initial={{ width: '0%' }}
+                              animate={{ width: ['0%', '30%', '0%'] }}
+                              transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+                            />
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-2 text-sm text-white/80">
+                          <span>2:34</span>
+                          <span>/</span>
+                          <span>3:21</span>
+                        </div>
+                        
+                        <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 p-2">
+                          <Settings className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Video Features List */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    className="mt-12 grid md:grid-cols-3 gap-6"
+                  >
+                    {[
+                      {
+                        icon: Upload,
+                        title: language === 'en' ? 'Easy Data Upload' : '简易数据上传',
+                        description: language === 'en' 
+                          ? 'Simply drag and drop your review files to get started'
+                          : '只需拖放您的评论文件即可开始'
+                      },
+                      {
+                        icon: Zap,
+                        title: language === 'en' ? 'AI Processing' : 'AI智能处理',
+                        description: language === 'en' 
+                          ? 'Advanced algorithms analyze sentiment and extract insights'
+                          : '先进算法分析情感并提取洞察'
+                      },
+                      {
+                        icon: BarChart3,
+                        title: language === 'en' ? 'Instant Reports' : '即时报告',
+                        description: language === 'en' 
+                          ? 'Get comprehensive analysis reports in minutes'
+                          : '几分钟内获得全面分析报告'
+                      }
+                    ].map((feature, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                        className="text-center"
+                      >
+                        <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                          <feature.icon className="h-6 w-6 text-primary" />
+                        </div>
+                        <h3 className="font-medium text-white mb-2">{feature.title}</h3>
+                        <p className="text-sm text-white/60 leading-relaxed">{feature.description}</p>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </motion.div>
+              </div>
+            </section>
+
+            {/* Code Interface Demo Section */}
+            <section className="py-24 px-6 relative">
+              <div className="max-w-7xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                  className="text-center mb-16"
+                >
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-violet-500/10 border border-violet-500/20 rounded-full mb-6">
+                    <Eye className="h-4 w-4 text-violet-400" />
+                    <span className="text-sm text-violet-300">
+                      {language === 'en' ? 'See Regen AI in action' : '观看Regen AI实际操作'}
+                    </span>
+                  </div>
+                  <h2 className="text-4xl md:text-5xl font-light mb-4 text-white">
+                    {language === 'en' ? 'Upload. Analyze. Insight.' : '上传。分析。洞察。'}
+                  </h2>
+                  <p className="text-xl text-white/60 max-w-2xl mx-auto">
+                    {language === 'en' 
+                      ? 'From raw review data to actionable business intelligence in minutes'
+                      : '几分钟内从原始评论数据到可操作的商业智能'}
+                  </p>
+                </motion.div>
+
+                {/* Mock Code Editor Interface */}
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="bg-gray-900/90 backdrop-blur border border-white/10 rounded-xl overflow-hidden shadow-2xl"
+                >
+                  {/* Editor Header */}
+                  <div className="flex items-center justify-between px-4 py-3 bg-gray-800/50 border-b border-white/10">
+                    <div className="flex items-center gap-2">
+                      <div className="flex gap-1.5">
+                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      </div>
+                      <span className="text-white/60 text-sm ml-3">reviews_analysis.csv</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="px-2 py-1 bg-primary/20 text-primary text-xs rounded">
+                        {language === 'en' ? 'Processing' : '处理中'}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Mock CSV Data */}
+                  <div className="p-4 font-mono text-sm">
+                    <div className="grid gap-1">
+                      <div className="text-white/40">reviewer_id,rating,review_text,product_category</div>
+                      <div className="text-green-400">usr_001,5,"Amazing wireless headphones, crystal clear sound",Electronics</div>
+                      <div className="text-green-400">usr_002,4,"Good battery life, comfortable fit for long use",Electronics</div>
+                      <div className="text-green-400">usr_003,5,"Perfect for work calls and music streaming",Electronics</div>
+                      <div className="text-white/60">...</div>
+                      <div className="text-primary/80 mt-2">
+                        → {language === 'en' ? 'Analyzing 2,847 reviews...' : '正在分析2,847条评论...'}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </section>
+
+            {/* AI Analysis Terminal Section */}
+            <section className="py-24 px-6 relative">
+              <div className="max-w-7xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                  className="grid lg:grid-cols-2 gap-16 items-center"
+                >
+                  {/* Left: Terminal Interface */}
+                  <div className="bg-gray-900/90 backdrop-blur border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+                    <div className="flex items-center gap-2 px-4 py-3 bg-gray-800/50 border-b border-white/10">
+                      <div className="flex gap-1.5">
+                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      </div>
+                      <span className="text-white/60 text-sm ml-3">regen-ai-terminal</span>
+                    </div>
+                    
+                    <div className="p-4 font-mono text-sm h-80 overflow-hidden">
+                      <div className="text-green-400">$ regen analyze --category="Wireless Headphones"</div>
+                      <div className="text-white/60 mt-2">
+                        {language === 'en' ? 'Loading review data...' : '加载评论数据...'}
+                      </div>
+                      <div className="text-primary mt-1">
+                        {language === 'en' ? '✓ Processed 2,847 reviews' : '✓ 已处理2,847条评论'}
+                      </div>
+                      <div className="text-primary">
+                        {language === 'en' ? '✓ User sentiment analysis complete' : '✓ 用户情感分析完成'}
+                      </div>
+                      <div className="text-primary">
+                        {language === 'en' ? '✓ Competitive benchmarking done' : '✓ 竞品基准分析完成'}
+                      </div>
+                      <div className="text-yellow-400 mt-2">
+                        {language === 'en' ? 'Generating insights...' : '生成洞察中...'}
+                      </div>
+                      <div className="text-white/60 mt-4">
+                        {language === 'en' ? 'Key findings:' : '关键发现:'}
+                      </div>
+                      <div className="text-white/80 ml-2">
+                        {language === 'en' 
+                          ? '• 78% appreciate sound quality\n• Battery life top concern\n• Price sensitivity at 15%'
+                          : '• 78%的用户赞赏音质\n• 电池续航是主要关注点\n• 价格敏感度为15%'
+                        }
+                      </div>
+                      <div className="text-green-400 mt-4 animate-pulse">
+                        {language === 'en' ? '> Report generated successfully' : '> 报告生成成功'}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right: Text Content */}
+                  <div>
+                    <h3 className="text-3xl md:text-4xl font-light mb-6 text-white">
+                      {language === 'en' ? 'Powered by Advanced AI' : '由先进AI驱动'}
+                    </h3>
+                    <p className="text-lg text-white/70 mb-8 leading-relaxed">
+                      {language === 'en' 
+                        ? 'Our intelligent analysis engine processes thousands of reviews in real-time, extracting meaningful patterns and insights that would take humans weeks to discover.'
+                        : '我们的智能分析引擎实时处理数千条评论，提取有意义的模式和洞察，这些发现人工需要数周才能完成。'
+                      }
+                    </p>
+                    
+                    <div className="grid gap-4">
+                      {[
+                        {
+                          icon: BarChart3,
+                          title: language === 'en' ? 'Real-time Processing' : '实时处理',
+                          description: language === 'en' ? 'Analyze thousands of reviews in seconds' : '几秒内分析数千条评论'
+                        },
+                        {
+                          icon: Target,
+                          title: language === 'en' ? 'Precision Insights' : '精准洞察',
+                          description: language === 'en' ? 'AI-powered sentiment and trend analysis' : 'AI驱动的情感和趋势分析'
+                        },
+                        {
+                          icon: Zap,
+                          title: language === 'en' ? 'Instant Reports' : '即时报告',
+                          description: language === 'en' ? 'Comprehensive reports generated automatically' : '自动生成全面报告'
+                        }
+                      ].map((feature, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.6, delay: index * 0.1 }}
+                          className="flex items-start gap-3"
+                        >
+                          <div className="p-2 bg-primary/10 rounded-lg">
+                            <feature.icon className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-white mb-1">{feature.title}</h4>
+                            <p className="text-white/60 text-sm">{feature.description}</p>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </section>
+
+            {/* Features Showcase Section */}
+            <section className="py-24 px-6 relative">
+              <div className="max-w-7xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                  className="text-center mb-16"
+                >
+                  <h2 className="text-4xl md:text-5xl font-light mb-4 text-white">
+                    {language === 'en' ? 'Everything you need' : '您需要的一切'}
+                  </h2>
+                  <p className="text-xl text-white/60 max-w-2xl mx-auto">
+                    {language === 'en' 
+                      ? 'Comprehensive review analysis tools for modern businesses'
+                      : '为现代企业提供全面的评论分析工具'}
+                  </p>
+                </motion.div>
+
+                <div className="grid lg:grid-cols-3 gap-8">
+                  {[
+                    {
+                      icon: Users,
+                      title: language === 'en' ? 'User Persona Analysis' : '用户画像分析',
+                      description: language === 'en' 
+                        ? 'Deep dive into customer demographics, behavior patterns, and purchase motivations'
+                        : '深入分析客户人口统计、行为模式和购买动机',
+                      features: language === 'en' 
+                        ? ['Age & demographic breakdown', 'Purchase behavior analysis', 'Usage scenario mapping', 'Satisfaction drivers']
+                        : ['年龄和人口统计分解', '购买行为分析', '使用场景映射', '满意度驱动因素']
+                    },
+                    {
+                      icon: BarChart3,
+                      title: language === 'en' ? 'Competitive Intelligence' : '竞争情报',
+                      description: language === 'en' 
+                        ? 'Compare your brand against competitors with detailed performance metrics'
+                        : '通过详细的性能指标将您的品牌与竞争对手进行比较',
+                      features: language === 'en' 
+                        ? ['Market positioning analysis', 'Competitive advantage mapping', 'Gap identification', 'Benchmark scoring']
+                        : ['市场定位分析', '竞争优势映射', '差距识别', '基准评分']
+                    },
+                    {
+                      icon: Lightbulb,
+                      title: language === 'en' ? 'Growth Opportunities' : '增长机会',
+                      description: language === 'en' 
+                        ? 'Discover untapped market opportunities and product improvement areas'
+                        : '发现未开发的市场机会和产品改进领域',
+                      features: language === 'en' 
+                        ? ['Product enhancement suggestions', 'Market gap analysis', 'Innovation opportunities', 'Strategic recommendations']
+                        : ['产品增强建议', '市场缺口分析', '创新机会', '策略建议']
+                    }
+                  ].map((feature, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 40 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: index * 0.2 }}
+                      className="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-all duration-300"
+                    >
+                      <div className="p-3 bg-primary/10 rounded-lg w-fit mb-6">
+                        <feature.icon className="h-8 w-8 text-primary" />
+                      </div>
+                      
+                      <h3 className="text-xl font-medium mb-4 text-white">{feature.title}</h3>
+                      <p className="text-white/70 mb-6 leading-relaxed">{feature.description}</p>
+                      
+                      <ul className="space-y-2">
+                        {feature.features.map((item, i) => (
+                          <li key={i} className="flex items-center gap-2 text-sm text-white/60">
+                            <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="py-24 px-6 relative">
+              <div className="max-w-4xl mx-auto text-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                  className="bg-gradient-to-br from-white/5 to-white/2 backdrop-blur-sm border border-white/10 rounded-3xl p-12"
+                >
+                  <h2 className="text-4xl md:text-5xl font-light mb-6 text-white">
+                    {language === 'en' ? 'Ready to Unleash' : '准备释放'}
+                    <br />
+                    <span className="text-primary">{language === 'en' ? 'Review Intelligence?' : '评论智能的力量？'}</span>
+                  </h2>
+                  <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
+                    {language === 'en'
+                      ? 'Transform customer feedback into competitive advantage. Start your journey to data-driven success with Regen AI.'
+                      : '将客户反馈转化为竞争优势。开始您的数据驱动成功之旅，与Regen AI一起。'
+                    }
+                  </p>
+                  <Button
+                    size="lg"
+                    className="bg-primary hover:bg-primary/90 text-black font-medium px-12 py-4 text-lg rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    onClick={() => setActiveModule('upload')}
+                  >
+                    <Zap className="mr-2 h-5 w-5" />
+                    {language === 'en' ? 'Start Free Analysis' : '开始免费分析'}
+                  </Button>
+                </motion.div>
+              </div>
+            </section>
+
+          </div>
+        </div>
       )
     }
+
     if (activeModule === 'upload') {
       return (
         <motion.div 
@@ -1256,25 +1600,6 @@ export default function App() {
                       <span>{t.upload.targetCategory.helpText}</span>
                       <span>{targetCategory.length}/50</span>
                     </div>
-                  </div>
-
-                  {/* Output Language Selection */}
-                  <div className="gap-system-sm flex flex-col">
-                    <Label htmlFor="outputLanguage" className="text-sm">
-                      {t.upload.outputLanguage.label}
-                    </Label>
-                    <Select value={outputLanguage} onValueChange={(value: 'en' | 'zh') => setOutputLanguage(value)}>
-                      <SelectTrigger className="border-clean">
-                        <SelectValue placeholder={t.upload.outputLanguage.label} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="en">{t.upload.outputLanguage.english}</SelectItem>
-                        <SelectItem value="zh">{t.upload.outputLanguage.chinese}</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <p className="text-xs text-muted-foreground">
-                      {t.upload.outputLanguage.description}
-                    </p>
                   </div>
 
                   {/* Category suggestions - cleaner styling */}
@@ -1543,126 +1868,37 @@ export default function App() {
             </motion.div>
           </div>
 
-          {/* Analysis progress - Real-time progress tracking with streaming JSON */}
+          {/* Analysis progress - cleaner styling */}
           <AnimatePresence>
             {isAnalyzing && (
               <motion.div
-                className="w-full"
+                className="text-center"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
               >
-                <Card className="max-w-7xl mx-auto border-clean shadow-clean-md">
+                <Card className="max-w-md mx-auto border-clean shadow-clean-md">
                   <CardContent className="spacing-system-lg">
                     <div className="gap-system-md flex flex-col items-center">
-                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                        analysisProgress === 100 ? 'bg-green-100 dark:bg-green-900' : 'bg-accent'
-                      }`}>
-                        {analysisProgress === 100 ? (
-                          <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
-                        ) : (
-                          <TrendingUp className="h-5 w-5 text-primary animate-pulse" />
-                        )}
+                      <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
+                        <TrendingUp className="h-5 w-5 text-primary animate-pulse" />
                       </div>
                       <div className="text-center">
-                        <h3 className="font-medium mb-2">
-                          {analysisProgress === 100 ? (
-                            language === 'en' ? '🎉 Analysis Complete!' : '🎉 分析完成！'
-                          ) : (
-                            `AI ${language === 'en' ? 'Analyzing Your Data' : '正在分析您的数据'}`
-                          )}
-                        </h3>
+                        <h3 className="font-medium mb-2">AI {language === 'en' ? 'Analyzing Your Data' : '正在分析您的数据'}</h3>
                         <p className="text-sm text-muted-foreground mb-1">
-                          {language === 'en' ? 'Category:' : '类别:'} <span className="text-primary font-medium">{targetCategory}</span>
+                          {t.upload.category} <span className="text-primary font-medium">{targetCategory}</span>
                         </p>
                         <p className="text-sm text-muted-foreground mb-4">
-                          {analysisProgress === 100 ? (
-                            language === 'en' ? 'Your comprehensive business insights are ready! Redirecting to results...' : '您的综合商业洞察已准备就绪！正在跳转到结果页面...'
-                          ) : (
-                            language === 'en' ? 'We are deeply analyzing review data to identify user insights and market opportunities...' : '我们正在深度分析评论数据，识别用户洞察和市场机会...'
-                          )}
+                          {t.upload.analysisProgress}
                         </p>
                       </div>
-                      
-                      {/* Overall Progress Bar */}
-                      <div className="w-full">
-                        <div className="flex justify-between text-xs text-muted-foreground mb-2">
-                          <span>{language === 'en' ? 'Overall Progress' : '总体进度'}</span>
-                          <span>{analysisProgress}%</span>
-                        </div>
-                        <div className="w-full bg-muted rounded-full h-2">
-                          <motion.div 
-                            className="bg-primary h-2 rounded-full"
-                            initial={{ width: '0%' }}
-                            animate={{ width: `${analysisProgress}%` }}
-                            transition={{ duration: 0.5, ease: 'easeOut' }}
-                          />
-                        </div>
-                      </div>
-
-                      {/* Left-Right Layout: Steps and JSON Stream */}
-                      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Left: Current Step and Steps List */}
-                        <div className="space-y-4">
-                          {/* Current Step */}
-                          {currentStep && (
-                            <div className="text-center">
-                              <p className="text-sm font-medium text-primary">
-                                {language === 'en' ? 'Current Step:' : '当前步骤:'} {currentStep}
-                              </p>
-                            </div>
-                          )}
-
-                          {/* Step Progress List */}
-                          {analysisSteps.length > 0 && (
-                            <div className="w-full">
-                              <h4 className="text-sm font-medium mb-3 text-center">
-                                {language === 'en' ? 'Analysis Steps' : '分析步骤'}
-                              </h4>
-                              <div className="flex flex-col" style={{ gap: '24px' }}>
-                                {analysisSteps.map((step, index) => (
-                                  <motion.div
-                                    key={step.id}
-                                    className="flex items-center gap-3 text-sm"
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: index * 0.1 }}
-                                  >
-                                    <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                                      step.status === 'completed' ? 'bg-green-500' :
-                                      step.status === 'running' ? 'bg-primary animate-pulse' :
-                                      'bg-muted'
-                                    }`}>
-                                      {step.status === 'completed' && (
-                                        <CheckCircle className="w-3 h-3 text-white" />
-                                      )}
-                                      {step.status === 'running' && (
-                                        <Clock className="w-3 h-3 text-white animate-spin" />
-                                      )}
-                                    </div>
-                                    <span className={`flex-1 ${
-                                      step.status === 'completed' ? 'text-green-600 dark:text-green-400' :
-                                      step.status === 'running' ? 'text-primary font-medium' :
-                                      'text-muted-foreground'
-                                    }`}>
-                                      {language === 'en' ? step.name : step.name_zh}
-                                    </span>
-                                  </motion.div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Right: AI Analysis Stream */}
-                        <div className="w-full">
-                          <StreamingJsonGenerator 
-                            language={language}
-                            currentStep={currentStep}
-                            analysisId={analysisId}
-                            isDarkMode={theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)}
-                          />
-                        </div>
+                      <div className="w-full bg-muted rounded-full h-1">
+                        <motion.div 
+                          className="bg-primary h-1 rounded-full"
+                          initial={{ width: '0%' }}
+                          animate={{ width: '100%' }}
+                          transition={{ duration: 30, ease: 'linear' }}
+                        />
                       </div>
                     </div>
                   </CardContent>
@@ -1674,69 +1910,186 @@ export default function App() {
       )
     }
 
-    if (activeModule === 'own-brand-insights') {
+    if (activeModule === 'own-brand-insights' && analysisResult) {
       return (
-        <UserInsights 
-          language={language}
-          t={t}
-          analysisResult={analysisResult}
-        />
-      )
-    }
+        <motion.div 
+          className="gap-system-xl flex flex-col"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* Clean header with breadcrumb-style navigation */}
+          <div className="border-b border-border pb-6">
+            <div className="gap-system-sm flex items-center">
+              <Target className="h-5 w-5 text-primary" />
+              <div>
+                <h2 className="mb-1">{t.nav.ownBrandInsights}</h2>
+                <div className="gap-system-sm flex items-center text-sm text-muted-foreground">
+                  <span>{language === 'en' ? 'Deep insights into your target user groups' : '深度了解您的目标用户群体'}</span>
+                  {analysisResult.targetCategory && (
+                    <>
+                      <Separator orientation="vertical" className="h-3" />
+                      <div className="gap-1 flex items-center">
+                        <Tag className="h-3 w-3" />
+                        <span>{t.analysis.category} {analysisResult.targetCategory}</span>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
 
-    if (activeModule === 'own-brand-feedback') {
-      return (
-        <UserFeedback 
-          language={language}
-          t={t}
-          analysisResult={analysisResult}
-        />
-      )
-    }
+          <div className="gap-system-xl flex flex-col">
+            {/* Key User Persona Insights - Clean Google Analytics style */}
+            {analysisResult.ownBrandAnalysis.userInsights.关键用户画像洞察 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <Card className="border-clean shadow-clean">
+                  <CardHeader className="spacing-system-lg border-b border-border">
+                    <CardTitle className="gap-system-sm flex items-center text-base">
+                      <Users className="h-4 w-4 text-primary" />
+                      <span>{t.analysis.keyUserInsights}</span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="spacing-system-lg">
+                    <div className="gap-system-lg flex flex-col">
+                      <motion.div 
+                        className="spacing-system-md bg-accent rounded-lg border-clean"
+                        whileHover={{ scale: 1.01 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <h4 className="font-medium mb-2 text-sm">{t.analysis.coreUserPersona}</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {analysisResult.ownBrandAnalysis.userInsights.关键用户画像洞察.核心用户画像}
+                        </p>
+                      </motion.div>
+                      
+                      <div className="gap-system-md grid md:grid-cols-2">
+                        <motion.div 
+                          className="spacing-system-md bg-muted rounded-lg border-clean"
+                          whileHover={{ scale: 1.01 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <h4 className="font-medium mb-2 text-sm">{t.analysis.segmentedUserTypes}</h4>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {analysisResult.ownBrandAnalysis.userInsights.关键用户画像洞察.细分潜力用户类型}
+                          </p>
+                        </motion.div>
+                        
+                        <motion.div 
+                          className="spacing-system-md bg-muted rounded-lg border-clean"
+                          whileHover={{ scale: 1.01 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <h4 className="font-medium mb-2 text-sm">{t.analysis.keyUserBehavior}</h4>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {analysisResult.ownBrandAnalysis.userInsights.关键用户画像洞察.关键用户行为}
+                          </p>
+                        </motion.div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
 
-    if (activeModule === 'own-brand-unmet') {
-      return (
-        <UnmetNeeds 
-          language={language}
-          t={t}
-          analysisResult={analysisResult}
-        />
-      )
-    }
+            {/* Demographic Analysis - Clean data presentation */}
+            {analysisResult.ownBrandAnalysis.userInsights.消费者画像分析 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <Card className="border-clean shadow-clean">
+                  <CardHeader className="spacing-system-lg border-b border-border">
+                    <CardTitle className="gap-system-sm flex items-center text-base">
+                      <Users className="h-4 w-4 text-primary" />
+                      <span>{t.analysis.demographicAnalysis}</span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="spacing-system-lg">
+                    <motion.div 
+                      className="spacing-system-md bg-accent rounded-lg border-clean mb-6"
+                      whileHover={{ scale: 1.01 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <h4 className="font-medium mb-2 text-sm">{t.analysis.coreInsight}</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {analysisResult.ownBrandAnalysis.userInsights.消费者画像分析.人群特征.核心insight}
+                      </p>
+                    </motion.div>
+                    
+                    <div className="gap-system-lg flex flex-col">
+                      <h4 className="font-medium text-sm">{t.analysis.segmentedDetails}</h4>
+                      <div className="gap-system-md flex flex-col">
+                        {analysisResult.ownBrandAnalysis.userInsights.消费者画像分析.人群特征.细分人群.map((group, index) => (
+                          <motion.div 
+                            key={index} 
+                            className="border-clean rounded-lg spacing-system-md shadow-clean"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.3 + index * 0.1 }}
+                            whileHover={{ y: -1 }}
+                          >
+                            <div className="flex items-center justify-between mb-3">
+                              <h5 className="font-medium text-sm">{group.用户人群}</h5>
+                              <Badge variant="outline" className="text-primary border-primary/30 bg-accent text-xs">
+                                {group.比例}%
+                              </Badge>
+                            </div>
+                            
+                            <div className="w-full bg-muted rounded-full h-1.5 mb-3">
+                              <motion.div 
+                                className="bg-primary h-1.5 rounded-full"
+                                initial={{ width: 0 }}
+                                animate={{ width: `${group.比例}%` }}
+                                transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
+                              />
+                            </div>
+                            
+                            <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{group.特征描述}</p>
+                            
+                            <div className="bg-muted spacing-system-sm rounded-md border-clean">
+                              <h6 className="text-xs font-medium mb-1">{t.analysis.keyReviewInfo}</h6>
+                              <p className="text-xs text-muted-foreground italic leading-relaxed">"{group.关键review信息}"</p>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
 
-    if (activeModule === 'competitive') {
-      return (
-        <CompetitorAnalysis 
-          language={language}
-          t={t}
-          analysisResult={analysisResult}
-        />
-      )
-    }
-
-    if (activeModule === 'opportunities') {
-      return (
-        <Opportunities 
-          language={language}
-          t={t}
-          analysisResult={analysisResult}
-          activeTab="improvement"
-        />
-      )
-    }
-
-    if (activeModule === 'history') {
-      return (
-        <HistoricalReports 
-          language={language}
-          t={t}
-          onSelectReport={(reportId) => {
-            // 加载选中的报告
-            console.log('Loading report:', reportId)
-            // 这里可以添加加载特定报告的逻辑
-          }}
-          currentReportId={analysisResult?.id}
-        />
+            {/* Fallback User Persona */}
+            {!analysisResult.ownBrandAnalysis.userInsights.关键用户画像洞察 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <Card className="border-clean shadow-clean">
+                  <CardHeader className="spacing-system-lg border-b border-border">
+                    <CardTitle className="gap-system-sm flex items-center text-base">
+                      <Users className="h-4 w-4 text-primary" />
+                      <span>{t.analysis.userPersona}</span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="spacing-system-lg">
+                    <p className="text-muted-foreground bg-accent spacing-system-md rounded-lg border-clean leading-relaxed text-sm">
+                      {analysisResult.ownBrandAnalysis.userInsights.userPersona}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
       )
     }
 
@@ -1754,6 +2107,15 @@ export default function App() {
     )
   }
 
+  // Special handling for dashboard - full screen landing page
+  if (activeModule === 'dashboard') {
+    return (
+      <TooltipProvider>
+        {renderMainContent()}
+      </TooltipProvider>
+    )
+  }
+
   return (
     <TooltipProvider>
       <div className="min-h-screen bg-background flex">
@@ -1764,14 +2126,13 @@ export default function App() {
             <div className="flex items-center justify-between mb-8">
               {sidebarOpen && (
                 <motion.div 
-                  className="gap-system-sm flex items-center cursor-pointer hover:opacity-80 transition-opacity"
+                  className="gap-system-sm flex items-center"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.1 }}
-                  onClick={() => setActiveModule('dashboard')}
                 >
-                  <NIcon className="h-5 w-5 text-primary" />
-                  <span className="font-medium text-sidebar-foreground">{t.nav.analyticsTools}</span>
+                  <BarChart3 className="h-5 w-5 text-primary" />
+                  <span className="font-medium text-sidebar-foreground">Regen AI</span>
                 </motion.div>
               )}
               <Button
@@ -1822,9 +2183,9 @@ export default function App() {
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetContent side="left" className="w-80 p-0 bg-sidebar border-sidebar-border">
             <div className="spacing-system-md">
-              <div className="gap-system-sm flex items-center mb-8 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => { setActiveModule('dashboard'); setMobileMenuOpen(false); }}>
-                <NIcon className="h-5 w-5 text-primary" />
-                <span className="font-medium text-sidebar-foreground">{t.nav.analyticsTools}</span>
+              <div className="gap-system-sm flex items-center mb-8">
+                <BarChart3 className="h-5 w-5 text-primary" />
+                <span className="font-medium text-sidebar-foreground">Regen AI</span>
               </div>
               
               <NavigationContent isMobile />
