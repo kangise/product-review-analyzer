@@ -12,15 +12,19 @@ import { Sheet, SheetContent, SheetTrigger } from './components/ui/sheet'
 import { Switch } from './components/ui/switch'
 import { Input } from './components/ui/input'
 import { Label } from './components/ui/label'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select'
 import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip } from 'recharts'
 import { projectId, publicAnonKey } from './utils/supabase/info'
 
 // 导入新创建的分析页面组件
 import { UserInsights } from './pages/analysis/UserInsights'
+import Dashboard from './pages/Dashboard'
+import NIcon from './components/icons/NIcon'
 import { UserFeedback } from './pages/analysis/UserFeedback'
 import { CompetitorAnalysis } from './pages/analysis/CompetitorAnalysis'
 import { Opportunities } from './pages/analysis/Opportunities'
 import { UnmetNeeds } from './pages/analysis/UnmetNeeds'
+import { StreamingJsonGenerator } from './components/analysis/StreamingJsonGenerator'
 import { HistoryReports } from './pages/HistoryReports'
 import { HistoricalReports } from './pages/HistoricalReports'
 
@@ -34,7 +38,7 @@ const translations = {
     // Navigation
     nav: {
       dashboard: "Dashboard",
-      upload: "Data Upload",
+      upload: "Start Analysis",
       ownBrand: "Own Brand Analysis", 
       ownBrandInsights: "User Insights",
       ownBrandFeedback: "User Feedback Analysis",
@@ -45,7 +49,7 @@ const translations = {
       opportunitiesInnovation: "Product Innovation",
       opportunitiesMarketing: "Marketing Positioning",
       history: "Historical Reports",
-      analyticsTools: "Analytics Tools"
+      analyticsTools: "Novochoice AI"
     },
     
     // Dashboard content
@@ -94,6 +98,13 @@ const translations = {
         helpText: "Clear category description helps provide more accurate analysis results",
         commonCategories: "Common Categories:"
       },
+      outputLanguage: {
+        title: "Analysis Output Language",
+        description: "Choose the language for analysis results",
+        label: "Output Language",
+        english: "English",
+        chinese: "Chinese"
+      },
       ownBrand: {
         title: "Own Brand Reviews",
         description: "Upload your brand's customer review data (Required)",
@@ -127,7 +138,20 @@ const translations = {
       segmentedDetails: "Segmented Details",
       keyReviewInfo: "Key Review Information",
       userPersona: "User Persona",
-      category: "Category"
+      category: "Category",
+      // Customer Satisfaction Analysis
+      technicalSpecs: "Technical Specifications",
+      functionalAttributes: "Functional Attributes", 
+      usageScenarios: "Usage Scenarios",
+      satisfactionPoints: "Satisfaction Points",
+      dissatisfactionPoints: "Dissatisfaction Points",
+      positiveThemes: "Positive Themes",
+      negativeThemes: "Negative Themes",
+      mainSatisfactionPoints: "Main Satisfaction Points",
+      mainDissatisfactionPoints: "Main Dissatisfaction Points",
+      mostLovedFeatures: "Most Loved Features",
+      ratingThemeAnalysis: "Rating Theme Analysis",
+      detailedAnalysisByRating: "Detailed Analysis by Rating"
     },
     
     // Common UI elements
@@ -140,6 +164,31 @@ const translations = {
       userCenter: "User Center",
       downloadReport: "Download Report",
       newAnalysis: "New Analysis",
+      save: "Save",
+      cancel: "Cancel",
+      delete: "Delete",
+      edit: "Edit",
+      add: "Add",
+      remove: "Remove",
+      update: "Update",
+      create: "Create",
+      back: "Back",
+      next: "Next",
+      previous: "Previous",
+      continue: "Continue",
+      finish: "Finish",
+      start: "Start",
+      stop: "Stop",
+      close: "Close",
+      examples: "Examples",
+      viewDetails: "View Details",
+      showMore: "Show More",
+      showLess: "Show Less",
+      loadMore: "Load More",
+      readMore: "Read More",
+      seeAll: "See All",
+      expand: "Expand",
+      collapse: "Collapse",
       uploadProgress: "Upload Progress:",
       developing: "Under Development",
       featureDeveloping: "This feature is under development, stay tuned!",
@@ -188,7 +237,7 @@ const translations = {
     // Navigation
     nav: {
       dashboard: "仪表盘",
-      upload: "数据上传",
+      upload: "开始分析",
       ownBrand: "自有品牌分析",
       ownBrandInsights: "用户洞察", 
       ownBrandFeedback: "用户反馈分析",
@@ -199,7 +248,7 @@ const translations = {
       opportunitiesInnovation: "产品创新机会", 
       opportunitiesMarketing: "营销定位机会",
       history: "历史报告",
-      analyticsTools: "分析工具"
+      analyticsTools: "Novochoice AI"
     },
     
     // Dashboard content
@@ -248,6 +297,13 @@ const translations = {
         helpText: "清晰的品类描述有助于提供更准确的分析结果",
         commonCategories: "常见品类："
       },
+      outputLanguage: {
+        title: "分析结果语言",
+        description: "选择分析结果的输出语言",
+        label: "输出语言",
+        english: "英文",
+        chinese: "中文"
+      },
       ownBrand: {
         title: "自有品牌评论",
         description: "上传您品牌产品的客户评论数据 (必须)",
@@ -281,7 +337,20 @@ const translations = {
       segmentedDetails: "细分人群详情",
       keyReviewInfo: "关键评论信息",
       userPersona: "用户画像",
-      category: "品类:"
+      category: "品类:",
+      // Customer Satisfaction Analysis
+      technicalSpecs: "技术规格",
+      functionalAttributes: "功能属性",
+      usageScenarios: "使用场景",
+      satisfactionPoints: "满意点",
+      dissatisfactionPoints: "不满意点",
+      positiveThemes: "正向主题",
+      negativeThemes: "负向主题",
+      mainSatisfactionPoints: "主要满意点",
+      mainDissatisfactionPoints: "主要不满意点",
+      mostLovedFeatures: "最受喜爱功能",
+      ratingThemeAnalysis: "评分主题分析",
+      detailedAnalysisByRating: "按评分段详细分析"
     },
     
     // Common UI elements
@@ -299,7 +368,32 @@ const translations = {
       featureDeveloping: "该功能正在开发中，敬请期待！",
       english: "English",
       chinese: "中文",
-      search: "搜索"
+      search: "搜索",
+      save: "保存",
+      cancel: "取消",
+      delete: "删除",
+      edit: "编辑",
+      add: "添加",
+      remove: "移除",
+      update: "更新",
+      create: "创建",
+      back: "返回",
+      next: "下一步",
+      previous: "上一步",
+      continue: "继续",
+      finish: "完成",
+      start: "开始",
+      stop: "停止",
+      close: "关闭",
+      examples: "示例",
+      viewDetails: "查看详情",
+      showMore: "显示更多",
+      showLess: "显示更少",
+      loadMore: "加载更多",
+      readMore: "阅读更多",
+      seeAll: "查看全部",
+      expand: "展开",
+      collapse: "收起",
     },
     
     // Error messages
@@ -483,6 +577,7 @@ export default function App() {
   const [ownBrandFile, setOwnBrandFile] = useState<UploadedFile | null>(null)
   const [competitorFile, setCompetitorFile] = useState<UploadedFile | null>(null)
   const [targetCategory, setTargetCategory] = useState<string>('')
+  const [outputLanguage, setOutputLanguage] = useState<'en' | 'zh'>('en')
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [analysisId, setAnalysisId] = useState<string | null>(null)
   const [analysisSteps, setAnalysisSteps] = useState<any[]>([])
@@ -490,7 +585,7 @@ export default function App() {
   const [analysisProgress, setAnalysisProgress] = useState(0)
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null)
   const [historicalReports, setHistoricalReports] = useState<HistoricalReport[]>([])
-  const [activeModule, setActiveModule] = useState<ActiveModule>('dashboard')
+  const [activeModule, setActiveModule] = useState<ActiveModule>('upload')
   const [uploadProgress, setUploadProgress] = useState(0)
   const [error, setError] = useState<string | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -773,7 +868,8 @@ export default function App() {
           ownBrandFile: ownBrandFile!.fileName,
           competitorFile: competitorFile?.fileName || null,
           targetCategory: targetCategory.trim(),
-          language: language
+          language: language,
+          outputLanguage: outputLanguage
         })
       })
 
@@ -895,18 +991,36 @@ export default function App() {
     }
   }
 
+  // 确保own-brand菜单在相关页面时保持展开
+  useEffect(() => {
+    if (activeModule.startsWith('own-brand')) {
+      setExpandedSections(prev => {
+        const newExpanded = new Set(prev)
+        newExpanded.add('own-brand')
+        return newExpanded
+      })
+    }
+  }, [activeModule])
+
   const resetAnalysis = () => {
     setAnalysisResult(null)
     setOwnBrandFile(null)
     setCompetitorFile(null)
     setTargetCategory('')
-    setActiveModule('dashboard')
+    setOutputLanguage('en')
+    setActiveModule('upload')
     setError(null)
     setExpandedSections(new Set())
   }
 
   const toggleSection = (sectionId: string) => {
     const newExpanded = new Set(expandedSections)
+    
+    // 如果是own-brand菜单且当前在own-brand相关页面，不允许收起
+    if (sectionId === 'own-brand' && activeModule.startsWith('own-brand')) {
+      return
+    }
+    
     if (newExpanded.has(sectionId)) {
       newExpanded.delete(sectionId)
     } else {
@@ -916,13 +1030,6 @@ export default function App() {
   }
 
   const navigationItems = [
-    {
-      id: 'dashboard',
-      label: t.nav.dashboard,
-      icon: Home,
-      available: true,
-      children: []
-    },
     {
       id: 'upload',
       label: t.nav.upload,
@@ -961,12 +1068,19 @@ export default function App() {
       icon: History,
       available: historicalReports.length > 0,
       children: []
+    },
+    {
+      id: 'dashboard',
+      label: t.nav.analyticsTools,
+      icon: NIcon,
+      available: true,
+      children: []
     }
   ]
 
   const NavigationContent = ({ isMobile = false }: { isMobile?: boolean }) => {
     // 使用useMemo稳定导航项计算，避免不必要的重新渲染
-    const stableNavigationItems = useMemo(() => navigationItems, [analysisResult, historicalReports.length])
+    const stableNavigationItems = useMemo(() => navigationItems, [!!analysisResult, historicalReports.length])
     
     return (
       <nav className="gap-system-sm flex flex-col">
@@ -1070,170 +1184,12 @@ export default function App() {
   const renderMainContent = () => {
     if (activeModule === 'dashboard') {
       return (
-        <motion.div 
-          className="gap-system-2xl flex flex-col"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {/* Hero Section - Google Analytics inspired clean header */}
-          <div className="border-b border-border pb-8">
-            <motion.div 
-              className="gap-system-md flex items-start"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <div className="p-3 bg-accent rounded-lg">
-                <BarChart3 className="h-6 w-6 text-primary" />
-              </div>
-              <div className="flex-1">
-                <h1 className="mb-2">
-                  {t.appTitle}
-                </h1>
-                <p className="text-muted-foreground text-base mb-6 max-w-2xl">
-                  {t.appSubtitle}
-                </p>
-                <motion.div 
-                  className="gap-system-sm flex"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <Button 
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
-                    onClick={() => setActiveModule('upload')}
-                  >
-                    <Upload className="mr-2 h-4 w-4" />
-                    {t.dashboard.startAnalysis}
-                  </Button>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Core Features - Clean Google Analytics style */}
-          <motion.div 
-            id="features-section"
-            className="gap-system-lg flex flex-col"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            <h2 className="mb-2">{t.dashboard.coreFeatures}</h2>
-            <div className="gap-system-md grid md:grid-cols-3">
-              {[
-                {
-                  icon: Users,
-                  title: t.dashboard.features.userInsights.title,
-                  description: t.dashboard.features.userInsights.description,
-                  features: t.dashboard.features.userInsights.items
-                },
-                {
-                  icon: BarChart2,
-                  title: t.dashboard.features.competitive.title,
-                  description: t.dashboard.features.competitive.description,
-                  features: t.dashboard.features.competitive.items
-                },
-                {
-                  icon: Lightbulb,
-                  title: t.dashboard.features.opportunities.title,
-                  description: t.dashboard.features.opportunities.description,
-                  features: t.dashboard.features.opportunities.items
-                }
-              ].map((feature, index) => (
-                <motion.div
-                  key={feature.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + index * 0.1 }}
-                  whileHover={{ y: -2 }}
-                >
-                  <Card className="h-full border-clean shadow-clean-md hover:shadow-clean-lg transition-shadow duration-300">
-                    <CardContent className="spacing-system-lg">
-                      <div className="gap-system-md flex flex-col">
-                        <div className="gap-system-sm flex items-center">
-                          <div className="p-2 bg-accent rounded-lg">
-                            <feature.icon className="h-4 w-4 text-primary" />
-                          </div>
-                          <h3 className="font-medium">{feature.title}</h3>
-                        </div>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {feature.description}
-                        </p>
-                        <div className="gap-system-sm flex flex-col text-xs text-muted-foreground">
-                          {feature.features.map((f, i) => (
-                            <span key={i} className="flex items-center gap-1">
-                              <div className="w-1 h-1 bg-primary rounded-full" />
-                              {f}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Stats - Clean metrics display */}
-          <motion.div 
-            className="gap-system-lg flex flex-col"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
-          >
-            <h2 className="mb-2">{t.dashboard.platformData}</h2>
-            <div className="gap-system-md grid grid-cols-2 md:grid-cols-4">
-              {[
-                { value: "6+", label: t.dashboard.stats.dimensions },
-                { value: "15+", label: t.dashboard.stats.insights },
-                { value: "10MB", label: t.dashboard.stats.fileSupport },
-                { value: language === 'en' ? "Seconds" : "秒级", label: t.dashboard.stats.speed }
-              ].map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.8 + index * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <Card className="border-clean shadow-clean">
-                    <CardContent className="spacing-system-lg text-center">
-                      <div className="text-2xl font-normal text-primary mb-1">{stat.value}</div>
-                      <div className="text-xs text-muted-foreground">{stat.label}</div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* CTA - Clean call to action */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0 }}
-            className="text-center bg-accent rounded-lg spacing-system-2xl border-clean"
-          >
-            <h2 className="mb-4">{t.dashboard.readyToStart}</h2>
-            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto text-base leading-relaxed">
-              {t.dashboard.readyDescription}
-            </p>
-            <Button 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
-              onClick={() => setActiveModule('upload')}
-            >
-              <Upload className="mr-2 h-4 w-4" />
-              {t.dashboard.startAnalysis}
-            </Button>
-          </motion.div>
-        </motion.div>
+        <Dashboard 
+          language={language} 
+          onPageChange={setActiveModule}
+        />
       )
     }
-
     if (activeModule === 'upload') {
       return (
         <motion.div 
@@ -1300,6 +1256,25 @@ export default function App() {
                       <span>{t.upload.targetCategory.helpText}</span>
                       <span>{targetCategory.length}/50</span>
                     </div>
+                  </div>
+
+                  {/* Output Language Selection */}
+                  <div className="gap-system-sm flex flex-col">
+                    <Label htmlFor="outputLanguage" className="text-sm">
+                      {t.upload.outputLanguage.label}
+                    </Label>
+                    <Select value={outputLanguage} onValueChange={(value: 'en' | 'zh') => setOutputLanguage(value)}>
+                      <SelectTrigger className="border-clean">
+                        <SelectValue placeholder={t.upload.outputLanguage.label} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="en">{t.upload.outputLanguage.english}</SelectItem>
+                        <SelectItem value="zh">{t.upload.outputLanguage.chinese}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <p className="text-xs text-muted-foreground">
+                      {t.upload.outputLanguage.description}
+                    </p>
                   </div>
 
                   {/* Category suggestions - cleaner styling */}
@@ -1568,16 +1543,16 @@ export default function App() {
             </motion.div>
           </div>
 
-          {/* Analysis progress - Real-time progress tracking */}
+          {/* Analysis progress - Real-time progress tracking with streaming JSON */}
           <AnimatePresence>
             {isAnalyzing && (
               <motion.div
-                className="text-center"
+                className="w-full"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
               >
-                <Card className="max-w-2xl mx-auto border-clean shadow-clean-md">
+                <Card className="max-w-7xl mx-auto border-clean shadow-clean-md">
                   <CardContent className="spacing-system-lg">
                     <div className="gap-system-md flex flex-col items-center">
                       <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
@@ -1625,54 +1600,70 @@ export default function App() {
                         </div>
                       </div>
 
-                      {/* Current Step */}
-                      {currentStep && (
-                        <div className="text-center">
-                          <p className="text-sm font-medium text-primary">
-                            {language === 'en' ? 'Current Step:' : '当前步骤:'} {currentStep}
-                          </p>
-                        </div>
-                      )}
+                      {/* Left-Right Layout: Steps and JSON Stream */}
+                      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Left: Current Step and Steps List */}
+                        <div className="space-y-4">
+                          {/* Current Step */}
+                          {currentStep && (
+                            <div className="text-center">
+                              <p className="text-sm font-medium text-primary">
+                                {language === 'en' ? 'Current Step:' : '当前步骤:'} {currentStep}
+                              </p>
+                            </div>
+                          )}
 
-                      {/* Step Progress List */}
-                      {analysisSteps.length > 0 && (
-                        <div className="w-full max-w-md">
-                          <h4 className="text-sm font-medium mb-3 text-center">
-                            {language === 'en' ? 'Analysis Steps' : '分析步骤'}
-                          </h4>
-                          <div className="gap-2 flex flex-col">
-                            {analysisSteps.map((step, index) => (
-                              <motion.div
-                                key={step.id}
-                                className="flex items-center gap-3 text-sm"
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                              >
-                                <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                                  step.status === 'completed' ? 'bg-green-500' :
-                                  step.status === 'running' ? 'bg-primary animate-pulse' :
-                                  'bg-muted'
-                                }`}>
-                                  {step.status === 'completed' && (
-                                    <CheckCircle className="w-3 h-3 text-white" />
-                                  )}
-                                  {step.status === 'running' && (
-                                    <Clock className="w-3 h-3 text-white animate-spin" />
-                                  )}
-                                </div>
-                                <span className={`flex-1 ${
-                                  step.status === 'completed' ? 'text-green-600 dark:text-green-400' :
-                                  step.status === 'running' ? 'text-primary font-medium' :
-                                  'text-muted-foreground'
-                                }`}>
-                                  {language === 'en' ? step.name : step.name_zh}
-                                </span>
-                              </motion.div>
-                            ))}
-                          </div>
+                          {/* Step Progress List */}
+                          {analysisSteps.length > 0 && (
+                            <div className="w-full">
+                              <h4 className="text-sm font-medium mb-3 text-center">
+                                {language === 'en' ? 'Analysis Steps' : '分析步骤'}
+                              </h4>
+                              <div className="flex flex-col" style={{ gap: '24px' }}>
+                                {analysisSteps.map((step, index) => (
+                                  <motion.div
+                                    key={step.id}
+                                    className="flex items-center gap-3 text-sm"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: index * 0.1 }}
+                                  >
+                                    <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
+                                      step.status === 'completed' ? 'bg-green-500' :
+                                      step.status === 'running' ? 'bg-primary animate-pulse' :
+                                      'bg-muted'
+                                    }`}>
+                                      {step.status === 'completed' && (
+                                        <CheckCircle className="w-3 h-3 text-white" />
+                                      )}
+                                      {step.status === 'running' && (
+                                        <Clock className="w-3 h-3 text-white animate-spin" />
+                                      )}
+                                    </div>
+                                    <span className={`flex-1 ${
+                                      step.status === 'completed' ? 'text-green-600 dark:text-green-400' :
+                                      step.status === 'running' ? 'text-primary font-medium' :
+                                      'text-muted-foreground'
+                                    }`}>
+                                      {language === 'en' ? step.name : step.name_zh}
+                                    </span>
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
-                      )}
+
+                        {/* Right: AI Analysis Stream */}
+                        <div className="w-full">
+                          <StreamingJsonGenerator 
+                            language={language}
+                            currentStep={currentStep}
+                            analysisId={analysisId}
+                            isDarkMode={theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)}
+                          />
+                        </div>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -1773,12 +1764,13 @@ export default function App() {
             <div className="flex items-center justify-between mb-8">
               {sidebarOpen && (
                 <motion.div 
-                  className="gap-system-sm flex items-center"
+                  className="gap-system-sm flex items-center cursor-pointer hover:opacity-80 transition-opacity"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.1 }}
+                  onClick={() => setActiveModule('dashboard')}
                 >
-                  <BarChart3 className="h-5 w-5 text-primary" />
+                  <NIcon className="h-5 w-5 text-primary" />
                   <span className="font-medium text-sidebar-foreground">{t.nav.analyticsTools}</span>
                 </motion.div>
               )}
@@ -1830,8 +1822,8 @@ export default function App() {
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetContent side="left" className="w-80 p-0 bg-sidebar border-sidebar-border">
             <div className="spacing-system-md">
-              <div className="gap-system-sm flex items-center mb-8">
-                <BarChart3 className="h-5 w-5 text-primary" />
+              <div className="gap-system-sm flex items-center mb-8 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => { setActiveModule('dashboard'); setMobileMenuOpen(false); }}>
+                <NIcon className="h-5 w-5 text-primary" />
                 <span className="font-medium text-sidebar-foreground">{t.nav.analyticsTools}</span>
               </div>
               

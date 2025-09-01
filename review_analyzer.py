@@ -19,7 +19,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 class ReviewAnalyzer:
-    def __init__(self, prompts_dir: str = "Agent"):
+    def __init__(self, prompts_dir: str = "Agent", output_language: str = "en"):
         """
         初始化评论分析器
         
@@ -27,6 +27,7 @@ class ReviewAnalyzer:
             prompts_dir: 存放MD prompt文件的目录
         """
         self.prompts_dir = Path(prompts_dir)
+        self.output_language = output_language
         self.results = {}  # 存储每个步骤的JSON结果
         self.cleaned_data = {}  # 存储清理后的数据
         
@@ -164,6 +165,14 @@ class ReviewAnalyzer:
                 full_prompt = self.process_prompt_template(prompt, context_data)
             else:
                 full_prompt = prompt
+            
+            # 添加语言指令
+            if self.output_language == 'zh':
+                language_instruction = "\n\n**重要：请用中文输出所有分析结果。所有字段名保持英文，但字段值和描述内容必须用中文。**"
+            else:
+                language_instruction = "\n\n**Important: Please output all analysis results in English.**"
+            
+            full_prompt += language_instruction
             
             logger.info("正在调用Q Chat...")
             logger.info(f"Prompt长度: {len(full_prompt)} 字符")

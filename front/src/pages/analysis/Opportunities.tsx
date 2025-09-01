@@ -22,8 +22,15 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
 }) => {
   const [selectedQuotes, setSelectedQuotes] = useState<{quotes: string[], title: string} | null>(null)
 
-  const showQuotes = (quotes: string[], title: string) => {
-    setSelectedQuotes({ quotes, title })
+  const showQuotes = (quotes: string | string[], title: string) => {
+    let quotesArray: string[] = []
+    if (typeof quotes === 'string') {
+      // 如果是字符串，按常见分隔符分割
+      quotesArray = quotes.split(/\n|；|;|\|/).filter(q => q.trim().length > 0)
+    } else if (Array.isArray(quotes)) {
+      quotesArray = quotes
+    }
+    setSelectedQuotes({ quotes: quotesArray, title })
   }
 
   // 从analysisResult中获取数据，适配现有结构

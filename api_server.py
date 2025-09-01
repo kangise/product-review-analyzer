@@ -91,6 +91,7 @@ def start_analysis():
         competitor_file = data.get('competitorFile')
         target_category = data.get('targetCategory', '')
         language = data.get('language', 'en')
+        output_language = data.get('outputLanguage', 'en')
         
         if not own_brand_file:
             return jsonify({'error': 'Own brand file is required'}), 400
@@ -122,7 +123,7 @@ def start_analysis():
         
         # 在后台线程中运行分析
         thread = threading.Thread(target=run_analysis_background, 
-                                args=(analysis_id, own_brand_path, competitor_path, target_category))
+                                args=(analysis_id, own_brand_path, competitor_path, target_category, output_language))
         thread.daemon = True
         thread.start()
         
@@ -136,7 +137,7 @@ def start_analysis():
         print(f"Analysis error: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
-def run_analysis_background(analysis_id, own_brand_path, competitor_path, target_category):
+def run_analysis_background(analysis_id, own_brand_path, competitor_path, target_category, output_language):
     """在后台运行分析的函数"""
     try:
         # 更新状态为运行中
@@ -152,7 +153,7 @@ def run_analysis_background(analysis_id, own_brand_path, competitor_path, target
         
         # 运行带有进度跟踪的Python分析脚本
         process = subprocess.Popen(
-            ['python3', 'run_analysis_with_progress.py', target_category], 
+            ['python3', 'run_analysis_with_progress.py', target_category, output_language], 
             stdout=subprocess.PIPE, 
             stderr=subprocess.PIPE, 
             text=True, 
@@ -225,6 +226,74 @@ def run_analysis_background(analysis_id, own_brand_path, competitor_path, target
         analysis_status[analysis_id]['status'] = 'failed'
         analysis_status[analysis_id]['error'] = str(e)
 
+@app.route('/analysis/<analysis_id>/stream', methods=['GET'])
+def stream_analysis_output(analysis_id):
+    """实时流式输出分析内容"""
+    def generate():
+        if analysis_id not in analysis_status:
+            yield f"data: {json.dumps({'error': 'Analysis not found'})}\n\n"
+            return
+        
+        # 模拟实时输出正在生成的内容
+        status = analysis_status[analysis_id]
+        if status['status'] == 'running':
+            # 根据当前步骤返回相应的实时内容
+            current_step = status.get('current_step', 0)
+            steps = status.get('steps', [])
+            
+            if current_step < len(steps):
+                step_name = steps[current_step]['name']
+                # 这里应该返回真实的AI生成内容
+                # 暂时返回模拟的实时内容
+                content = {
+                    "current_analysis": step_name,
+                    "progress": status['progress'],
+                    "partial_result": f"正在分析{step_name}...",
+                    "timestamp": datetime.now().isoformat()
+                }
+                yield f"data: {json.dumps(content)}\n\n"
+        
+        yield f"data: {json.dumps({'status': 'complete'})}\n\n"
+    
+    return Response(generate(), mimetype='text/plain')
+
+@app.route('/analysis/<analysis_id>/latest-output', methods=['GET'])
+def get_latest_output(analysis_id):
+    """获取最新的分析输出内容"""
+    if analysis_id not in analysis_status:
+        return jsonify({'error': 'Analysis not found'}), 404
+    
+    status = analysis_status[analysis_id]
+    
+    # 如果分析完成，返回完整结果
+    if status['status'] == 'completed':
+        try:
+            result = load_analysis_results(analysis_id, '', False)
+            return jsonify({'content': json.dumps(result, ensure_ascii=False, indent=2)})
+        except:
+            pass
+    
+    # 如果分析进行中，返回当前步骤的实时内容
+    if status['status'] == 'running':
+        current_step = status.get('current_step', 0)
+        steps = status.get('steps', [])
+        
+        if current_step < len(steps):
+            step_name = steps[current_step]['name']
+            # 这里应该返回真实的AI正在生成的内容
+            # 暂时返回模拟内容
+            content = {
+                "🔄 实时分析状态": "正在进行中",
+                "📊 当前步骤": f"{current_step + 1}/9 - {step_name}",
+                "📈 完成进度": f"{status['progress']}%",
+                "🤖 AI引擎": "Amazon Q Developer",
+                "⏰ 分析时间": status.get('start_time', ''),
+                "🔍 实时洞察": f"正在深度分析{step_name}，AI正在处理数据并生成洞察..."
+            }
+            return jsonify({'content': json.dumps(content, ensure_ascii=False, indent=2)})
+    
+    return jsonify({'content': '{"status": "等待分析开始..."}'})
+
 @app.route('/analysis/<analysis_id>/status', methods=['GET'])
 def get_analysis_status(analysis_id):
     """获取分析状态"""
@@ -239,7 +308,7 @@ def get_analysis_result(analysis_id):
     if analysis_id == 'latest':
         # 特殊处理：加载最新的分析结果或demo数据
         try:
-            result = load_analysis_results('latest', 'Consumer Electronics', False)
+            result = load_analysis_results('latest', '', False)
             if 'error' in result:
                 return jsonify({'error': 'No analysis results found'}), 404
             return jsonify(result)
@@ -287,6 +356,7 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
         ]
         
         results_dir = None
+        actual_category = target_category
         for dir_path in result_dirs:
             # 检查这个目录是否包含所有必需文件
             has_all_files = True
@@ -298,6 +368,15 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
             
             if has_all_files:
                 results_dir = dir_path
+                # 读取metadata获取实际的category
+                metadata_file = os.path.join(dir_path, 'metadata.json')
+                if os.path.exists(metadata_file):
+                    try:
+                        with open(metadata_file, 'r', encoding='utf-8') as f:
+                            metadata = json.load(f)
+                            actual_category = metadata.get('target_category', target_category)
+                    except:
+                        pass
                 break
         
         if not results_dir:
@@ -337,7 +416,7 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
             'id': analysis_id,
             'timestamp': actual_timestamp,
             'hasCompetitorData': bool(results.get('competitor', {})),  # 根据实际数据设置
-            'targetCategory': target_category if target_category and target_category.strip() else 'Consumer Electronics',  # 使用实际category或默认值
+            'targetCategory': actual_category,
             'ownBrandAnalysis': {
                 'userInsights': results.get('consumer_profile', {}),
                 'userMotivation': results.get('consumer_motivation', {}),
@@ -542,7 +621,7 @@ def get_reports():
                 report = {
                     'id': dir_name,
                     'timestamp': timestamp,
-                    'category': 'Consumer Electronics',  # 默认类别，可以从文件中读取
+                    'category': 'Webcams',  # 默认类别，可以从文件中读取
                     'status': status,
                     'hasCompetitorData': has_competitor,
                     'completedModules': complete_files,
@@ -627,7 +706,7 @@ def load_demo_results():
             'id': demo_metadata.get('id', 'demo-analysis'),
             'timestamp': demo_metadata.get('timestamp', datetime.now().isoformat()),
             'hasCompetitorData': demo_metadata.get('hasCompetitorData', bool(results.get('competitor', {}))),
-            'targetCategory': demo_metadata.get('targetCategory', 'Consumer Electronics'),
+            'targetCategory': demo_metadata.get('targetCategory', 'Webcams'),
             'ownBrandAnalysis': {
                 'userInsights': results.get('consumer_profile', {}),
                 'userMotivation': results.get('consumer_motivation', {}),
@@ -652,7 +731,7 @@ def load_demo_results():
             'id': 'demo-analysis',
             'timestamp': datetime.now().isoformat(),
             'hasCompetitorData': False,
-            'targetCategory': 'Consumer Electronics',
+            'targetCategory': 'Webcams',
             'error': f'Failed to load demo data: {str(e)}'
         }
 

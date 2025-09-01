@@ -189,6 +189,7 @@ def main():
     customer_review_path = "data/Customer ASIN Reviews.csv"
     competitor_review_path = "data/Competitor ASIN Reviews.csv"
     product_type = sys.argv[1] if len(sys.argv) > 1 else "webcams"
+    output_language = sys.argv[2] if len(sys.argv) > 2 else "en"
     
     # 输出初始进度
     output_progress(0, "starting", "Initializing analysis pipeline...")
@@ -201,7 +202,7 @@ def main():
     
     try:
         # 创建带进度跟踪的分析器实例
-        analyzer = ProgressTrackingAnalyzer()
+        analyzer = ProgressTrackingAnalyzer(output_language=output_language)
         
         # 运行完整的分析管道
         logger.info("📊 开始执行分析管道...")
@@ -213,6 +214,19 @@ def main():
         
         # 保存最终结果
         output_file = analyzer.save_results()
+        
+        # 保存分析元数据
+        import json
+        from datetime import datetime
+        metadata = {
+            'target_category': product_type,
+            'timestamp': datetime.now().isoformat(),
+            'has_competitor_data': os.path.exists(competitor_review_path)
+        }
+        
+        metadata_file = analyzer.output_dir / "metadata.json"
+        with open(metadata_file, 'w', encoding='utf-8') as f:
+            json.dump(metadata, f, indent=2, ensure_ascii=False)
         
         # 显示结果摘要
         logger.info("\n" + "="*60)
