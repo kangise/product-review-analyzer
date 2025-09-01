@@ -62,21 +62,6 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
   
   const consumerLoveData = analysisResult?.ownBrandAnalysis?.userFeedback?.consumerLove || {}
   const starRatingData = analysisResult?.ownBrandAnalysis?.userFeedback?.starRating || {}
-  
-  console.log('Extracted consumerLoveData:', consumerLoveData);
-  console.log('Extracted starRatingData:', starRatingData);
-  console.log('=== UserFeedback Debug End ===');
-  
-  console.log('UserFeedback received data:', { 
-    consumerLoveData, 
-    starRatingData,
-    hasConsumerLove: !!consumerLoveData?.核心赞美点分析,
-    consumerLoveCount: consumerLoveData?.核心赞美点分析?.length || 0,
-    hasStarRating: !!starRatingData,
-    starRatingKeys: starRatingData ? Object.keys(starRatingData) : [],
-    starRatingFeedback: starRatingData?.按评分划分的消费者反馈,
-    starRatingDistribution: starRatingData?.评分分布分析
-  })
 
   // 检查是否有核心赞美点分析数据
   const hasConsumerLoveData = consumerLoveData?.核心赞美点分析 && Array.isArray(consumerLoveData.核心赞美点分析) && consumerLoveData.核心赞美点分析.length > 0
@@ -84,7 +69,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
   // 处理评分分布数据 - 使用正确的嵌套数据
   const ratingDistributionRaw = starRatingData?.评分分布分析?.总体评分分布 || {}
   const ratingDistribution = Object.entries(ratingDistributionRaw).map(([rating, percentage]) => ({
-    name: rating,
+    name: language === 'en' ? rating.replace('星', ' Stars') : rating,
     value: parseFloat((percentage as string).replace('%', '')),
     color: rating === '5星' ? '#22c55e' : 
            rating === '4星' ? '#84cc16' : 
@@ -108,9 +93,9 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
   
   try {
     Object.entries(ratingFeedback).forEach(([rating, data]: [string, any]) => {
-      // 安全地提取星级数字
+      // 安全地提取星级数字 - 支持多语言
       let starNumber = 1
-      const ratingMatch = rating.match(/(\d+)星/)
+      const ratingMatch = rating.match(/(\d+)/)  // 匹配数字，不限制中英文
       if (ratingMatch) {
         starNumber = parseInt(ratingMatch[1])
       }
@@ -130,7 +115,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
           const pointName = point.喜爱点 || point.满意点 || `满意点${index + 1}`
           
           scatterData.push({
-            x: starNumber,
+            x: 6 - starNumber, // 颠倒x轴：5星->1, 4星->2, 3星->3, 2星->4, 1星->5
             y: Math.max(0.1, freq),
             type: '满意点',
             name: pointName,
@@ -156,7 +141,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
           const pointName = point.未满足的需求 || point.问题点 || point.不满意点 || `问题点${index + 1}`
           
           scatterData.push({
-            x: starNumber,
+            x: 6 - starNumber, // 颠倒x轴：5星->1, 4星->2, 3星->3, 2星->4, 1星->5
             y: Math.max(0.1, freq),
             type: '不满意点',
             name: pointName,
@@ -243,7 +228,13 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                           whileHover={{ scale: 1.01 }}
                           transition={{ duration: 0.2 }}
                         >
-                          <h4 className="font-medium mb-2 text-sm">{key}</h4>
+                          <h4 className="font-medium mb-2 text-sm">
+                            {language === 'en' ? 
+                              (key === '技术规格' ? 'Technical Specifications' :
+                               key === '功能属性' ? 'Functional Features' :
+                               key === '使用场景' ? 'Usage Scenarios' : key) 
+                              : key}
+                          </h4>
                           <p className="text-sm text-muted-foreground leading-relaxed">
                             {typeof value === 'string' ? value : JSON.stringify(value)}
                           </p>
@@ -342,10 +333,6 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                               {praise.赞美点重要性 && (
                                 <div className="mb-3">
                                   <div className="flex items-center justify-between mb-2">
-                                    <span className="text-xs text-muted-foreground flex items-center gap-1">
-                                      <TrendingUp className="h-3 w-3" />
-                                      {language === 'en' ? 'Importance' : '重要性'}
-                                    </span>
                                     <span className="text-xs font-medium">{praise.赞美点重要性}</span>
                                   </div>
                                   <Progress value={importance} className="h-2" />
@@ -452,8 +439,8 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                     <Star className="h-4 w-4 text-primary" />
                     {language === 'en' ? 'Rating Distribution' : '评分分布'}
                   </h4>
-                  <div className="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-lg border border-yellow-200">
-                    <div className="flex justify-center items-center gap-8">
+                  <div className="bg-gradient-to-br from-yellow-50 to-amber-50 p-8 rounded-lg border border-yellow-200 w-full overflow-x-auto">
+                    <div className="flex justify-between items-center" style={{gap: '120px', minWidth: 'max-content'}}>
                       {['5星', '4星', '3星', '2星', '1星'].map((rating, index) => {
                         const percentage = parseFloat((ratingDistributionRaw[rating] || '0%').replace('%', ''));
                         const numericRating = 5 - index; // 5, 4, 3, 2, 1
@@ -574,7 +561,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                             setHoveredPoint({
                               x: rect.left + rect.width / 2,
                               y: rect.top,
-                              info: `${point.name}\n评分: ${point.x}星\n提及率: ${point.y}%\n类型: ${point.type}`
+                              info: `${point.name}\n${language === 'en' ? 'Rating' : '评分'}: ${point.x}${language === 'en' ? ' Stars' : '星'}\n${language === 'en' ? 'Mention Rate' : '提及率'}: ${point.y}%\n${language === 'en' ? 'Type' : '类型'}: ${point.type}`
                             })
                             e.currentTarget.style.transform = 'translate(-50%, 50%) scale(1.5)'
                           }}
@@ -620,7 +607,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                         fontSize: '12px',
                         color: isDarkMode ? '#d1d5db' : '#6b7280'
                       }}>
-                        <span>1星</span><span>2星</span><span>3星</span><span>4星</span><span>5星</span>
+                        <span>{language === 'en' ? '5 Stars' : '5星'}</span><span>{language === 'en' ? '4 Stars' : '4星'}</span><span>{language === 'en' ? '3 Stars' : '3星'}</span><span>{language === 'en' ? '2 Stars' : '2星'}</span><span>{language === 'en' ? '1 Star' : '1星'}</span>
                       </div>
                       <div style={{
                         position: 'absolute',
@@ -683,8 +670,11 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                   const data = ratingFeedback[ratingKey]
                   if (!data) return null
                   
-                  const displayRating = ratingKey.replace('评价', '')
-                  const ratingPercentage = ratingDistributionRaw[displayRating] || '0%'
+                  // 获取显示名称和百分比
+                  const displayRating = language === 'en' 
+                    ? ratingKey.replace('星评价', ' Star Reviews').replace('星', ' Stars')
+                    : ratingKey.replace('评价', '')
+                  const ratingPercentage = ratingDistributionRaw[ratingKey.replace('评价', '')] || '0%'
                   
                   return (
                     <motion.div
@@ -733,8 +723,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                                   {/* 使用Progress组件 */}
                                   {point.频率 && (
                                     <div className="mb-2">
-                                      <div className="flex items-center justify-between mb-1">
-                                        <span className="text-xs text-muted-foreground">频率</span>
+                                      <div className="flex items-center justify-end mb-1">
                                         <span className="text-xs font-medium text-green-600">{point.频率}</span>
                                       </div>
                                       <Progress value={frequency} className="h-2" />
@@ -792,8 +781,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                                   {/* 使用Progress组件 */}
                                   {point.频率 && (
                                     <div className="mb-2">
-                                      <div className="flex items-center justify-between mb-1">
-                                        <span className="text-xs text-muted-foreground">频率</span>
+                                      <div className="flex items-center justify-end mb-1">
                                         <span className="text-xs font-medium text-red-600">{point.频率}</span>
                                       </div>
                                       <Progress value={frequency} className="h-2" />

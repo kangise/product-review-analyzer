@@ -479,6 +479,59 @@ def delete_report(report_id):
         print(f"❌ Error deleting report {report_id}: {e}")
         return jsonify({'error': f'Failed to delete report: {str(e)}'}), 500
 
+@app.route('/reports/<report_id>/export-html', methods=['GET'])
+def export_report_html(report_id):
+    """导出指定报告为HTML格式"""
+    try:
+        # 查找报告文件
+        report_data = None
+        json_file_path = None
+        
+        for root, dirs, files in os.walk('.'):
+            if report_id in root:
+                for file in files:
+                    if file.endswith('.json') and 'analysis_results' in file:
+                        json_file_path = os.path.join(root, file)
+                        try:
+                            with open(json_file_path, 'r', encoding='utf-8') as f:
+                                report_data = json.load(f)
+                            break
+                        except:
+                            continue
+                if report_data:
+                    break
+        
+        if not report_data or not json_file_path:
+            return jsonify({'error': 'Report not found'}), 404
+        
+        # 创建临时HTML文件
+        temp_html = tempfile.NamedTemporaryFile(mode='w', suffix='.html', delete=False)
+        temp_html.close()
+        
+        # 调用Python导出脚本
+        script_path = os.path.join(os.path.dirname(__file__), 'export_html.py')
+        result = subprocess.run([
+            'python3', script_path, 
+            json_file_path, 
+            temp_html.name
+        ], capture_output=True, text=True)
+        
+        if result.returncode != 0:
+            return jsonify({'error': f'Export failed: {result.stderr}'}), 500
+        
+        # 返回HTML文件
+        response = make_response(send_file(
+            temp_html.name,
+            as_attachment=True,
+            download_name=f'novochoice-analysis-{report_id}.html',
+            mimetype='text/html'
+        ))
+        
+        return response
+        
+    except Exception as e:
+        return jsonify({'error': f'Failed to export HTML: {str(e)}'}), 500
+
 @app.route('/reports/<report_id>/export', methods=['GET'])
 def export_report(report_id):
     """导出指定报告的完整数据"""
