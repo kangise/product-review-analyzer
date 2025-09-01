@@ -12,17 +12,22 @@ interface UserFeedbackProps {
   language: 'en' | 'zh'
   t: any
   analysisResult: any
+  theme?: 'light' | 'dark' | 'system'
 }
 
 export const UserFeedback: React.FC<UserFeedbackProps> = ({
   language,
   t,
-  analysisResult
+  analysisResult,
+  theme = 'light'
 }) => {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
     new Set(['consumer-love', 'star-rating'])
   )
   const [selectedQuotes, setSelectedQuotes] = useState<{quotes: string[], title: string} | null>(null)
+  const [hoveredPoint, setHoveredPoint] = useState<{x: number, y: number, info: string} | null>(null)
+  
+  const isDarkMode = theme === 'dark'
 
   const toggleSection = (sectionId: string) => {
     const newExpanded = new Set(expandedSections)
@@ -510,9 +515,10 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                       position: 'relative',
                       width: '100%',
                       height: '400px',
-                      backgroundColor: 'white',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '4px'
+                      backgroundColor: isDarkMode ? '#374151' : 'white',
+                      border: `1px solid ${isDarkMode ? '#4b5563' : '#d1d5db'}`,
+                      borderRadius: '4px',
+                      transition: 'all 0.3s ease'
                     }}>
                       {/* 网格线 */}
                       <svg style={{
@@ -529,7 +535,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                             y1="5%" 
                             x2={`${i*18 + 10}%`} 
                             y2="85%" 
-                            stroke="#e5e7eb" 
+                            stroke={isDarkMode ? '#6b7280' : '#e5e7eb'} 
                             strokeDasharray="2,2"
                           />
                         ))}
@@ -540,7 +546,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                             y1={`${85-i*0.8}%`} 
                             x2="90%" 
                             y2={`${85-i*0.8}%`} 
-                            stroke="#e5e7eb" 
+                            stroke={isDarkMode ? '#6b7280' : '#e5e7eb'} 
                             strokeDasharray="2,2"
                           />
                         ))}
@@ -559,11 +565,49 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                             backgroundColor: point.type === '满意点' ? '#22c55e' : '#ef4444',
                             borderRadius: '50%',
                             cursor: 'pointer',
-                            transform: 'translate(-50%, 50%)'
+                            transform: 'translate(-50%, 50%)',
+                            boxShadow: isDarkMode ? '0 0 4px rgba(255,255,255,0.3)' : '0 0 4px rgba(0,0,0,0.2)',
+                            transition: 'all 0.2s ease'
                           }}
-                          title={`${point.name} - ${point.x}星, ${point.y}%`}
+                          onMouseEnter={(e) => {
+                            const rect = e.currentTarget.getBoundingClientRect()
+                            setHoveredPoint({
+                              x: rect.left + rect.width / 2,
+                              y: rect.top,
+                              info: `${point.name}\n评分: ${point.x}星\n提及率: ${point.y}%\n类型: ${point.type}`
+                            })
+                            e.currentTarget.style.transform = 'translate(-50%, 50%) scale(1.5)'
+                          }}
+                          onMouseLeave={(e) => {
+                            setHoveredPoint(null)
+                            e.currentTarget.style.transform = 'translate(-50%, 50%) scale(1)'
+                          }}
                         />
                       ))}
+                      
+                      {/* Hover Tooltip */}
+                      {hoveredPoint && (
+                        <div
+                          style={{
+                            position: 'fixed',
+                            left: hoveredPoint.x,
+                            top: hoveredPoint.y - 10,
+                            transform: 'translate(-50%, -100%)',
+                            backgroundColor: isDarkMode ? '#1f2937' : 'white',
+                            color: isDarkMode ? '#f9fafb' : '#1f2937',
+                            border: `1px solid ${isDarkMode ? '#374151' : '#d1d5db'}`,
+                            borderRadius: '6px',
+                            padding: '8px 12px',
+                            fontSize: '12px',
+                            whiteSpace: 'pre-line',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                            zIndex: 1000,
+                            pointerEvents: 'none'
+                          }}
+                        >
+                          {hoveredPoint.info}
+                        </div>
+                      )}
                       
                       {/* 坐标轴标签 */}
                       <div style={{
@@ -574,7 +618,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                         display: 'flex',
                         justifyContent: 'space-between',
                         fontSize: '12px',
-                        color: '#6b7280'
+                        color: isDarkMode ? '#d1d5db' : '#6b7280'
                       }}>
                         <span>1星</span><span>2星</span><span>3星</span><span>4星</span><span>5星</span>
                       </div>

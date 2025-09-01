@@ -1639,6 +1639,7 @@ export default function App() {
           language={language}
           t={t}
           analysisResult={analysisResult}
+          theme={theme}
         />
       )
     }
