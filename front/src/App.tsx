@@ -25,7 +25,6 @@ import { CompetitorAnalysis } from './pages/analysis/CompetitorAnalysis'
 import { Opportunities } from './pages/analysis/Opportunities'
 import { UnmetNeeds } from './pages/analysis/UnmetNeeds'
 import { StreamingJsonGenerator } from './components/analysis/StreamingJsonGenerator'
-import { HistoryReports } from './pages/HistoryReports'
 import { HistoricalReports } from './pages/HistoricalReports'
 
 // Translation system
@@ -162,7 +161,6 @@ const translations = {
       notifications: "Notifications",
       settings: "Settings",
       userCenter: "User Center",
-      downloadReport: "Download Report",
       newAnalysis: "New Analysis",
       save: "Save",
       cancel: "Cancel",
@@ -216,7 +214,6 @@ const translations = {
     
     // Success messages
     success: {
-      pdfDeveloping: "PDF download feature is under development, stay tuned!"
     },
     
     // Sample categories
@@ -361,7 +358,6 @@ const translations = {
       notifications: "通知",
       settings: "设置",
       userCenter: "用户中心",
-      downloadReport: "下载报告",
       newAnalysis: "新建分析",
       uploadProgress: "上传进度:",
       developing: "功能开发中",
@@ -984,10 +980,6 @@ export default function App() {
       console.error('Failed to load report:', error)
       setError(t.errors.loadReportFailed)
     }
-  }
-
-  const downloadPDF = () => {
-    alert(t.success.pdfDeveloping)
   }
 
   const loadExistingResults = async () => {
@@ -1755,15 +1747,6 @@ export default function App() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={downloadPDF}
-                    className="w-full text-sidebar-foreground border-clean hover:bg-sidebar-accent"
-                  >
-                    <Download className="mr-2 h-3 w-3" />
-                    {t.ui.downloadReport}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
                     onClick={resetAnalysis}
                     className="w-full text-sidebar-foreground border-clean hover:bg-sidebar-accent"
                   >
@@ -1789,15 +1772,6 @@ export default function App() {
               {analysisResult && (
                 <div className="mt-8 pt-6 border-t border-sidebar-border">
                   <div className="gap-system-sm flex flex-col">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={downloadPDF}
-                      className="w-full text-sidebar-foreground border-clean hover:bg-sidebar-accent"
-                    >
-                      <Download className="mr-2 h-3 w-3" />
-                      {t.ui.downloadReport}
-                    </Button>
                     <Button
                       variant="outline"
                       size="sm"
