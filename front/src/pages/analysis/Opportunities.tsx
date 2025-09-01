@@ -51,7 +51,7 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
         return 'bg-red-100 dark:bg-red-950/20 text-red-700 dark:text-red-300 border-red-300 dark:border-red-700'
       case 'medium':
       case '中':
-        return 'bg-yellow-100 dark:bg-yellow-950/20 text-yellow-700 dark:text-yellow-300 border-yellow-300 dark:border-yellow-700'
+        return 'bg-green-100 dark:bg-green-950/20 text-green-700 dark:text-green-300 border-green-300 dark:border-green-700'
       case 'low':
       case '低':
         return 'bg-green-100 dark:bg-green-950/20 text-green-700 dark:text-green-300 border-green-300 dark:border-green-700'
@@ -72,7 +72,7 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
         <div className="gap-system-sm flex items-center">
           <TrendingUp className="h-5 w-5 text-primary" />
           <div>
-            <h2 className="mb-1">{t.nav.opportunities}</h2>
+            <h2 className="mb-1 text-foreground">{t.nav.opportunities}</h2>
             <div className="gap-system-sm flex items-center text-sm text-muted-foreground">
               <span>{language === 'en' ? 'Three-dimensional opportunity analysis and strategic recommendations' : '三维机会分析和战略建议'}</span>
               {analysisResult?.targetCategory && (
@@ -101,7 +101,7 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
               <div className="gap-system-sm flex items-start">
                 <Info className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold mb-2">{language === 'en' ? 'Core Business Opportunity Insights' : '核心商业机会洞察'}</h3>
+                  <h3 className="font-semibold mb-2 text-foreground">{language === 'en' ? 'Core Business Opportunity Insights' : '核心商业机会洞察'}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {opportunityData.商业机会洞察.核心洞察总结}
                   </p>
@@ -341,7 +341,7 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
                               </span>
                             </div>
                           </div>
-                          <Badge variant="outline" className="bg-orange-50 dark:bg-orange-950/20 text-orange-700 dark:text-orange-300 border-orange-300 dark:border-orange-700">
+                          <Badge variant="outline" className="bg-green-50 dark:bg-green-950/20 text-green-700 dark:text-green-300 border-green-300 dark:border-green-700">
                             {language === 'en' ? 'Marketing' : '营销定位'}
                           </Badge>
                         </div>

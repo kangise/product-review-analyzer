@@ -77,7 +77,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
 
   const loadFavorites = () => {
     try {
-      const savedFavorites = localStorage.getItem('novochoice-favorites')
+      const savedFavorites = localStorage.getItem('regen-favorites')
       if (savedFavorites) {
         setFavorites(new Set(JSON.parse(savedFavorites)))
       }
@@ -88,7 +88,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
 
   const saveFavorites = (newFavorites: Set<string>) => {
     try {
-      localStorage.setItem('novochoice-favorites', JSON.stringify(Array.from(newFavorites)))
+      localStorage.setItem('regen-favorites', JSON.stringify(Array.from(newFavorites)))
       setFavorites(newFavorites)
     } catch (error) {
       console.error('Failed to save favorites:', error)
@@ -298,7 +298,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
         <div className="gap-system-sm flex items-center">
           <History className="h-5 w-5 text-primary" />
           <div>
-            <h2 className="mb-1">
+            <h2 className="mb-1 text-foreground">
               {language === 'en' ? 'Historical Reports' : '历史报告'}
             </h2>
             <div className="gap-system-sm flex items-center text-sm text-muted-foreground">
@@ -313,7 +313,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
                 <FileText className="h-3 w-3" />
                 <span>{filteredReports.length} {language === 'en' ? 'reports' : '个报告'}</span>
                 {showFavoritesOnly && (
-                  <span className="text-yellow-600">
+                  <span className="text-green-600">
                     ({favorites.size} {language === 'en' ? 'favorites' : '收藏'})
                   </span>
                 )}
@@ -396,7 +396,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
                   {/* File Information */}
                   {report.fileInfo && (
                     <div className="mb-4">
-                      <h4 className="text-sm font-medium mb-2">
+                      <h4 className="text-sm font-medium mb-2 text-foreground">
                         {language === 'en' ? 'Data Sources' : '数据源'}
                       </h4>
                       <div className="gap-2 flex flex-col text-xs text-muted-foreground">
@@ -418,7 +418,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
 
                   {/* Analysis Modules */}
                   <div className="mb-4">
-                    <h4 className="text-sm font-medium mb-2">
+                    <h4 className="text-sm font-medium mb-2 text-foreground">
                       {language === 'en' ? 'Available Analysis' : '可用分析'}
                     </h4>
                     <div className="gap-2 flex flex-wrap">
@@ -442,7 +442,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
                     <div className="gap-system-xs flex items-center text-xs text-muted-foreground">
                       <span>ID: {report.id.replace('analysis_results_', '')}</span>
                       {favorites.has(report.id) && (
-                        <Star className="h-3 w-3 text-yellow-500 fill-current ml-2" />
+                        <Star className="h-3 w-3 text-green-500 fill-current ml-2" />
                       )}
                     </div>
                     <div className="gap-system-xs flex">
@@ -453,7 +453,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
                         onClick={() => toggleFavorite(report.id)}
                         className={`h-7 px-3 text-xs ${
                           favorites.has(report.id) 
-                            ? 'text-yellow-600 border-yellow-300 bg-yellow-50 hover:bg-yellow-100' 
+                            ? 'text-green-600 border-green-300 bg-green-50 hover:bg-green-100' 
                             : ''
                         }`}
                         title={favorites.has(report.id) 

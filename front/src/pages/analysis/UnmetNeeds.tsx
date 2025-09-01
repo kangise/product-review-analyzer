@@ -40,9 +40,9 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
     if (severityValue >= 10) {
       return 'bg-red-100 dark:bg-red-950/20 text-red-700 dark:text-red-300 border-red-300 dark:border-red-700'
     } else if (severityValue >= 7) {
-      return 'bg-orange-100 dark:bg-orange-950/20 text-orange-700 dark:text-orange-300 border-orange-300 dark:border-orange-700'
+      return 'bg-green-100 dark:bg-green-950/20 text-green-700 dark:text-green-300 border-green-300 dark:border-green-700'
     } else {
-      return 'bg-yellow-100 dark:bg-yellow-950/20 text-yellow-700 dark:text-yellow-300 border-yellow-300 dark:border-yellow-700'
+      return 'bg-green-100 dark:bg-green-950/20 text-green-700 dark:text-green-300 border-green-300 dark:border-green-700'
     }
   }
 
@@ -51,9 +51,9 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
     if (severityValue >= 10) {
       return <AlertTriangle className="h-4 w-4 text-red-500" />
     } else if (severityValue >= 7) {
-      return <AlertCircle className="h-4 w-4 text-orange-500" />
+      return <AlertCircle className="h-4 w-4 text-green-500" />
     } else {
-      return <Info className="h-4 w-4 text-yellow-500" />
+      return <Info className="h-4 w-4 text-green-500" />
     }
   }
 
@@ -69,7 +69,7 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
         <div className="gap-system-sm flex items-center">
           <Target className="h-5 w-5 text-primary" />
           <div>
-            <h2 className="mb-1">{t.nav.ownBrandUnmet}</h2>
+            <h2 className="mb-1 text-foreground">{t.nav.ownBrandUnmet}</h2>
             <div className="gap-system-sm flex items-center text-sm text-muted-foreground">
               <span>{language === 'en' ? 'Identify critical gaps and improvement opportunities' : '识别关键缺陷和改进机会'}</span>
               {analysisResult?.targetCategory && (
@@ -134,33 +134,33 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
                 </motion.div>
                 
                 <motion.div 
-                  className="spacing-system-md bg-orange-50 dark:bg-orange-950/20 rounded-lg border border-orange-200 dark:border-orange-800"
+                  className="spacing-system-md bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800"
                   whileHover={{ scale: 1.01 }}
                   transition={{ duration: 0.2 }}
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <Zap className="h-4 w-4 text-orange-600" />
-                    <h4 className="font-medium text-sm text-orange-800 dark:text-orange-200">
+                    <Zap className="h-4 w-4 text-green-600" />
+                    <h4 className="font-medium text-sm text-green-800 dark:text-green-200">
                       {language === 'en' ? 'Functional Issues' : '功能角度'}
                     </h4>
                   </div>
-                  <p className="text-xs text-orange-700 dark:text-orange-300 leading-relaxed">
+                  <p className="text-xs text-green-700 dark:text-green-300 leading-relaxed">
                     {unmetNeedsData.消费者未满足需求洞察.功能角度}
                   </p>
                 </motion.div>
                 
                 <motion.div 
-                  className="spacing-system-md bg-yellow-50 dark:bg-yellow-950/20 rounded-lg border border-yellow-200 dark:border-yellow-800"
+                  className="spacing-system-md bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800"
                   whileHover={{ scale: 1.01 }}
                   transition={{ duration: 0.2 }}
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <Users className="h-4 w-4 text-yellow-600" />
-                    <h4 className="font-medium text-sm text-yellow-800 dark:text-yellow-200">
+                    <Users className="h-4 w-4 text-green-600" />
+                    <h4 className="font-medium text-sm text-green-800 dark:text-green-200">
                       {language === 'en' ? 'Usage Scenarios' : '场景角度'}
                     </h4>
                   </div>
-                  <p className="text-xs text-yellow-700 dark:text-yellow-300 leading-relaxed">
+                  <p className="text-xs text-green-700 dark:text-green-300 leading-relaxed">
                     {unmetNeedsData.消费者未满足需求洞察.场景角度}
                   </p>
                 </motion.div>
@@ -272,10 +272,10 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
                   <Badge variant="outline" className="bg-red-100 dark:bg-red-950/20 text-red-700 dark:text-red-300 border-red-300 dark:border-red-700">
                     {language === 'en' ? 'Hardware Reliability' : '硬件可靠性'}
                   </Badge>
-                  <Badge variant="outline" className="bg-orange-100 dark:bg-orange-950/20 text-orange-700 dark:text-orange-300 border-orange-300 dark:border-orange-700">
+                  <Badge variant="outline" className="bg-green-100 dark:bg-green-950/20 text-green-700 dark:text-green-300 border-green-300 dark:border-green-700">
                     {language === 'en' ? 'Software Compatibility' : '软件兼容性'}
                   </Badge>
-                  <Badge variant="outline" className="bg-yellow-100 dark:bg-yellow-950/20 text-yellow-700 dark:text-yellow-300 border-yellow-300 dark:border-yellow-700">
+                  <Badge variant="outline" className="bg-green-100 dark:bg-green-950/20 text-green-700 dark:text-green-300 border-green-300 dark:border-green-700">
                     {language === 'en' ? 'Customer Support' : '客户服务'}
                   </Badge>
                 </div>

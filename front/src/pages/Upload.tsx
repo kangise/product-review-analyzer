@@ -60,7 +60,7 @@ export const UploadPage: React.FC<UploadPageProps> = ({
         <div className="gap-system-sm flex items-center">
           <Upload className="h-5 w-5 text-primary" />
           <div>
-            <h2 className="mb-1">{t.upload.title}</h2>
+            <h2 className="mb-1 text-foreground">{t.upload.title}</h2>
             <p className="text-muted-foreground text-sm">
               {t.upload.subtitle}
             </p>
@@ -90,7 +90,7 @@ export const UploadPage: React.FC<UploadPageProps> = ({
                   <Tag className="h-4 w-4 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-medium mb-1">{t.upload.targetCategory.title}</h3>
+                  <h3 className="font-medium mb-1 text-foreground">{t.upload.targetCategory.title}</h3>
                   <p className="text-sm text-muted-foreground">
                     {t.upload.targetCategory.description}
                   </p>
@@ -170,7 +170,7 @@ export const UploadPage: React.FC<UploadPageProps> = ({
                   )}
                 </motion.div>
                 <div>
-                  <h3 className="font-medium mb-1">{t.upload.ownBrand.title}</h3>
+                  <h3 className="font-medium mb-1 text-foreground">{t.upload.ownBrand.title}</h3>
                   <p className="text-sm text-muted-foreground mb-4">
                     {t.upload.ownBrand.description}
                   </p>
@@ -259,7 +259,7 @@ export const UploadPage: React.FC<UploadPageProps> = ({
                   )}
                 </motion.div>
                 <div>
-                  <h3 className="font-medium mb-1">
+                  <h3 className="font-medium mb-1 text-foreground">
                     {t.upload.competitor.title}
                     <Badge variant="secondary" className="ml-2 text-xs">
                       {t.upload.competitor.optional}

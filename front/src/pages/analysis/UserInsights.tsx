@@ -68,7 +68,7 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
         <div className="gap-system-sm flex items-center">
           <Users className="h-5 w-5 text-primary" />
           <div>
-            <h2 className="mb-1">{t.nav.ownBrandInsights}</h2>
+            <h2 className="mb-1 text-foreground">{t.nav.ownBrandInsights}</h2>
             <div className="gap-system-sm flex items-center text-sm text-muted-foreground">
               <span>{language === 'en' ? 'Deep insights into your target user groups' : '深度了解您的目标用户群体'}</span>
               {analysisResult?.targetCategory && (

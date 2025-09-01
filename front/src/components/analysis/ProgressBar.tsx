@@ -4,9 +4,9 @@ import { Progress } from '../ui/progress';
 import { ProgressBarProps } from '../../types/analysis';
 
 const colorClasses = {
-  green: 'bg-green-500',
-  blue: 'bg-blue-500', 
-  orange: 'bg-orange-500',
+  green: 'bg-primary', 
+  emerald: 'bg-emerald-600',
+  blue: 'bg-blue-500',
   red: 'bg-red-500',
   purple: 'bg-purple-500',
 };

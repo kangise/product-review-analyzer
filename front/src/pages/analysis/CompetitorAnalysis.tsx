@@ -62,7 +62,7 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
         <div className="gap-system-sm flex items-center">
           <BarChart3 className="h-5 w-5 text-primary" />
           <div>
-            <h2 className="mb-1">{t.nav.competitive}</h2>
+            <h2 className="mb-1 text-foreground">{t.nav.competitive}</h2>
             <div className="gap-system-sm flex items-center text-sm text-muted-foreground">
               <span>{language === 'en' ? 'Competitive positioning analysis and market comparison insights' : '竞争定位分析和市场对比洞察'}</span>
               {analysisResult?.targetCategory && (
@@ -409,7 +409,7 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
                         {/* 我方劣势象限 - 我们问题多，竞品问题少 */}
                         <div>
                           <h5 className="font-medium text-sm mb-3 flex items-center gap-2">
-                            <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+                            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                             {language === 'en' ? 'Our Weakness (Priority Fix)' : '我方劣势（优先修复）'}
                             <Badge variant="secondary" className="text-xs">{quadrants.ourAdvantage.length}</Badge>
                           </h5>
@@ -417,18 +417,18 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
                             {quadrants.ourAdvantage.map((comparison: any, index: number) => (
                               <motion.div
                                 key={index}
-                                className="spacing-system-sm bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800"
+                                className="spacing-system-sm bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
                                 whileHover={{ scale: 1.02 }}
                                 transition={{ duration: 0.2 }}
                               >
                                 <div className="flex items-center justify-between mb-2">
-                                  <h6 className="font-medium text-xs text-orange-700 dark:text-orange-300">{comparison.主题}</h6>
+                                  <h6 className="font-medium text-xs text-green-700 dark:text-green-300">{comparison.主题}</h6>
                                   <div className="flex gap-1">
                                     <Badge variant="destructive" className="text-xs">我方: {comparison.我方频率}</Badge>
                                     <Badge variant="outline" className="text-xs">竞品: {comparison.竞品频率}</Badge>
                                   </div>
                                 </div>
-                                <p className="text-xs text-orange-600 dark:text-orange-400 leading-relaxed">
+                                <p className="text-xs text-green-600 dark:text-green-400 leading-relaxed">
                                   {comparison.对比洞察}
                                 </p>
                               </motion.div>
@@ -608,7 +608,7 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
                         {/* 竞品优势象限 */}
                         <div>
                           <h5 className="font-medium text-sm mb-3 flex items-center gap-2">
-                            <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+                            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                             {language === 'en' ? 'Competitor Advantage (Learn & Improve)' : '竞品优势（学习改进）'}
                             <Badge variant="secondary" className="text-xs">{quadrants.competitorAdvantage.length}</Badge>
                           </h5>
@@ -616,18 +616,18 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
                             {quadrants.competitorAdvantage.map((comparison: any, index: number) => (
                               <motion.div
                                 key={index}
-                                className="spacing-system-sm bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800"
+                                className="spacing-system-sm bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
                                 whileHover={{ scale: 1.02 }}
                                 transition={{ duration: 0.2 }}
                               >
                                 <div className="flex items-center justify-between mb-2">
-                                  <h6 className="font-medium text-xs text-orange-700 dark:text-orange-300">{comparison.主题}</h6>
+                                  <h6 className="font-medium text-xs text-green-700 dark:text-green-300">{comparison.主题}</h6>
                                   <div className="flex gap-1">
                                     <Badge variant="outline" className="text-xs">我方: {comparison.我方频率}</Badge>
                                     <Badge variant="default" className="text-xs">竞品: {comparison.竞品频率}</Badge>
                                   </div>
                                 </div>
-                                <p className="text-xs text-orange-600 dark:text-orange-400 leading-relaxed">
+                                <p className="text-xs text-green-600 dark:text-green-400 leading-relaxed">
                                   {comparison.对比洞察}
                                 </p>
                               </motion.div>

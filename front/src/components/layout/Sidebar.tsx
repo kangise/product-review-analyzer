@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Home, Upload, Users, Target, Star, TrendingUp, 
   History, Settings, ChevronDown, ChevronRight,
-  BarChart3, Lightbulb, Zap, MessageSquare
+  Lightbulb, Zap, MessageSquare
 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
@@ -68,7 +68,7 @@ const navigationItems: NavItem[] = [
       {
         id: 'star-rating-analysis',
         label: { en: 'Rating Analysis', zh: '评分分析' },
-        icon: <BarChart3 className="w-3 h-3" />,
+        icon: <Star className="w-3 h-3" />,
       },
     ],
   },
@@ -103,7 +103,7 @@ const navigationItems: NavItem[] = [
   {
     id: 'competitive',
     label: { en: 'Competitive Analysis', zh: '竞争分析' },
-    icon: <BarChart3 className="w-4 h-4" />,
+    icon: <TrendingUp className="w-4 h-4" />,
   },
   {
     id: 'history',
@@ -198,10 +198,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className="spacing-system-lg border-b border-sidebar-border">
         <div className="flex items-center gap-system-sm">
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <BarChart3 className="w-4 h-4 text-primary-foreground" />
+            <span className="text-primary-foreground font-bold text-lg">R</span>
           </div>
           <div>
-            <h1 className="font-semibold text-sidebar-foreground">Novochoice AI</h1>
+            <h1 className="font-semibold text-sidebar-foreground">Regen AI</h1>
             <p className="text-xs text-sidebar-foreground/60">
               {language === 'en' ? 'Customer Intelligence' : '客户智能分析'}
             </p>

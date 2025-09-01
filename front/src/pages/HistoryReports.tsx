@@ -104,7 +104,7 @@ export const HistoryReports: React.FC<HistoryReportsProps> = ({
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed': return 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
-      case 'processing': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400'
+      case 'processing': return 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
       case 'failed': return 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400'
       default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
     }
@@ -337,7 +337,7 @@ export const HistoryReports: React.FC<HistoryReportsProps> = ({
             </div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-yellow-600">
+            <div className="text-2xl font-bold text-green-600">
               {reports.filter(r => r.status === 'processing').length}
             </div>
             <div className="text-sm text-muted-foreground">

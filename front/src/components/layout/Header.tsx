@@ -30,8 +30,8 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="h-14 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex items-center justify-between h-full spacing-system-lg">
+    <header className="h-14 border-b border-border bg-background backdrop-blur supports-[backdrop-filter]:bg-background/95">
+      <div className="flex items-center justify-between h-full spacing-system-lg text-foreground">
         {/* Left side - could add breadcrumbs or page title here */}
         <div className="flex items-center gap-system-md">
           {/* Page context could go here */}

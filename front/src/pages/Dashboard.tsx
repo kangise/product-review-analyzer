@@ -9,13 +9,15 @@ import { Button } from '../components/ui/button';
 interface DashboardProps {
   language: 'en' | 'zh';
   onPageChange: (page: string) => void;
+  onLanguageChange?: (lang: 'en' | 'zh') => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ language, onPageChange }) => {
-  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'zh'>(language);
+export const Dashboard: React.FC<DashboardProps> = ({ language, onPageChange, onLanguageChange }) => {
+  const currentLanguage = language;
 
   const toggleLanguage = () => {
-    setCurrentLanguage(prev => prev === 'en' ? 'zh' : 'en');
+    const newLanguage = currentLanguage === 'en' ? 'zh' : 'en';
+    onLanguageChange?.(newLanguage);
   };
 
   return (
@@ -65,7 +67,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ language, onPageChange }) 
               </div>
               
               <h1 className="text-6xl md:text-8xl font-light mb-6 leading-none">
-                <span className="text-primary font-medium">Novochoice</span>{' '}
+                <span className="text-primary font-medium">Regen</span>{' '}
                 <span className="text-white">AI</span>
               </h1>
               
@@ -85,7 +87,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ language, onPageChange }) 
             >
               <Button
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-black font-medium px-8 py-4 text-lg rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 py-4 text-lg rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                 onClick={() => onPageChange('upload')}
               >
                 <ArrowRight className="mr-2 h-5 w-5" />
@@ -95,7 +97,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ language, onPageChange }) 
               <Button
                 variant="outline"
                 size="lg"
-                className="border-white/20 text-white hover:bg-white/5 px-8 py-4 text-lg rounded-xl transition-all duration-300"
+                className="border-white/30 text-white hover:bg-white/10 hover:border-white/50 px-8 py-4 text-lg rounded-xl transition-all duration-300 bg-black/20 backdrop-blur-sm"
               >
                 <Play className="mr-2 h-5 w-5" />
                 {currentLanguage === 'en' ? 'View Demo' : '查看演示'}
@@ -144,8 +146,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ language, onPageChange }) 
               </h2>
               <p className="text-xl text-white/60 max-w-2xl mx-auto">
                 {currentLanguage === 'en' 
-                  ? 'Experience how Novochoice AI transforms thousands of reviews into actionable insights within minutes'
-                  : '体验Novochoice AI如何在几分钟内将数千条评论转化为可操作的洞察'}
+                  ? 'Experience how Regen AI transforms thousands of reviews into actionable insights within minutes'
+                  : '体验Regen AI如何在几分钟内将数千条评论转化为可操作的洞察'}
               </p>
             </motion.div>
 
@@ -206,7 +208,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ language, onPageChange }) 
                         className="absolute bottom-4 left-4 bg-white/10 backdrop-blur border border-white/20 rounded-lg p-3"
                       >
                         <div className="flex items-center gap-2 text-xs text-white/80">
-                          <Lightbulb className="h-3 w-3 text-yellow-400" />
+                          <Lightbulb className="h-3 w-3 text-green-400" />
                           <span>{currentLanguage === 'en' ? 'Opportunities identified' : '机会识别完成'}</span>
                         </div>
                       </motion.div>
@@ -395,8 +397,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ language, onPageChange }) 
               </h2>
               <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
                 {currentLanguage === 'en'
-                  ? 'Transform customer feedback into competitive advantage. Start your journey to data-driven success with Novochoice AI.'
-                  : '将客户反馈转化为竞争优势。开始您的数据驱动成功之旅，与Novochoice AI一起。'
+                  ? 'Transform customer feedback into competitive advantage. Start your journey to data-driven success with Regen AI.'
+                  : '将客户反馈转化为竞争优势。开始您的数据驱动成功之旅，与Regen AI一起。'
                 }
               </p>
               <Button

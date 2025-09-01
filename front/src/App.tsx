@@ -19,7 +19,7 @@ import { projectId, publicAnonKey } from './utils/supabase/info'
 // 导入新创建的分析页面组件
 import { UserInsights } from './pages/analysis/UserInsights'
 import Dashboard from './pages/Dashboard'
-import NIcon from './components/icons/NIcon'
+import RIcon from './components/icons/NIcon'
 import { UserFeedback } from './pages/analysis/UserFeedback'
 import { CompetitorAnalysis } from './pages/analysis/CompetitorAnalysis'
 import { Opportunities } from './pages/analysis/Opportunities'
@@ -32,7 +32,7 @@ import { HistoricalReports } from './pages/HistoricalReports'
 const translations = {
   en: {
     // App title and main branding
-    appTitle: "Novochoice AI - Customer Intelligence Engine",
+    appTitle: "Regen AI - Customer Intelligence Engine",
     appSubtitle: "AI-powered deep analysis to uncover user insights and market opportunities from customer reviews",
     
     // Navigation
@@ -49,7 +49,7 @@ const translations = {
       opportunitiesInnovation: "Product Innovation",
       opportunitiesMarketing: "Marketing Positioning",
       history: "Historical Reports",
-      analyticsTools: "Novochoice AI"
+      analyticsTools: "Regen AI"
     },
     
     // Dashboard content
@@ -248,7 +248,7 @@ const translations = {
       opportunitiesInnovation: "产品创新机会", 
       opportunitiesMarketing: "营销定位机会",
       history: "历史报告",
-      analyticsTools: "Novochoice AI"
+      analyticsTools: "Regen AI"
     },
     
     // Dashboard content
@@ -585,15 +585,14 @@ export default function App() {
   const [analysisProgress, setAnalysisProgress] = useState(0)
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null)
   const [historicalReports, setHistoricalReports] = useState<HistoricalReport[]>([])
-  const [activeModule, setActiveModule] = useState<ActiveModule>('upload')
+  const [activeModule, setActiveModule] = useState<ActiveModule>('dashboard')
   const [uploadProgress, setUploadProgress] = useState(0)
   const [error, setError] = useState<string | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [uploadingFile, setUploadingFile] = useState<string | null>(null)
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set())
   const [hoveredUserGroup, setHoveredUserGroup] = useState<UserGroupData | null>(null)
-  const [theme, setTheme] = useState<ThemeMode>('system')
+  const [theme, setTheme] = useState<ThemeMode>('dark')
   const [language, setLanguage] = useState<Language>('en') // Default to English
   const [notifications, setNotifications] = useState(3)
   const [showSettings, setShowSettings] = useState(false)
@@ -616,19 +615,36 @@ export default function App() {
     localStorage.setItem('language', newLanguage)
   }
 
+  const handleLanguageChange = (newLanguage: 'en' | 'zh') => {
+    setLanguage(newLanguage)
+    localStorage.setItem('language', newLanguage)
+  }
+
   // Theme management
   useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as ThemeMode
+    if (savedTheme && ['light', 'dark', 'system'].includes(savedTheme)) {
+      setTheme(savedTheme)
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme)
+    
     const root = window.document.documentElement
     
     const applyTheme = (mode: ThemeMode) => {
+      console.log('Applying theme:', mode)
       root.classList.remove('light', 'dark')
       
       if (mode === 'system') {
         const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        console.log('System theme detected:', systemTheme)
         root.classList.add(systemTheme)
       } else {
         root.classList.add(mode)
       }
+      console.log('Root classes after theme change:', root.className)
     }
     
     applyTheme(theme)
@@ -991,17 +1007,6 @@ export default function App() {
     }
   }
 
-  // 确保own-brand菜单在相关页面时保持展开
-  useEffect(() => {
-    if (activeModule.startsWith('own-brand')) {
-      setExpandedSections(prev => {
-        const newExpanded = new Set(prev)
-        newExpanded.add('own-brand')
-        return newExpanded
-      })
-    }
-  }, [activeModule])
-
   const resetAnalysis = () => {
     setAnalysisResult(null)
     setOwnBrandFile(null)
@@ -1010,23 +1015,6 @@ export default function App() {
     setOutputLanguage('en')
     setActiveModule('upload')
     setError(null)
-    setExpandedSections(new Set())
-  }
-
-  const toggleSection = (sectionId: string) => {
-    const newExpanded = new Set(expandedSections)
-    
-    // 如果是own-brand菜单且当前在own-brand相关页面，不允许收起
-    if (sectionId === 'own-brand' && activeModule.startsWith('own-brand')) {
-      return
-    }
-    
-    if (newExpanded.has(sectionId)) {
-      newExpanded.delete(sectionId)
-    } else {
-      newExpanded.add(sectionId)
-    }
-    setExpandedSections(newExpanded)
   }
 
   const navigationItems = [
@@ -1068,13 +1056,6 @@ export default function App() {
       icon: History,
       available: historicalReports.length > 0,
       children: []
-    },
-    {
-      id: 'dashboard',
-      label: t.nav.analyticsTools,
-      icon: NIcon,
-      available: true,
-      children: []
     }
   ]
 
@@ -1086,10 +1067,9 @@ export default function App() {
       <nav className="gap-system-sm flex flex-col">
         {stableNavigationItems.map((item) => {
           const Icon = item.icon
-          const isExpanded = expandedSections.has(item.id)
           const hasChildren = item.children.length > 0
           const isDisabled = !item.available
-          const isActive = activeModule === item.id
+          const isActive = activeModule === item.id || (hasChildren && item.children.some(child => child.id === activeModule))
 
           return (
           <div key={item.id}>
@@ -1097,14 +1077,12 @@ export default function App() {
               whileHover={!isDisabled ? { x: 2 } : {}}
               whileTap={!isDisabled ? { scale: 0.98 } : {}}
               onClick={() => {
-                if (hasChildren && item.available) {
-                  // 只有点击父级标题时才切换展开状态，子项点击不影响父级状态
-                  toggleSection(item.id)
-                  if (!isExpanded && item.children.length > 0) {
+                if (item.available) {
+                  if (hasChildren) {
                     setActiveModule(item.children[0].id as ActiveModule)
+                  } else {
+                    setActiveModule(item.id as ActiveModule)
                   }
-                } else if (item.available) {
-                  setActiveModule(item.id as ActiveModule)
                   if (isMobile) setMobileMenuOpen(false)
                 }
               }}
@@ -1119,60 +1097,38 @@ export default function App() {
             >
               <Icon className={`h-4 w-4 flex-shrink-0 ${isActive ? 'text-primary' : isDisabled ? 'text-muted-foreground' : 'text-muted-foreground'}`} />
               {(sidebarOpen || isMobile) && (
-                <>
-                  <span className="text-sm flex-1">{item.label}</span>
-                  {hasChildren && item.available && (
-                    <motion.div 
-                      className="ml-auto"
-                      animate={{ rotate: isExpanded ? 90 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <ChevronRight className="h-3 w-3 text-muted-foreground" />
-                    </motion.div>
-                  )}
-                </>
+                <span className="text-sm text-foreground">{item.label}</span>
               )}
             </motion.button>
 
-            {/* Children items */}
-            {(sidebarOpen || isMobile) && hasChildren && (
-              <AnimatePresence mode="wait">
-                {isExpanded && (
-                  <motion.div
-                    key={`${item.id}-children`}
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="ml-5 mt-1 flex flex-col gap-1 border-l border-sidebar-border pl-3 overflow-hidden"
-                  >
-                    {item.children.map((child) => {
-                      const ChildIcon = child.icon
-                      const isActive = activeModule === child.id
+            {/* 始终显示子菜单 */}
+            {(sidebarOpen || isMobile) && hasChildren && item.available && (
+              <div className="ml-5 mt-1 flex flex-col gap-1 border-l border-sidebar-border pl-3">
+                {item.children.map((child) => {
+                  const ChildIcon = child.icon
+                  const isChildActive = activeModule === child.id
 
-                      return (
-                        <motion.button
-                          key={child.id}
-                          whileHover={{ x: 2 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={() => {
-                            setActiveModule(child.id as ActiveModule)
-                            if (isMobile) setMobileMenuOpen(false)
-                          }}
-                          className={`w-full flex items-center gap-system-sm px-2 py-1.5 rounded-md text-left transition-all duration-200 ${
-                            isActive
-                              ? 'bg-sidebar-accent text-sidebar-primary'
-                              : 'text-sidebar-foreground hover:bg-sidebar-accent'
-                          }`}
-                        >
-                          <ChildIcon className={`h-3 w-3 flex-shrink-0 ${isActive ? 'text-primary' : 'text-muted-foreground'}`} />
-                          <span className="text-xs">{child.label}</span>
-                        </motion.button>
-                      )
-                    })}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  return (
+                    <motion.button
+                      key={child.id}
+                      whileHover={{ x: 2 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => {
+                        setActiveModule(child.id as ActiveModule)
+                        if (isMobile) setMobileMenuOpen(false)
+                      }}
+                      className={`w-full flex items-center gap-system-sm px-2 py-1.5 rounded-md text-left transition-all duration-200 ${
+                        isChildActive
+                          ? 'bg-sidebar-accent text-sidebar-primary'
+                          : 'text-sidebar-foreground hover:bg-sidebar-accent'
+                      }`}
+                    >
+                      <ChildIcon className={`h-3 w-3 flex-shrink-0 ${isChildActive ? 'text-primary' : 'text-muted-foreground'}`} />
+                      <span className="text-xs text-foreground">{child.label}</span>
+                    </motion.button>
+                  )
+                })}
+              </div>
             )}
           </div>
         )
@@ -1187,6 +1143,7 @@ export default function App() {
         <Dashboard 
           language={language} 
           onPageChange={setActiveModule}
+          onLanguageChange={handleLanguageChange}
         />
       )
     }
@@ -1203,7 +1160,7 @@ export default function App() {
             <div className="gap-system-sm flex items-center">
               <Upload className="h-5 w-5 text-primary" />
               <div>
-                <h2 className="mb-1">{t.upload.title}</h2>
+                <h2 className="mb-1 text-foreground">{t.upload.title}</h2>
                 <p className="text-muted-foreground text-sm">
                   {t.upload.subtitle}
                 </p>
@@ -1241,7 +1198,7 @@ export default function App() {
                   </div>
                   
                   <div className="gap-system-sm flex flex-col">
-                    <Label htmlFor="targetCategory" className="text-sm">
+                    <Label htmlFor="targetCategory" className="text-sm text-foreground">
                       {t.upload.targetCategory.label} <span className="text-destructive">*</span>
                     </Label>
                     <Input
@@ -1260,7 +1217,7 @@ export default function App() {
 
                   {/* Output Language Selection */}
                   <div className="gap-system-sm flex flex-col">
-                    <Label htmlFor="outputLanguage" className="text-sm">
+                    <Label htmlFor="outputLanguage" className="text-sm text-foreground">
                       {t.upload.outputLanguage.label}
                     </Label>
                     <Select value={outputLanguage} onValueChange={(value: 'en' | 'zh') => setOutputLanguage(value)}>
@@ -1556,10 +1513,10 @@ export default function App() {
                   <CardContent className="spacing-system-lg">
                     <div className="gap-system-md flex flex-col items-center">
                       <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                        analysisProgress === 100 ? 'bg-green-100 dark:bg-green-900' : 'bg-accent'
+                        analysisProgress === 100 ? 'bg-accent' : 'bg-accent'
                       }`}>
                         {analysisProgress === 100 ? (
-                          <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+                          <CheckCircle className="h-5 w-5 text-primary" />
                         ) : (
                           <TrendingUp className="h-5 w-5 text-primary animate-pulse" />
                         )}
@@ -1616,7 +1573,7 @@ export default function App() {
                           {/* Step Progress List */}
                           {analysisSteps.length > 0 && (
                             <div className="w-full">
-                              <h4 className="text-sm font-medium mb-3 text-center">
+                              <h4 className="text-sm font-medium mb-3 text-center text-foreground">
                                 {language === 'en' ? 'Analysis Steps' : '分析步骤'}
                               </h4>
                               <div className="flex flex-col" style={{ gap: '24px' }}>
@@ -1634,7 +1591,7 @@ export default function App() {
                                       'bg-muted'
                                     }`}>
                                       {step.status === 'completed' && (
-                                        <CheckCircle className="w-3 h-3 text-white" />
+                                        <CheckCircle className="w-3 h-3 text-primary-foreground" />
                                       )}
                                       {step.status === 'running' && (
                                         <Clock className="w-3 h-3 text-white animate-spin" />
@@ -1770,7 +1727,7 @@ export default function App() {
                   transition={{ delay: 0.1 }}
                   onClick={() => setActiveModule('dashboard')}
                 >
-                  <NIcon className="h-5 w-5 text-primary" />
+                  <RIcon className="h-5 w-5 text-primary" />
                   <span className="font-medium text-sidebar-foreground">{t.nav.analyticsTools}</span>
                 </motion.div>
               )}
@@ -1823,7 +1780,7 @@ export default function App() {
           <SheetContent side="left" className="w-80 p-0 bg-sidebar border-sidebar-border">
             <div className="spacing-system-md">
               <div className="gap-system-sm flex items-center mb-8 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => { setActiveModule('dashboard'); setMobileMenuOpen(false); }}>
-                <NIcon className="h-5 w-5 text-primary" />
+                <RIcon className="h-5 w-5 text-primary" />
                 <span className="font-medium text-sidebar-foreground">{t.nav.analyticsTools}</span>
               </div>
               
@@ -1861,21 +1818,12 @@ export default function App() {
           <div className="bg-background border-b border-border px-6 py-3">
             <div className="flex items-center justify-between">
               <div className="gap-system-sm flex items-center">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setMobileMenuOpen(true)}
-                  className="md:hidden"
-                >
-                  <Menu className="h-4 w-4" />
-                </Button>
-                
                 {analysisResult && activeModule !== 'dashboard' && (
                   <div className="gap-system-sm flex items-center">
                     <CheckCircle className="h-4 w-4 text-primary" />
                     <div className="hidden sm:block">
                       <div className="gap-system-xs flex items-center">
-                        <span className="text-sm font-medium">{t.analysis.reportGenerated}</span>
+                        <span className="text-sm font-medium text-foreground">{t.analysis.reportGenerated}</span>
                         {analysisResult.hasCompetitorData && (
                           <Badge variant="outline" className="text-primary border-primary/30 bg-accent text-xs">
                             {t.analysis.withCompetitor}
@@ -1903,7 +1851,7 @@ export default function App() {
                       variant="ghost"
                       size="sm"
                       onClick={toggleLanguage}
-                      className="h-8 px-2 gap-1"
+                      className="h-8 px-2 gap-1 text-muted-foreground hover:text-foreground hover:bg-accent"
                     >
                       <Languages className="h-3 w-3" />
                       <span className="text-xs font-medium">
@@ -1928,8 +1876,11 @@ export default function App() {
                         <Button
                           variant={theme === mode ? "default" : "ghost"}
                           size="sm"
-                          className={`h-6 w-6 p-0 ${theme === mode ? 'bg-background shadow-clean' : ''}`}
-                          onClick={() => setTheme(mode)}
+                          className={`h-6 w-6 p-0 ${theme === mode ? 'bg-primary text-primary-foreground shadow-clean' : 'text-muted-foreground hover:text-foreground hover:bg-accent'}`}
+                          onClick={() => {
+                            console.log('Theme button clicked:', mode)
+                            setTheme(mode)
+                          }}
                         >
                           <Icon className="h-3 w-3" />
                         </Button>
@@ -1944,7 +1895,7 @@ export default function App() {
                 {/* User actions */}
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button variant="ghost" size="sm" className="relative">
+                    <Button variant="ghost" size="sm" className="relative text-muted-foreground hover:text-foreground hover:bg-accent">
                       <Bell className="h-4 w-4" />
                       {notifications > 0 && (
                         <motion.div
@@ -1971,6 +1922,7 @@ export default function App() {
                       variant="ghost" 
                       size="sm"
                       onClick={() => setShowSettings(!showSettings)}
+                      className="text-muted-foreground hover:text-foreground hover:bg-accent"
                     >
                       <Settings className="h-4 w-4" />
                     </Button>
@@ -1982,7 +1934,7 @@ export default function App() {
 
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button variant="ghost" size="sm" className="rounded-full">
+                    <Button variant="ghost" size="sm" className="rounded-full text-muted-foreground hover:text-foreground hover:bg-accent">
                       <div className="h-5 w-5 rounded-full bg-primary flex items-center justify-center">
                         <User className="h-3 w-3 text-primary-foreground" />
                       </div>

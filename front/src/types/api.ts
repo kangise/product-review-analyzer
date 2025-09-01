@@ -1,4 +1,4 @@
-// API Types for Novochoice AI
+// API Types for Regen AI
 export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;

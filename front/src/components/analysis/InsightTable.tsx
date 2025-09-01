@@ -55,7 +55,7 @@ export const InsightTable: React.FC<InsightTableProps> = ({
               value={value} 
               className="flex-1 h-2" 
             />
-            <span className="text-sm font-medium min-w-[3rem]">
+            <span className="text-sm font-medium min-w-[3rem] text-foreground">
               {value}%
             </span>
           </div>

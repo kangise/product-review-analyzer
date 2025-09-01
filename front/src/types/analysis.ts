@@ -1,4 +1,4 @@
-// Analysis Types for Novochoice AI
+// Analysis Types for Regen AI
 export interface AnalysisResult {
   id: string;
   timestamp: string;
