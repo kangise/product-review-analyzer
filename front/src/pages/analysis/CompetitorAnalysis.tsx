@@ -603,10 +603,17 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
                       <div className="grid grid-cols-2 gap-6">
                         {/* 双高象限 */}
                         <div>
-                          <h5 className="font-medium text-sm mb-3 flex items-center gap-2">
-                            <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                            {language === 'en' ? 'Both High (Core Market)' : '双高（核心市场）'}
-                            <Badge variant="secondary" className="text-xs">{quadrants.bothHigh.length}</Badge>
+                          <h5 className="font-medium text-sm mb-3 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                              {language === 'en' ? 'Both High' : '双高'}
+                              <Badge variant="secondary" className="text-xs">{quadrants.bothHigh.length}</Badge>
+                            </div>
+                            {language === 'en' ? (
+                              <span style={{padding: '4px 8px', backgroundColor: '#fecaca', color: '#991b1b', borderRadius: '4px', fontSize: '12px'}}>Core Market</span>
+                            ) : (
+                              <span style={{padding: '4px 8px', backgroundColor: '#fecaca', color: '#991b1b', borderRadius: '4px', fontSize: '12px'}}>核心市场</span>
+                            )}
                           </h5>
                           <div className="gap-3 flex flex-col">
                             {quadrants.bothHigh.map((comparison: any, index: number) => (
@@ -633,10 +640,17 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
 
                         {/* 我方优势象限 */}
                         <div>
-                          <h5 className="font-medium text-sm mb-3 flex items-center gap-2">
-                            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                            {language === 'en' ? 'Our Advantage (Unique Appeal)' : '我方优势（独特吸引力）'}
-                            <Badge variant="secondary" className="text-xs">{quadrants.ourAdvantage.length}</Badge>
+                          <h5 className="font-medium text-sm mb-3 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                              {language === 'en' ? 'Our Advantage' : '我方优势'}
+                              <Badge variant="secondary" className="text-xs">{quadrants.ourAdvantage.length}</Badge>
+                            </div>
+                            {language === 'en' ? (
+                              <span style={{padding: '4px 8px', backgroundColor: '#dcfce7', color: '#166534', borderRadius: '4px', fontSize: '12px'}}>Unique Appeal</span>
+                            ) : (
+                              <span style={{padding: '4px 8px', backgroundColor: '#dcfce7', color: '#166534', borderRadius: '4px', fontSize: '12px'}}>独特吸引力</span>
+                            )}
                           </h5>
                           <div className="gap-3 flex flex-col">
                             {quadrants.ourAdvantage.map((comparison: any, index: number) => (
@@ -663,10 +677,17 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
 
                         {/* 竞品优势象限 */}
                         <div>
-                          <h5 className="font-medium text-sm mb-3 flex items-center gap-2">
-                            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                            {language === 'en' ? 'Competitor Advantage (Learn & Improve)' : '竞品优势（学习改进）'}
-                            <Badge variant="secondary" className="text-xs">{quadrants.competitorAdvantage.length}</Badge>
+                          <h5 className="font-medium text-sm mb-3 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                              {language === 'en' ? 'Competitor Advantage' : '竞品优势'}
+                              <Badge variant="secondary" className="text-xs">{quadrants.competitorAdvantage.length}</Badge>
+                            </div>
+                            {language === 'en' ? (
+                              <span style={{padding: '4px 8px', backgroundColor: '#ef4444', color: 'white', borderRadius: '4px', fontSize: '12px'}}>Learn & Improve</span>
+                            ) : (
+                              <span style={{padding: '4px 8px', backgroundColor: '#ef4444', color: 'white', borderRadius: '4px', fontSize: '12px'}}>学习改进</span>
+                            )}
                           </h5>
                           <div className="gap-3 flex flex-col">
                             {quadrants.competitorAdvantage.map((comparison: any, index: number) => (
@@ -693,10 +714,17 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
 
                         {/* 双低象限 */}
                         <div>
-                          <h5 className="font-medium text-sm mb-3 flex items-center gap-2">
-                            <div className="w-3 h-3 bg-gray-500 rounded-full"></div>
-                            {language === 'en' ? 'Both Low (Untapped Market)' : '双低（未开发市场）'}
-                            <Badge variant="secondary" className="text-xs">{quadrants.bothLow.length}</Badge>
+                          <h5 className="font-medium text-sm mb-3 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <div className="w-3 h-3 bg-gray-500 rounded-full"></div>
+                              {language === 'en' ? 'Both Low' : '双低'}
+                              <Badge variant="secondary" className="text-xs">{quadrants.bothLow.length}</Badge>
+                            </div>
+                            {language === 'en' ? (
+                              <span style={{padding: '4px 8px', backgroundColor: '#16a34a', color: 'white', borderRadius: '4px', fontSize: '12px'}}>Untapped Market</span>
+                            ) : (
+                              <span style={{padding: '4px 8px', backgroundColor: '#16a34a', color: 'white', borderRadius: '4px', fontSize: '12px'}}>未开发市场</span>
+                            )}
                           </h5>
                           <div className="gap-3 flex flex-col">
                             {quadrants.bothLow.map((comparison: any, index: number) => (
@@ -827,7 +855,7 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
                       <div className="gap-3 flex flex-col">
                         {Object.entries(competitorData.综合竞争力评估.战略建议).map(([key, value]: [string, any], index: number) => (
                           <div key={index}>
-                            <h5 className="font-medium text-xs text-purple-700 dark:text-purple-300 mb-1">
+                            <h5 className="font-bold text-base text-purple-700 dark:text-purple-300 mb-2">
                               {key === '产品改进' ? (language === 'en' ? 'Product Improvement' : '产品改进') :
                                key === '市场定位' ? (language === 'en' ? 'Market Positioning' : '市场定位') :
                                key === '营销策略' ? (language === 'en' ? 'Marketing Strategy' : '营销策略') : key}
