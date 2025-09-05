@@ -1,0 +1,930 @@
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import { BarChart3, TrendingUp, TrendingDown, Users, MessageSquare, ChevronRight, Tag, Target, Lightbulb, Zap } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card'
+import { Badge } from '../../components/ui/badge'
+import { Button } from '../../components/ui/button'
+import { Separator } from '../../components/ui/separator'
+
+interface CompetitorAnalysisProps {
+  language: 'en' | 'zh'
+  t: any
+  analysisResult: any
+}
+
+export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
+  language,
+  t,
+  analysisResult
+}) => {
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(
+    new Set(['competitor-comparison', 'competitor-unique'])  // 竞品基础分析默认收起
+  )
+  const [selectedQuotes, setSelectedQuotes] = useState<{quotes: string[], title: string} | null>(null)
+
+  const toggleSection = (sectionId: string) => {
+    const newExpanded = new Set(expandedSections)
+    if (newExpanded.has(sectionId)) {
+      newExpanded.delete(sectionId)
+    } else {
+      newExpanded.add(sectionId)
+    }
+    setExpandedSections(newExpanded)
+  }
+
+  const showQuotes = (quotes: string | string[], title: string) => {
+    let quotesArray: string[] = []
+    if (typeof quotes === 'string') {
+      quotesArray = quotes.split(/\n|；|;|\|/).filter(q => q.trim().length > 0)
+    } else if (Array.isArray(quotes)) {
+      quotesArray = quotes
+    }
+    setSelectedQuotes({ quotes: quotesArray, title })
+  }
+
+  // 从analysisResult中获取新的竞品分析数据结构
+  const competitorData = analysisResult?.competitor || {}
+  const competitorBase = competitorData?.竞品基础分析 || {}
+  const competitorComparison = competitorData?.竞品对比分析 || {}
+  const competitorUnique = competitorData?.竞品独有洞察 || {}
+  
+  console.log('CompetitorAnalysis received analysisResult:', analysisResult)
+  console.log('CompetitorAnalysis competitorData:', competitorData)
+
+  return (
+    <motion.div 
+      className="gap-system-xl flex flex-col"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      {/* Header */}
+      <div className="border-b border-border pb-6">
+        <div className="gap-system-sm flex items-center">
+          <BarChart3 className="h-5 w-5 text-primary" />
+          <div>
+            <h2 className="mb-1 text-foreground">{t.nav.competitive}</h2>
+            <div className="gap-system-sm flex items-center text-sm text-muted-foreground">
+              <span>{language === 'en' ? 'Comprehensive competitor analysis across three dimensions' : '三维度竞品全面分析'}</span>
+              {analysisResult?.targetCategory && (
+                <>
+                  <Separator orientation="vertical" className="h-3" />
+                  <div className="gap-1 flex items-center">
+                    <Tag className="h-3 w-3" />
+                    <span>{t.analysis.category} {analysisResult.targetCategory}</span>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 竞品对比分析模块 */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+      >
+        <Card className="border-clean shadow-clean">
+          <CardHeader 
+            className="spacing-system-lg border-b border-border cursor-pointer"
+            onClick={() => toggleSection('competitor-comparison')}
+          >
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+              <div className="gap-system-sm flex items-center">
+                <BarChart3 className="h-4 w-4 text-primary" />
+                <span>{language === 'en' ? 'Competitor Comparison Analysis' : '竞品对比分析'}</span>
+              </div>
+              <motion.div
+                animate={{ rotate: expandedSections.has('competitor-comparison') ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </motion.div>
+            </CardTitle>
+          </CardHeader>
+          
+          {expandedSections.has('competitor-comparison') && (
+            <CardContent className="spacing-system-lg">
+              <div className="gap-system-lg flex flex-col">
+                
+                {/* 四象限对比分析 */}
+                {competitorComparison?.四象限对比分析 && (
+                  <div>
+                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
+                      <Target className="h-4 w-4 text-blue-600" />
+                      {language === 'en' ? 'Four-Quadrant Comparison Analysis' : '四象限对比分析'}
+                    </h4>
+                    <div className="gap-system-md grid grid-cols-1 md:grid-cols-2">
+                      {Object.entries(competitorComparison.四象限对比分析).map(([quadrant, items]: [string, any], index: number) => (
+                        <motion.div
+                          key={index}
+                          className="spacing-system-sm bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800"
+                          whileHover={{ scale: 1.01 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <h5 className="font-medium text-sm text-blue-700 dark:text-blue-300 mb-3">
+                            {quadrant}
+                          </h5>
+                          <div className="gap-2 flex flex-col">
+                            {Array.isArray(items) ? items.map((item: string, idx: number) => (
+                              <div key={idx} className="text-xs text-blue-600 dark:text-blue-400 bg-white dark:bg-blue-950/50 rounded px-2 py-1">
+                                {item}
+                              </div>
+                            )) : (
+                              <div className="text-xs text-blue-600 dark:text-blue-400">
+                                {String(items)}
+                              </div>
+                            )}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* 综合竞争力评估 */}
+                {competitorComparison?.综合竞争力评估 && (
+                  <div>
+                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
+                      <TrendingUp className="h-4 w-4 text-green-600" />
+                      {language === 'en' ? 'Comprehensive Competitiveness Assessment' : '综合竞争力评估'}
+                    </h4>
+                    <div className="gap-system-md grid grid-cols-1">
+                      {Object.entries(competitorComparison.综合竞争力评估).map(([key, value]: [string, any], index: number) => (
+                        <motion.div
+                          key={index}
+                          className="spacing-system-sm bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
+                          whileHover={{ scale: 1.01 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <h5 className="font-medium text-sm text-green-700 dark:text-green-300">
+                              {key}
+                            </h5>
+                          </div>
+                          <div className="text-xs text-green-600 dark:text-green-400">
+                            {typeof value === 'object' ? (
+                              <div className="gap-1 flex flex-col">
+                                {Object.entries(value).map(([subKey, subValue]: [string, any], subIndex: number) => (
+                                  <div key={subIndex} className="flex justify-between items-center">
+                                    <span>{subKey}:</span>
+                                    <span className="font-medium">{String(subValue)}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <p>{String(value)}</p>
+                            )}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          )}
+        </Card>
+      </motion.div>
+
+      {/* 竞品独有洞察模块 */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        <Card className="border-clean shadow-clean">
+          <CardHeader 
+            className="spacing-system-lg border-b border-border cursor-pointer"
+            onClick={() => toggleSection('competitor-unique')}
+          >
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+              <div className="gap-system-sm flex items-center">
+                <Lightbulb className="h-4 w-4 text-primary" />
+                <span>{language === 'en' ? 'Competitor Unique Insights' : '竞品独有洞察'}</span>
+              </div>
+              <motion.div
+                animate={{ rotate: expandedSections.has('competitor-unique') ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </motion.div>
+            </CardTitle>
+          </CardHeader>
+          
+          {expandedSections.has('competitor-unique') && (
+            <CardContent className="spacing-system-lg">
+              <div className="gap-system-lg flex flex-col">
+                
+                {/* 竞品独有优势 */}
+                {competitorUnique?.竞品独有优势 && competitorUnique.竞品独有优势.length > 0 && (
+                  <div>
+                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
+                      <Zap className="h-4 w-4 text-yellow-600" />
+                      {language === 'en' ? 'Competitor Unique Advantages' : '竞品独有优势'}
+                    </h4>
+                    <div className="gap-system-md grid grid-cols-1">
+                      {competitorUnique.竞品独有优势.map((item: any, index: number) => {
+                        const frequency = parseFloat(item.频率?.replace('%', '') || '0')
+                        return (
+                          <motion.div
+                            key={index}
+                            className="spacing-system-sm bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800"
+                            whileHover={{ scale: 1.01 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <div className="flex items-center justify-between mb-3">
+                              <h5 className="font-medium text-sm text-yellow-700 dark:text-yellow-300">
+                                {item.优势点}
+                              </h5>
+                              <Badge variant="secondary" className="text-xs">
+                                {item.频率}
+                              </Badge>
+                            </div>
+                            {frequency > 0 && (
+                              <div className="mb-3">
+                                <div className="flex justify-between text-xs text-yellow-600 dark:text-yellow-400 mb-1">
+                                  <span>频率</span>
+                                  <span>{item.频率}</span>
+                                </div>
+                                <Progress value={frequency} className="h-2" />
+                              </div>
+                            )}
+                            <p className="text-xs text-yellow-600 dark:text-yellow-400 mb-2">
+                              {item.消费者描述}
+                            </p>
+                            <p className="text-xs text-yellow-700 dark:text-yellow-300 mb-2 font-medium">
+                              {language === 'en' ? 'Inspiration: ' : '对我方启发: '}{item.对我方启发}
+                            </p>
+                            {item.相关评论示例 && item.相关评论示例.length > 0 && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-6 px-2 text-xs"
+                                onClick={() => showQuotes(item.相关评论示例, item.优势点)}
+                              >
+                                <MessageSquare className="h-3 w-3 mr-1" />
+                                {language === 'en' ? 'View Examples' : '查看示例'}
+                              </Button>
+                            )}
+                          </motion.div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* 竞品独有问题 */}
+                {competitorUnique?.竞品独有问题 && competitorUnique.竞品独有问题.length > 0 && (
+                  <div>
+                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
+                      <TrendingDown className="h-4 w-4 text-red-600" />
+                      {language === 'en' ? 'Competitor Unique Problems' : '竞品独有问题'}
+                    </h4>
+                    <div className="gap-system-md grid grid-cols-1">
+                      {competitorUnique.竞品独有问题.map((item: any, index: number) => {
+                        const frequency = parseFloat(item.频率?.replace('%', '') || '0')
+                        return (
+                          <motion.div
+                            key={index}
+                            className="spacing-system-sm bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800"
+                            whileHover={{ scale: 1.01 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <div className="flex items-center justify-between mb-3">
+                              <h5 className="font-medium text-sm text-red-700 dark:text-red-300">
+                                {item.问题点}
+                              </h5>
+                              <Badge variant="destructive" className="text-xs">
+                                {item.频率}
+                              </Badge>
+                            </div>
+                            {frequency > 0 && (
+                              <div className="mb-3">
+                                <div className="flex justify-between text-xs text-red-600 dark:text-red-400 mb-1">
+                                  <span>频率</span>
+                                  <span>{item.频率}</span>
+                                </div>
+                                <Progress value={frequency} className="h-2" />
+                              </div>
+                            )}
+                            <p className="text-xs text-red-600 dark:text-red-400 mb-2">
+                              {item.消费者描述}
+                            </p>
+                            <p className="text-xs text-red-700 dark:text-red-300 mb-2 font-medium">
+                              {language === 'en' ? 'Inspiration: ' : '对我方启发: '}{item.对我方启发}
+                            </p>
+                            {item.相关评论示例 && item.相关评论示例.length > 0 && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-6 px-2 text-xs"
+                                onClick={() => showQuotes(item.相关评论示例, item.问题点)}
+                              >
+                                <MessageSquare className="h-3 w-3 mr-1" />
+                                {language === 'en' ? 'View Examples' : '查看示例'}
+                              </Button>
+                            )}
+                          </motion.div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* 竞品独有动机 */}
+                {competitorUnique?.竞品独有动机 && competitorUnique.竞品独有动机.length > 0 && (
+                  <div>
+                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
+                      <Users className="h-4 w-4 text-purple-600" />
+                      {language === 'en' ? 'Competitor Unique Motivations' : '竞品独有动机'}
+                    </h4>
+                    <div className="gap-system-md grid grid-cols-1">
+                      {competitorUnique.竞品独有动机.map((item: any, index: number) => {
+                        const frequency = parseFloat(item.频率?.replace('%', '') || '0')
+                        return (
+                          <motion.div
+                            key={index}
+                            className="spacing-system-sm bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800"
+                            whileHover={{ scale: 1.01 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <div className="flex items-center justify-between mb-3">
+                              <h5 className="font-medium text-sm text-purple-700 dark:text-purple-300">
+                                {item.动机点}
+                              </h5>
+                              <Badge variant="outline" className="text-xs">
+                                {item.频率}
+                              </Badge>
+                            </div>
+                            {frequency > 0 && (
+                              <div className="mb-3">
+                                <div className="flex justify-between text-xs text-purple-600 dark:text-purple-400 mb-1">
+                                  <span>频率</span>
+                                  <span>{item.频率}</span>
+                                </div>
+                                <Progress value={frequency} className="h-2" />
+                              </div>
+                            )}
+                            <p className="text-xs text-purple-600 dark:text-purple-400 mb-2">
+                              {item.消费者描述}
+                            </p>
+                            <p className="text-xs text-purple-700 dark:text-purple-300 mb-2 font-medium">
+                              {language === 'en' ? 'Inspiration: ' : '对我方启发: '}{item.对我方启发}
+                            </p>
+                            {item.相关评论示例 && item.相关评论示例.length > 0 && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-6 px-2 text-xs"
+                                onClick={() => showQuotes(item.相关评论示例, item.动机点)}
+                              >
+                                <MessageSquare className="h-3 w-3 mr-1" />
+                                {language === 'en' ? 'View Examples' : '查看示例'}
+                              </Button>
+                            )}
+                          </motion.div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* 总结洞察 */}
+                {competitorUnique?.总结洞察 && (
+                  <div>
+                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
+                      <Lightbulb className="h-4 w-4 text-indigo-600" />
+                      {language === 'en' ? 'Summary Insights' : '总结洞察'}
+                    </h4>
+                    <motion.div
+                      className="spacing-system-md bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-200 dark:border-indigo-800"
+                      whileHover={{ scale: 1.01 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {competitorUnique.总结洞察.关键发现 && (
+                        <div className="mb-3">
+                          <h5 className="font-medium text-sm text-indigo-700 dark:text-indigo-300 mb-1">
+                            {language === 'en' ? 'Key Findings' : '关键发现'}
+                          </h5>
+                          <p className="text-xs text-indigo-600 dark:text-indigo-400">
+                            {competitorUnique.总结洞察.关键发现}
+                          </p>
+                        </div>
+                      )}
+                      {competitorUnique.总结洞察.战略意义 && (
+                        <div className="mb-3">
+                          <h5 className="font-medium text-sm text-indigo-700 dark:text-indigo-300 mb-1">
+                            {language === 'en' ? 'Strategic Significance' : '战略意义'}
+                          </h5>
+                          <p className="text-xs text-indigo-600 dark:text-indigo-400">
+                            {competitorUnique.总结洞察.战略意义}
+                          </p>
+                        </div>
+                      )}
+                      {competitorUnique.总结洞察.行动建议 && (
+                        <div>
+                          <h5 className="font-medium text-sm text-indigo-700 dark:text-indigo-300 mb-1">
+                            {language === 'en' ? 'Action Recommendations' : '行动建议'}
+                          </h5>
+                          <p className="text-xs text-indigo-600 dark:text-indigo-400">
+                            {competitorUnique.总结洞察.行动建议}
+                          </p>
+                        </div>
+                      )}
+                    </motion.div>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          )}
+        </Card>
+      </motion.div>
+
+      {/* 竞品基础分析模块 - 移到最下方 */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <Card className="border-clean shadow-clean">
+          <CardHeader 
+            className="spacing-system-lg border-b border-border cursor-pointer"
+            onClick={() => toggleSection('competitor-base')}
+          >
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+              <div className="gap-system-sm flex items-center">
+                <Target className="h-4 w-4 text-primary" />
+                <span>{language === 'en' ? 'Competitor Base Analysis' : '竞品基础分析'}</span>
+              </div>
+              <motion.div
+                animate={{ rotate: expandedSections.has('competitor-base') ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </motion.div>
+            </CardTitle>
+          </CardHeader>
+          
+          {expandedSections.has('competitor-base') && (
+            <CardContent className="spacing-system-lg">
+              <div className="gap-system-lg flex flex-col">
+                
+                {/* 竞品消费者喜爱点 */}
+                {competitorBase?.竞品消费者喜爱点 && (
+                  <div>
+                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
+                      <TrendingUp className="h-4 w-4 text-green-600" />
+                      {language === 'en' ? 'Competitor Consumer Love Points' : '竞品消费者喜爱点'}
+                    </h4>
+                    <div className="gap-system-md grid grid-cols-1 md:grid-cols-2">
+                      {competitorBase.竞品消费者喜爱点.map((item: any, index: number) => (
+                        <motion.div
+                          key={index}
+                          className="spacing-system-sm bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
+                          whileHover={{ scale: 1.02 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <h5 className="font-medium text-sm text-green-700 dark:text-green-300">
+                              {item.赞美点}
+                            </h5>
+                            <Badge variant="secondary" className="text-xs">
+                              {item.频率}
+                            </Badge>
+                          </div>
+                          <p className="text-xs text-green-600 dark:text-green-400 mb-2">
+                            {item.消费者描述}
+                          </p>
+                          {item.相关评论示例 && item.相关评论示例.length > 0 && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-6 px-2 text-xs"
+                              onClick={() => showQuotes(item.相关评论示例, item.赞美点)}
+                            >
+                              <MessageSquare className="h-3 w-3 mr-1" />
+                              {language === 'en' ? 'View Examples' : '查看示例'}
+                            </Button>
+                          )}
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* 竞品未满足需求 */}
+                {competitorBase?.竞品未满足需求 && (
+                  <div>
+                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
+                      <TrendingDown className="h-4 w-4 text-red-600" />
+                      {language === 'en' ? 'Competitor Unmet Needs' : '竞品未满足需求'}
+                    </h4>
+                    <div className="gap-system-md grid grid-cols-1 md:grid-cols-2">
+                      {competitorBase.竞品未满足需求.map((item: any, index: number) => (
+                        <motion.div
+                          key={index}
+                          className="spacing-system-sm bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800"
+                          whileHover={{ scale: 1.02 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <h5 className="font-medium text-sm text-red-700 dark:text-red-300">
+                              {item['痛点/未满足的需求']}
+                            </h5>
+                            <Badge variant="destructive" className="text-xs">
+                              {item.重要性}
+                            </Badge>
+                          </div>
+                          <p className="text-xs text-red-600 dark:text-red-400 mb-2">
+                            {item.消费者描述}
+                          </p>
+                          {item.相关评论示例 && item.相关评论示例.length > 0 && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-6 px-2 text-xs"
+                              onClick={() => showQuotes(item.相关评论示例, item['痛点/未满足的需求'])}
+                            >
+                              <MessageSquare className="h-3 w-3 mr-1" />
+                              {language === 'en' ? 'View Examples' : '查看示例'}
+                            </Button>
+                          )}
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* 竞品购买动机 */}
+                {competitorBase?.竞品购买动机 && (
+                  <div>
+                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
+                      <Users className="h-4 w-4 text-blue-600" />
+                      {language === 'en' ? 'Competitor Purchase Motivations' : '竞品购买动机'}
+                    </h4>
+                    <div className="gap-system-md grid grid-cols-1 md:grid-cols-2">
+                      {competitorBase.竞品购买动机.map((item: any, index: number) => (
+                        <motion.div
+                          key={index}
+                          className="spacing-system-sm bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800"
+                          whileHover={{ scale: 1.02 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <h5 className="font-medium text-sm text-blue-700 dark:text-blue-300">
+                              {item.动机}
+                            </h5>
+                            <Badge variant="outline" className="text-xs">
+                              {item.动机重要性}
+                            </Badge>
+                          </div>
+                          <p className="text-xs text-blue-600 dark:text-blue-400 mb-2">
+                            {item.消费者描述}
+                          </p>
+                          {item.相关评论示例 && item.相关评论示例.length > 0 && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-6 px-2 text-xs"
+                              onClick={() => showQuotes(item.相关评论示例, item.动机)}
+                            >
+                              <MessageSquare className="h-3 w-3 mr-1" />
+                              {language === 'en' ? 'View Examples' : '查看示例'}
+                            </Button>
+                          )}
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          )}
+        </Card>
+      </motion.div>
+
+      {/* 竞品对比分析模块 */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        <Card className="border-clean shadow-clean">
+          <CardHeader 
+            className="spacing-system-lg border-b border-border cursor-pointer"
+            onClick={() => toggleSection('competitor-comparison')}
+          >
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+              <div className="gap-system-sm flex items-center">
+                <BarChart3 className="h-4 w-4 text-primary" />
+                <span>{language === 'en' ? 'Competitor Comparison Analysis' : '竞品对比分析'}</span>
+              </div>
+              <motion.div
+                animate={{ rotate: expandedSections.has('competitor-comparison') ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </motion.div>
+            </CardTitle>
+          </CardHeader>
+          
+          {expandedSections.has('competitor-comparison') && (
+            <CardContent className="spacing-system-lg">
+              {competitorComparison && Object.keys(competitorComparison).length > 0 ? (
+                <div className="gap-system-lg flex flex-col">
+                  {Object.entries(competitorComparison).map(([key, value]: [string, any], index: number) => (
+                    <motion.div
+                      key={index}
+                      className="spacing-system-md bg-accent rounded-lg border-clean"
+                      whileHover={{ scale: 1.01 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <h4 className="font-medium text-sm mb-3 text-foreground">
+                        {key}
+                      </h4>
+                      <div className="text-sm text-muted-foreground">
+                        {typeof value === 'object' ? (
+                          <pre className="whitespace-pre-wrap text-xs">
+                            {JSON.stringify(value, null, 2)}
+                          </pre>
+                        ) : (
+                          <p>{String(value)}</p>
+                        )}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">
+                  <BarChart3 className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                  <p>{language === 'en' ? 'No competitor comparison data available' : '暂无竞品对比分析数据'}</p>
+                </div>
+              )}
+            </CardContent>
+          )}
+        </Card>
+      </motion.div>
+
+      {/* 竞品独有洞察模块 */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <Card className="border-clean shadow-clean">
+          <CardHeader 
+            className="spacing-system-lg border-b border-border cursor-pointer"
+            onClick={() => toggleSection('competitor-unique')}
+          >
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+              <div className="gap-system-sm flex items-center">
+                <Lightbulb className="h-4 w-4 text-primary" />
+                <span>{language === 'en' ? 'Competitor Unique Insights' : '竞品独有洞察'}</span>
+              </div>
+              <motion.div
+                animate={{ rotate: expandedSections.has('competitor-unique') ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </motion.div>
+            </CardTitle>
+          </CardHeader>
+          
+          {expandedSections.has('competitor-unique') && (
+            <CardContent className="spacing-system-lg">
+              <div className="gap-system-lg flex flex-col">
+                
+                {/* 竞品独有优势 */}
+                {competitorUnique?.竞品独有优势 && competitorUnique.竞品独有优势.length > 0 && (
+                  <div>
+                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
+                      <Zap className="h-4 w-4 text-yellow-600" />
+                      {language === 'en' ? 'Competitor Unique Advantages' : '竞品独有优势'}
+                    </h4>
+                    <div className="gap-system-md grid grid-cols-1">
+                      {competitorUnique.竞品独有优势.map((item: any, index: number) => (
+                        <motion.div
+                          key={index}
+                          className="spacing-system-sm bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800"
+                          whileHover={{ scale: 1.01 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <h5 className="font-medium text-sm text-yellow-700 dark:text-yellow-300">
+                              {item.优势点}
+                            </h5>
+                            <Badge variant="secondary" className="text-xs">
+                              {item.频率}
+                            </Badge>
+                          </div>
+                          <p className="text-xs text-yellow-600 dark:text-yellow-400 mb-2">
+                            {item.消费者描述}
+                          </p>
+                          <p className="text-xs text-yellow-700 dark:text-yellow-300 mb-2 font-medium">
+                            {language === 'en' ? 'Inspiration: ' : '对我方启发: '}{item.对我方启发}
+                          </p>
+                          {item.相关评论示例 && item.相关评论示例.length > 0 && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-6 px-2 text-xs"
+                              onClick={() => showQuotes(item.相关评论示例, item.优势点)}
+                            >
+                              <MessageSquare className="h-3 w-3 mr-1" />
+                              {language === 'en' ? 'View Examples' : '查看示例'}
+                            </Button>
+                          )}
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* 竞品独有问题 */}
+                {competitorUnique?.竞品独有问题 && competitorUnique.竞品独有问题.length > 0 && (
+                  <div>
+                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
+                      <TrendingDown className="h-4 w-4 text-red-600" />
+                      {language === 'en' ? 'Competitor Unique Problems' : '竞品独有问题'}
+                    </h4>
+                    <div className="gap-system-md grid grid-cols-1">
+                      {competitorUnique.竞品独有问题.map((item: any, index: number) => (
+                        <motion.div
+                          key={index}
+                          className="spacing-system-sm bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800"
+                          whileHover={{ scale: 1.01 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <h5 className="font-medium text-sm text-red-700 dark:text-red-300">
+                              {item.问题点}
+                            </h5>
+                            <Badge variant="destructive" className="text-xs">
+                              {item.频率}
+                            </Badge>
+                          </div>
+                          <p className="text-xs text-red-600 dark:text-red-400 mb-2">
+                            {item.消费者描述}
+                          </p>
+                          <p className="text-xs text-red-700 dark:text-red-300 mb-2 font-medium">
+                            {language === 'en' ? 'Inspiration: ' : '对我方启发: '}{item.对我方启发}
+                          </p>
+                          {item.相关评论示例 && item.相关评论示例.length > 0 && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-6 px-2 text-xs"
+                              onClick={() => showQuotes(item.相关评论示例, item.问题点)}
+                            >
+                              <MessageSquare className="h-3 w-3 mr-1" />
+                              {language === 'en' ? 'View Examples' : '查看示例'}
+                            </Button>
+                          )}
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* 竞品独有动机 */}
+                {competitorUnique?.竞品独有动机 && competitorUnique.竞品独有动机.length > 0 && (
+                  <div>
+                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
+                      <Users className="h-4 w-4 text-purple-600" />
+                      {language === 'en' ? 'Competitor Unique Motivations' : '竞品独有动机'}
+                    </h4>
+                    <div className="gap-system-md grid grid-cols-1">
+                      {competitorUnique.竞品独有动机.map((item: any, index: number) => (
+                        <motion.div
+                          key={index}
+                          className="spacing-system-sm bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800"
+                          whileHover={{ scale: 1.01 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <h5 className="font-medium text-sm text-purple-700 dark:text-purple-300">
+                              {item.动机点}
+                            </h5>
+                            <Badge variant="outline" className="text-xs">
+                              {item.频率}
+                            </Badge>
+                          </div>
+                          <p className="text-xs text-purple-600 dark:text-purple-400 mb-2">
+                            {item.消费者描述}
+                          </p>
+                          <p className="text-xs text-purple-700 dark:text-purple-300 mb-2 font-medium">
+                            {language === 'en' ? 'Inspiration: ' : '对我方启发: '}{item.对我方启发}
+                          </p>
+                          {item.相关评论示例 && item.相关评论示例.length > 0 && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-6 px-2 text-xs"
+                              onClick={() => showQuotes(item.相关评论示例, item.动机点)}
+                            >
+                              <MessageSquare className="h-3 w-3 mr-1" />
+                              {language === 'en' ? 'View Examples' : '查看示例'}
+                            </Button>
+                          )}
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* 总结洞察 */}
+                {competitorUnique?.总结洞察 && (
+                  <div>
+                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
+                      <Lightbulb className="h-4 w-4 text-indigo-600" />
+                      {language === 'en' ? 'Summary Insights' : '总结洞察'}
+                    </h4>
+                    <motion.div
+                      className="spacing-system-md bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-200 dark:border-indigo-800"
+                      whileHover={{ scale: 1.01 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {competitorUnique.总结洞察.关键发现 && (
+                        <div className="mb-3">
+                          <h5 className="font-medium text-sm text-indigo-700 dark:text-indigo-300 mb-1">
+                            {language === 'en' ? 'Key Findings' : '关键发现'}
+                          </h5>
+                          <p className="text-xs text-indigo-600 dark:text-indigo-400">
+                            {competitorUnique.总结洞察.关键发现}
+                          </p>
+                        </div>
+                      )}
+                      {competitorUnique.总结洞察.战略意义 && (
+                        <div className="mb-3">
+                          <h5 className="font-medium text-sm text-indigo-700 dark:text-indigo-300 mb-1">
+                            {language === 'en' ? 'Strategic Significance' : '战略意义'}
+                          </h5>
+                          <p className="text-xs text-indigo-600 dark:text-indigo-400">
+                            {competitorUnique.总结洞察.战略意义}
+                          </p>
+                        </div>
+                      )}
+                      {competitorUnique.总结洞察.行动建议 && (
+                        <div>
+                          <h5 className="font-medium text-sm text-indigo-700 dark:text-indigo-300 mb-1">
+                            {language === 'en' ? 'Action Recommendations' : '行动建议'}
+                          </h5>
+                          <p className="text-xs text-indigo-600 dark:text-indigo-400">
+                            {competitorUnique.总结洞察.行动建议}
+                          </p>
+                        </div>
+                      )}
+                    </motion.div>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          )}
+        </Card>
+      </motion.div>
+
+      {/* Quote Modal */}
+      {selectedQuotes && (
+        <motion.div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setSelectedQuotes(null)}
+        >
+          <motion.div
+            className="bg-background rounded-lg p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-medium text-lg">{selectedQuotes.title}</h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSelectedQuotes(null)}
+              >
+                ×
+              </Button>
+            </div>
+            <div className="gap-system-sm flex flex-col">
+              {selectedQuotes.quotes.map((quote, index) => (
+                <div
+                  key={index}
+                  className="spacing-system-sm bg-accent rounded-lg border-clean"
+                >
+                  <p className="text-sm text-muted-foreground">"{quote}"</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </motion.div>
+  )
+}

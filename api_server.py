@@ -332,6 +332,67 @@ def get_analysis_result(analysis_id):
 
 def load_analysis_results(analysis_id, target_category, has_competitor_data):
     """加载分析结果并格式化为前端期望的结构"""
+    
+    def format_competitor_analysis(competitor_data):
+        """格式化新的competitor数据结构为前端期望的格式"""
+        if not competitor_data or 'error' in competitor_data:
+            return {}
+        
+        # 新的数据结构包含三个部分
+        base_analysis = competitor_data.get('竞品基础分析', {})
+        comparison_analysis = competitor_data.get('竞品对比分析', {})
+        unique_insights = competitor_data.get('竞品独有洞察', {})
+        
+        # 转换为前端期望的格式
+        formatted_result = {}
+        
+        # 处理综合竞争力评估
+        if comparison_analysis and '综合竞争力评估' in comparison_analysis:
+            formatted_result['综合竞争力评估'] = comparison_analysis['综合竞争力评估']
+        
+        # 处理四象限分析 - 转换为前端期望的格式
+        if comparison_analysis and '四象限对比分析' in comparison_analysis:
+            quadrant_data = comparison_analysis['四象限对比分析']
+            
+            # 创建前端期望的对比数据结构
+            # 从四象限数据重构为三个对比类别
+            love_comparison = []
+            unmet_comparison = []
+            motivation_comparison = []
+            
+            # 处理每个象限的数据
+            for quadrant_name, items in quadrant_data.items():
+                if quadrant_name == '说明':
+                    continue
+                    
+                for item in items:
+                    if isinstance(item, dict) and '对比主题' in item:
+                        comparison_item = {
+                            '对比主题': item['对比主题'],
+                            '我方频率': '高' if float(item.get('我方频率', '0%').replace('%', '')) >= 15 else '低',
+                            '竞品频率': '高' if float(item.get('竞品频率', '0%').replace('%', '')) >= 15 else '低',
+                            '对比洞察': item.get('对比洞察', ''),
+                            '象限特征': item.get('象限特征', '')
+                        }
+                        
+                        # 根据主题分类到不同的对比类别（这里需要根据实际数据结构调整）
+                        # 暂时都放到客户喜爱点对比中，实际应该根据数据来源分类
+                        love_comparison.append(comparison_item)
+            
+            formatted_result['客户喜爱点对比'] = love_comparison
+            formatted_result['未满足需求对比'] = unmet_comparison  # 需要类似的处理
+            formatted_result['购买动机对比'] = motivation_comparison  # 需要类似的处理
+        
+        # 添加基础分析数据
+        if base_analysis:
+            formatted_result['竞品基础数据'] = base_analysis
+        
+        # 添加独有洞察
+        if unique_insights:
+            formatted_result['竞品独有洞察'] = unique_insights
+        
+        return formatted_result
+    
     try:
         # 查找包含完整结果的analysis_results_TIMESTAMP目录
         import glob
@@ -428,7 +489,8 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
                 'unmetNeeds': results.get('unmet_needs', {}),
                 'opportunities': results.get('opportunity', {})
             },
-            'competitorAnalysis': results.get('competitor', {})
+            'competitorAnalysis': format_competitor_analysis(results.get('competitor', {})),
+            'competitor': results.get('competitor', {})  # 直接添加新的竞品数据结构
         }
         
         # 保存metadata到分析结果目录
@@ -771,7 +833,7 @@ def load_demo_results():
                 'unmetNeeds': results.get('unmet_needs', {}),
                 'opportunities': results.get('opportunity', {})
             },
-            'competitorAnalysis': results.get('competitor', {})
+            'competitorAnalysis': format_competitor_analysis(results.get('competitor', {}))
         }
         
         print(f"✅ Demo results loaded with {len([k for k, v in results.items() if v])} modules")

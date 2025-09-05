@@ -7,7 +7,10 @@ import sys
 import os
 import json
 import logging
+import re
+import subprocess
 from pathlib import Path
+from typing import Dict, Any
 from review_analyzer import ReviewAnalyzer
 import time
 
@@ -138,10 +141,20 @@ class ProgressTrackingAnalyzer(ReviewAnalyzer):
         output_progress(7, "running", "Analyzing rating root causes...")
         logger.info("步骤4: 星级评分根因分析")
         star_rating_prompt = self.load_prompt('star_rating_root_cause.md')
+        # 提取具体的喜爱点和未满足需求列表
+        love_points = []
+        unmet_needs_list = []
+        
+        if clean_consumer_love:
+            love_points = [item["赞美点"] for item in clean_consumer_love.get("核心赞美点分析", [])]
+        
+        if clean_unmet_needs:
+            unmet_needs_list = [item["痛点/未满足的需求"] for item in clean_unmet_needs.get("未满足需求分析", [])]
+        
         star_rating_context = {
             'product_type': clean_product_type if clean_product_type else product_type,
-            'consumer_love': clean_consumer_love if clean_consumer_love else "[消费者喜爱点分析不可用]",
-            'unmet_needs': clean_unmet_needs if clean_unmet_needs else "[未满足需求分析不可用]",
+            'consumer_love_points': love_points,
+            'unmet_needs_list': unmet_needs_list,
             'customer_review_data': self.cleaned_data['customer_review']
         }
         self.results['star_rating_root_cause'] = self.call_q_chat(star_rating_prompt, self.prepare_context_data(star_rating_context))
@@ -150,26 +163,104 @@ class ProgressTrackingAnalyzer(ReviewAnalyzer):
         with open(step_file, 'w', encoding='utf-8') as f:
             json.dump(self.results['star_rating_root_cause'], f, indent=2, ensure_ascii=False)
         logger.info(f"步骤4结果已保存: {step_file}")
-        output_progress(8, "completed", "Rating root cause analysis completed")
+        output_progress(7, "completed", "Rating root cause analysis completed")
         
-        # 6. 竞争对手分析
+        # 6. 竞争对手分析 (新的三阶段流程)
         output_progress(8, "running", "Analyzing competitor data...")
         logger.info("步骤5: 竞争对手分析")
-        competitor_prompt = self.load_prompt('competitor.md')
         
-        # 提取干净的消费者动机结果
+        # 提取我方维度清单
+        clean_consumer_love = self.extract_clean_result(self.results['consumer_love'])
+        clean_unmet_needs = self.extract_clean_result(self.results['unmet_needs'])
         clean_consumer_motivation = self.extract_clean_result(self.results['consumer_motivation'])
         
-        competitor_context = {
-            'product_type': clean_product_type if clean_product_type else product_type,
-            'consumer_love': clean_consumer_love if clean_consumer_love else "[消费者喜爱点分析不可用]",
-            'unmet_needs': clean_unmet_needs if clean_unmet_needs else "[未满足需求分析不可用]",
-            'consumer_motivation': clean_consumer_motivation if clean_consumer_motivation else "[购买动机分析不可用]",
-            'customer_review_data': self.cleaned_data['customer_review'],
-            'competitor_review_data': self.cleaned_data['competitor_review']
-        }
-        self.results['competitor'] = self.call_q_chat(competitor_prompt, self.prepare_context_data(competitor_context))
-        # 保存竞争对手分析结果
+        if clean_consumer_love or clean_unmet_needs or clean_consumer_motivation:
+            # 提取维度列表（只从成功的模块中提取）
+            our_love_dimensions = []
+            our_unmet_dimensions = []
+            our_motivation_dimensions = []
+            
+            if clean_consumer_love:
+                our_love_dimensions = [item["赞美点"] for item in clean_consumer_love.get("核心赞美点分析", [])]
+            if clean_unmet_needs:
+                our_unmet_dimensions = [item["痛点/未满足的需求"] for item in clean_unmet_needs.get("未满足需求分析", [])]
+            if clean_consumer_motivation:
+                our_motivation_dimensions = [item["动机"] for item in clean_consumer_motivation.get("具体购买动机", [])]
+            
+            logger.info(f"  提取维度: 喜爱点{len(our_love_dimensions)}个, 未满足需求{len(our_unmet_dimensions)}个, 购买动机{len(our_motivation_dimensions)}个")
+            
+            # 阶段1: 竞品基础分析
+            logger.info("  阶段1: 竞品基础分析")
+            competitor_base_prompt = self.load_prompt('competitor_analysis_base.md')
+            
+            competitor_base_context = {
+                'our_love_dimensions': our_love_dimensions,
+                'our_unmet_dimensions': our_unmet_dimensions,
+                'our_motivation_dimensions': our_motivation_dimensions,
+                'competitor_review_data': self.cleaned_data['competitor_review']
+            }
+            self.results['competitor_base'] = self.call_q_chat(competitor_base_prompt, self.prepare_context_data(competitor_base_context))
+            
+            # 保存竞品基础分析结果
+            step_file = self.output_dir / "competitor_base.json"
+            with open(step_file, 'w', encoding='utf-8') as f:
+                json.dump(self.results['competitor_base'], f, indent=2, ensure_ascii=False)
+            logger.info(f"  阶段1结果已保存: {step_file}")
+            
+            # 阶段2: 竞品对比分析
+            logger.info("  阶段2: 竞品对比分析")
+            clean_competitor_base = self.extract_clean_result(self.results['competitor_base'])
+            
+            if clean_competitor_base:
+                competitor_comparison_prompt = self.load_prompt('competitor_comparison.md')
+                competitor_comparison_context = {
+                    'our_consumer_love': clean_consumer_love or {"核心赞美点分析": []},
+                    'our_unmet_needs': clean_unmet_needs or {"未满足需求分析": []},
+                    'our_consumer_motivation': clean_consumer_motivation or {"具体购买动机": []},
+                    'competitor_consumer_love': clean_competitor_base.get('竞品消费者喜爱点', []),
+                    'competitor_unmet_needs': clean_competitor_base.get('竞品未满足需求', []),
+                    'competitor_consumer_motivation': clean_competitor_base.get('竞品购买动机', [])
+                }
+                self.results['competitor_comparison'] = self.call_q_chat(competitor_comparison_prompt, self.prepare_context_data(competitor_comparison_context))
+                
+                # 保存竞品对比分析结果
+                step_file = self.output_dir / "competitor_comparison.json"
+                with open(step_file, 'w', encoding='utf-8') as f:
+                    json.dump(self.results['competitor_comparison'], f, indent=2, ensure_ascii=False)
+                logger.info(f"  阶段2结果已保存: {step_file}")
+            else:
+                logger.warning("  竞品基础分析失败，跳过对比分析")
+                self.results['competitor_comparison'] = {"error": "竞品基础分析失败"}
+            
+            # 阶段3: 竞品独有洞察
+            logger.info("  阶段3: 竞品独有洞察")
+            competitor_unique_prompt = self.load_prompt('competitor_unique_insights.md')
+            all_our_dimensions = our_love_dimensions + our_unmet_dimensions + our_motivation_dimensions
+            competitor_unique_context = {
+                'competitor_review_data': self.cleaned_data['competitor_review'],
+                'our_analyzed_dimensions': all_our_dimensions
+            }
+            self.results['competitor_unique'] = self.call_q_chat(competitor_unique_prompt, self.prepare_context_data(competitor_unique_context))
+            
+            # 保存竞品独有洞察结果
+            step_file = self.output_dir / "competitor_unique.json"
+            with open(step_file, 'w', encoding='utf-8') as f:
+                json.dump(self.results['competitor_unique'], f, indent=2, ensure_ascii=False)
+            logger.info(f"  阶段3结果已保存: {step_file}")
+            
+            # 合并最终竞品分析结果
+            final_competitor_result = {
+                "竞品基础分析": clean_competitor_base if clean_competitor_base else {"error": "分析失败"},
+                "竞品对比分析": self.extract_clean_result(self.results['competitor_comparison']) or {"error": "分析失败"},
+                "竞品独有洞察": self.extract_clean_result(self.results['competitor_unique']) or {"error": "分析失败"}
+            }
+            self.results['competitor'] = final_competitor_result
+            
+        else:
+            logger.warning("我方基础分析全部失败，跳过竞品分析")
+            self.results['competitor'] = {"error": "我方基础分析全部失败，无法进行竞品对比"}
+        
+        # 保存最终竞品分析结果
         step_file = self.output_dir / "competitor.json"
         with open(step_file, 'w', encoding='utf-8') as f:
             json.dump(self.results['competitor'], f, indent=2, ensure_ascii=False)
