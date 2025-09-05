@@ -73,6 +73,19 @@ class ReviewAnalyzer:
             if 'Review Rating' in competitor_df.columns:
                 competitor_df = competitor_df.rename(columns={'Review Rating': 'rating'})
             
+            # 只保留必要的列，大幅减少数据量
+            required_columns = ['MP ID', 'ASIN', 'Submission Date', 'review_text', 'rating']
+            
+            # 过滤客户评论数据
+            available_customer_cols = [col for col in required_columns if col in customer_df.columns]
+            customer_df = customer_df[available_customer_cols]
+            logger.info(f"客户评论保留列: {available_customer_cols}")
+            
+            # 过滤竞争对手评论数据  
+            available_competitor_cols = [col for col in required_columns if col in competitor_df.columns]
+            competitor_df = competitor_df[available_competitor_cols]
+            logger.info(f"竞争对手评论保留列: {available_competitor_cols}")
+            
             # 基于review_text字段去重和清理
             if 'review_text' in customer_df.columns:
                 customer_df_clean = customer_df.dropna(subset=['review_text']).drop_duplicates(subset=['review_text'], keep='first')
@@ -255,15 +268,22 @@ class ReviewAnalyzer:
         # 1. 清理Unicode转义的ANSI序列 (\u001b[...)
         output = re.sub(r'\\u001b\[[0-9;]*[mK]?', '', output)
         
-        # 2. 清理实际的ANSI转义序列 (\x1B[...)
+        # 2. 清理连续的ANSI重置序列
+        output = re.sub(r'(\\u001b\[0m)+', '', output)
+        output = re.sub(r'(\\u001b\[m)+', '', output)
+        
+        # 3. 清理实际的ANSI转义序列 (\x1B[...)
         ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
         output = ansi_escape.sub('', output)
         
-        # 3. 清理其他控制字符和Unicode控制字符
+        # 4. 清理其他控制字符和Unicode控制字符
         output = re.sub(r'[\x00-\x1f\x7f-\x9f]', '', output)
         
-        # 4. 清理可能残留的ANSI相关字符
-        output = re.sub(r'\[0m|\[m', '', output)
+        # 5. 清理可能残留的ANSI相关字符和提示符
+        output = re.sub(r'\[0m|\[m|> ', '', output)
+        
+        # 6. 清理开头的提示符和空白
+        output = re.sub(r'^[>\s]*', '', output.strip())
         
         print(f"🧹 ANSI清理后的输出长度: {len(output)}")
         
