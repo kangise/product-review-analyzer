@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-验证Agent文件夹中所有prompt的参数是否正确
+验证agent文件夹中所有prompt的参数是否正确
 """
 
 import os
@@ -16,7 +16,7 @@ def extract_parameters_from_prompt(prompt_content):
 
 def validate_prompts():
     """验证所有prompt文件的参数"""
-    agent_dir = Path("Agent")
+    agent_dir = Path("agent")
     
     # 定义每个prompt文件应该使用的参数
     expected_params = {
@@ -26,12 +26,15 @@ def validate_prompts():
         'consumer_motivation.md': {'product_type', 'customer_review_data'},
         'consumer_love.md': {'product_type', 'customer_review_data'},
         'unmet_needs.md': {'product_type', 'customer_review_data'},
-        'opportunity.md': {'product_type', 'consumer_love', 'unmet_needs', 'consumer_scenario', 'customer_review_data'},
+        'opportunity.md': {'product_type', 'consumer_love', 'unmet_needs', 'consumer_scenario', 'customer_review_data', 'competitor_analysis'},
         'star_rating_root_cause.md': {'product_type', 'customer_review_data', 'consumer_love', 'unmet_needs'},
-        'competitor.md': {'product_type', 'customer_review_data', 'competitor_review_data', 'consumer_love', 'unmet_needs', 'consumer_motivation'}
+        'competitor.md': {'product_type', 'customer_review_data', 'competitor_review_data', 'consumer_love', 'unmet_needs', 'consumer_motivation'},
+        'competitor_analysis_base.md': {'our_love_dimensions', 'our_unmet_dimensions', 'our_motivation_dimensions', 'competitor_review_data'},
+        'competitor_comparison.md': {'our_consumer_love', 'our_unmet_needs', 'our_consumer_motivation', 'competitor_consumer_love', 'competitor_unmet_needs', 'competitor_consumer_motivation'},
+        'competitor_unique_insights.md': {'competitor_review_data', 'our_analyzed_dimensions'}
     }
     
-    print("🔍 验证Agent文件夹中的prompt参数...")
+    print("🔍 验证agent文件夹中的prompt参数...")
     print("=" * 60)
     
     all_valid = True

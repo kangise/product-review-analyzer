@@ -22,7 +22,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
   theme = 'light'
 }) => {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
-    new Set(['consumer-love', 'star-rating'])
+    new Set(['consumer-love', 'unmet-needs', 'star-rating'])
   )
   const [selectedQuotes, setSelectedQuotes] = useState<{quotes: string[], title: string} | null>(null)
   const [hoveredPoint, setHoveredPoint] = useState<{x: number, y: number, info: string} | null>(null)
@@ -378,6 +378,189 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                       <Heart className="h-8 w-8 mx-auto mb-2 opacity-50" />
                       <p>{language === 'en' ? 'No customer satisfaction data available' : '暂无客户满意度数据'}</p>
                     </div>
+                  )}
+                </div>
+              )}
+            </CardContent>
+          )}
+        </Card>
+      </motion.div>
+
+      {/* Unmet Needs Analysis Module */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <Card className="border-clean shadow-clean">
+          <CardHeader 
+            className="spacing-system-lg border-b border-border cursor-pointer"
+            onClick={() => toggleSection('unmet-needs')}
+          >
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+              <div className="gap-system-sm flex items-center">
+                <AlertTriangle className="h-4 w-4 text-primary" />
+                <span>{language === 'en' ? 'Unmet Needs Analysis' : '未满足需求分析'}</span>
+              </div>
+              <motion.div
+                animate={{ rotate: expandedSections.has('unmet-needs') ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </motion.div>
+            </CardTitle>
+          </CardHeader>
+          
+          {expandedSections.has('unmet-needs') && (
+            <CardContent className="spacing-system-lg">
+              {analysisResult?.ownBrandAnalysis?.unmetNeeds?.消费者未满足需求洞察 && (
+                <div className="gap-system-lg flex flex-col">
+                  {/* 消费者洞察总结 - 处理对象结构 */}
+                  {typeof analysisResult.ownBrandAnalysis.unmetNeeds.消费者未满足需求洞察 === 'object' && (
+                    <div className="gap-system-md flex flex-col">
+                      {Object.entries(analysisResult.ownBrandAnalysis.unmetNeeds.消费者未满足需求洞察).map(([key, value]: [string, any]) => (
+                        <motion.div 
+                          key={key}
+                          className="spacing-system-md bg-accent rounded-lg border-clean"
+                          whileHover={{ scale: 1.01 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div className="flex items-center gap-2 mb-2">
+                            <Info className="h-4 w-4 text-primary" />
+                            <h4 className="font-medium text-sm text-foreground">
+                              {key}
+                            </h4>
+                          </div>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {String(value)}
+                          </p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Top 3 未满足需求 - 高亮显示 */}
+                  {analysisResult?.ownBrandAnalysis?.unmetNeeds?.未满足需求分析 && (
+                    <>
+                      <div className="p-6 bg-gradient-to-r from-red-50 to-rose-50 rounded-lg border border-red-200">
+                        <div className="flex items-center justify-between mb-4">
+                          <h4 className="font-medium text-sm flex items-center gap-2">
+                            <AlertTriangle className="h-4 w-4 text-red-600" />
+                            {language === 'en' ? 'Top 3 Critical Issues' : 'Top 3 关键问题'}
+                          </h4>
+                          <div className="text-xs text-red-700 bg-red-100 px-2 py-1 rounded">
+                            {language === 'en' ? 'Priority Fix Areas' : '优先修复领域'}
+                          </div>
+                        </div>
+                        
+                        {/* Top 3 未满足需求项目 - 使用真实数据 */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          {analysisResult.ownBrandAnalysis.unmetNeeds.未满足需求分析
+                            .sort((a: any, b: any) => {
+                              const aFrequency = parseFloat(a['问题严重性/频率']?.replace('%', '')) || 0;
+                              const bFrequency = parseFloat(b['问题严重性/频率']?.replace('%', '')) || 0;
+                              return bFrequency - aFrequency;
+                            })
+                            .slice(0, 3)
+                            .map((need: any, index: number) => {
+                              const percentage = parseFloat(need['问题严重性/频率']?.replace('%', '')) || 0;
+                              
+                              return (
+                                <div key={index} className="flex flex-col items-center text-center">
+                                  <div className="relative w-20 h-20 mb-3">
+                                    <svg width="80" height="80" className="transform -rotate-90" viewBox="0 0 80 80">
+                                      <circle
+                                        cx="40"
+                                        cy="40"
+                                        r="30"
+                                        stroke="rgba(239, 68, 68, 0.2)"
+                                        strokeWidth="6"
+                                        fill="transparent"
+                                      />
+                                      <circle
+                                        cx="40"
+                                        cy="40"
+                                        r="30"
+                                        stroke="#dc2626"
+                                        strokeWidth="6"
+                                        fill="transparent"
+                                        strokeDasharray={`${2 * Math.PI * 30}`}
+                                        strokeDashoffset={`${2 * Math.PI * 30 * (1 - percentage / 100)}`}
+                                        strokeLinecap="round"
+                                      />
+                                    </svg>
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                      <span className="text-lg font-bold text-red-700">
+                                        {percentage.toFixed(0)}%
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="text-sm font-medium text-red-800 mb-1">
+                                    {need['痛点/未满足的需求'] || need.未满足需求}
+                                  </div>
+                                  <div className="text-xs text-red-600 bg-red-100 px-2 py-1 rounded">
+                                    #{index + 1} {language === 'en' ? 'Critical' : '关键问题'}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+
+                      {/* 详细未满足需求分析 - 使用实际数据 */}
+                      <div className="gap-system-md grid md:grid-cols-2">
+                        {analysisResult.ownBrandAnalysis.unmetNeeds.未满足需求分析.map((need: any, index: number) => {
+                          const frequency = parseFloat(need['问题严重性/频率']?.replace('%', '')) || 0;
+                          
+                          return (
+                            <motion.div
+                              key={index}
+                              className="spacing-system-md bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800"
+                              whileHover={{ scale: 1.02 }}
+                              transition={{ duration: 0.2 }}
+                            >
+                              <div className="flex items-center justify-between mb-3">
+                                <div className="flex items-center gap-2">
+                                  <AlertTriangle className="h-4 w-4 text-red-600" />
+                                  <h5 className="font-medium text-sm text-red-700 dark:text-red-300">
+                                    {need['痛点/未满足的需求'] || need.未满足需求}
+                                  </h5>
+                                </div>
+                                <Badge variant="destructive" className="text-xs">
+                                  {need['问题严重性/频率'] || need.频率}
+                                </Badge>
+                              </div>
+                              
+                              <div className="mb-3">
+                                <Progress 
+                                  value={frequency} 
+                                  className="h-2 bg-red-100 dark:bg-red-900/30"
+                                />
+                              </div>
+                              
+                              <p className="text-sm text-red-600 dark:text-red-400 mb-3 leading-relaxed">
+                                {need.消费者描述}
+                              </p>
+                              
+                              {need.相关评论示例 && need.相关评论示例.length > 0 && (
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-7 px-3 text-xs text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30"
+                                  onClick={() => showQuotes(need.相关评论示例, need['痛点/未满足的需求'] || need.未满足需求)}
+                                >
+                                  <MessageSquare className="h-3 w-3 mr-1" />
+                                  {language === 'en' ? 'View Examples' : '查看示例'}
+                                  <Badge variant="outline" className="ml-2 text-xs">
+                                    {need.相关评论示例.length}
+                                  </Badge>
+                                </Button>
+                              )}
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+                    </>
                   )}
                 </div>
               )}

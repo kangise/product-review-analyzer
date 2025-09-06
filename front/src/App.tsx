@@ -565,7 +565,7 @@ interface HistoricalReport {
   targetCategory?: string
 }
 
-type ActiveModule = 'dashboard' | 'upload' | 'own-brand-insights' | 'own-brand-feedback' | 'own-brand-unmet' | 'competitive' | 'opportunities' | 'history'
+type ActiveModule = 'dashboard' | 'upload' | 'own-brand-insights' | 'own-brand-feedback' | 'competitive' | 'opportunities' | 'history'
 type ThemeMode = 'light' | 'dark' | 'system'
 type Language = 'en' | 'zh'
 
@@ -1024,8 +1024,7 @@ export default function App() {
       available: !!analysisResult,
       children: [
         { id: 'own-brand-insights', label: t.nav.ownBrandInsights, icon: Target },
-        { id: 'own-brand-feedback', label: t.nav.ownBrandFeedback, icon: MessageSquare },
-        { id: 'own-brand-unmet', label: t.nav.ownBrandUnmet, icon: AlertCircle }
+        { id: 'own-brand-feedback', label: t.nav.ownBrandFeedback, icon: MessageSquare }
       ]
     },
     {
@@ -1640,16 +1639,6 @@ export default function App() {
           t={t}
           analysisResult={analysisResult}
           theme={theme}
-        />
-      )
-    }
-
-    if (activeModule === 'own-brand-unmet') {
-      return (
-        <UnmetNeeds 
-          language={language}
-          t={t}
-          analysisResult={analysisResult}
         />
       )
     }

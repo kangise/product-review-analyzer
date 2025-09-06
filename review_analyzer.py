@@ -19,7 +19,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 class ReviewAnalyzer:
-    def __init__(self, prompts_dir: str = "Agent", output_language: str = "en"):
+    def __init__(self, prompts_dir: str = "agent", output_language: str = "en"):
         """
         初始化评论分析器
         
@@ -33,14 +33,14 @@ class ReviewAnalyzer:
         
         # 创建带时间戳的输出目录
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        self.output_dir = Path(f"analysis_results_{timestamp}")
+        self.output_dir = Path(f"result/analysis_results_{timestamp}")
         self.output_dir.mkdir(exist_ok=True)
         
         logger.info(f"输出目录创建: {self.output_dir}")
         
         # 确保prompts目录存在
         if not self.prompts_dir.exists():
-            raise FileNotFoundError(f"Agent目录不存在: {self.prompts_dir}")
+            raise FileNotFoundError(f"agent目录不存在: {self.prompts_dir}")
         
     def load_and_clean_data(self, customer_review_path: str, competitor_review_path: str) -> Dict[str, pd.DataFrame]:
         """

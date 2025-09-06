@@ -55,7 +55,7 @@ def main():
             logger.info(f"  {i}. ✅ {step}")
         
         logger.info("\n📊 结果文件:")
-        results_dir = Path("results")
+        results_dir = Path("result")
         if results_dir.exists():
             for file in results_dir.glob("*.json"):
                 logger.info(f"  📄 {file.name}")

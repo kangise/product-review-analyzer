@@ -54,7 +54,9 @@ Novochoice AI/
 │   ├── Competitor ASIN Reviews.csv # Competitor review data
 │   └── cleaned/                   # Preprocessed data
 ├── 📈 Results
-│   └── [Latest analysis results]  # JSON outputs and reports
+│   └── analysis_results_*/        # Analysis outputs and reports
+├── 📚 Documentation
+│   └── *.md                       # Historical logs and documentation
 └── 🌐 Frontend
     └── [React TypeScript Application] # Professional UI interface
 ```

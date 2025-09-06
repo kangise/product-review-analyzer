@@ -394,11 +394,11 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
         return formatted_result
     
     try:
-        # 查找包含完整结果的analysis_results_TIMESTAMP目录
+        # 查找包含完整结果的result/analysis_results_TIMESTAMP目录
         import glob
-        result_dirs = glob.glob('analysis_results_*')
+        result_dirs = glob.glob('result/analysis_results_*')
         if not result_dirs:
-            print("No analysis results found, loading demo data from demoresult folder...")
+            print("No analysis results found, loading demo data from result/demoresult folder...")
             return load_demo_results()
         
         # 按时间排序，从最新开始查找
@@ -441,7 +441,7 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
                 break
         
         if not results_dir:
-            print("No complete analysis results found, loading demo data from demoresult folder...")
+            print("No complete analysis results found, loading demo data from result/demoresult folder...")
             return load_demo_results()
         
         print(f"Loading results from: {results_dir}")
@@ -464,8 +464,8 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
         actual_timestamp = datetime.now().isoformat()
         if results_dir:
             try:
-                # 从目录名提取时间戳 (格式: analysis_results_YYYYMMDD_HHMMSS)
-                timestamp_str = results_dir.replace('analysis_results_', '')
+                # 从目录名提取时间戳 (格式: result/analysis_results_YYYYMMDD_HHMMSS)
+                timestamp_str = results_dir.replace('result/analysis_results_', '')
                 dt = datetime.strptime(timestamp_str, '%Y%m%d_%H%M%S')
                 actual_timestamp = dt.isoformat()
                 print(f"📅 使用实际分析时间: {actual_timestamp} (从目录 {results_dir})")
@@ -671,7 +671,7 @@ def get_reports():
         from datetime import datetime
         
         # 获取所有分析结果目录
-        result_dirs = glob.glob('analysis_results_*')
+        result_dirs = glob.glob('result/analysis_results_*')
         result_dirs.sort(reverse=True)  # 按时间倒序
         
         reports = []
@@ -679,7 +679,7 @@ def get_reports():
         for dir_name in result_dirs:
             try:
                 # 从目录名提取时间戳
-                timestamp_str = dir_name.replace('analysis_results_', '')
+                timestamp_str = dir_name.replace('result/analysis_results_', '')
                 
                 # 解析时间戳
                 try:
@@ -765,9 +765,9 @@ def get_report(report_id):
     return jsonify({'error': 'Report not found'}), 404
 
 def load_demo_results():
-    """从demoresult文件夹加载demo数据"""
+    """从result/demoresult文件夹加载demo数据"""
     try:
-        demo_dir = 'demoresult'
+        demo_dir = 'result/demoresult'
         if not os.path.exists(demo_dir):
             raise Exception("Demo results directory not found")
         
