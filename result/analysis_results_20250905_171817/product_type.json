@@ -1,0 +1,183 @@
+{
+  "technical_specifications": [
+    {
+      "name": "视频分辨率",
+      "common_values": [
+        "4K 60fps",
+        "4K 30fps",
+        "1080p 120fps",
+        "1080p 60fps"
+      ],
+      "importance": "极高"
+    },
+    {
+      "name": "防水等级",
+      "common_values": [
+        "IPX8 10米",
+        "IPX7 5米",
+        "IPX6 3米",
+        "生活防水"
+      ],
+      "importance": "高"
+    },
+    {
+      "name": "图像稳定",
+      "common_values": [
+        "6轴防抖",
+        "3轴防抖",
+        "电子防抖",
+        "无防抖"
+      ],
+      "importance": "极高"
+    },
+    {
+      "name": "电池续航",
+      "common_values": [
+        "90-120分钟",
+        "60-90分钟",
+        "30-60分钟",
+        "可更换电池"
+      ],
+      "importance": "高"
+    },
+    {
+      "name": "存储容量",
+      "common_values": [
+        "支持512GB",
+        "支持256GB",
+        "支持128GB",
+        "内置64GB"
+      ],
+      "importance": "中"
+    },
+    {
+      "name": "重量尺寸",
+      "common_values": [
+        "50-80克",
+        "80-120克",
+        "120-200克",
+        "超轻便设计"
+      ],
+      "importance": "中"
+    },
+    {
+      "name": "连接方式",
+      "common_values": [
+        "WiFi 6",
+        "蓝牙5.0",
+        "USB-C",
+        "无线传输"
+      ],
+      "importance": "中"
+    }
+  ],
+  "product_functions": {
+    "core_functions": [
+      "高清视频录制",
+      "照片拍摄",
+      "慢动作录制",
+      "延时摄影",
+      "循环录制",
+      "一键分享",
+      "手机APP控制"
+    ],
+    "differentiated_functions": [
+      "AI智能剪辑",
+      "语音控制",
+      "手势控制",
+      "实时直播",
+      "360度全景拍摄",
+      "水下拍摄模式",
+      "夜景增强",
+      "运动轨迹追踪",
+      "自动剪辑生成"
+    ]
+  },
+  "user_scenarios": [
+    {
+      "scenario_name": "户外运动记录",
+      "description": "滑雪、冲浪、攀岩、骑行等极限运动拍摄",
+      "key_concerns": [
+        "防抖效果",
+        "防水性能",
+        "电池续航",
+        "画质清晰度"
+      ],
+      "usage_frequency": "周末或假期",
+      "duration": "2-6小时连续使用"
+    },
+    {
+      "scenario_name": "旅行记录",
+      "description": "旅游景点打卡、风景记录、人文拍摄",
+      "key_concerns": [
+        "便携性",
+        "画质效果",
+        "操作简便",
+        "存储容量"
+      ],
+      "usage_frequency": "每月1-2次",
+      "duration": "全天间歇使用"
+    },
+    {
+      "scenario_name": "日常生活记录",
+      "description": "家庭聚会、宠物拍摄、生活vlog制作",
+      "key_concerns": [
+        "易用性",
+        "分享便利",
+        "价格实惠",
+        "视频质量"
+      ],
+      "usage_frequency": "每周2-3次",
+      "duration": "30分钟-2小时"
+    },
+    {
+      "scenario_name": "专业内容创作",
+      "description": "短视频制作、直播、商业拍摄",
+      "key_concerns": [
+        "专业功能",
+        "画质标准",
+        "稳定性",
+        "后期兼容性"
+      ],
+      "usage_frequency": "每日使用",
+      "duration": "4-8小时"
+    }
+  ],
+  "market_insights": {
+    "key_trends": [
+      "AI智能化程度不断提升",
+      "防抖技术成为核心竞争力",
+      "轻量化设计趋势明显",
+      "云端服务集成增强",
+      "直播功能需求增长",
+      "续航能力持续改进",
+      "价格区间进一步细分"
+    ],
+    "price_segments": [
+      {
+        "segment": "入门级",
+        "price_range": "300-800元",
+        "target_users": "普通消费者、学生群体",
+        "key_features": "基础拍摄、简单防水、入门防抖"
+      },
+      {
+        "segment": "中端级",
+        "price_range": "800-2000元",
+        "target_users": "运动爱好者、旅行达人",
+        "key_features": "4K录制、良好防抖、防水性能"
+      },
+      {
+        "segment": "高端级",
+        "price_range": "2000-4000元",
+        "target_users": "专业用户、内容创作者",
+        "key_features": "专业防抖、高级功能、优秀画质"
+      },
+      {
+        "segment": "旗舰级",
+        "price_range": "4000元以上",
+        "target_users": "专业摄影师、商业用户",
+        "key_features": "顶级配置、全面功能、极致性能"
+      }
+    ]
+  }
+}

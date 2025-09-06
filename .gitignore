@@ -42,6 +42,7 @@ logs/
 
 # Analysis results (keep only the latest)
 analysis_results_*/
+!result/analysis_results_*/
 !analysis_results_20250827_115145/
 
 # Test outputs

@@ -1,0 +1,190 @@
+{
+  "评分分布分析": {
+    "总体评分分布": {
+      "5星": "62.8%",
+      "4星": "8.2%",
+      "3星": "5.1%",
+      "2星": "3.8%",
+      "1星": "20.1%"
+    },
+    "关键洞察": "产品评价呈现明显的两极分化，360度拍摄功能、8K画质和易用性带来了大量5星好评，但产品可靠性问题、软件兼容性和客户服务问题导致了显著的1星差评。"
+  },
+  "按评分划分的消费者反馈": {
+    "5星评价": {
+      "主要满意点": [
+        {
+          "喜爱点": "360度全景拍摄功能",
+          "频率": "78.5%",
+          "示例评论": [
+            "The 360° capture is stunning, the stabilization is top-notch, and the image quality is seriously impressive",
+            "I love how it captures absolutely everything, no worrying about missing shots",
+            "360 is an amazing camera that is very fun to use. It is very easy to use"
+          ]
+        },
+        {
+          "喜爱点": "8K高清画质",
+          "频率": "65.2%",
+          "示例评论": [
+            "The 8K footage is super crisp, and the 360° view makes everything feel so immersive",
+            "8K looks insane. Took it out for some rail stuff and the tracking actually followed for once",
+            "The 8K video quality is off the charts"
+          ]
+        },
+        {
+          "喜爱点": "易于安装和使用",
+          "频率": "52.3%",
+          "示例评论": [
+            "Very easy to use and it has a lot of features",
+            "This camera is ridiculously easy to use. Just lock the angle on your bike then shoot",
+            "Easy to use, long battery life, great stabilization"
+          ]
+        },
+        {
+          "喜爱点": "优秀的音频质量",
+          "频率": "41.7%",
+          "示例评论": [
+            "The audio is really crisp as well",
+            "Great camera, sound is awesome with the wind noise reduction",
+            "X5 audio quality has seen significant improvements with the built-in wind guard"
+          ]
+        }
+      ]
+    },
+    "4星评价": {
+      "主要满意点": [
+        {
+          "喜爱点": "8K高清画质",
+          "频率": "68.4%",
+          "示例评论": [
+            "Fantastic camera! Excellent video!. It has a learning curve",
+            "Love the camera, but don't love that the app to edit videos doesn't work on any of my PCs"
+          ]
+        },
+        {
+          "喜爱点": "360度全景拍摄功能",
+          "频率": "57.9%",
+          "示例评论": [
+            "This is the first 360 degree camera I've owned. 360 camera was interesting",
+            "Great camera. Awesome editing features and technology"
+          ]
+        }
+      ],
+      "主要不满点": [
+        {
+          "未满足的需求": "软件兼容性",
+          "频率": "47.4%",
+          "示例评论": [
+            "Love the camera, but don't love that the app to edit videos doesn't work on any of my PCs",
+            "However, the companion app could benefit from further refinement"
+          ]
+        },
+        {
+          "未满足的需求": "产品可靠性",
+          "频率": "31.6%",
+          "示例评论": [
+            "Camera gets hot alot",
+            "Great video capture. Im having fun with it. The battery only lasts a few hours of continuous use"
+          ]
+        }
+      ]
+    },
+    "3星评价": {
+      "主要满意点": [],
+      "主要不满点": [
+        {
+          "未满足的需求": "软件兼容性",
+          "频率": "60.0%",
+          "示例评论": [
+            "Fun camera but horrible app! If they don't fix the Insta360 app soon. I will return it!!!",
+            "Does get too hot and turns off for excessive heat it not fair to pay so much money for that cámara"
+          ]
+        },
+        {
+          "未满足的需求": "产品可靠性",
+          "频率": "50.0%",
+          "示例评论": [
+            "Does get too hot and turns off for excessive heat",
+            "Camera is very laggy and gets very hot very quickly when recording"
+          ]
+        },
+        {
+          "未满足的需求": "价格合理性",
+          "频率": "30.0%",
+          "示例评论": [
+            "Too expensive. You don't even get an SD card with it",
+            "Microphone on this is better than the X4 but the image quality is the same, not worth the extra $100"
+          ]
+        }
+      ]
+    },
+    "2星评价": {
+      "主要满意点": [],
+      "主要不满点": [
+        {
+          "未满足的需求": "产品可靠性",
+          "频率": "66.7%",
+          "示例评论": [
+            "The camera overheats. At room temperature, 8K with a connected power bank overheats after 22.5 minutes",
+            "This was my first live action 360 camera, and I enjoyed this camera a lot while I noticed the body of camera is heated when it is on"
+          ]
+        },
+        {
+          "未满足的需求": "软件兼容性",
+          "频率": "50.0%",
+          "示例评论": [
+            "WIFI connection issues that make it unusable. I have to be within 3-4 feet from the device to keep connection",
+            "My main frustration stems from its abysmal low-light performance, particularly with 8K files"
+          ]
+        },
+        {
+          "未满足的需求": "连接稳定性",
+          "频率": "33.3%",
+          "示例评论": [
+            "WIFI connection issues that make it unusable",
+            "ALREADY OFF TO A BAD START. PLACED A ORDER ON SUNDAY WITH 2 DAY SHIPPING"
+          ]
+        }
+      ]
+    },
+    "1星评价": {
+      "主要不满点": [
+        {
+          "未满足的需求": "产品可靠性",
+          "频率": "68.9%",
+          "示例评论": [
+            "This camera is literal garbage. It overheats and turns off after one hour",
+            "Camera stopped working 1 day into vacation in Mexico",
+            "I bought it (new) and it worked fine, I had used it indoors for tests like if it works and all the modes and it was fine, I went on a trip 2 weeks ago and i took it with, recorded fir 30 minutes maybe and it turned off and never turned on again"
+          ]
+        },
+        {
+          "未满足的需求": "客户服务",
+          "频率": "45.9%",
+          "示例评论": [
+            "Insta360 is the worst company I've ever worked with from a support perspective in my entire life",
+            "I hate this product I hate your lack of customer help, you have lied to me a half dozen times making promises that you haven't kept",
+            "Customer service IS ABYSMAL! They are worse than DJI's customer service"
+          ]
+        },
+        {
+          "未满足的需求": "软件兼容性",
+          "频率": "41.0%",
+          "示例评论": [
+            "The camera won't let you do anything without connecting it to the app for no reason. The app will not let me update to 2.0 to work with my new X5",
+            "Doesn't work. App update hasn't been released. Terrible after all the hype",
+            "Camera has cool features it's too bad the app is so terrible that it makes editing almost imposible"
+          ]
+        },
+        {
+          "未满足的需求": "连接稳定性",
+          "频率": "32.8%",
+          "示例评论": [
+            "Once I receive this item, it would not connect to my phone or anything else and I had to return it",
+            "Piece of junk, DONT BUY THIS CRAP .wont connect to Bluetooth and won't update software!!",
+            "the fact that my camera will not connect to wifi after 10/15 minutes of use"
+          ]
+        }
+      ]
+    }
+  }
+}
