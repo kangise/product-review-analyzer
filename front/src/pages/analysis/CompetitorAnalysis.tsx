@@ -49,8 +49,28 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
   const competitorComparison = competitorData?.竞品对比分析 || {}
   const competitorUnique = competitorData?.竞品独有洞察 || {}
   
+  console.log('=== CompetitorAnalysis Debug ===')
   console.log('CompetitorAnalysis received analysisResult:', analysisResult)
   console.log('CompetitorAnalysis competitorData:', competitorData)
+  console.log('Has competitor data:', !!competitorData)
+  console.log('Competitor keys:', Object.keys(competitorData))
+  console.log('Has comparison:', !!competitorComparison)
+  console.log('Comparison keys:', Object.keys(competitorComparison))
+  console.log('Has evaluation:', !!competitorComparison?.综合竞争力评估)
+  console.log('Has advantages:', !!competitorComparison?.综合竞争力评估?.竞争优势分析)
+  console.log('Advantages length:', competitorComparison?.综合竞争力评估?.竞争优势分析?.length)
+  console.log('=== End Debug ===')
+
+  // 如果没有竞品数据，显示提示
+  if (!competitorData || Object.keys(competitorData).length === 0) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-muted-foreground">
+          {language === 'en' ? 'No competitor data available' : '暂无竞品分析数据'}
+        </p>
+      </div>
+    )
+  }
 
   return (
     <motion.div 

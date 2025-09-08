@@ -965,6 +965,7 @@ export default function App() {
 
   const loadHistoricalReport = async (reportId: string) => {
     try {
+      console.log('🔄 Loading historical report:', reportId)
       const response = await fetch(`${apiBase}/report/${reportId}`, {
         headers: { 'Authorization': `Bearer ${publicAnonKey}` }
       })
@@ -974,8 +975,14 @@ export default function App() {
       }
       
       const report = await response.json()
+      console.log('📊 Loaded report data:', report)
+      console.log('📊 Report has competitor:', !!report.competitor)
+      console.log('📊 Report competitor keys:', report.competitor ? Object.keys(report.competitor) : 'none')
+      
       setAnalysisResult(report)
       setActiveModule('own-brand-insights')
+      
+      console.log('✅ Report loaded and state updated')
     } catch (error) {
       console.error('Failed to load report:', error)
       setError(t.errors.loadReportFailed)
@@ -1672,7 +1679,7 @@ export default function App() {
           onSelectReport={(reportId) => {
             // 加载选中的报告
             console.log('Loading report:', reportId)
-            // 这里可以添加加载特定报告的逻辑
+            loadHistoricalReport(reportId)
           }}
           currentReportId={analysisResult?.id}
         />

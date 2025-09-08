@@ -759,10 +759,86 @@ def get_reports():
         print(f"Error getting reports: {e}")
         return jsonify({'reports': []})
 
-@app.route('/report/<report_id>', methods=['GET'])
+@app.route('/report/<path:report_id>', methods=['GET'])
 def get_report(report_id):
     """获取特定报告"""
-    return jsonify({'error': 'Report not found'}), 404
+    try:
+        print(f"Loading report: {report_id}")
+        
+        # 确保report_id是安全的路径
+        if not report_id.startswith('result/analysis_results_'):
+            return jsonify({'error': 'Invalid report ID'}), 400
+        
+        # 检查目录是否存在
+        if not os.path.exists(report_id):
+            return jsonify({'error': 'Report not found'}), 404
+        
+        # 加载分析结果
+        raw_results = {}
+        
+        # 定义需要加载的文件
+        required_files = [
+            'consumer_profile.json', 'consumer_motivation.json', 'consumer_scenario.json',
+            'consumer_love.json', 'unmet_needs.json', 'opportunity.json',
+            'star_rating_root_cause.json', 'product_type.json'
+        ]
+        
+        # 加载每个文件
+        for filename in required_files:
+            file_path = os.path.join(report_id, filename)
+            if os.path.exists(file_path):
+                try:
+                    with open(file_path, 'r', encoding='utf-8') as f:
+                        content = json.load(f)
+                        # 移除.json后缀作为key
+                        key = filename.replace('.json', '')
+                        raw_results[key] = content
+                except Exception as e:
+                    print(f"Error loading {filename}: {e}")
+                    raw_results[filename.replace('.json', '')] = {'error': f'Failed to load: {str(e)}'}
+        
+        # 检查是否有竞品数据
+        competitor_file = os.path.join(report_id, 'competitor.json')
+        has_competitor = False
+        if os.path.exists(competitor_file):
+            try:
+                with open(competitor_file, 'r', encoding='utf-8') as f:
+                    raw_results['competitor'] = json.load(f)
+                    has_competitor = True
+            except Exception as e:
+                print(f"Error loading competitor data: {e}")
+                raw_results['competitor'] = {'error': f'Failed to load: {str(e)}'}
+        
+        # 转换为前端期望的格式
+        formatted_results = {
+            'id': report_id,
+            'timestamp': os.path.basename(report_id).replace('analysis_results_', '').replace('_', 'T') + 'Z',
+            'targetCategory': raw_results.get('product_type', {}).get('product_category_profile', {}).get('category_name', 'Unknown'),
+            'hasCompetitorData': has_competitor,
+            'ownBrandAnalysis': {
+                'userInsights': raw_results.get('consumer_profile', {}),
+                'userMotivation': raw_results.get('consumer_motivation', {}),
+                'userScenario': raw_results.get('consumer_scenario', {}),
+                'userFeedback': {
+                    'consumerLove': raw_results.get('consumer_love', {}),
+                    'starRating': raw_results.get('star_rating_root_cause', {})
+                },
+                'unmetNeeds': raw_results.get('unmet_needs', {}),
+                'opportunities': raw_results.get('opportunity', {}),
+                'productType': raw_results.get('product_type', {})
+            }
+        }
+        
+        # 如果有竞品数据，添加到结果中
+        if has_competitor:
+            formatted_results['competitor'] = raw_results.get('competitor', {})
+        
+        print(f"Successfully loaded report with formatted structure")
+        return jsonify(formatted_results)
+        
+    except Exception as e:
+        print(f"Error loading report {report_id}: {e}")
+        return jsonify({'error': f'Failed to load report: {str(e)}'}), 500
 
 def load_demo_results():
     """从result/demoresult文件夹加载demo数据"""
