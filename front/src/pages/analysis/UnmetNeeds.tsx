@@ -86,21 +86,6 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
         </div>
       </div>
 
-      {/* Critical Alert */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-      >
-        <Alert className="border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/20">
-          <AlertTriangle className="h-4 w-4 text-red-500" />
-          <AlertDescription className="text-red-800 dark:text-red-200">
-            <strong>{language === 'en' ? 'Critical Issues Identified:' : '发现关键问题：'}</strong>
-            {unmetNeedsData.消费者未满足需求洞察?.总结}
-          </AlertDescription>
-        </Alert>
-      </motion.div>
-
       {/* Insights Summary */}
       {unmetNeedsData.消费者未满足需求洞察 && (
         <motion.div
@@ -110,77 +95,37 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
         >
           <Card className="border-clean shadow-clean">
             <CardHeader className="spacing-system-lg border-b border-border">
-              <CardTitle className="gap-system-sm flex items-center text-base">
+              <CardTitle className="gap-system-sm flex items-center text-base text-foreground">
                 <Info className="h-4 w-4 text-primary" />
                 <span>{language === 'en' ? 'Unmet Needs Analysis Summary' : '未满足需求分析总结'}</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="spacing-system-lg">
-              <div className="gap-system-md grid md:grid-cols-2 lg:grid-cols-4">
-                {/* 总结 - 放在第一位 */}
-                <motion.div 
-                  className="spacing-system-md bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-800"
-                  whileHover={{ scale: 1.01 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <Info className="h-4 w-4 text-blue-600" />
-                    <h4 className="font-medium text-sm text-blue-800 dark:text-blue-200">
-                      {language === 'en' ? 'Summary' : '总结'}
-                    </h4>
-                  </div>
-                  <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
-                    {unmetNeedsData.消费者未满足需求洞察.总结}
-                  </p>
-                </motion.div>
-
-                <motion.div 
-                  className="spacing-system-md bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-800"
-                  whileHover={{ scale: 1.01 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <Settings className="h-4 w-4 text-red-600" />
-                    <h4 className="font-medium text-sm text-red-800 dark:text-red-200">
-                      {language === 'en' ? 'Technical Issues' : '技术角度'}
-                    </h4>
-                  </div>
-                  <p className="text-xs text-red-700 dark:text-red-300 leading-relaxed">
-                    {unmetNeedsData.消费者未满足需求洞察.技术角度}
-                  </p>
-                </motion.div>
-                
-                <motion.div 
-                  className="spacing-system-md bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800"
-                  whileHover={{ scale: 1.01 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <Zap className="h-4 w-4 text-green-600" />
-                    <h4 className="font-medium text-sm text-green-800 dark:text-green-200">
-                      {language === 'en' ? 'Functional Issues' : '功能角度'}
-                    </h4>
-                  </div>
-                  <p className="text-xs text-green-700 dark:text-green-300 leading-relaxed">
-                    {unmetNeedsData.消费者未满足需求洞察.功能角度}
-                  </p>
-                </motion.div>
-                
-                <motion.div 
-                  className="spacing-system-md bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800"
-                  whileHover={{ scale: 1.01 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <Users className="h-4 w-4 text-green-600" />
-                    <h4 className="font-medium text-sm text-green-800 dark:text-green-200">
-                      {language === 'en' ? 'Usage Scenarios' : '场景角度'}
-                    </h4>
-                  </div>
-                  <p className="text-xs text-green-700 dark:text-green-300 leading-relaxed">
-                    {unmetNeedsData.消费者未满足需求洞察.场景角度}
-                  </p>
-                </motion.div>
+              <div className="gap-system-md grid md:grid-cols-3">
+                {/* 去掉总结项，只显示三个角度 */}
+                {[
+                  { key: '技术角度', label: language === 'en' ? 'Technical Issues' : '技术角度', icon: Settings, bgColor: '#fef2f2', borderColor: '#fecaca', textColor: '#991b1b', iconColor: '#dc2626' },
+                  { key: '功能角度', label: language === 'en' ? 'Functional Issues' : '功能角度', icon: Zap, bgColor: '#f0fdf4', borderColor: '#bbf7d0', textColor: '#166534', iconColor: '#16a34a' },
+                  { key: '场景角度', label: language === 'en' ? 'Usage Scenarios' : '场景角度', icon: Users, bgColor: '#faf5ff', borderColor: '#e9d5ff', textColor: '#7c2d12', iconColor: '#a855f7' }
+                ].map(({ key, label, icon: Icon, bgColor, borderColor, textColor, iconColor }) => (
+                  <motion.div 
+                    key={key}
+                    className="spacing-system-md rounded-lg border"
+                    style={{ backgroundColor: bgColor, borderColor: borderColor }}
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <Icon className="h-4 w-4" style={{ color: iconColor }} />
+                      <h4 className="font-medium text-sm" style={{ color: textColor }}>
+                        {label}
+                      </h4>
+                    </div>
+                    <p className="text-xs leading-relaxed" style={{ color: textColor }}>
+                      {unmetNeedsData.消费者未满足需求洞察?.[key]}
+                    </p>
+                  </motion.div>
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -196,7 +141,7 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
         >
           <Card className="border-clean shadow-clean">
             <CardHeader className="spacing-system-lg border-b border-border">
-              <CardTitle className="gap-system-sm flex items-center text-base">
+              <CardTitle className="gap-system-sm flex items-center text-base text-foreground">
                 <TrendingDown className="h-4 w-4 text-primary" />
                 <span>{language === 'en' ? 'Critical Pain Points Analysis' : '关键痛点分析'}</span>
               </CardTitle>

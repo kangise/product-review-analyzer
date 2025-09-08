@@ -172,7 +172,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
         <div className="gap-system-sm flex items-center">
           <Heart className="h-5 w-5 text-primary" />
           <div>
-            <h2 className="mb-1">{t.nav.ownBrandFeedback}</h2>
+            <h2 className="mb-1 text-foreground">{t.nav.ownBrandFeedback}</h2>
             <div className="gap-system-sm flex items-center text-sm text-muted-foreground">
               <span>{language === 'en' ? 'Customer satisfaction analysis and rating insights' : '客户满意度分析和评分洞察'}</span>
               {analysisResult?.targetCategory && (
@@ -200,7 +200,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
             className="spacing-system-lg border-b border-border cursor-pointer"
             onClick={() => toggleSection('consumer-love')}
           >
-            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base text-foreground">
               <div className="gap-system-sm flex items-center">
                 <Heart className="h-4 w-4 text-primary" />
                 <span>{language === 'en' ? 'Customer Satisfaction Analysis' : '客户满意度分析'}</span>
@@ -228,7 +228,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                           whileHover={{ scale: 1.01 }}
                           transition={{ duration: 0.2 }}
                         >
-                          <h4 className="font-medium mb-2 text-sm">
+                          <h4 className="font-medium mb-2 text-sm text-foreground">
                             {language === 'en' ? 
                               (key === '技术规格' ? 'Technical Specifications' :
                                key === '功能属性' ? 'Functional Features' :
@@ -393,7 +393,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
             className="spacing-system-lg border-b border-border cursor-pointer"
             onClick={() => toggleSection('unmet-needs')}
           >
-            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base text-foreground">
               <div className="gap-system-sm flex items-center">
                 <AlertTriangle className="h-4 w-4 text-primary" />
                 <span>{language === 'en' ? 'Unmet Needs Analysis' : '未满足需求分析'}</span>
@@ -414,24 +414,29 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                   {/* 消费者洞察总结 - 处理对象结构 */}
                   {typeof analysisResult.ownBrandAnalysis.unmetNeeds.消费者未满足需求洞察 === 'object' && (
                     <div className="gap-system-md flex flex-col">
-                      {Object.entries(analysisResult.ownBrandAnalysis.unmetNeeds.消费者未满足需求洞察).map(([key, value]: [string, any]) => (
-                        <motion.div 
-                          key={key}
-                          className="spacing-system-md bg-accent rounded-lg border-clean"
-                          whileHover={{ scale: 1.01 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <div className="flex items-center gap-2 mb-2">
-                            <Info className="h-4 w-4 text-primary" />
-                            <h4 className="font-medium text-sm text-foreground">
-                              {key}
-                            </h4>
-                          </div>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {String(value)}
-                          </p>
-                        </motion.div>
-                      ))}
+                      {/* 按指定顺序显示，排除总结 */}
+                      {['技术角度', '功能角度', '场景角度'].map((key) => {
+                        const value = analysisResult.ownBrandAnalysis.unmetNeeds.消费者未满足需求洞察[key];
+                        if (!value) return null;
+                        return (
+                          <motion.div 
+                            key={key}
+                            className="spacing-system-md bg-accent rounded-lg border-clean"
+                            whileHover={{ scale: 1.01 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <div className="flex items-center gap-2 mb-2">
+                              <Info className="h-4 w-4 text-primary" />
+                              <h4 className="font-medium text-sm text-foreground">
+                                {key}
+                              </h4>
+                            </div>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                              {String(value)}
+                            </p>
+                          </motion.div>
+                        );
+                      })}
                     </div>
                   )}
 
@@ -576,7 +581,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
             className="spacing-system-lg border-b border-border cursor-pointer"
             onClick={() => toggleSection('star-rating')}
           >
-            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base text-foreground">
               <div className="gap-system-sm flex items-center">
                 <Star className="h-4 w-4 text-primary" />
                 <span>{language === 'en' ? 'Star Rating Root Cause Analysis' : '评分根因分析'}</span>
@@ -601,7 +606,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                   whileHover={{ scale: 1.01 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <h4 className="font-medium mb-2 text-sm">{language === 'en' ? 'Key Insights' : '关键洞察'}</h4>
+                  <h4 className="font-medium mb-2 text-sm text-foreground">{language === 'en' ? 'Key Insights' : '关键洞察'}</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {typeof starRatingData.评分分布分析.关键洞察 === 'string' 
                       ? starRatingData.评分分布分析.关键洞察 

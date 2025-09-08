@@ -96,7 +96,7 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
             className="spacing-system-lg border-b border-border cursor-pointer"
             onClick={() => toggleSection('consumer-profile')}
           >
-            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base text-foreground">
               <div className="gap-system-sm flex items-center">
                 <Users className="h-4 w-4 text-primary" />
                 <span>{language === 'en' ? 'Consumer Profile Analysis' : '消费者画像分析'}</span>
@@ -426,7 +426,7 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
             className="spacing-system-lg border-b border-border cursor-pointer"
             onClick={() => toggleSection('consumer-motivation')}
           >
-            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base text-foreground">
               <div className="gap-system-sm flex items-center">
                 <Star className="h-4 w-4 text-primary" />
                 <span>{language === 'en' ? 'Purchase Motivation Analysis' : '购买动机分析'}</span>
@@ -561,7 +561,7 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
             className="spacing-system-lg border-b border-border cursor-pointer"
             onClick={() => toggleSection('consumer-scenario')}
           >
-            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base text-foreground">
               <div className="gap-system-sm flex items-center">
                 <Target className="h-4 w-4 text-primary" />
                 <span>{language === 'en' ? 'Usage Scenario Analysis' : '使用场景分析'}</span>

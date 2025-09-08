@@ -112,7 +112,7 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
             className="spacing-system-lg border-b border-border cursor-pointer"
             onClick={() => toggleSection('competitor-comparison')}
           >
-            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base text-foreground">
               <div className="gap-system-sm flex items-center">
                 <BarChart3 className="h-4 w-4 text-primary" />
                 <span>{language === 'en' ? 'Competitor Comparison Analysis' : '竞品对比分析'}</span>
@@ -753,7 +753,7 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
             className="spacing-system-lg border-b border-border cursor-pointer"
             onClick={() => toggleSection('competitor-unique')}
           >
-            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base text-foreground">
               <div className="gap-system-sm flex items-center">
                 <Lightbulb className="h-4 w-4 text-primary" />
                 <span>{language === 'en' ? 'Competitor Unique Insights' : '竞品独有洞察'}</span>
@@ -891,7 +891,7 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
             className="spacing-system-lg border-b border-border cursor-pointer"
             onClick={() => toggleSection('competitor-base')}
           >
-            <CardTitle className="gap-system-sm flex items-center justify-between text-base">
+            <CardTitle className="gap-system-sm flex items-center justify-between text-base text-foreground">
               <div className="gap-system-sm flex items-center">
                 <Target className="h-4 w-4 text-primary" />
                 <span>{language === 'en' ? 'Competitor Base Analysis' : '竞品基础分析'}</span>

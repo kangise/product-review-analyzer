@@ -147,7 +147,7 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
           <TabsContent value="improvement" className="mt-6">
             <Card className="border-clean shadow-clean">
               <CardHeader className="spacing-system-lg border-b border-border">
-                <CardTitle className="gap-system-sm flex items-center text-base">
+                <CardTitle className="gap-system-sm flex items-center text-base text-foreground">
                   <Lightbulb className="h-4 w-4 text-primary" />
                   <span>{language === 'en' ? 'Product Improvement Opportunities' : '产品改进机会'}</span>
                 </CardTitle>
@@ -256,7 +256,7 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
           <TabsContent value="innovation" className="mt-6">
             <Card className="border-clean shadow-clean">
               <CardHeader className="spacing-system-lg border-b border-border">
-                <CardTitle className="gap-system-sm flex items-center text-base">
+                <CardTitle className="gap-system-sm flex items-center text-base text-foreground">
                   <Zap className="h-4 w-4 text-primary" />
                   <span>{language === 'en' ? 'Product Innovation Opportunities' : '产品创新机会'}</span>
                 </CardTitle>
@@ -365,7 +365,7 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
           <TabsContent value="marketing" className="mt-6">
             <Card className="border-clean shadow-clean">
               <CardHeader className="spacing-system-lg border-b border-border">
-                <CardTitle className="gap-system-sm flex items-center text-base">
+                <CardTitle className="gap-system-sm flex items-center text-base text-foreground">
                   <Target className="h-4 w-4 text-primary" />
                   <span>{language === 'en' ? 'Marketing Positioning Opportunities' : '营销定位机会'}</span>
                 </CardTitle>
