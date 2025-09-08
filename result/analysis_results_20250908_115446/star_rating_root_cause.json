@@ -1,0 +1,166 @@
+{
+  "评分分布分析": {
+    "总体评分分布": {
+      "5星": "58.2%",
+      "4星": "8.1%",
+      "3星": "5.4%",
+      "2星": "4.1%",
+      "1星": "24.2%"
+    },
+    "关键洞察": "产品评价呈现明显的两极分化，360度拍摄功能、8K画质和易用性带来了大量5星好评，但产品可靠性问题、软件兼容性和客户服务质量导致了大量1星差评。"
+  },
+  "按评分划分的消费者反馈": {
+    "5星评价": {
+      "主要满意点": [
+        {
+          "喜爱点": "360度全景拍摄功能",
+          "频率": "78.5%",
+          "示例评论": [
+            "The 360 imaging is stunningly clear, crisp, precise, and mind boggling. I LOVE that it takes out the selfie stick somehow",
+            "I love how it captures absolutely everything, no worrying about missing shots",
+            "The ability to capture from all angles is amazing, the video quality is astounding for what it is"
+          ]
+        },
+        {
+          "喜爱点": "8K高清画质",
+          "频率": "65.3%",
+          "示例评论": [
+            "The 8K footage is super crisp, and the 360° view makes everything feel so immersive",
+            "8K looks insane. Took it out for some rail stuff and the tracking actually followed for once",
+            "The 8K video quality is off the charts"
+          ]
+        },
+        {
+          "喜爱点": "易于使用和操作",
+          "频率": "52.1%",
+          "示例评论": [
+            "This camera is ridiculously easy to use. Just lock the angle on your bike then shoot",
+            "It is so easy to use. It comes on quickly. It records quickly",
+            "Very easy to use and it has a lot of features"
+          ]
+        },
+        {
+          "喜爱点": "优秀的防抖稳定性",
+          "频率": "48.7%",
+          "示例评论": [
+            "The stabilization is insane. No matter what you do, it will always look stable",
+            "Even bombing down rocky trails, the footage stayed increibly smooth",
+            "The built-in stabilization and wind guard make it perfect for action shots"
+          ]
+        }
+      ]
+    },
+    "4星评价": {
+      "主要满意点": [
+        {
+          "喜爱点": "8K高清画质",
+          "频率": "71.4%",
+          "示例评论": [
+            "The 8K resolution paired with the bigger sensors delivers exceptionally clean footage",
+            "Captures stunning 8K footage with smooth stabilization, even in low light"
+          ]
+        },
+        {
+          "喜爱点": "360度全景拍摄功能",
+          "频率": "57.1%",
+          "示例评论": [
+            "360 camera was interesting, we'll have to play with it more",
+            "The Insta360 X5 delivers exceptional 8K 360° video with impressive low-light performance"
+          ]
+        }
+      ],
+      "主要不满点": [
+        {
+          "未满足的需求": "软件兼容性和易用性",
+          "频率": "42.9%",
+          "示例评论": [
+            "However, the companion app could benefit from further refinement",
+            "The device relies on your cell phone way too much for my tastes"
+          ]
+        },
+        {
+          "未满足的需求": "产品可靠性和耐用性",
+          "频率": "28.6%",
+          "示例评论": [
+            "Camera heats up when editing and using",
+            "Great camera. Awesome editing features and technology. Camera heats up when editing and using"
+          ]
+        }
+      ]
+    },
+    "3星评价": {
+      "主要满意点": [],
+      "主要不满点": [
+        {
+          "未满足的需求": "软件兼容性和易用性",
+          "频率": "60.0%",
+          "示例评论": [
+            "Fun camera but horrible app! If they don't fix the Insta360 app soon. I will return it!!!",
+            "Does get too hot and turns off for excessive heat it not fair to pay so much money for that cámara",
+            "Microphone on this is better than the X4 but the image quality is the same, not worth the extra $100"
+          ]
+        },
+        {
+          "未满足的需求": "产品可靠性和耐用性",
+          "频率": "40.0%",
+          "示例评论": [
+            "The only issue is that it's too hot to stop recording automatically after one hour",
+            "Functionally the camera is a piece of junk"
+          ]
+        }
+      ]
+    },
+    "2星评价": {
+      "主要满意点": [],
+      "主要不满点": [
+        {
+          "未满足的需求": "产品可靠性和耐用性",
+          "频率": "66.7%",
+          "示例评论": [
+            "The camera overheats. At room temperature, 8K with a connected power bank overheats after 22.5 minutes",
+            "This was my first live action 360 camera, and I enjoyed this camera a lot while I noticed the body of camera is heated when it is on"
+          ]
+        },
+        {
+          "未满足的需求": "软件兼容性和易用性",
+          "频率": "50.0%",
+          "示例评论": [
+            "Dont know what anyones talking about, app needed an update, and it updated. Works just fine. Only downside is face tracking doesnt work with anything above 30 FPS",
+            "My main frustration stems from its abysmal low-light performance, particularly with 8K files"
+          ]
+        }
+      ]
+    },
+    "1星评价": {
+      "主要不满点": [
+        {
+          "未满足的需求": "产品可靠性和耐用性",
+          "频率": "72.3%",
+          "示例评论": [
+            "Camera stopped working 1 day into vacation in Mexico. Camera only went 12\" under water with all access ports fully closed!",
+            "This is great if you like to buy a new one every year, that's about how long it lasts before it starts glitching and then quits all together",
+            "Water got inside camera on 2nd day of trip to Greece after putting it underwater for 5seconds"
+          ]
+        },
+        {
+          "未满足的需求": "客户服务质量",
+          "频率": "45.7%",
+          "示例评论": [
+            "I hate this product I hate your lack of customer help, you have lied to me a half dozen times making promises that you haven't kept",
+            "Insta360 is the worst company I've ever worked with from a support perspective in my entire life",
+            "Their customer service is lacking, and they do not take responsibility for their mistakes"
+          ]
+        },
+        {
+          "未满足的需求": "软件兼容性和易用性",
+          "频率": "38.3%",
+          "示例评论": [
+            "The camera won't let you do anything without connecting it to the app for no reason. The app will not let me update to 2.0",
+            "Great camera, awful apps. The desktop software is basically useless—it crashes or throws errors when trying to load a simple 3-minute video",
+            "Camera has cool features it's too bad the app is so terrible that it makes editing almost imposible"
+          ]
+        }
+      ]
+    }
+  }
+}

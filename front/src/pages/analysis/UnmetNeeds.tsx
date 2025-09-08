@@ -323,11 +323,9 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.05 }}
-                        className="bg-red-50 dark:bg-red-950/20 rounded-lg spacing-system-md border-l-4 border-red-400 dark:border-red-600"
+                        className="spacing-system-sm bg-accent rounded-lg border-clean"
                       >
-                        <p className="text-sm leading-relaxed text-red-800 dark:text-red-200 italic">
-                          "{quote}"
-                        </p>
+                        <p className="text-sm text-muted-foreground">"{quote}"</p>
                       </motion.div>
                     ))}
                   </div>

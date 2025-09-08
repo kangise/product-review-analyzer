@@ -181,9 +181,26 @@ class ReviewAnalyzer:
             
             # 添加语言指令
             if self.output_language == 'zh':
-                language_instruction = "\n\n**重要：请用中文输出所有分析结果。所有字段名保持英文，但字段值和描述内容必须用中文。**"
+                language_instruction = """
+
+**重要语言和一致性指令：**
+1. 请用中文输出所有分析结果，但保持与英文版本完全相同的分析逻辑和分类标准
+2. 频率计算必须基于相同的关键词匹配逻辑，不受语言影响
+3. 分析维度、优先级排序、重要性判断必须与英文版本保持一致
+4. 只改变语言表达，不改变分析结果的本质内容
+5. 所有百分比和数值必须基于相同的统计方法
+6. 确保相同的数据产生相同的分析结构和频率分布
+"""
             else:
-                language_instruction = "\n\n**Important: Please output all analysis results in English.**"
+                language_instruction = """
+
+**Important Language and Consistency Instructions:**
+1. Output all analysis results in English with consistent analytical logic
+2. Frequency calculations must be based on the same keyword matching logic
+3. Analysis dimensions, priority rankings, and importance judgments must be consistent
+4. All percentages and numerical values must be based on the same statistical methods
+5. Ensure the same data produces the same analytical structure and frequency distribution
+"""
             
             full_prompt += language_instruction
             
@@ -254,6 +271,71 @@ class ReviewAnalyzer:
             logger.error(f"Q Chat调用异常: {str(e)}")
             return {"error": f"Q Chat调用异常: {str(e)}", "raw_output": ""}
 
+    def fix_multiline_json_strings(self, json_str: str) -> str:
+        """
+        修复JSON中的多行字符串问题
+        """
+        import re
+        
+        # 将字符串值中的换行符替换为空格，但保持JSON结构的换行
+        lines = json_str.split('\n')
+        fixed_lines = []
+        in_string = False
+        current_line = ""
+        
+        for line in lines:
+            stripped = line.strip()
+            
+            # 检查这行是否在字符串内部
+            if in_string:
+                # 如果在字符串内部，将内容添加到当前行，用空格连接
+                current_line += " " + stripped
+                # 检查是否结束字符串
+                if stripped.endswith('",') or stripped.endswith('"'):
+                    in_string = False
+                    fixed_lines.append(current_line)
+                    current_line = ""
+            else:
+                # 检查是否开始一个可能跨行的字符串
+                if (': "' in stripped and 
+                    not (stripped.endswith('",') or stripped.endswith('"')) and
+                    not stripped.endswith('": "') and
+                    len(stripped) > 50):  # 长字符串更可能跨行
+                    in_string = True
+                    current_line = line
+                else:
+                    fixed_lines.append(line)
+        
+        return '\n'.join(fixed_lines)
+
+    def fix_json_newlines(self, json_str: str) -> str:
+        """
+        修复JSON字符串中的换行符问题
+        
+        Args:
+            json_str: 可能包含未转义换行符的JSON字符串
+            
+        Returns:
+            修复后的JSON字符串
+        """
+        import re
+        
+        # 在字符串值中查找未转义的换行符并替换为空格
+        # 这个正则表达式匹配在双引号内的换行符
+        def replace_newlines_in_strings(match):
+            content = match.group(0)
+            # 将字符串内的换行符替换为空格
+            content = content.replace('\n', ' ')
+            # 将多个空格合并为一个
+            content = re.sub(r'\s+', ' ', content)
+            return content
+        
+        # 匹配双引号内的内容（包括转义的引号）
+        pattern = r'"[^"\\]*(?:\\.[^"\\]*)*"'
+        fixed_json = re.sub(pattern, replace_newlines_in_strings, json_str)
+        
+        return fixed_json
+
     def extract_json_from_output(self, output: str) -> Optional[str]:
         """
         从输出中提取JSON内容，支持多种格式
@@ -281,17 +363,33 @@ class ReviewAnalyzer:
         # 4. 清理其他控制字符和Unicode控制字符
         output = re.sub(r'[\x00-\x1f\x7f-\x9f]', '', output)
         
-        # 5. 清理可能残留的ANSI相关字符和提示符
-        output = re.sub(r'\[0m|\[m|> ', '', output)
+        # 5. 清理可能残留的ANSI相关字符和提示符（但保留JSON开头的>）
+        output = re.sub(r'\[0m|\[m', '', output)
         
-        # 6. 清理开头的提示符和空白
-        output = re.sub(r'^[>\s]*', '', output.strip())
+        # 6. 清理开头的空白，但保留可能的JSON标记
+        output = output.strip()
         
-        # 7. 额外清理：处理特殊的ANSI模式
+        # 7. 如果以 "> {" 开头，移除开头的 "> "
+        if output.startswith('> {'):
+            output = output[2:].strip()
+        
+        # 8. 额外清理：处理特殊的ANSI模式
         output = re.sub(r'\\u001b\[[0-9;]*m', '', output)  # 处理所有m结尾的序列
         output = re.sub(r'\\u001b\[', '', output)  # 清理残留的开始标记
         
         print(f"🧹 ANSI清理后的输出长度: {len(output)}")
+        
+        # 方法0: 直接检测以 "> {" 开头的JSON
+        if output.startswith('> {'):
+            potential_json = output[2:].strip()
+            # 修复JSON中的换行符问题
+            potential_json = self.fix_json_newlines(potential_json)
+            try:
+                json.loads(potential_json)
+                print("✅ 直接JSON检测成功（> 前缀）")
+                return potential_json
+            except json.JSONDecodeError:
+                print("❌ 直接JSON检测失败（> 前缀）")
         
         # 方法1: 寻找markdown代码块中的JSON (改进的正则表达式)
         json_block_pattern = r'```(?:json)?\s*(\{.*?\})\s*```'
@@ -396,9 +494,43 @@ class ReviewAnalyzer:
         if not isinstance(result, dict):
             return result
         
-        # 如果有错误，返回None
+        # 如果有错误但也有raw_output，尝试从raw_output中提取JSON
         if 'error' in result:
             logger.warning(f"结果包含错误: {result.get('error')}")
+            if 'raw_output' in result:
+                logger.info("尝试从raw_output中提取JSON...")
+                raw_output = result['raw_output']
+                
+                # 特殊处理：如果raw_output以 "> {" 开头，直接提取JSON部分
+                if raw_output.startswith('> {'):
+                    json_content = raw_output[2:].strip()
+                    
+                    # 处理转义的JSON：将 \\\" 替换为 \"，将 \\n 替换为实际换行
+                    json_content = json_content.replace('\\"', '"').replace('\\n', '\n')
+                    
+                    # 修复多行字符串问题：将字符串中的换行符替换为空格
+                    json_content = self.fix_multiline_json_strings(json_content)
+                    
+                    try:
+                        extracted_data = json.loads(json_content)
+                        logger.info("✅ 成功从raw_output中提取并修复JSON数据")
+                        return extracted_data
+                    except json.JSONDecodeError as e:
+                        logger.warning(f"❌ 直接解析失败: {e}")
+                        # 保存调试信息
+                        with open('debug_json_content.txt', 'w', encoding='utf-8') as f:
+                            f.write(json_content)
+                        logger.info("调试信息已保存到 debug_json_content.txt")
+                
+                # 如果直接解析失败，使用原有的提取方法
+                json_str = self.extract_json_from_output(raw_output)
+                if json_str:
+                    try:
+                        extracted_data = json.loads(json_str)
+                        logger.info("✅ 成功从raw_output中提取JSON数据")
+                        return extracted_data
+                    except json.JSONDecodeError:
+                        logger.warning("❌ 无法从raw_output中解析JSON")
             return None
         
         # 如果有raw_output但没有其他结构化数据，尝试从raw_output中提取JSON

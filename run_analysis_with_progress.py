@@ -72,7 +72,7 @@ class ProgressTrackingAnalyzer(ReviewAnalyzer):
         with open(step_file, 'w', encoding='utf-8') as f:
             json.dump(self.results['product_type'], f, indent=2, ensure_ascii=False)
         logger.info(f"步骤1结果已保存: {step_file}")
-        output_progress(1, "completed", "Product type analysis completed")
+        output_progress(0, "completed", "Product type analysis completed")
         
         # 提取第一步的干净结果用于后续步骤
         clean_product_type = self.extract_clean_result(self.results['product_type'])
@@ -110,7 +110,7 @@ class ProgressTrackingAnalyzer(ReviewAnalyzer):
             with open(step_file, 'w', encoding='utf-8') as f:
                 json.dump(self.results[prompt_name], f, indent=2, ensure_ascii=False)
             logger.info(f"步骤2.{prompt_name}结果已保存: {step_file}")
-            output_progress(step_idx + 1, "completed", f"{step_desc} completed")
+            output_progress(step_idx, "completed", f"{step_desc} completed")
         
         # 4. 机会分析
         output_progress(6, "running", "Analyzing business opportunities...")
@@ -135,7 +135,7 @@ class ProgressTrackingAnalyzer(ReviewAnalyzer):
         with open(step_file, 'w', encoding='utf-8') as f:
             json.dump(self.results['opportunity'], f, indent=2, ensure_ascii=False)
         logger.info(f"步骤3结果已保存: {step_file}")
-        output_progress(7, "completed", "Business opportunity analysis completed")
+        output_progress(6, "completed", "Business opportunity analysis completed")
         
         # 5. 星级评分根因分析
         output_progress(7, "running", "Analyzing rating root causes...")
@@ -163,7 +163,7 @@ class ProgressTrackingAnalyzer(ReviewAnalyzer):
         with open(step_file, 'w', encoding='utf-8') as f:
             json.dump(self.results['star_rating_root_cause'], f, indent=2, ensure_ascii=False)
         logger.info(f"步骤4结果已保存: {step_file}")
-        output_progress(7, "completed", "Rating root cause analysis completed")
+        output_progress(8, "completed", "Rating root cause analysis completed")
         
         # 6. 竞争对手分析 (新的三阶段流程)
         output_progress(8, "running", "Analyzing competitor data...")
@@ -265,10 +265,10 @@ class ProgressTrackingAnalyzer(ReviewAnalyzer):
         with open(step_file, 'w', encoding='utf-8') as f:
             json.dump(self.results['competitor'], f, indent=2, ensure_ascii=False)
         logger.info(f"步骤5结果已保存: {step_file}")
-        output_progress(9, "completed", "Competitor analysis completed")
+        output_progress(8, "completed", "Competitor analysis completed")
         
         # 完成所有分析
-        output_progress(9, "completed", "All analysis steps completed successfully")
+        output_progress(len(ANALYSIS_STEPS), "completed", "All analysis steps completed successfully")
         logger.info("分析管道完成!")
         
         return self.results

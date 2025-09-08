@@ -1,0 +1,93 @@
+{
+  "竞品独有优势": [
+    {
+      "优势点": "强制激活和注册机制",
+      "频率": "12.3%",
+      "消费者描述": "DJI相机需要通过手机APP激活才能使用，虽然有争议但确保了产品正版性和功能完整性",
+      "对我方启发": "可以考虑建立更友好的产品激活机制，既保护知识产权又不影响用户体验",
+      "相关评论示例": [
+        "Camera does not operate without access to smartphone and internet. Insane for a camera to require you use a phone app that can be shut down at any point.",
+        "Have to download DJI Mimo app to activate camera. Great quality for videos and pictures. Would recommend!"
+      ]
+    },
+    {
+      "优势点": "内置存储空间",
+      "频率": "8.7%",
+      "消费者描述": "DJI Action 5 Pro配备47-64GB内置存储，即使忘记带存储卡也能正常使用",
+      "对我方启发": "内置存储是重要的差异化功能，可以作为产品升级的重要方向",
+      "相关评论示例": [
+        "The internal memory storage has already been a lifesaver when I forgot to reload card before heading out.",
+        "It has 64GB of native storage, which you can add to with a user supplied microSD card."
+      ]
+    },
+    {
+      "优势点": "磁吸式快拆系统",
+      "频率": "15.6%",
+      "消费者描述": "磁性快拆系统让安装和拆卸变得极其便捷，比传统螺丝固定方式更高效",
+      "对我方启发": "磁吸式设计是用户体验的重大改进，值得在我方产品中考虑采用",
+      "相关评论示例": [
+        "I also love that there are a TON of aftermarket accessories for this thing, so shooting options are just about limitless. With as great as the Action 4 is",
+        "Magnetic mount is also nice(which is also on the case that comes with it)"
+      ]
+    }
+  ],
+  "竞品独有问题": [
+    {
+      "问题点": "过热问题严重",
+      "频率": "18.9%",
+      "消费者描述": "DJI相机在高温环境或长时间录制时容易过热自动关机，影响使用体验",
+      "对我方启发": "散热设计是关键技术点，我方应重点优化散热性能以获得竞争优势",
+      "相关评论示例": [
+        "This product overheats and shuts down frequently. Mine is less than 3 months old too. Overheats in less than 10m of recording",
+        "Not sure if my the cam I received is defective. It started get hot right after I started recording. Can't even touch the screen cause it's too hot."
+      ]
+    },
+    {
+      "问题点": "APP安全性争议",
+      "频率": "11.2%",
+      "消费者描述": "DJI Mimo APP不在Google Play商店，需要侧载安装，引发用户对数据安全的担忧",
+      "对我方启发": "APP的安全性和可信度是用户关注重点，我方应确保APP通过官方渠道分发",
+      "相关评论示例": [
+        "Requires an app that bypasses Android security and according to other websites, sends data directly to the Great Firewall of China.",
+        "The app has major security issues so is not available via the Google Play store."
+      ]
+    },
+    {
+      "问题点": "防水密封失效",
+      "频率": "7.8%",
+      "消费者描述": "部分用户反映防水密封在使用过程中失效，导致进水损坏",
+      "对我方启发": "防水密封的可靠性是关键质量指标，需要严格的质量控制和测试",
+      "相关评论示例": [
+        "First day I used it the seal failed filling with water. Instant return.",
+        "Purchased as a gift for my son who free dives. He finally took it out today for the first dive. Worked great until his second dive (usually around 50ft) and it stopped working. Turns out the battery door leaked and the inside got wet."
+      ]
+    }
+  ],
+  "竞品独有动机": [
+    {
+      "动机点": "摩托车骑行记录专用",
+      "频率": "13.4%",
+      "消费者描述": "专门用于摩托车骑行时的POV拍摄，记录骑行过程和路线",
+      "对我方启发": "摩托车骑行是重要的细分市场，可以开发专门的骑行套装和配件",
+      "相关评论示例": [
+        "Really nice camera for recording motorcycle rides. Love everything about it.",
+        "I use it to record my excavation and sometimes make reels from the footage."
+      ]
+    },
+    {
+      "动机点": "替代GoPro的选择",
+      "频率": "22.1%",
+      "消费者描述": "用户主动选择DJI作为GoPro的替代品，主要因为性价比和功能优势",
+      "对我方启发": "与GoPro的直接竞争是市场机会，需要明确差异化优势",
+      "相关评论示例": [
+        "I bought this on sale and for the price this is an amazing camera, don't even think about other brands when you can get DJI!!!",
+        "This is what GoPro wishes they were. I've used GoPro professionally for years, and I'm just done with them."
+      ]
+    }
+  ],
+  "总结洞察": {
+    "关键发现": "DJI在技术创新方面表现突出，特别是内置存储、磁吸系统等差异化功能，但在产品可靠性和用户体验方面存在明显短板",
+    "战略意义": "竞品的技术创新为我方提供了学习方向，同时其问题点为我方提供了差异化竞争的机会",
+    "行动建议": "1. 重点投入散热技术研发，以可靠性为核心竞争力；2. 开发用户友好的激活机制；3. 针对摩托车骑行等细分场景推出专业套装；4. 确保APP安全性和官方渠道分发"
+  }
+}

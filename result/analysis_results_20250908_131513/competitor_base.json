@@ -1,0 +1,109 @@
+{
+  "竞品消费者喜爱点": [
+    {
+      "赞美点": "8K超清画质表现",
+      "频率": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    },
+    {
+      "赞美点": "360度全景拍摄自由度",
+      "频率": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    },
+    {
+      "赞美点": "低光环境拍摄能力",
+      "频率": "15.2%",
+      "消费者描述": "竞品用户高度赞扬DJI相机在低光和夜间环境下的拍摄表现，认为明显优于GoPro等竞品",
+      "相关评论示例": [
+        "The low light performance is incredible, and the image clarity and color reproduction are on par with (if not better than) more expensive competitors.",
+        "I love how easy it is to attach the mount to the camera, and the front touchscreen is a great bonus. I primarily use it for my travel videos—whether it's mounted in my car or in rainy conditions, I can rely on it without worrying about weatherproofing, unlike my usual camera.",
+        "Surprised by the video quality in the dark environment!!"
+      ]
+    },
+    {
+      "赞美点": "可更换镜头设计",
+      "频率": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    },
+    {
+      "赞美点": "强大的防抖稳定性能",
+      "频率": "28.7%",
+      "消费者描述": "竞品用户普遍称赞DJI相机的防抖和稳定性能，认为即使在剧烈运动中也能保持画面稳定",
+      "相关评论示例": [
+        "RockSteady 3.0+ stabilization is incredibly smooth, even on rough trails or choppy water, and the horizon leveling is a huge plus.",
+        "The stabilization is rock-solid, even during intense movement like biking or running.",
+        "Great stabilization and demás funciones, además con sus tres baterías me da una autonomía mucho mayor"
+      ]
+    }
+  ],
+  "竞品未满足需求": [],
+  "竞品购买动机": [
+    {
+      "动机": "8K超高清画质追求",
+      "动机重要性": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    },
+    {
+      "动机": "摩托车骑行专用记录",
+      "动机重要性": "8.9%",
+      "消费者描述": "竞品用户购买DJI相机主要用于摩托车骑行记录和摩托车视频博客制作",
+      "相关评论示例": [
+        "Great Action Camera for a bargain compared to the new model action 5 or go pro 13 great for everything except low light I'd recommend the newer models for that. I'm using mine for a motorcycle poetry vlog I have on you tube",
+        "Really nice camera for recording motorcycle rides. Love everything about it. Great quality video, Battery life is amazing.",
+        "Love this action camera! My everyday for Motovlogging!"
+      ]
+    },
+    {
+      "动机": "隐形自拍杆黑科技体验",
+      "动机重要性": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    },
+    {
+      "动机": "360度全景创作需求",
+      "动机重要性": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    },
+    {
+      "动机": "专业级防抖稳定性",
+      "动机重要性": "22.1%",
+      "消费者描述": "竞品用户因需要专业级的防抖稳定功能而选择DJI相机，特别是用于运动和动作拍摄",
+      "相关评论示例": [
+        "The stabilization is top-notch — everything looks super smooth, even during intense movement.",
+        "love this camera. use with a chest mount for mountain biking. long battery live and great quality. the image stabilization is amazing as well.",
+        "Great for games and outdoors. Which I knew the zoom wasn't all too great"
+      ]
+    },
+    {
+      "动机": "夜景低光拍摄能力",
+      "动机重要性": "12.4%",
+      "消费者描述": "竞品用户因需要在夜间和低光环境下拍摄而选择DJI相机，认为其低光性能优异",
+      "相关评论示例": [
+        "Works great for my son, who does a lot of bow fishing at night.",
+        "Camera is spectacular for low light videos!",
+        "The way it handles scenes with bright skies and deep shadows is magnificent"
+      ]
+    },
+    {
+      "动机": "可更换镜头设计优势",
+      "动机重要性": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    },
+    {
+      "动机": "旅行内容创作利器",
+      "动机重要性": "18.6%",
+      "消费者描述": "竞品用户购买DJI相机主要用于旅行拍摄和内容创作，看重其便携性和画质表现",
+      "相关评论示例": [
+        "I primarily use it for my travel videos—whether it's mounted in my car or in rainy conditions",
+        "Great camera for blogging! Light weight, very small, great for travel and shooting video during walking or riding bicycle.",
+        "Solid action camera. I have taken it to the Grand Canyon, Zion, Death Valley, and Alaska. It performed very well."
+      ]
+    }
+  ]
+}

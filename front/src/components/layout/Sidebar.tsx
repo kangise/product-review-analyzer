@@ -143,7 +143,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           variant={isActive ? "secondary" : "ghost"}
           className={`
             w-full justify-start gap-system-sm
-            ${level > 0 ? 'ml-4 text-sm' : ''}
+            ${level > 0 ? 'ml-4' : ''}
             ${isActive ? 'bg-sidebar-accent text-sidebar-accent-foreground' : 'text-sidebar-foreground hover:bg-sidebar-accent/50'}
           `}
           onClick={() => {

@@ -113,7 +113,31 @@ export function StreamingJsonGenerator({ language = 'en', currentStep, analysisI
   const styles = getStyles();
 
   const startGeneration = () => {
-    const moduleData = moduleScripts[currentStep as keyof typeof moduleScripts] || moduleScripts["Product Classification"];
+    // 建立中英文步骤名称映射
+    const stepMapping: { [key: string]: string } = {
+      '产品分类分析': 'Product Classification',
+      '消费者画像分析': 'Consumer Profile Analysis',
+      '使用场景分析': 'Usage Scenario Analysis',
+      '购买动机分析': 'Purchase Motivation Analysis',
+      '客户满意度分析': 'Customer Satisfaction Analysis',
+      '未满足需求分析': 'Unmet Needs Analysis',
+      '商业机会分析': 'Business Opportunity Analysis',
+      '评分根因分析': 'Rating Root Cause Analysis',
+      '竞争分析': 'Competitive Analysis',
+      // 英文名称直接映射
+      'Product Classification': 'Product Classification',
+      'Consumer Profile Analysis': 'Consumer Profile Analysis',
+      'Usage Scenario Analysis': 'Usage Scenario Analysis',
+      'Purchase Motivation Analysis': 'Purchase Motivation Analysis',
+      'Customer Satisfaction Analysis': 'Customer Satisfaction Analysis',
+      'Unmet Needs Analysis': 'Unmet Needs Analysis',
+      'Business Opportunity Analysis': 'Business Opportunity Analysis',
+      'Rating Root Cause Analysis': 'Rating Root Cause Analysis',
+      'Competitive Analysis': 'Competitive Analysis'
+    };
+
+    const mappedStep = stepMapping[currentStep || ''] || 'Product Classification';
+    const moduleData = moduleScripts[mappedStep as keyof typeof moduleScripts] || moduleScripts["Product Classification"];
     const script = typeof moduleData === 'string' ? moduleData : moduleData[language] || moduleData.zh;
     const totalLength = script.length;
 

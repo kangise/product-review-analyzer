@@ -1,0 +1,74 @@
+{
+  "洞察总结": {
+    "重要度最高的消费场景": [
+      "摩托车骑行记录: 被超过30%的用户提及，是运动相机最核心的使用场景，用户对360度全景记录和防抖效果需求强烈",
+      "旅行记录拍摄: 约25%的用户提及，用户希望在旅行中记录美景和回忆，对画质和便携性要求较高",
+      "内容创作制作: 约20%的用户提及，YouTuber和博主使用该产品制作视频内容，对编辑功能和特效要求较高"
+    ],
+    "小众但被忽视的消费场景": [
+      "水下摄影探索: 虽然提及频率仅8%，但用户在此场景下的防水失效投诉最多，表明产品在防水密封性方面存在明显的技术缺陷和改进机会"
+    ]
+  },
+  "产品使用场景分析": [
+    {
+      "场景名称": "摩托车骑行全景记录",
+      "场景描述": "摩托车爱好者在日常通勤或长途骑行过程中，将360度运动相机安装在车把或头盔上，记录骑行路线的全景视频。用户希望捕捉道路风景、骑行体验，同时作为行车记录仪使用，记录交通状况以保障安全",
+      "场景重要性": "32.1%",
+      "相关评论": [
+        "This camera is awesome. It captures footage that typically would take several cameras. They are waterproof, but I haven't been brave enough to test that fully. I have crashed pretty hard, and fast with this camera and it has not gotten a scratch on it.",
+        "I love to be able to record my travels on motorcycle for my safety. Great quality filming with great App to edit videos.",
+        "X4. Use it on motorcycle rides across the country. Best product I've used.",
+        "I'm having a blast recording with this. However under higher speeds you do pick up a LOT of wind noise. But that's to be expected.",
+        "Se la regale a mi esposo para que se divierta grabando su camino en su moto pistera 🏍️ Y me agradeció mucho el detalle. La imagen es impecable y tiene buena resolución/alcance de todo el panorama."
+      ]
+    },
+    {
+      "场景名称": "旅行探索记录",
+      "场景描述": "用户在度假旅行、徒步探险或观光游览时，使用360度相机记录旅途中的美景和难忘时刻。通过自拍杆或手持方式，捕捉全景风光和个人体验，用于后期制作旅行视频或分享到社交媒体",
+      "场景重要性": "24.8%",
+      "相关评论": [
+        "This 360 is very easy to use. It was great for our Hawaii vacation. Getting pictures of the whole family was very easy.",
+        "Me gustó mucho y es muy útil para mis viajes.",
+        "I have a YouTube channel and my 360 is in my camera bag every time I go out. It's great to use in places you're not sure where to point a camera because everything is so beautiful.",
+        "This thing has changed the way I capture my vacations and action shots of skateboarding and Crazy Carting. it's awesome!",
+        "Camera stopped working 1 day into vacation in Mexico. Camera only went 12\" under water with all access ports fully closed! Very frustrating when buy a \"waterproof\" camera for vacation"
+      ]
+    },
+    {
+      "场景名称": "内容创作制作",
+      "场景描述": "YouTuber、博主和内容创作者使用360度相机制作视频内容，利用其全景拍摄和后期重新构图的特性，创造独特的视觉效果。用户在室内外各种环境中拍摄，通过专业编辑软件制作高质量的视频内容",
+      "场景重要性": "19.6%",
+      "相关评论": [
+        "I have a YouTube channel and my 360 is in my camera bag every time I go out.",
+        "fantastic camera for the money, highly recommend if you video record a lot, blogging or action videos like riding bikes etc.",
+        "This is excellent for blogging, for use as a dash cam, and generally brilliant piece of kit. Worth the money!",
+        "I make video content for my DJ sets and some vlogging as well. I'm so glad that I made this switch!!",
+        "The camera is fine, however the mandatory software is absolutely horrible. The 'AI' BS sucks, the autoframing is whatever, most of the time even with keyframes I'm lookin at the exact opposite of what I want in the final videos."
+      ]
+    },
+    {
+      "场景名称": "运动活动记录",
+      "场景描述": "用户在进行各种运动活动时，如骑自行车、滑雪、攀岩等，使用运动相机记录运动过程和技巧展示。相机通常固定在身体、装备或周围环境中，捕捉动态的运动画面和第一人称视角",
+      "场景重要性": "15.3%",
+      "相关评论": [
+        "Much better equipment for sports recording",
+        "As a fisherman, I want to film the topwater bite and follow the action to the kayak. This is great!",
+        "I use this on the back of my show truck. I love the videos it takes.",
+        "Love this 360 camera. I use it in sporting events and the angles are awesome.",
+        "I bought the first Insta 360 X3 a bit more than a month ago, after I used for 3 videos camera stop working"
+      ]
+    },
+    {
+      "场景名称": "水下摄影探索",
+      "场景描述": "用户在游泳、潜水或水上运动时使用防水运动相机，记录水下世界和水上活动。用户期望相机能在水中正常工作，捕捉清晰的水下画面，但经常遇到防水性能不达标的问题",
+      "场景重要性": "8.2%",
+      "相关评论": [
+        "Camera stopped working 1 day into vacation in Mexico. Camera only went 12\" under water with all access ports fully closed! Very frustrating when buy a \"waterproof\" camera for vacation",
+        "Waterproof? Jumped in the pool with it and dies. Open up the battery and water pours out. Be warned.",
+        "Water got inside camera on 2nd day of trip to Greece after putting it underwater for 5seconds. All doors were closed. Will not turn on or charge.",
+        "First time I went in the water, water got inside the camera. I noified the seller with no response.",
+        "first hit in water and the camera died after 8 hours) but the waterproof function"
+      ]
+    }
+  ]
+}

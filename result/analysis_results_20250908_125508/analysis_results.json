@@ -1,0 +1,1243 @@
+{
+  "product_type": {
+    "product_category_profile": {
+      "category_name": "运动相机",
+      "primary_purpose": "记录运动、旅行和极限活动的高质量视频和照片",
+      "target_user_groups": [
+        "极限运动爱好者",
+        "旅行博主",
+        "户外探险者",
+        "内容创作者",
+        "专业摄影师"
+      ]
+    },
+    "critical_evaluation_dimensions": [
+      {
+        "dimension_name": "视频画质",
+        "importance_level": "极高",
+        "typical_concerns": [
+          "4K分辨率",
+          "帧率稳定性",
+          "色彩还原",
+          "低光表现"
+        ],
+        "positive_indicators": [
+          "清晰",
+          "锐利",
+          "色彩鲜艳",
+          "细节丰富",
+          "4K"
+        ],
+        "negative_indicators": [
+          "模糊",
+          "噪点",
+          "色彩失真",
+          "画质差",
+          "不清楚"
+        ]
+      },
+      {
+        "dimension_name": "防抖性能",
+        "importance_level": "极高",
+        "typical_concerns": [
+          "电子防抖效果",
+          "机械防抖",
+          "运动中稳定性"
+        ],
+        "positive_indicators": [
+          "稳定",
+          "防抖好",
+          "平滑",
+          "不抖动"
+        ],
+        "negative_indicators": [
+          "抖动",
+          "不稳定",
+          "晃动严重",
+          "防抖差"
+        ]
+      },
+      {
+        "dimension_name": "防水防尘",
+        "importance_level": "极高",
+        "typical_concerns": [
+          "防水等级",
+          "密封性",
+          "极端环境适应性"
+        ],
+        "positive_indicators": [
+          "防水好",
+          "密封性强",
+          "耐用",
+          "防尘"
+        ],
+        "negative_indicators": [
+          "进水",
+          "密封差",
+          "不防水",
+          "容易损坏"
+        ]
+      },
+      {
+        "dimension_name": "电池续航",
+        "importance_level": "高",
+        "typical_concerns": [
+          "录制时长",
+          "待机时间",
+          "充电速度"
+        ],
+        "positive_indicators": [
+          "续航长",
+          "电池耐用",
+          "充电快",
+          "持久"
+        ],
+        "negative_indicators": [
+          "续航短",
+          "电池不耐用",
+          "充电慢",
+          "耗电快"
+        ]
+      },
+      {
+        "dimension_name": "操作便利性",
+        "importance_level": "高",
+        "typical_concerns": [
+          "触屏响应",
+          "按键设计",
+          "菜单逻辑",
+          "语音控制"
+        ],
+        "positive_indicators": [
+          "操作简单",
+          "触屏灵敏",
+          "易用",
+          "方便"
+        ],
+        "negative_indicators": [
+          "操作复杂",
+          "触屏不灵",
+          "难用",
+          "按键不好按"
+        ]
+      },
+      {
+        "dimension_name": "配件生态",
+        "importance_level": "中等",
+        "typical_concerns": [
+          "配件丰富度",
+          "兼容性",
+          "安装便利性"
+        ],
+        "positive_indicators": [
+          "配件丰富",
+          "兼容性好",
+          "安装方便",
+          "选择多"
+        ],
+        "negative_indicators": [
+          "配件少",
+          "不兼容",
+          "安装困难",
+          "选择有限"
+        ]
+      }
+    ],
+    "technical_specifications": [
+      {
+        "name": "视频分辨率",
+        "common_values": [
+          "1080p",
+          "4K",
+          "5.3K",
+          "8K"
+        ],
+        "user_impact": "直接影响视频清晰度和后期处理空间",
+        "importance": "极高"
+      },
+      {
+        "name": "帧率",
+        "common_values": [
+          "30fps",
+          "60fps",
+          "120fps",
+          "240fps"
+        ],
+        "user_impact": "影响慢动作效果和视频流畅度",
+        "importance": "高"
+      },
+      {
+        "name": "防水等级",
+        "common_values": [
+          "IPX7",
+          "IPX8",
+          "10米",
+          "30米",
+          "60米"
+        ],
+        "user_impact": "决定可使用的环境范围",
+        "importance": "极高"
+      },
+      {
+        "name": "电池容量",
+        "common_values": [
+          "1000-1500mAh",
+          "1500-2000mAh",
+          "2000mAh+"
+        ],
+        "user_impact": "影响连续使用时长",
+        "importance": "高"
+      }
+    ],
+    "usage_context_framework": {
+      "primary_scenarios": [
+        "极限运动记录（滑雪、冲浪、攀岩）",
+        "旅行拍摄（风景、人文记录）",
+        "水下摄影（潜水、游泳）",
+        "日常生活记录（聚会、活动）"
+      ],
+      "niche_scenarios": [
+        "专业影视制作",
+        "安全监控记录",
+        "宠物行为记录"
+      ],
+      "scenario_specific_requirements": {
+        "极限运动": [
+          "超强防抖",
+          "高帧率",
+          "耐冲击"
+        ],
+        "水下摄影": [
+          "深度防水",
+          "色彩校正",
+          "防雾"
+        ],
+        "旅行拍摄": [
+          "长续航",
+          "便携性",
+          "快速分享"
+        ],
+        "专业制作": [
+          "高分辨率",
+          "色彩准确",
+          "外接设备支持"
+        ]
+      }
+    },
+    "competitive_analysis_focus": {
+      "key_differentiators": [
+        "画质技术",
+        "防抖算法",
+        "防水深度",
+        "配件生态",
+        "软件功能"
+      ],
+      "price_sensitivity_factors": [
+        "功能完整度",
+        "品牌知名度",
+        "配件成本",
+        "升级频率"
+      ],
+      "brand_loyalty_drivers": [
+        "产品可靠性",
+        "售后服务",
+        "软件更新",
+        "社区支持"
+      ]
+    },
+    "common_pain_points": {
+      "functional_issues": [
+        "低光环境画质差",
+        "防抖效果不理想",
+        "音频录制质量差",
+        "过热导致停机"
+      ],
+      "usability_issues": [
+        "触屏在湿手时不灵敏",
+        "菜单设置复杂",
+        "文件传输速度慢",
+        "语音控制识别率低"
+      ],
+      "reliability_issues": [
+        "电池续航不足",
+        "防水密封失效",
+        "存储卡兼容性问题",
+        "固件更新故障"
+      ],
+      "value_perception_issues": [
+        "配件价格昂贵",
+        "升级换代频繁",
+        "功能重复冗余",
+        "性价比不高"
+      ]
+    }
+  },
+  "consumer_profile": {
+    "关键用户画像洞察": {
+      "核心用户画像": "热爱极限运动和内容创作的技术爱好者，主要为摩托车骑手、户外探险者和视频博主",
+      "细分潜力用户类型": "家庭用户和旅行记录者，以及专业摄影师和房地产从业者",
+      "关键用户行为": "主要用于记录运动过程和创作社交媒体内容，重视画质和防抖性能，经常遇到技术问题但仍坚持使用"
+    },
+    "消费者画像分析": {
+      "人群特征": {
+        "核心insight": "用户主要为技术熟练的运动爱好者和内容创作者，对相机功能要求较高但也更容易遇到技术问题",
+        "细分人群": [
+          {
+            "用户人群": "摩托车骑手和极限运动爱好者",
+            "特征描述": "热衷于记录骑行过程和极限运动，对360度拍摄和防抖功能需求强烈，技术接受度高",
+            "比例": "35.2%",
+            "关键review信息": [
+              "I use this on the back of my show truck. I love the videos it takes.",
+              "This camera is awesome. It captures footage that typically would take several cameras.",
+              "Perfect for my motorcycle rides across the country. Best product I've used.",
+              "Great for recording my travels on motorcycle for my safety.",
+              "I use mine almost daily to make youtube, and other social content."
+            ]
+          },
+          {
+            "用户人群": "内容创作者和视频博主",
+            "特征描述": "专注于制作YouTube、社交媒体内容，看重视频质量和编辑便利性，对新技术敏感",
+            "比例": "28.7%",
+            "关键review信息": [
+              "I have a YouTube channel and my 360 is in my camera bag every time I go out.",
+              "This thing is the absolute biggest piece of garbage ever. The unit itself takes great video, but good luck editing it.",
+              "I make video content for both personal and commercial use.",
+              "Perfect for any tech or gadget enthusiast in your life.",
+              "I've been using the Insta360 X5 for all my outdoor adventures, and it's been a game-changer."
+            ]
+          },
+          {
+            "用户人群": "家庭用户和旅行记录者",
+            "特征描述": "用于记录家庭活动、旅行和特殊时刻，注重易用性和分享功能",
+            "比例": "22.1%",
+            "关键review信息": [
+              "This 360 is very easy to use. It was great for our Hawaii vacation.",
+              "Really good gift for your loved ones!",
+              "Perfect for capturing scenic views and underwater or cave excursions.",
+              "I use this often. It helps me elevate my content with drone-like footage.",
+              "Great camera for the family and grandkids."
+            ]
+          }
+        ]
+      },
+      "使用时刻": {
+        "核心insight": "用户主要在户外活动和运动时使用，白天使用频率最高，夜间和低光环境使用体验较差",
+        "细分场景": [
+          {
+            "使用时刻": "白天户外运动时间",
+            "特征描述": "在阳光充足的环境下进行摩托车骑行、徒步、滑雪等户外活动时使用，画质表现最佳",
+            "比例": "45.8%",
+            "关键review信息": [
+              "Daylight footage blew me away – crisp details and vibrant colors.",
+              "The quality of footage is very good and the goodies in the free editing are really nice.",
+              "Perfect functionality with great color. Fits my vehicle like a glove.",
+              "The footage is so clear, compared to my gopro.",
+              "Amazing video footage. It takes some playing with to learn how to edit the video's."
+            ]
+          },
+          {
+            "使用时刻": "旅行和度假期间",
+            "特征描述": "在旅行途中用于记录风景、活动和特殊时刻，通常是连续多天使用",
+            "比例": "31.4%",
+            "关键review信息": [
+              "This 360 is very easy to use. It was great for our Hawaii vacation.",
+              "I took it on a trip 2 weeks ago and i took it with, recorded for 30 minutes.",
+              "Camera stopped working 1 day into vacation in Mexico.",
+              "Perfect for capturing scenic views and underwater or cave excursions.",
+              "I brought it to a major police sports event, a high-profile assignment."
+            ]
+          },
+          {
+            "使用时刻": "夜间和低光环境",
+            "特征描述": "在夜间骑行、室内活动或光线不足的环境下使用，但效果往往不理想",
+            "比例": "12.3%",
+            "关键review信息": [
+              "Night footage is BAD. Think the day footage is bad? Wait till you have AI trying to fix that.",
+              "The low-light capabilities are limited, which may affect nighttime or indoor shooting.",
+              "X4 CAN NOT SEE ANYTHING IN THE DARK, absolutely 0!!",
+              "Low light performance is good, though you can see some artifacting.",
+              "The AI-powered PureVideo mode excels in low-light conditions."
+            ]
+          }
+        ]
+      },
+      "使用地点": {
+        "核心insight": "用户主要在户外开放环境和交通工具上使用，室内使用相对较少且效果不佳",
+        "细分场景": [
+          {
+            "使用地点": "道路和交通工具上",
+            "特征描述": "安装在摩托车、汽车、自行车上作为行车记录或拍摄工具，是最主要的使用场景",
+            "比例": "42.6%",
+            "关键review信息": [
+              "Perfect for my motorcycle rides across the country.",
+              "I use this on the back of my show truck. I love the videos it takes.",
+              "Great for recording my travels on motorcycle for my safety.",
+              "Been using it as a dash cam mostly. Battery runs about 2 hours.",
+              "I mount this to my car and it catches everything."
+            ]
+          },
+          {
+            "使用地点": "户外自然环境",
+            "特征描述": "在山地、海滩、雪场等自然环境中进行极限运动和探险活动时使用",
+            "比例": "28.9%",
+            "关键review信息": [
+              "I have crashed pretty hard, and fast with this camera and it has not gotten a scratch on it.",
+              "Took it underwater and it held up perfectly, no stress, just clear clean videos.",
+              "Perfect for capturing scenic views and underwater or cave excursions.",
+              "I've used it while driving, biking, and even just walking around.",
+              "Great for my walks, for my video creation it is excellent."
+            ]
+          },
+          {
+            "使用地点": "室内和封闭空间",
+            "特征描述": "在家中、办公室或其他室内环境使用，主要用于测试或特定拍摄需求",
+            "比例": "15.7%",
+            "关键review信息": [
+              "I had used it indoors for tests like if it works and all the modes and it was fine.",
+              "Coming from the X2 the quality isn't really that much better and the X5 is so much heavier....I wish I wouldn't have bought it...but sometimes we are so triggered by the hype..took some interior pics and they are quite awful.",
+              "I use this for workout clips, photography BTS, and car videos.",
+              "I was initially excited about the Insta360 X4, but my experience has been frustrating.",
+              "The camera itself isn't bad (outside of lens that can easily be broken)."
+            ]
+          }
+        ]
+      },
+      "使用行为": {
+        "核心insight": "用户购买主要为自用记录和内容创作，但经常遇到技术问题和学习成本，对售后服务不满意",
+        "细分行为": [
+          {
+            "使用行为": "技术学习和问题解决",
+            "特征描述": "花费大量时间学习使用方法、解决连接问题、处理软件故障，技术门槛较高",
+            "比例": "38.4%",
+            "关键review信息": [
+              "After three hours I haven't been able to take a single image with it.",
+              "I spent two hours trying to just get it to connect to my Android phone or tablet.",
+              "The app is terrible because it crashes and won't ever load a video to 100%.",
+              "It rarely works, and when it does the remote doesn't, or audio didn't record.",
+              "The editing software that comes with it is unusable and the plugins that go along with adobe premiere pro are super cumbersome."
+            ]
+          },
+          {
+            "使用行为": "内容创作和分享",
+            "特征描述": "用于制作YouTube视频、社交媒体内容，重视编辑功能和分享便利性",
+            "比例": "32.1%",
+            "关键review信息": [
+              "I have a YouTube channel and my 360 is in my camera bag every time I go out.",
+              "I use mine almost daily to make youtube, and other social content.",
+              "Perfect for any tech or gadget enthusiast in your life.",
+              "The editing features are competent and continually updated.",
+              "I make video content for both personal and commercial use."
+            ]
+          },
+          {
+            "使用行为": "产品退换和投诉",
+            "特征描述": "由于质量问题、功能不符预期或技术故障频繁退货，对客服和售后服务不满",
+            "比例": "19.8%",
+            "关键review信息": [
+              "I will send it back.",
+              "Don't buy this camera, I couldn't even record my first video.",
+              "I am returning mine due to the fact that my camera will not connect to wifi after 10/15 minutes of use.",
+              "Their customer service is terrible to, from the company to.",
+              "I contacted Insta360 support and was advised to return the unit to Hong Kong for inspection/repair."
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "consumer_scenario": {
+    "洞察总结": {
+      "重要度最高的消费场景": [
+        "摩托车骑行记录: 被超过30%的用户提及，是运动相机最核心的使用场景，用户对360度全景记录和防抖性能要求极高",
+        "旅行拍摄记录: 被约25%的用户提及，用户希望通过360度拍摄捕捉完整的旅行体验，无需担心取景角度"
+      ],
+      "小众但被忽视的消费场景": [
+        "水下拍摄: 虽然提及频率仅8%，但用户在此场景下的失败率最高，防水密封问题频发，表明存在明显的产品可靠性优化机会"
+      ]
+    },
+    "产品使用场景分析": [
+      {
+        "场景名称": "摩托车骑行全景记录",
+        "场景描述": "摩托车爱好者在日常通勤或长途骑行过程中，将360度运动相机安装在车把或头盔上，记录骑行路线的全景视频。用户希望同时捕捉前方道路、周围环境以及自己的骑行状态，用于后期制作骑行视频或作为行车记录仪使用。对相机的防抖性能、音频降噪和长续航能力要求很高。",
+        "场景重要性": "32.5%",
+        "相关评论": [
+          "I use mine almost daily to make youtube, and other social content. Highly recommend. Another awesome feature is that there are 4 audio mics recording in unison, which allows you to listen in 360 also. The stabilization is unbeatable on this camera",
+          "Love to be able to record my travels on motorcycle for my safety. Great quality filming with great App to edit videos.",
+          "Perfect for my motorcycle rides across the country. Best product I've used.",
+          "The X5's wind noise reduction is witchcraft at highway speeds. Just did an test run and the audio actually captures my pipes' growl without that ear-splitting wind howl.",
+          "My husband uses while riding his motorcycle and love it. Small in size but durable and takes good videos with good quality sounds and color"
+        ]
+      },
+      {
+        "场景名称": "旅行探险全景拍摄",
+        "场景描述": "旅行者在游览景点、徒步探险或度假时，使用360度相机配合自拍杆记录旅行过程。用户希望捕捉完整的环境氛围和自己的旅行体验，无需担心取景角度，后期可以从任意角度重新构图。特别适合独自旅行或想要获得类似无人机拍摄效果的场景。",
+        "场景重要性": "24.8%",
+        "相关评论": [
+          "This thing has changed the way I capture my vacations and action shots of skateboarding and Crazy Carting. it's awesome!",
+          "This 360 is very easy to use. It was great for our Hawaii vacation. Getting pictures of the whole family was very easy.",
+          "I use this often. It helps me elevate my content with drone-like footage and a fisheye look.",
+          "Me gustó mucho y es muy útil para mis viajes.",
+          "Took this camera on a road trip with friends and used it the whole time—on the dash, out the sunroof, everywhere. Super easy to use and perfect for snapping videos to post on Snap or TikTok."
+        ]
+      },
+      {
+        "场景名称": "内容创作与社交分享",
+        "场景描述": "内容创作者和社交媒体用户使用360度相机制作YouTube视频、Instagram内容或其他社交媒体素材。用户利用相机的全景拍摄能力和后期重构图功能，创造独特的视觉效果和多角度内容。特别重视相机的视频质量、编辑软件的易用性和快速分享功能。",
+        "场景重要性": "18.7%",
+        "相关评论": [
+          "I have a YouTube channel and my 360 is in my camera bag every time I go out. It's great to use in places you're not sure where to point a camera because everything is so beautiful.",
+          "fantastic camera for the money, highly recommend if you video record a lot, blogging or action videos like riding bikes etc.",
+          "This is excellent for blogging, for use as a dash cam, and generally brilliant piece of kit. Worth the money!",
+          "It's disgusting how much clout I have now",
+          "The camera is great, and the app steals the show! The new update seamlessly merges album editing, clip trimming, and even creative studio effects into one place."
+        ]
+      },
+      {
+        "场景名称": "运动健身记录",
+        "场景描述": "运动爱好者在进行各种体育活动时使用360度相机记录运动过程，包括骑行、滑板、攀岩、游泳等。用户希望从多个角度捕捉运动动作和技巧，用于技术分析、社交分享或个人回顾。对相机的防抖性能、耐用性和防水能力有较高要求。",
+        "场景重要性": "15.2%",
+        "相关评论": [
+          "Much better equipment for sports recording",
+          "Love this 360 camera. I use it in sporting events and the angles are awesome. You can also create pretty awesome video from the software.",
+          "As a fisherman, I want to film the topwater bite and follow the action to the kayak. This is great!",
+          "I record gym content and let me just tell you I love this camera !!",
+          "Took my X5 out on a group ride yesterday and it worked great. I rode for a full two hours and the battery held up the whole time"
+        ]
+      },
+      {
+        "场景名称": "水下拍摄探索",
+        "场景描述": "用户在游泳、潜水或水上运动时使用360度相机进行水下拍摄。用户期望相机能够在水下环境中正常工作，捕捉水下世界的全景视频和照片。但实际使用中经常遇到防水密封失效、相机进水损坏等问题，是用户投诉最集中的使用场景。",
+        "场景重要性": "8.3%",
+        "相关评论": [
+          "Camera stopped working 1 day into vacation in Mexico. Camera only went 12\" under water with all access ports fully closed! Very frustrating when buy a \"waterproof\" camera for vacation",
+          "Waterproof? Jumped in the pool with it and dies. Open up the battery and water pours out. Be warned.",
+          "Water got inside camera on 2nd day of trip to Greece after putting it underwater for 5seconds. All doors were closed. Will not turn on or charge.",
+          "first hit in water and the camera died after 8 hours) but the waterproof function",
+          "I had to return this because the waterproofing failed when I went to the beach but prior to that it was working great."
+        ]
+      }
+    ]
+  },
+  "consumer_motivation": {
+    "购买动机洞察总结": {
+      "技术指标维度": "8K分辨率和360度全景拍摄是最核心的技术驱动因素。消费者被8K超高清画质、360度无死角记录能力以及强大的防抖稳定技术所吸引，这些硬核参数直接决定了内容创作的质量上限。",
+      "功能属性维度": "隐形自拍杆效果和AI智能编辑是最具吸引力的杀手级功能。消费者渴望获得类似无人机的拍摄效果，同时希望通过AI辅助快速完成复杂的后期处理，大幅降低内容创作门槛。",
+      "使用场景维度": "摩托车骑行记录、极限运动拍摄和旅行内容创作是三大高价值应用场景。产品成功满足了用户在高速移动、恶劣环境下的专业级记录需求，以及社交媒体内容创作的多样化要求。"
+    },
+    "具体购买动机": [
+      {
+        "动机": "8K超高清画质体验",
+        "消费者描述": "追求极致清晰的视觉效果，希望每一个细节都能完美呈现，满足专业级内容创作需求",
+        "动机重要性": "23.5%",
+        "相关评论示例": [
+          "The 8K video quality is off the charts. Since it captures everything around you, you can snag every moment of your travels without stressing about changing angles or camera positions.",
+          "8K looks insane. Took it out for some rail stuff and the tracking actually followed for once. Footage were smooth and didn't shake like with my old camera.",
+          "The 8K footage is so crisp I saw myself blink in real time — from behind. The invisible selfie stick effect is pure sorcery, and stabilization is smoother than my last relationship.",
+          "Very good, stable, shoot out very clear. X5 blows me away with its 8K sharpness. details in hiking footage now looks almost lifelike.",
+          "The Insta360 X4 is insane. The video quality is crystal clear, especially in 8K 360 mode — it's like reliving the moment exactly how it happened."
+        ]
+      },
+      {
+        "动机": "360度全景无死角记录",
+        "消费者描述": "不想错过任何精彩瞬间，希望一次拍摄就能捕获周围所有角度的内容",
+        "动机重要性": "21.8%",
+        "相关评论示例": [
+          "Normal cameras only record what you're pointing at, something happens next to you and you're not pointing to it, you've missed the moment and it's not coming back. This camera ensures that never happens again.",
+          "I love this camera the video footage is great I really love the 360 Lens you get every angle without missing anything",
+          "The ability to capture from all angles is amazing, the video quality is astounding for what it is. Fantastic stabilization. It's just all around a great device.",
+          "It captures footage that typically would take several cameras. They are waterproof, but I haven't been brave enough to test that fully.",
+          "The 360-degree capture is stunning, the stabilization is top-notch, and the image quality is seriously impressive."
+        ]
+      },
+      {
+        "动机": "隐形自拍杆神奇效果",
+        "消费者描述": "渴望获得类似专业摄影团队或无人机的拍摄效果，让普通人也能创作出电影级画面",
+        "动机重要性": "18.7%",
+        "相关评论示例": [
+          "The invisible selfie stick effect is nuts. The stabilization and editing tools built into the app make everything look cinematic.",
+          "This camera's AI powered stick removal works like witchcraft. No more awkward pole positioning or editing tricks!",
+          "The fact you can use a selfie stick and not see the stick makes it appear like drone footage, which is really neat.",
+          "I stuck this thing on a a selfie stick and played with my dog in the backyard. What came out looked like a full-on cinematic chase scene.",
+          "The Insta360 X4 is a game-changer for electric scooter/motorcycle content. The dynamic angles—especially the rear-facing and invisible selfie stick views look like they're straight out of a pro film shoot."
+        ]
+      },
+      {
+        "动机": "摩托车骑行专用记录",
+        "消费者描述": "需要一款能够承受高速行驶、风噪干扰的专业摩托车记录设备，记录骑行过程中的精彩时刻",
+        "动机重要性": "16.2%",
+        "相关评论示例": [
+          "As a motorcyclist this is the best camera on the planet, 360 angels with one can capture all the beauty and anything that you want to record.",
+          "I always use Insta360's products for motorcycle riding recording, immediately upgraded to this one as soon as it came out!",
+          "Love to be able to record my travels on motorcycle for my safety. Great quality filming with great App to edit videos.",
+          "The X5's wind noise reduction is witchcraft at highway speeds. Just did an test run and the audio actually captures my pipes' growl without that ear-splitting wind howl.",
+          "All my rider buddies use Insta360 cams and it's easy to unaderstand why. Instead of needing a camera to film in both direction, these 5X cameras film everything all at once."
+        ]
+      },
+      {
+        "动机": "低光夜景拍摄能力",
+        "消费者描述": "希望在昏暗环境下也能拍出清晰明亮的视频，不受光线条件限制地记录生活",
+        "动机重要性": "14.3%",
+        "相关评论示例": [
+          "Nighttime shooting is no joke with this thing. Took it out for a handheld walk through a dimly lit alley and the footage came out looking superb.",
+          "The low-light performance is genuinely impressive - easily one of the best in its class.",
+          "Night shots are also phenomenal. Built-in mic has improved. The wind noise reduction feature helps.",
+          "PureVideo is wild! The AI chip isn't just marketing fluff; it's why this cam outshines my X3 in every dusk ride.",
+          "Thanks to the larger sensors the X5 is able to provide improved low light performance. It is also utilizing 3 AI chips to render the brightest image with the least amount of noise as possible."
+        ]
+      },
+      {
+        "动机": "可更换镜头设计优势",
+        "消费者描述": "担心昂贵镜头损坏后的维修成本和停机时间，希望能够自主快速更换损坏部件",
+        "动机重要性": "12.9%",
+        "相关评论示例": [
+          "The replacement lens is the most practical upgrade! My old 360 cam's scratched lens meant weeks without it (and $$$ for repairs). Now $30 and 2 minutes to pop in a fresh lens myself.",
+          "I was a bit nervous about buying the Insta360 X5. The detachable lens design means I can swap in replacements if something bad happens. This durability lets me focus on capturing kayaking and mountain biking without babysitting the gear.",
+          "The replaceable lenses have reduced a lot of stress when recording. It is nice knowing that if a scratch happens, it's only a ten-minute or so process, and I'm back at it.",
+          "The ability to replace lenses yourself is very welcome and a significant enough development in itself to warrant an upgrade. I have always babied my 360 cameras from GoPro Max, to X3 and X4 being constantly terrified of ruining the lens.",
+          "Replaceable lenses are thankfully finally a thing, super happy about that. Battery life in certain modes can be dragged out, which is good because the x2 had kind of weak runtime."
+        ]
+      },
+      {
+        "动机": "AI智能编辑便利性",
+        "消费者描述": "希望通过智能技术简化复杂的后期制作流程，让普通用户也能快速制作出专业水准的视频",
+        "动机重要性": "11.4%",
+        "相关评论示例": [
+          "The new AI-powered editing tools in the app make it a breeze to create awesome content. I love the \"InstaFrame\" mode for quick social media uploads.",
+          "What really stands out are the AI editing tools. Might sound gimmicky at first, but buzzwords aside, they REALLY WORK! At least if what you're looking for is a quick shareable video.",
+          "The camera has a ton of smart features, too many to even list, and they're all awesome. The app also has integrated smart features like auto face tracking and stuff like that.",
+          "I also really like the option that the first two and last two seconds of the footage can automatically be trimmed off. This is not something I would have expected to like so much.",
+          "The app is also an amazing feature to goes along with this camera. It makes transferring your footage from your camera to your iPad or iPhone so simple. It also makes reframing and editing all of your footage really easy!"
+        ]
+      },
+      {
+        "动机": "极限运动防护需求",
+        "消费者描述": "需要一款能够在恶劣环境下正常工作的坚固设备，承受撞击、防水防尘，适应各种极限挑战",
+        "动机重要性": "10.6%",
+        "相关评论示例": [
+          "I have crashed pretty hard, and fast with this camera and it has not gotten a scratch on it. The footage is so clear, compared to my gopro.",
+          "Took the X5 mountain biking last weekend. Even bombing down rocky trails, the footage stayed increibly smooth, way better than I expected.",
+          "Been using it for hiking, road trips, and even a wedding. Everyone keeps asking how I got certain shots, and I just tell them it's all one clip.",
+          "The camera is light weight and can be placed on a selfie stick. The camera then is able to automatically edit out the stick so it looks like you have a camera crew beside you at all times.",
+          "It's great to use in places you're not sure where to point a camera because everything is so beautiful. I like to use it walking paths, so I can have that 'drone shot' of me walking without getting out my drone."
+        ]
+      },
+      {
+        "动机": "社交媒体内容创作",
+        "消费者描述": "希望为社交平台创作独特有趣的内容，通过创新的拍摄角度和效果吸引更多关注和互动",
+        "动机重要性": "9.8%",
+        "相关评论示例": [
+          "It's disgusting how much clout I have now",
+          "Perfect for any tech or gadget enthusiast in your life—you won't believe what it can do until you try",
+          "This thing is the absolute biggest piece of garbage ever. The unit itself takes great video, but good luck editing it.",
+          "I use mine almost daily to make youtube, and other social content. Highly recommend.",
+          "Whether you're traveling, adventuring, or just making cool content, this thing delivers. I bought it as a gift, and now I want one for myself."
+        ]
+      },
+      {
+        "动机": "长续航电池表现",
+        "消费者描述": "需要足够的电池续航来支持长时间的拍摄活动，避免在关键时刻因电量不足而错失精彩内容",
+        "动机重要性": "8.7%",
+        "相关评论示例": [
+          "Battery life is robust, offering up to 185 minutes of recording in 5.7K, and fast charging capabilities mean you're ready to go in no time.",
+          "The battery life is great! It actually lasts quite a bit longer than my large mirrorless camera.",
+          "Battery life holds up well and it's surprisingly durable. Highly recommended if you create content or just want epic footage of your adventures.",
+          "I took my X5 out on a group ride yesterday and it worked great. I rode for a full two hours and the battery held up the whole time and I still had like 25% left when I came home.",
+          "The X5 has stepped up its game with an extra hour of battery life. Honestly, I don't even sweat it with a spare battery anymore since it's got fast charging, too."
+        ]
+      }
+    ]
+  },
+  "consumer_love": {
+    "消费者洞察总结": {
+      "技术规格": "消费者最称赞8K分辨率带来的超清画质、大传感器在低光环境下的出色表现、以及FlowState防抖技术提供的电影级稳定效果，这些技术规格让用户能够轻松创作专业级内容",
+      "功能属性": "360度全景拍摄的'一次拍摄，后期选角度'功能成为杀手级应用，隐形自拍杆效果让普通用户也能拍出无人机般的震撼视角，可更换镜头设计彻底解决了用户对镜头损坏的担忧",
+      "使用场景": "产品在摩托车骑行记录、极限运动拍摄、旅行vlog制作等场景下提供了峰值体验，特别是在需要同时捕捉多个角度和动态场景的情况下，让用户能够专注于体验本身而不用担心拍摄角度"
+    },
+    "核心赞美点分析": [
+      {
+        "赞美点": "8K超清画质表现",
+        "消费者描述": "8K分辨率带来的画面清晰度和细节表现远超预期，即使在后期裁剪和重新构图时依然保持出色的视觉效果",
+        "赞美点重要性": "23.8",
+        "相关评论示例": [
+          "The 8K video quality is off the charts. Since it captures everything around you, you can snag every moment of your travels without stressing about changing angles or camera positions.",
+          "8K looks insane. Took it out for some rail stuff and the tracking actually followed for once. Footage were smooth and didn't shake like with my old camera.",
+          "The 8K footage is super crisp, and the 360° view makes everything feel so immersive.",
+          "Very good, stable, shoot out very clear. X5 blows me away with its 8K sharpness. details in hiking footage now looks almost lifelike.",
+          "The invisible selfie stick effect is nuts. The stabilization and editing tools built into the app make everything look cinematic."
+        ]
+      },
+      {
+        "赞美点": "360度全景拍摄的便利性",
+        "消费者描述": "一次拍摄就能捕捉所有角度，再也不用担心错过精彩瞬间或者拍摄角度不对，后期可以随意选择最佳视角",
+        "赞美点重要性": "31.2",
+        "相关评论示例": [
+          "Normal cameras only record what you're pointing at, something happens next to you and you're not pointing to it, you've missed the moment and it's not coming back. This camera ensures that never happens again.",
+          "I love that the X4 is a tiny, little, lightweight camera! Shooting in 8k30fps 360 mode gives me some peace of mind knowing that as long as I'm recording/vlogging I'm always going to get the shot because I'll be able to reframe it later.",
+          "The ability to shoot first and frame later is everything. I don't have to worry about missing anything, and I can pull clips in any aspect ratio — wide for YouTube, vertical for Reels, square for thumbnails.",
+          "This is literally a camera you can walk around with and not have to worry about keeping anyone in the frame or making sure you got the shot. As long as the action is happening around the camera or within view of it, you can see it after the fact.",
+          "You don't need experience to edit your recordings, Insta360 has several videos on how to edit your videos like a pro, and they're easy to follow."
+        ]
+      },
+      {
+        "赞美点": "隐形自拍杆的神奇效果",
+        "消费者描述": "自拍杆在视频中完全消失，创造出仿佛有专业摄影师跟拍的无人机视角效果，让普通用户也能拍出电影级镜头",
+        "赞美点重要性": "18.7",
+        "相关评论示例": [
+          "The invisible selfie stick effect is pure sorcery, and stabilization is smoother than my last relationship.",
+          "This camera's AI powered stick removal works like witchcraft. No more awkward pole positioning or editing tricks!",
+          "The hidden selfie stick creates floating \"drone-like\" angles that wow everyone.",
+          "I stuck this thing on a a selfie stick and played with my dog in the backyard. What came out looked like a full-on cinematic chase scene.",
+          "The fact you can use a selfie stick and not see the stick makes it appear like drone footage, which is really neat."
+        ]
+      },
+      {
+        "赞美点": "出色的低光拍摄能力",
+        "消费者描述": "在夜晚和昏暗环境下依然能拍出清晰明亮的视频，PureVideo模式让夜景拍摄效果远超预期",
+        "赞美点重要性": "16.4",
+        "相关评论示例": [
+          "Nighttime shooting is no joke with this thing. Took it out for a handheld walk through a dimly lit alley and the footage came out looking superb. Noise is minimal, colors still pop, and I didn't have to doanything special.",
+          "The low-light performance is genuinely impressive - easily one of the best in its class.",
+          "Night rides clips finally look usable thanks to surprisingly clean low-light footage.",
+          "Where the X3 blurred streetlights into glowing blobs, the X5 kept shop signs crisp and shadows detailed.",
+          "I filmed my yard and my dog in the evening, and it was much better than any other action cameras on the market"
+        ]
+      },
+      {
+        "赞美点": "可更换镜头设计",
+        "消费者描述": "镜头可以自己更换，彻底解决了对镜头损坏的担忧，让用户可以放心在各种极限环境下使用",
+        "赞美点重要性": "14.9",
+        "相关评论示例": [
+          "The replaceable lenses are a lifesaver. I can confidently take the X5 off-road without worrying about scratching the lens.",
+          "The replacement lens is the most practical upgrade! My old 360 cam's scratched lens meant weeks without it (and $$$ for repairs). Now $30 and 2 minutes to pop in a fresh lens myself.",
+          "I was a bit nervous about buying the Insta360 X5. X5's reinforced lenses are a lifesaver! The detachable lens design means I can swap in replacements if something bad happens.",
+          "The ability to replace lenses yourself is very welcome and a significant enough development in itself to warrant an upgrade.",
+          "i replaced one set after the camera fell off my car off roading."
+        ]
+      },
+      {
+        "赞美点": "强大的防抖稳定性能",
+        "消费者描述": "无论多么剧烈的运动和颠簸，拍出的画面都异常稳定流畅，让动作场景看起来专业而震撼",
+        "赞美点重要性": "19.3",
+        "相关评论示例": [
+          "The stabilization is insane. No matter what you do, it will always look stable.",
+          "Even bombing down rocky trails, the footage stayed increibly smooth, way better than I expected.",
+          "Took the X5 mountain biking last weekend. Even bombing down rocky trails, the footage stayed increibly smooth, way better than I expected.",
+          "The stabilization is rock-solid, whether I'm mountain biking or skiing. The 360-degree horizon lock is a must-have feature.",
+          "This camera is ridiculously easy to use. Just lock the angle on your bike then shoot, and it spits out ready-to-share 1080p clips."
+        ]
+      },
+      {
+        "赞美点": "优秀的音频录制效果",
+        "消费者描述": "内置麦克风的录音质量出人意料地好，风噪抑制功能让高速运动时的音频依然清晰可用",
+        "赞美点重要性": "12.6",
+        "相关评论示例": [
+          "The X5's wind noise reduction is witchcraft at highway speeds. Just did an test run and the audio actually captures my pipes' growl without that ear-splitting wind howl.",
+          "The microphone on the previous X4 was already very good and now the mics on the X5 are even better!",
+          "X5s built-in microphone cover thingie saved me when i was cycling at 20 mph. my voice stayed clear over wind noise. No need for an external mics!",
+          "Great camera and the mic is super impressive. If you need a vlogging camera, this could be a good option.",
+          "The sound was as if I was wearing a mic! The video was very good."
+        ]
+      },
+      {
+        "赞美点": "持久的电池续航能力",
+        "消费者描述": "电池续航时间超出预期，能够支持长时间连续拍摄，让用户不用频繁担心电量问题",
+        "赞美点重要性": "11.8",
+        "相关评论示例": [
+          "Battery life is robust, offering up to 185 minutes of recording in 5.7K, and fast charging capabilities mean you're ready to go in no time.",
+          "The battery life is great! It actually lasts quite a bit longer than my large mirrorless camera.",
+          "Took my X5 out on a group ride yesterday and it worked great. I rode for a full two hours and the battery held up the whole time and I still had like 25% left when I came home.",
+          "Battery runs about 2 hours and it loops recording if your memory card fills up.",
+          "Settings on my insta is 4K/30. Battery life is awesome as well. Exceeded the expectations. 2hrs 20mins. And still had 4% left."
+        ]
+      }
+    ]
+  },
+  "unmet_needs": {
+    "消费者未满足需求洞察": {
+      "总结": "运动相机在可靠性、防水性能和软件体验方面存在严重缺陷，导致用户在关键时刻无法正常使用设备",
+      "技术角度": "硬件可靠性问题最为突出，包括防水密封失效、设备过热自动关机、电池续航不足等，这些问题直接影响设备在户外极限环境下的基本功能",
+      "功能角度": "软件连接和操作体验极差，用户频繁遭遇WiFi连接失败、应用崩溃、固件更新故障等问题，严重影响设备的日常使用和内容创作流程",
+      "场景角度": "产品在水下拍摄、长时间录制、旅行记录等核心使用场景下频繁失效，暴露了产品定位与实际性能之间的巨大差距"
+    },
+    "未满足需求分析": [
+      {
+        "痛点/未满足的需求": "防水性能不可靠",
+        "消费者描述": "标榜防水的相机在浅水使用后进水损坏，让用户在重要的水上活动中失去珍贵的拍摄机会",
+        "问题严重性/频率": "8.2%",
+        "相关评论示例": [
+          "Camera stopped working 1 day into vacation in Mexico. Camera only went 12\" under water with all access ports fully closed! Very frustrating when buy a \"waterproof\" camera for vacation",
+          "Waterproof? Jumped in the pool with it and dies. Open up the battery and water pours out. Be warned.",
+          "Water got inside camera on 2nd day of trip to Greece after putting it underwater for 5seconds. All doors were closed. Will not turn on or charge.",
+          "first hit in water and the camera died after 8 hours) but the waterproof function",
+          "I had to return this because the waterproofing failed when I went to the beach but prior to that it was working great."
+        ]
+      },
+      {
+        "痛点/未满足的需求": "设备过热导致录制中断",
+        "消费者描述": "相机在正常使用过程中频繁过热自动关机，导致重要时刻的拍摄被迫中断",
+        "问题严重性/频率": "7.8%",
+        "相关评论示例": [
+          "I purchased the Insta360 X4 on March 26, 2025, and received it on March 31. I was excited to use this camera, especially after watching numerous positive reviews and reading about its durability and performance in demanding conditions. From day one, I noticed it gets unusually hot during recording, but I initially brushed it off, thinking it was just part of its high-performance nature. Everything worked fairly well until May 1, when I brought it to a major police sports event, a high-profile assignment where I was expected to capture key footage. I recorded in 8K 30fps during midday under a sunny sky. To my shock and embarrassment, the camera overheated and shut down just 3 minutes into recording.",
+          "Does get too hot and turns off for excessive heat it not fair to pay so much money for that cámara It's great to be able to shoot 360 but can't not stay too long on without getting hot",
+          "Este nuevo modelo tiene muchísimos problemas para hacer lo que promete por sobre calentamiento... Puedes perder momentos importantes porque se apaga automáticamente",
+          "Camera is very laggy and gets very hot very quickly when recording really bummed with how expensive this product cost for it to perform so poorly",
+          "I don't know if is just me , but it come defective, overheat and lost charge quickly"
+        ]
+      },
+      {
+        "痛点/未满足的需求": "WiFi连接和应用稳定性问题",
+        "消费者描述": "设备WiFi连接不稳定，应用频繁崩溃，严重影响内容传输和编辑工作流程",
+        "问题严重性/频率": "12.5%",
+        "相关评论示例": [
+          "WIFI connection issues that make it unusable. I have to be within 3-4 feet from the device to keep connection.",
+          "Junk the Wifi stopped working after 3 uses. Tech support is zero and advised me to return it and buy a different model.",
+          "Fun camera but horrible app! If they don't fix the Insta360 app soon. I will return it!!! The app is sluggish and keeps crashing.",
+          "Camera has cool features it's too bad the app is so terrible that it makes editing almost imposible. I've had my camera for a week and been trying to edit and upload the same video for days.",
+          "I donwload the app from insta 360. I have good internet connection. but when I try to download any video from camera to my android phone. app close."
+        ]
+      },
+      {
+        "痛点/未满足的需求": "设备突然停止工作",
+        "消费者描述": "相机在使用过程中无预警地完全停止工作，让用户面临设备完全失效的困境",
+        "问题严重性/频率": "9.3%",
+        "相关评论示例": [
+          "Don't buy this camera, I couldn't even record my first video. I just created my profile on the app, updated the firmware and left the camera charging, after that, the camera never turned on again. So disappointing!",
+          "Stopped working after 1 month. Stops recording and freezes mid recording. Never been dropped. In perfect condition",
+          "Been enjoying my camera since January, 360 shits tell me why shit wait 6 flipping months and decided not to turn anymore. No water splashes, no spills not even fall",
+          "I got it hoping i could use it traveling to my country but when i got it, its not working at all. Not even opening. What a let down",
+          "doesn't work"
+        ]
+      },
+      {
+        "痛点/未满足的需求": "电池续航能力不足",
+        "消费者描述": "电池续航时间远低于预期，无法支持长时间的户外活动拍摄需求",
+        "问题严重性/频率": "6.7%",
+        "相关评论示例": [
+          "Battery life is very short, to pull videos off the card that is provided. It's extremely difficult and if I remember correctly, you have to pay for some type of subscription.",
+          "The quality is amazing, the only con for me is that it dies in like an hour, but other than that, I love it",
+          "Great camera, awful apps. I bought the camera and took it on a trip… The battery life is a joke—nowhere near the advertised 130 minutes.",
+          "La bateria a los 3 meses ya estaba muerta la que trae original, y solo la cargué 4 veces.",
+          "Other than an incredibly short battery life, which makes me run it in nothing higher than 4K at 30 FPS, I think it's a great unit."
+        ]
+      },
+      {
+        "痛点/未满足的需求": "软件编辑体验糟糕",
+        "消费者描述": "编辑软件功能复杂难用，处理速度慢，严重影响后期制作效率",
+        "问题严重性/频率": "8.9%",
+        "相关评论示例": [
+          "This thing is the absolute biggest piece of garbage ever. The unit itself takes great video, but good luck editing it. If you want to feel like smashing your computer multiple times throughout the editing process, this is the device for you. The insta360 studio is the clunkiest piece of garbage I've ever used to edit video.",
+          "The camera itself is a marvel but the software used to edit and export video stops working for many people. For me, the studio software works fine on my laptop but won't export from my desktop.",
+          "The insta 360 itself is awful overall. Sure, the camera videos are impressive but it's actually impossible to get your videos edited. The app is terrible because it crashes and won't ever load a video to 100%.",
+          "The camera is fine, however the mandatory software is absolutely horrible. The 'AI' BS sucks, the autoframing is whatever, most of the time even with keyframes I'm lookin at the exact opposite of what I want in the final videos.",
+          "Not for me. I'm an editor and 360 footage is unbearable to work with. No thanks! Takes way too long to produce videos with this."
+        ]
+      },
+      {
+        "痛点/未满足的需求": "客户服务支持不力",
+        "消费者描述": "遇到问题时客户服务响应缓慢，解决方案不够有效，让用户感到被忽视",
+        "问题严重性/频率": "5.4%",
+        "相关评论示例": [
+          "I \"do NOT\" like the 369 people, I hate this product I hate your lack of customer help, you have lied to me a half dozen times making promises that you haven't kept",
+          "The clamp is made of cheap material… used it once and the bolt snapped. Company is terrible with customer support.",
+          "this was my second order. the camera and SD card were missing and only the motorcycle mounting kit was in the delivery. ive been working with insta360 since my first order that was from them directly and they are not easy to work with.",
+          "Insta360 is the worst company I've ever worked with from a support perspective in my entire life and that's saying a lot.",
+          "The only issue I've had with it is the record button not activating every time. I have contacted the company and they gave me the runaround even with me purchasing the extended warranty."
+        ]
+      }
+    ]
+  },
+  "opportunity": {
+    "error": "未找到有效的JSON输出",
+    "raw_output": "> {\n \"商业机会洞察\": {\n   \"核心洞察总结\": \"当前运动相机的最大商业机会在于从单一的'拍摄设备'向'智能内容创作生态系统'转型，同时通过解决关键可靠性问题开拓专业用户市场，并基于360度全景优势定位为'一站式视觉记录解决方案'。\",\n   \n   \"产品改进机会\": [\n     {\n       \"机会名称\": \"彻底解决防水密封失效问题\",\n       \"机会判断依据\": \"根据未满足需求分析，防水性能不可靠问题影响8.2%的用户，在水下拍摄场景中失败率最高。用户反映标榜防水的相机在浅水使用后进水损坏，严重影响重要水上活动的拍摄体验。\",\n       \"目标用户\": \"水上运动爱好者、潜水摄影师、海滩度假用户、专业水下内容创作者\",\n       \"核心方案\": \"重新设计防水密封系统，采用双重密封结构和智能防水检测技术，增加防水深度至30米，并提供实时防水状态监控功能\",\n       \"实施路径\": \"1)重新设计密封圈材料和结构 2)增加防水状态LED指示灯 3)开发防水自检功能 4)建立严格的防水测试标准 5)提供防水保险服务\",\n       \"预期价值\": \"显著提升用户对产品可靠性的信心，扩大水上运动市场份额，减少因防水问题导致的退货和负面评价，建立专业防水设备的品牌形象\",\n       \"启发性评论原文\": [\n         \"Camera stopped working 1 day into vacation in Mexico. Camera only went 12\\\" under water with all access ports fully closed! Very frustrating when buy a \\\"waterproof\\\" camera for vacation\",\n         \"Waterproof? Jumped in the pool with it and dies. Open up the battery and water pours out. Be warned.\",\n         \"Water got inside camera on 2nd day of trip to Greece after putting it underwater for 5seconds. All doors were closed. Will not turn on or charge.\",\n         \"I had to return this because the waterproofing failed when I went to the beach but prior to that it was working great.\",\n         \"first hit in water and the camera died after 8 hours) but the waterproof function\"\n       ]\n     },\n     {\n       \"机会名称\": \"优化热管理系统防止过热关机\",\n       \"机会判断依据\": \"根据未满足需求分析，设备过热导致录制中断问题影响7.8%的用户，特别是在8K录制和高温环境下频繁发生，导致用户在重要时刻失去拍摄机会。\",\n       \"目标用户\": \"专业内容创作者、长时间录制用户、高温环境工作者、体育赛事摄影师\",\n       \"核心方案\": \"开发智能热管理系统，包括主动散热技术、温度预警机制、智能降频保护和外置散热配件，确保在极端条件下稳定录制\",\n       \"实施路径\": \"1)重新设计内部散热结构 2)增加温度传感器和预警系统 3)开发智能性能调节算法 4)设计外置散热配件 5)优化固件热管理策略\",\n       \"预期价值\": \"大幅提升产品在专业场景下的可靠性，减少因过热导致的用户流失，增强在高端市场的竞争力，提升品牌专业形象\",\n       \"启发性评论原文\": [\n         \"I purchased the Insta360 X4 on March 26, 2025, and received it on March 31. I was excited to use this camera, especially after watching numerous positive reviews and reading about its durability and \nperformance in demanding conditions. From day one, I noticed it gets unusually hot during recording, but I initially brushed it off, thinking it was just part of its high-performance nature. Everything worked \nfairly well until May 1, when I brought it to a major police sports event, a high-profile assignment where I was expected to capture key footage. I recorded in 8K 30fps during midday under a sunny sky. To my shock \nand embarrassment, the camera overheated and shut down just 3 minutes into recording.\",\n         \"Does get too hot and turns off for excessive heat it not fair to pay so much money for that cámara It's great to be able to shoot 360 but can't not stay too long on without getting hot\",\n         \"Este nuevo modelo tiene muchísimos problemas para hacer lo que promete por sobre calentamiento... Puedes perder momentos importantes porque se apaga automáticamente\",\n         \"Camera is very laggy and gets very hot very quickly when recording really bummed with how expensive this product cost for it to perform so poorly\",\n         \"I don't know if is just me , but it come defective, overheat and lost charge quickly\"\n       ]\n     },\n     {\n       \"机会名称\": \"重构WiFi连接和应用稳定性\",\n       \"机会判断依据\": \"根据未满足需求分析，WiFi连接和应用稳定性问题影响12.5%的用户，是所有痛点中频率最高的，严重影响内容传输和编辑工作流程，用户频繁遭遇连接失败和应用崩溃。\",\n       \"目标用户\": \"内容创作者、社交媒体用户、专业摄影师、需要实时传输的用户\",\n       \"核心方案\": \"重新开发WiFi连接架构和移动应用，采用更稳定的连接协议，优化数据传输算法，增加离线编辑功能和云端同步机制\",\n       \"实施路径\": \"1)升级WiFi芯片和天线设计 2)重写移动应用底层架构 3)开发智能重连机制 4)增加离线编辑功能 5)建立云端备份系统\",\n       \"预期价值\": \"显著改善用户体验，减少因技术问题导致的负面评价，提升用户粘性，增强产品在内容创作市场的竞争力\",\n       \"启发性评论原文\": [\n         \"WIFI connection issues that make it unusable. I have to be within 3-4 feet from the device to keep connection.\",\n         \"Fun camera but horrible app! If they don't fix the Insta360 app soon. I will return it!!! The app is sluggish and keeps crashing.\",\n         \"Camera has cool features it's too bad the app is so terrible that it makes editing almost imposible. I've had my camera for a week and been trying to edit and upload the same video for days.\",\n         \"I donwload the app from insta 360. I have good internet connection. but when I try to download any video from camera to my android phone. app close.\",\n         \"Junk the Wifi stopped working after 3 uses. Tech support is zero and advised me to return it and buy a different model.\"\n       ]\n     },\n     {\n       \"机会名称\": \"提升电池续航和电源管理\",\n       \"机会判断依据\": \"根据未满足需求分析，电池续航能力不足问题影响6.7%的用户，用户反映电池续航时间远低于预期，无法支持长时间的户外活动拍摄需求，严重限制了产品的使用场景。\",\n       \"目标用户\": \"长途旅行者、户外探险者、专业摄影师、马拉松式拍摄用户\",\n       \"核心方案\": \"开发高密度电池技术和智能电源管理系统，增加快充功能、无线充电支持和外置电源扩展方案，实现全天候拍摄能力\",\n       \"实施路径\": \"1)采用新一代高密度电池技术 2)优化电源管理算法 3)增加快充和无线充电功能 4)开发外置电源扩展配件 5)建立电池健康监控系统\",\n       \"预期价值\": \"大幅扩展产品使用场景，提升用户满意度，增强在专业市场的竞争力，减少因续航问题导致的使用限制\",\n       \"启发性评论原文\": [\n         \"Battery life is very short, to pull videos off the card that is provided. It's extremely difficult and if I remember correctly, you have to pay for some type of subscription.\",\n         \"The quality is amazing, the only con for me is that it dies in like an hour, but other than that, I love it\",\n         \"Great camera, awful apps. I bought the camera and took it on a trip… The battery life is a joke—nowhere near the advertised 130 minutes.\",\n         \"La bateria a los 3 meses ya estaba muerta la que trae original, y solo la cargué 4 veces.\",\n         \"Other than an incredibly short battery life, which makes me run it in nothing higher than 4K at 30 FPS, I think it's a great unit.\"\n       ]\n     },\n     {\n       \"机会名称\": \"简化编辑软件和工作流程\",\n       \"机会判断依据\": \"根据未满足需求分析，软件编辑体验糟糕问题影响8.9%的用户，编辑软件功能复杂难用、处理速度慢，严重影响后期制作效率，成为用户放弃产品的重要原因。\",\n       \"目标用户\": \"普通消费者、初级内容创作者、社交媒体用户、追求简单易用的专业用户\",\n       \"核心方案\": \"重新设计编辑软件界面和工作流程，增加AI自动编辑功能、一键分享机制和模板库，让普通用户也能快速制作专业级内容\",\n       \"实施路径\": \"1)重新设计用户界面和交互逻辑 2)开发AI自动编辑算法 3)建立丰富的模板和特效库 4)优化渲染和导出速度 5)增加云端协作功能\",\n       \"预期价值\": \"显著降低使用门槛，扩大用户群体，提升用户粘性，增强产品在消费市场的竞争力，促进内容生态建设\",\n       \"启发性评论原文\": [\n         \"This thing is the absolute biggest piece of garbage ever. The unit itself takes great video, but good luck editing it. If you want to feel like smashing your computer multiple times throughout the \nediting process, this is the device for you. The insta360 studio is the clunkiest piece of garbage I've ever used to edit video.\",\n         \"The camera itself is a marvel but the software used to edit and export video stops working for many people. For me, the studio software works fine on my laptop but won't export from my desktop.\",\n         \"The insta 360 itself is awful overall. Sure, the camera videos are impressive but it's actually impossible to get your videos edited. The app is terrible because it crashes and won't ever load a video to\n100%.\",\n         \"The camera is fine, however the mandatory software is absolutely horrible. The 'AI' BS sucks, the autoframing is whatever, most of the time even with keyframes I'm lookin at the exact opposite of what I \nwant in the final videos.\",\n         \"Not for me. I'm an editor and 360 footage is unbearable to work with. No thanks! Takes way too long to produce videos with this.\"\n       ]\n     }\n   ],\n   \n   \"产品创新机会\": [\n     {\n       \"机会名称\": \"开发AI智能导演模式\",\n       \"机会判断依据\": \"根据消费者洞察，360度全景拍摄的便利性获得31.2%的重要性评分，用户最喜爱'一次拍摄，后期选角度'功能。结合内容创作场景占比18.7%，存在通过AI技术进一步简化创作流程的创新机会。\",\n       \"目标用户\": \"内容创作者、社交媒体用户、视频博主、普通消费者\",\n       \"核心方案\": \"开发AI智能导演系统，能够自动识别拍摄场景、人物动作和精彩瞬间，智能选择最佳拍摄角度和剪辑点，一键生成多种风格的成品视频\",\n       \"实施路径\": \"1)开发计算机视觉和动作识别算法 2)建立场景和内容理解模型 3)创建智能剪辑和特效引擎 4)训练多样化的视频风格模板 5)集成云端AI处理能力\",\n       \"预期价值\": \"革命性地简化视频创作流程，吸引更多普通用户进入内容创作领域，建立技术护城河，开创全新的智能拍摄品类\",\n       \"启发性评论原文\": [\n         \"Normal cameras only record what you're pointing at, something happens next to you and you're not pointing to it, you've missed the moment and it's not coming back. This camera ensures that never happens \nagain.\",\n         \"The ability to shoot first and frame later is everything. I don't have to worry about missing anything, and I can pull clips in any aspect ratio — wide for YouTube, vertical for Reels, square for \nthumbnails.\",\n         \"This is literally a camera you can walk around with and not have to worry about keeping anyone in the frame or making sure you got the shot. As long as the action is happening around the camera or within\nview of it, you can see it after the fact.\",\n         \"You don't need experience to edit your recordings, Insta360 has several videos on how to edit your videos like a pro, and they're easy to follow.\",\n         \"The camera is great, and the app steals the show! The new update seamlessly merges album editing, clip trimming, and even creative studio effects into one place.\"\n       ]\n     },\n     {\n       \"机会名称\": \"构建实时直播生态系统\",\n       \"机会判断依据\": \"根据场景分析，摩托车骑行记录占比32.5%，内容创作与社交分享占比18.7%，用户有强烈的实时分享需求。当前产品主要聚焦录制后编辑，在实时直播领域存在创新空白。\",\n       \"目标用户\": \"直播主播、极限运动爱好者、旅行博主、实时内容创作者\",\n       \"核心方案\": \"开发360度实时直播系统，支持多平台同步直播、实时互动、虚拟导播台功能，让观众可以自由选择观看角度，创造沉浸式直播体验\",\n       \"实施路径\": \"1)开发实时视频编码和传输技术 2)建立多平台直播API集成 3)创建虚拟导播和互动功能 4)优化网络传输和延迟控制 5)建立直播内容管理平台\",\n       \"预期价值\": \"开创360度直播新品类，建立直播生态系统，增加用户粘性和平台价值，创造新的收入模式和商业机会\",\n       \"启发性评论原文\": [\n         \"I use mine almost daily to make youtube, and other social content. Highly recommend. Another awesome feature is that there are 4 audio mics recording in unison, which allows you to listen in 360 also.\",\n         \"Perfect for my motorcycle rides across the country. Best product I've used.\",\n         \"fantastic camera for the money, highly recommend if you video record a lot, blogging or action videos like riding bikes etc.\",\n         \"It's disgusting how much clout I have now\",\n         \"Took this camera on a road trip with friends and used it the whole time—on the dash, out the sunroof, everywhere. Super easy to use and perfect for snapping videos to post on Snap or TikTok.\"\n       ]\n     },\n     {\n       \"机会名称\": \"开发专业运动分析系统\",\n       \"机会判断依据\": \"根据场景分析，运动健身记录占比15.2%，用户希望从多个角度捕捉运动动作和技巧用于技术分析。结合360度全景和AI技术，存在开发专业运动分析工具的创新机会。\",\n       \"目标用户\": \"专业运动员、教练员、体育培训机构、运动爱好者\",\n       \"核心方案\": \"开发AI驱动的运动分析系统，能够自动识别和分析运动动作、姿态和技巧，提供专业的运动指导建议和改进方案，支持多种运动项目\",\n       \"实施路径\": \"1)开发运动动作识别和分析算法 2)建立专业运动数据库和标准 3)创建个性化训练建议系统 4)集成生物力学分析功能 5)建立专业教练合作网络\",\n       \"预期价值\": \"进入专业体育市场，建立B2B业务模式，提升产品技术含量和附加值，开创运动科技新领域\",\n       \"启发性评论原文\": [\n         \"Much better equipment for sports recording\",\n         \"Love this 360 camera. I use it in sporting events and the angles are awesome. You can also create pretty awesome video from the software.\",\n         \"As a fisherman, I want to film the topwater bite and follow the action to the kayak. This is great!\",\n         \"I record gym content and let me just tell you I love this camera !!\",\n         \"Took my X5 out on a group ride yesterday and it worked great. I rode for a full two hours and the battery held up the whole time\"\n       ]\n     },\n     {\n       \"机会名称\": \"创建虚拟现实内容平台\",\n       \"机会判断依据\": \"根据消费者洞察，8K超清画质表现获得23.8%的重要性评分，隐形自拍杆效果获得18.7%评分。360度内容天然适合VR体验，存在构建VR内容生态的创新机会。\",\n       \"目标用户\": \"VR内容创作者、教育机构、旅游行业、娱乐产业\",\n       \"核心方案\": \"开发VR内容创作和分享平台，支持360度内容的VR化处理、沉浸式体验优化、社交VR功能，让用户可以创作和分享高质量的VR内容\",\n       \"实施路径\": \"1)开发VR内容处理和优化算法 2)建立VR内容分享和社交平台 3)创建VR体验优化工具 4)集成主流VR设备支持 5)建立VR内容变现机制\",\n       \"预期价值\": \"抢占VR内容创作市场先机，建立内容生态护城河，创造新的收入来源，提升品牌在前沿技术领域的影响力\",\n       \"启发性评论原文\": [\n         \"The 8K video quality is off the charts. Since it captures everything around you, you can snag every moment of your travels without stressing about changing angles or camera positions.\",\n         \"The 8K footage is super crisp, and the 360° view makes everything feel so immersive.\",\n         \"The invisible selfie stick effect is nuts. The stabilization and editing tools built into the app make everything look cinematic.\",\n         \"This camera's AI powered stick removal works like witchcraft. No more awkward pole positioning or editing tricks!\",\n         \"The hidden selfie stick creates floating \\\"drone-like\\\" angles that wow everyone.\"\n       ]\n     },\n     {\n       \"机会名称\": \"开发智能安防监控系统\",\n       \"机会判断依据\": \"根据场景分析，摩托车骑行记录中用户提到'for my safety'和行车记录需求。360度全景拍摄能力结合AI技术，存在开发智能安防监控产品的创新机会。\",\n       \"目标用户\": \"家庭用户、小型企业、车主、安防行业\",\n       \"核心方案\": \"开发基于360度视觉的智能安防系统，具备全景监控、异常行为识别、智能报警、远程监控等功能，提供比传统监控更全面的安全保护\",\n       \"实施路径\": \"1)开发异常行为识别算法 2)建立智能报警和通知系统 3)创建远程监控和管理平台 4)集成云端存储和分析服务 5)建立安防行业合作渠道\",\n       \"预期价值\": \"进入安防监控市场，建立B2B和B2C双重业务模式，扩大产品应用场景，创造稳定的订阅收入来源\",\n       \"启发性评论原文\": [\n         \"Love to be able to record my travels on motorcycle for my safety. Great quality filming with great App to edit videos.\",\n         \"This is excellent for blogging, for use as a dash cam, and generally brilliant piece of kit. Worth the money!\",\n         \"I use this on the back of my show truck. I love the videos it takes.\",\n         \"Been using it as a dash cam mostly. Battery runs about 2 hours and it loops recording if your memory card fills up.\",\n         \"No problems with the camera. Good video quality, great sound quality. I mount this to my car and it catches everything.\"\n       ]\n     }\n   ],\n   \n   \"营销定位机会\": [\n     {\n       \"机会名称\": \"定位为专业摩托车骑行记录专家\",\n       \"机会判断依据\": \"根据场景分析，摩托车骑行记录是最重要的使用场景，占比32.5%，远超其他场景。用户对360度全景记录、防抖性能、音频降噪有极高要求，存在垂直市场深度定位机会。\",\n       \"目标用户\": \"摩托车爱好者、骑行俱乐部、摩托车制造商、骑行装备零售商\",\n       \"核心方案\": \"将产品定位为'摩托车骑行专用360度记录仪'，强调专为骑行场景优化的功能特性，如风噪抑制、震动防抖、长续航、安全记录等核心价值\",\n       \"实施路径\": \"1)与摩托车品牌和俱乐部建立合作 2)在摩托车展会和赛事进行推广 3)开发骑行专用配件和套装 4)建立骑行内容社区 5)与骑行KOL合作营销\",\n       \"预期价值\": \"在垂直市场建立领导地位，提升品牌专业度和用户忠诚度，实现高价值用户的精准获取，建立稳定的细分市场份额\",\n       \"启发性评论原文\": [\n         \"Perfect for my motorcycle rides across the country. Best product I've used.\",\n         \"Love to be able to record my travels on motorcycle for my safety. Great quality filming with great App to edit videos.\",\n         \"The X5's wind noise reduction is witchcraft at highway speeds. Just did an test run and the audio actually captures my pipes' growl without that ear-splitting wind howl.\",\n         \"My husband uses while riding his motorcycle and love it. Small in size but durable and takes good videos with good quality sounds and color\",\n         \"I use mine almost daily to make youtube, and other social content. Highly recommend. Another awesome feature is that there are 4 audio mics recording in unison, which allows you to listen in 360 also.\"\n       ]\n     },\n     {\n       \"机会名称\": \"定位为内容创作者的专业工具\",\n       \"机会判断依据\": \"根据场景分析，内容创作与社交分享占比18.7%，用户特别重视视频质量、编辑软件易用性和快速分享功能。结合消费者洞察中隐形自拍杆效果的高评价，存在专业创作工具定位机会。\",\n       \"目标用户\": \"YouTube创作者、Instagram博主、TikTok达人、专业摄影师、MCN机构\",\n       \"核心方案\": \"将产品定位为'内容创作者的360度创作神器'，强调一机多用、创意无限、专业品质等核心价值，突出相比传统设备的创作优势\",\n       \"实施路径\": \"1)与头部创作者建立合作关系 2)在创作者大会和活动进行展示 3)开发创作者专用功能和模板 4)建立创作者社区和培训体系 5)推出创作者认证计划\",\n       \"预期价值\": \"在内容创作市场建立强势地位，通过KOL效应实现病毒式传播，提升品牌在年轻用户群体中的影响力，建立内容生态护城河\",\n       \"启发性评论原文\": [\n         \"I have a YouTube channel and my 360 is in my camera bag every time I go out. It's great to use in places you're not sure where to point a camera because everything is so beautiful.\",\n         \"fantastic camera for the money, highly recommend if you video record a lot, blogging or action videos like riding bikes etc.\",\n         \"It's disgusting how much clout I have now\",\n         \"The camera is great, and the app steals the show! The new update seamlessly merges album editing, clip trimming, and even creative studio effects into one place.\",\n         \"This is excellent for blogging, for use as a dash cam, and generally brilliant piece of kit. Worth the money!\"\n       ]\n     },\n     {\n       \"机会名称\": \"定位为旅行记录的完美伴侣\",\n       \"机会判断依据\": \"根据场景分析，旅行探险全景拍摄占比24.8%，是第二大使用场景。用户希望捕捉完整的旅行体验，无需担心取景角度，特别适合独自旅行或想要获得无人机拍摄效果的场景。\",\n       \"目标用户\": \"旅行爱好者、独自旅行者、旅游博主、旅行社、酒店民宿\",\n       \"核心方案\": \"将产品定位为'旅行者的360度记忆收集器'，强调轻松记录、完整体验、分享便捷等核心价值，突出相比传统相机的旅行优势\",\n       \"实施路径\": \"1)与旅游平台和旅行社建立合作 2)在旅游景点和机场进行推广 3)开发旅行专用功能和模式 4)建立旅行内容分享社区 5)与旅游KOL合作营销\",\n       \"预期价值\": \"在旅游市场建立品牌认知，通过场景化营销提升购买转化率，建立旅行用户的品牌忠诚度，扩大消费市场份额\",\n       \"启发性评论原文\": [\n         \"This thing has changed the way I capture my vacations and action shots of skateboarding and Crazy Carting. it's awesome!\",\n         \"This 360 is very easy to use. It was great for our Hawaii vacation. Getting pictures of the whole family was very easy.\",\n         \"I use this often. It helps me elevate my content with drone-like footage and a fisheye look.\",\n         \"Me gustó mucho y es muy útil para mis viajes.\",\n         \"Took this camera on a road trip with friends and used it the whole time—on the dash, out the sunroof, everywhere. Super easy to use and perfect for snapping videos to post on Snap or TikTok.\"\n       ]\n     },\n     {\n       \"机会名称\": \"定位为运动健身的专业记录设备\",\n       \"机会判断依据\": \"根据场景分析，运动健身记录占比15.2%，用户希望从多个角度捕捉运动动作和技巧，用于技术分析、社交分享或个人回顾。对防抖性能、耐用性和防水能力有较高要求。\",\n       \"目标用户\": \"运动爱好者、健身教练、体育培训机构、运动器材品牌、体育赛事\",\n       \"核心方案\": \"将产品定位为'运动员的360度训练助手'，强调多角度分析、动作捕捉、技术改进等专业价值，突出在运动场景下的独特优势\",\n       \"实施路径\": \"1)与体育品牌和健身房建立合作 2)在体育赛事和健身展会进行推广 3)开发运动专用分析功能 4)建立运动内容社区 5)与运动教练和KOL合作\",\n       \"预期价值\": \"在运动健身市场建立专业形象，通过B2B合作扩大市场覆盖，提升产品在专业用户中的认知度，建立运动科技品牌定位\",\n       \"启发性评论原文\": [\n         \"Much better equipment for sports recording\",\n         \"Love this 360 camera. I use it in sporting events and the angles are awesome. You can also create pretty awesome video from the software.\",\n         \"As a fisherman, I want to film the topwater bite and follow the action to the kayak. This is great!\",\n         \"I record gym content and let me just tell you I love this camera !!\",\n         \"Took my X5 out on a group ride yesterday and it worked great. I rode for a full two hours and the battery held up the whole time\"\n       ]\n     },\n     {\n       \"机会名称\": \"定位为技术创新的行业领导者\",\n       \"机会判断依据\": \"根据消费者洞察，8K超清画质表现获得23.8%重要性评分，可更换镜头设计获得14.9%评分，强大的防抖稳定性能获得19.3%评分。技术创新是产品"
+  },
+  "star_rating_root_cause": {
+    "评分分布分析": {
+      "总体评分分布": {
+        "5星": "62.8%",
+        "4星": "8.2%",
+        "3星": "6.1%",
+        "2星": "4.7%",
+        "1星": "18.2%"
+      },
+      "关键洞察": "产品评价呈现明显的两极分化，360度拍摄功能、8K画质和易用性带来了大量5星好评，但产品可靠性问题、软件兼容性和客户服务问题也导致了相当数量的1星差评。"
+    },
+    "按评分划分的消费者反馈": {
+      "5星评价": {
+        "主要满意点": [
+          {
+            "喜爱点": "8K高清画质和360度拍摄功能",
+            "频率": "78.5%",
+            "示例评论": [
+              "The 8K 360 video is seriously impressive. It looks much crispier than the x3 and other action cams I've seen.",
+              "The video quality is crystal clear, especially in 8K 360 mode — it's like reliving the moment exactly how it happened.",
+              "8K looks insane. Took it out for some rail stuff and the tracking actually followed for once."
+            ]
+          },
+          {
+            "喜爱点": "易于安装和使用",
+            "频率": "65.2%",
+            "示例评论": [
+              "This camera is ridiculously easy to use. Just lock the angle on your bike then shoot, and it spits out ready-to-share 1080p clips.",
+              "Easy to use, long battery life, great stabilization, and powerful AI editing. Perfect for beginners and pros alike.",
+              "Set up was easy. The camera walks you through what to do. The functions are fairly intuitive."
+            ]
+          },
+          {
+            "喜爱点": "优秀的音频质量和降噪功能",
+            "频率": "52.3%",
+            "示例评论": [
+              "The X5's wind noise reduction is witchcraft at highway speeds. Just did an test run and the audio actually captures my pipes' growl without that ear-splitting wind howl.",
+              "Great camera and the mic is super impressive. If you need a vlogging camera, this could be a good option.",
+              "X5s built-in microphone cover thingie saved me when i was cycling at 20 mph. my voice stayed clear over wind noise."
+            ]
+          },
+          {
+            "喜爱点": "AI智能跟踪和编辑功能",
+            "频率": "43.7%",
+            "示例评论": [
+              "The camera is great, and the app steals the show! The new update seamlessly merges album editing, clip trimming, and even creative studio effects into one place.",
+              "This camera's AI powered stick removal works like witchcraft. No more awkward pole positioning or editing tricks!",
+              "The onboard camera AI makes you look like an instant editing pro. Videos with music at the touch of a button."
+            ]
+          }
+        ]
+      },
+      "4星评价": {
+        "主要满意点": [
+          {
+            "喜爱点": "8K高清画质和360度拍摄功能",
+            "频率": "71.4%",
+            "示例评论": [
+              "The Insta360 X5 delivers exceptional 8K 360° video with impressive low-light performance, thanks to its larger sensors and PureVideo mode.",
+              "Captures stunning 8K footage with smooth stabilization, even in low light. Waterproof, tough build, and the invisible selfie stick effect make it perfect for action shots."
+            ]
+          },
+          {
+            "喜爱点": "功能多样性",
+            "频率": "57.1%",
+            "示例评论": [
+              "Great camera. Awesome editing features and technology. Camera heats up when editing and using.",
+              "Love the camera, but don't love that the app to edit videos doesn't work on any of my PCs."
+            ]
+          }
+        ],
+        "主要不满点": [
+          {
+            "未满足的需求": "软件兼容性",
+            "频率": "42.9%",
+            "示例评论": [
+              "Love the camera, but don't love that the app to edit videos doesn't work on any of my PCs. Make sure you meet qualifications before buying it you'll be buying a new PC.",
+              "However, the companion app could benefit from further refinement."
+            ]
+          },
+          {
+            "未满足的需求": "产品可靠性",
+            "频率": "28.6%",
+            "示例评论": [
+              "Camera heats up when editing and using. Make sure to buy multiple batteries, stick, memory cards a case.",
+              "This is the first 360 degree camera I've owned. One video completely failed to record and stopped after 4 seconds."
+            ]
+          }
+        ]
+      },
+      "3星评价": {
+        "主要满意点": [],
+        "主要不满点": [
+          {
+            "未满足的需求": "软件兼容性",
+            "频率": "61.5%",
+            "示例评论": [
+              "Fun camera but horrible app! If they don't fix the Insta360 app soon. I will return it!!! The app is sluggish and keeps crashing.",
+              "Does get too hot and turns off for excessive heat it not fair to pay so much money for that cámara"
+            ]
+          },
+          {
+            "未满足的需求": "产品可靠性",
+            "频率": "53.8%",
+            "示例评论": [
+              "Does get too hot and turns off for excessive heat it not fair to pay so much money for that cámara",
+              "I bought this 360 for my cruise trips, thinking it would be perfect for capturing scenic views and underwater or cave excursions. After testing it once, I realized it wasn't for me and returned it withno issues."
+            ]
+          },
+          {
+            "未满足的需求": "价格合理性",
+            "频率": "38.5%",
+            "示例评论": [
+              "Too expensive. You don't even get an SD card with it.",
+              "Microphone on this is better than the X4 but the image quality is the same, not worth the extra $100."
+            ]
+          }
+        ]
+      },
+      "2星评价": {
+        "主要满意点": [],
+        "主要不满点": [
+          {
+            "未满足的需求": "产品可靠性",
+            "频率": "75.0%",
+            "示例评论": [
+              "1) I'll start by saying that this camera ruined my Silicon Power 1 TB memory card and all the priceless footage was lost forever.",
+              "The camera overheats. At room temperature, 8K with a connected power bank overheats after 22.5 minutes, without a power bank - 43 minutes."
+            ]
+          },
+          {
+            "未满足的需求": "软件兼容性",
+            "频率": "50.0%",
+            "示例评论": [
+              "Dont know what anyones talking about, app needed an update, and it updated. Works just fine. Only downside is face tracking doesnt work with anything above 30 FPS which is lame as hell!",
+              "My main frustration stems from its abysmal low-light performance, particularly with 8K files."
+            ]
+          },
+          {
+            "未满足的需求": "连接稳定性",
+            "频率": "25.0%",
+            "示例评论": [
+              "WIFI connection issues that make it unusable. I have to be within 3-4 feet from the device to keep connection."
+            ]
+          }
+        ]
+      },
+      "1星评价": {
+        "主要不满点": [
+          {
+            "未满足的需求": "产品可靠性",
+            "频率": "68.4%",
+            "示例评论": [
+              "This is great if you like to buy a new one every year, that's about how long it lasts before it starts glitching and then quits all together.",
+              "Camera stopped working 1 day into vacation in Mexico. Camera only went 12\" under water with all access ports fully closed!",
+              "I bought it (new) and it worked fine, I had used it indoors for tests like if it works and all the modes and it was fine, I went on a trip 2 weeks ago and i took it with, recorded fir 30 minutes maybe and it turned off and never turned on again"
+            ]
+          },
+          {
+            "未满足的需求": "客户服务",
+            "频率": "47.4%",
+            "示例评论": [
+              "I \"do NOT\" like the 369 people, I hate this product I hate your lack of customer help, you have lied to me a half dozen times making promises that you haven't kept",
+              "Insta360 is the worst company I've ever worked with from a support perspective in my entire life and that's saying a lot.",
+              "Customer service IS ABYSMAL! They are worse than DJI's customer service."
+            ]
+          },
+          {
+            "未满足的需求": "软件兼容性",
+            "频率": "42.1%",
+            "示例评论": [
+              "The camera won't let you do anything without connecting it to the app for no reason. The app will not let me update to 2.0 to work with my new X5.",
+              "Doesn't work. App update hasn't been released. Terrible after all the hype. Can't even use it till the app is ready...",
+              "Great camera, awful apps. I bought the camera and took it on a trip… The desktop software is basically useless—it crashes or throws errors when trying to load a simple 3-minute video."
+            ]
+          },
+          {
+            "未满足的需求": "连接稳定性",
+            "频率": "31.6%",
+            "示例评论": [
+              "Once I receive this item, it would not connect to my phone or anything else and I had to return it. They don't offer any help so I would not recommend ordering this.",
+              "Piece of junk, DONT BUY THIS CRAP .wont connect to Bluetooth and won't update software!!",
+              "Junk the Wifi stopped working after 3 uses. Tech support is zero and advised me to return it and buy a different model."
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "competitor_base": {
+    "error": "未找到有效的JSON输出",
+    "raw_output": "> json\n{\n  \"竞品消费者喜爱点\": [\n    {\n      \"赞美点\": \"8K超清画质表现\",\n      \"频率\": \"0%\",\n      \"消费者描述\": \"竞品用户未提及此方面\",\n      \"相关评论示例\": []\n    },\n    {\n      \"赞美点\": \"360度全景拍摄的便利性\",\n      \"频率\": \"0%\",\n      \"消费者描述\": \"竞品用户未提及此方面\",\n      \"相关评论示例\": []\n    },\n    {\n      \"赞美点\": \"隐形自拍杆的神奇效果\",\n      \"频率\": \"0%\",\n      \"消费者描述\": \"竞品用户未提及此方面\",\n      \"相关评论示例\": []\n    },\n    {\n      \"赞美点\": \"出色的低光拍摄能力\",\n      \"频率\": \"12.3%\",\n      \"消费者描述\": \"用户高度赞扬DJI相机在低光和夜间环境下的拍摄表现，认为明显优于GoPro等竞品\",\n      \"相关评论示例\": [\n        \"The low-light performance is incredible, and the image clarity and color reproduction are on par with (if not better than) more expensive competitors.\",\n        \"I love how easy it is to attach the mount to the camera, and the front touchscreen is a great bonus. I primarily use it for my travel videos—whether it's mounted in my car or in rainy conditions, I can rely on it without worrying about weatherproofing, unlike my usual camera.\",\n        \"Great for low light videos!\"\n      ]\n    },\n    {\n      \"赞美点\": \"可更换镜头设计\",\n      \"频率\": \"0%\",\n      \"消费者描述\": \"竞品用户未提及此方面\",\n      \"相关评论示例\": []\n    },\n    {\n      \"赞美点\": \"强大的防抖稳定性能\",\n      \"频率\": \"18.7%\",\n      \"消费者描述\": \"用户普遍称赞DJI相机的稳定性能，认为RockSteady稳定技术表现出色，即使在剧烈运动中也能保持画面稳定\",\n      \"相关评论示例\": [\n        \"RockSteady 3.0+ stabilization is incredibly smooth, even on rough trails or choppy water, and the horizon leveling is a huge plus.\",\n        \"Excelente cámara, tiene un estabilizador excelente\",\n        \"The stabilization is rock-solid, even during intense movement like biking or running.\"\n      ]\n    },\n    {\n      \"赞美点\": \"优秀的音频录制效果\",\n      \"频率\": \"8.4%\",\n      \"消费者描述\": \"用户认为DJI相机的音频质量不错，特别是与DJI麦克风配合使用时效果更佳\",\n      \"相关评论示例\": [\n        \"The audio quality is actually quite good.\",\n        \"love this little camera, great quality video and good battery life, good low light performance, good audio quality\",\n        \"Pairing it directly with the DJI Mic 2 is another game-changer, providing crystal-clear audio that syncs perfectly without a fuss.\"\n      ]\n    },\n    {\n      \"赞美点\": \"持久的电池续航能力\",\n      \"频率\": \"15.2%\",\n      \"消费者描述\": \"用户对DJI相机的电池续航表现满意，认为比竞品持续时间更长，能满足长时间拍摄需求\",\n      \"相关评论示例\": [\n        \"Battery life is impressive, especially in extended shooting modes\",\n        \"The battery life is outstanding.\",\n        \"Great battery life, will not overheat, and the audio quality is actually quite good.\"\n      ]\n    }\n  ],\n  \"竞品未满足需求\": [\n    {\n      \"痛点/未满足的需求\": \"防水性能不可靠\",\n      \"重要性\": \"4.1%\",\n      \"消费者描述\": \"部分用户反映DJI相机在水下使用时出现进水问题，防水密封性能不够可靠\",\n      \"相关评论示例\": [\n        \"First day I used it the seal failed filling with water. Instant return.\",\n        \"Purchased as a gift for my son who free dives. He finally took it out today for the first dive. Worked great until his second dive (usually around 50ft) and it stopped working. Turns out the battery door leaked and the inside got wet.\",\n        \"This camera is not water safe at all. The first time I ever took it to the beach, it died on me.\"\n      ]\n    },\n    {\n      \"痛点/未满足的需求\": \"设备过热导致录制中断\",\n      \"重要性\": \"6.8%\",\n      \"消费者描述\": \"用户反映DJI相机在高温环境或长时间录制时容易过热并自动关机，影响使用体验\",\n      \"相关评论示例\": [\n        \"The DJI osmo action 3 overheated and the camera turn off on 11 percent battery in a hot weather.\",\n        \"Not sure if my the cam I received is defective. It started get hot right after I started recording. Can't even touch the screen cause it's too hot.\",\n        \"This product overheats and shuts down frequently. Mine is less than 3 months old too. Overheats in less than 10m of recording\"\n      ]\n    },\n    {\n      \"痛点/未满足的需求\": \"WiFi连接和应用稳定性问题\",\n      \"重要性\": \"8.9%\",\n      \"消费者描述\": \"用户抱怨DJI应用连接不稳定，需要强制下载APK文件，且存在隐私安全担忧\",\n      \"相关评论示例\": [\n        \"They force you to use the app and the app is unsafe, check the online discussions, returning for a GoPro instead.\",\n        \"THIS CAMERA REQUIRES YOU DOWNLOAD A DATA COLLECTION APP TO USE.\",\n        \"You will need to use DJI's App to use the DJI. But unless your smartphone is approved by DJI for their system, you will not be able to download the app on your phone.\"\n      ]\n    },\n    {\n      \"痛点/未满足的需求\": \"设备突然停止工作\",\n      \"重要性\": \"3.2%\",\n      \"消费者描述\": \"部分用户遇到设备无法开机或突然停止工作的问题\",\n      \"相关评论示例\": [\n        \"Got everything charged last night in prep for a long bike ride today. Mounted the camera, downloaded the app, then turned the camera on to sync with the DJI Mimi and saw the camera menu screen briefly, then nothing but black.\",\n        \"I would rate 0 stars if I could. Camera did not work at all after being advertised as \\\"Like New\\\".\",\n        \"When I turned it on for the first time, the screen was immediately locked, and I could not choose the language to set it up.\"\n      ]\n    },\n    {\n      \"痛点/未满足的需求\": \"电池续航能力不足\",\n      \"重要性\": \"2.7%\",\n      \"消费者描述\": \"少数用户认为电池续航时间仍不够长，希望有更持久的电池表现\",\n      \"相关评论示例\": [\n        \"Not bad if you get your settings right. But the battery it comes with will only last an hour on a full charge.\",\n        \"The battery is already losing life. It has been on 2 trips, charged properly,... It no longer ladt the advertised 100+min in the specs.\",\n        \"Camera works phenomenal. Just be careful when buying it. Make sure you get the insurance because battery did not last more than 60 days.\"\n      ]\n    },\n    {\n      \"痛点/未满足的需求\": \"软件编辑体验糟糕\",\n      \"重要性\": \"1.4%\",\n      \"消费者描述\": \"用户对DJI应用的编辑功能和用户体验不满意\",\n      \"相关评论示例\": [\n        \"Much better than a gopro .the app is not as polished as the gopro .but camera build and quality. It better\",\n        \"Really was uncertain about this vs Go pro. Very happy with this camera, easy to use and great video footage with sharp color. The interface with"
+  },
+  "competitor_comparison": {
+    "error": "竞品基础分析失败"
+  },
+  "competitor_unique": {
+    "竞品独有优势": [
+      {
+        "优势点": "磁吸式快拆系统",
+        "频率": "12.3%",
+        "消费者描述": "磁吸式快拆系统极其便利，可以快速在不同角度和位置之间切换，无需复杂的安装过程",
+        "对我方启发": "考虑在产品设计中引入磁吸式快拆机制，提升用户使用便利性和安装效率",
+        "相关评论示例": [
+          "I also love the magnetic quick-release system is extremely convenient when switching mounts",
+          "the magnetic mount is also nice(which is also on the case that comes with it)"
+        ]
+      },
+      {
+        "优势点": "前置触摸屏设计",
+        "频率": "8.7%",
+        "消费者描述": "前置触摸屏让自拍和vlog拍摄变得极其方便，可以实时预览画面并调整设置，无需卸载相机",
+        "对我方启发": "前置屏幕设计对于内容创作者具有重要价值，值得在产品规划中重点考虑",
+        "相关评论示例": [
+          "I love the front touchscreen, no need to unmount it to change anything",
+          "The front and back screens are super handy, especially for filming yourself"
+        ]
+      },
+      {
+        "优势点": "内置存储空间",
+        "频率": "7.2%",
+        "消费者描述": "内置47-64GB存储空间提供了极大便利，即使忘记带存储卡也能正常使用，是很好的备份方案",
+        "对我方启发": "内置存储是用户高度认可的功能，可以显著提升产品竞争力和用户体验",
+        "相关评论示例": [
+          "The internal memory storage has already been a lifesaver when I forgot to reload card before heading out",
+          "Already I've benefitted from the built in storage. Such a nice touch. I forgot the card already once"
+        ]
+      }
+    ],
+    "竞品独有问题": [
+      {
+        "问题点": "强制激活和隐私担忧",
+        "频率": "15.8%",
+        "消费者描述": "相机需要强制下载应用并注册激活才能使用，应用不在官方应用商店，需要侧载安装，引发安全和隐私担忧",
+        "对我方启发": "避免强制激活机制，确保应用通过官方渠道分发，保护用户隐私和使用便利性",
+        "相关评论示例": [
+          "THIS CAMERA REQUIRES YOU DOWNLOAD A DATA COLLECTION APP TO USE",
+          "You absolutely cannot use this camera until you go through the device registration process"
+        ]
+      },
+      {
+        "问题点": "应用兼容性限制",
+        "频率": "9.4%",
+        "消费者描述": "DJI Mimo应用只支持特定型号的手机，很多用户的设备不在兼容列表中，导致无法正常使用相机功能",
+        "对我方启发": "确保应用具有广泛的设备兼容性，避免因兼容性问题影响用户体验",
+        "相关评论示例": [
+          "unless your smartphone is approved by DJI for their system, you will not be able to download the app on your phone",
+          "for Android, only 7 higher-end Samsungs mixed in with a ton of Chinese Phones"
+        ]
+      },
+      {
+        "问题点": "防水密封失效",
+        "频率": "6.1%",
+        "消费者描述": "尽管宣传防水，但多个用户报告在正常使用中出现进水问题，导致设备损坏",
+        "对我方启发": "加强防水设计的可靠性测试，确保防水性能的一致性和耐用性",
+        "相关评论示例": [
+          "First day I used it the seal failed filling with water",
+          "Purchased as a gift for my son who free dives. He finally took it out today for the first dive. Worked great until his second dive and it stopped working. Turns out the battery door leaked"
+        ]
+      }
+    ],
+    "竞品独有动机": [
+      {
+        "动机点": "替代GoPro的性价比选择",
+        "频率": "18.5%",
+        "消费者描述": "用户明确表示选择DJI是因为相比GoPro具有更好的性价比，功能相似但价格更优惠",
+        "对我方启发": "在定价策略上可以考虑与主流竞品形成差异化，突出性价比优势",
+        "相关评论示例": [
+          "Really was uncertain about this vs Go pro. Very happy with this camera",
+          "I bought this on sale and for the price this is an amazing camera, don't even think about other brands when you can get DJI!!!"
+        ]
+      },
+      {
+        "动机点": "摩托车骑行记录专用",
+        "频率": "11.2%",
+        "消费者描述": "大量用户专门购买用于摩托车骑行记录和moto vlog制作，看重其稳定性和音频表现",
+        "对我方启发": "摩托车骑行是一个重要的细分市场，可以针对性开发相关功能和配件",
+        "相关评论示例": [
+          "Really nice camera for recording motorcycle rides",
+          "Love this action camera! My everyday for Motovlogging!"
+        ]
+      }
+    ],
+    "总结洞察": {
+      "关键发现": "竞品在硬件创新（磁吸快拆、前置屏幕、内置存储）方面表现突出，但在软件生态和用户体验方面存在显著问题，特别是强制激活和隐私担忧成为用户主要痛点",
+      "战略意义": "这些发现揭示了市场对便利性创新的强烈需求，同时也暴露了竞品在用户体验和隐私保护方面的薄弱环节，为我方产品差异化提供了机会",
+      "行动建议": "1. 重点投入磁吸快拆和前置屏幕等硬件创新；2. 确保软件生态的开放性和隐私保护；3. 针对摩托车骑行等细分场景开发专用功能；4. 在性价比定位上形成竞争优势"
+    }
+  },
+  "competitor": {
+    "竞品基础分析": {
+      "error": "分析失败"
+    },
+    "竞品对比分析": {
+      "error": "分析失败"
+    },
+    "竞品独有洞察": {
+      "竞品独有优势": [
+        {
+          "优势点": "磁吸式快拆系统",
+          "频率": "12.3%",
+          "消费者描述": "磁吸式快拆系统极其便利，可以快速在不同角度和位置之间切换，无需复杂的安装过程",
+          "对我方启发": "考虑在产品设计中引入磁吸式快拆机制，提升用户使用便利性和安装效率",
+          "相关评论示例": [
+            "I also love the magnetic quick-release system is extremely convenient when switching mounts",
+            "the magnetic mount is also nice(which is also on the case that comes with it)"
+          ]
+        },
+        {
+          "优势点": "前置触摸屏设计",
+          "频率": "8.7%",
+          "消费者描述": "前置触摸屏让自拍和vlog拍摄变得极其方便，可以实时预览画面并调整设置，无需卸载相机",
+          "对我方启发": "前置屏幕设计对于内容创作者具有重要价值，值得在产品规划中重点考虑",
+          "相关评论示例": [
+            "I love the front touchscreen, no need to unmount it to change anything",
+            "The front and back screens are super handy, especially for filming yourself"
+          ]
+        },
+        {
+          "优势点": "内置存储空间",
+          "频率": "7.2%",
+          "消费者描述": "内置47-64GB存储空间提供了极大便利，即使忘记带存储卡也能正常使用，是很好的备份方案",
+          "对我方启发": "内置存储是用户高度认可的功能，可以显著提升产品竞争力和用户体验",
+          "相关评论示例": [
+            "The internal memory storage has already been a lifesaver when I forgot to reload card before heading out",
+            "Already I've benefitted from the built in storage. Such a nice touch. I forgot the card already once"
+          ]
+        }
+      ],
+      "竞品独有问题": [
+        {
+          "问题点": "强制激活和隐私担忧",
+          "频率": "15.8%",
+          "消费者描述": "相机需要强制下载应用并注册激活才能使用，应用不在官方应用商店，需要侧载安装，引发安全和隐私担忧",
+          "对我方启发": "避免强制激活机制，确保应用通过官方渠道分发，保护用户隐私和使用便利性",
+          "相关评论示例": [
+            "THIS CAMERA REQUIRES YOU DOWNLOAD A DATA COLLECTION APP TO USE",
+            "You absolutely cannot use this camera until you go through the device registration process"
+          ]
+        },
+        {
+          "问题点": "应用兼容性限制",
+          "频率": "9.4%",
+          "消费者描述": "DJI Mimo应用只支持特定型号的手机，很多用户的设备不在兼容列表中，导致无法正常使用相机功能",
+          "对我方启发": "确保应用具有广泛的设备兼容性，避免因兼容性问题影响用户体验",
+          "相关评论示例": [
+            "unless your smartphone is approved by DJI for their system, you will not be able to download the app on your phone",
+            "for Android, only 7 higher-end Samsungs mixed in with a ton of Chinese Phones"
+          ]
+        },
+        {
+          "问题点": "防水密封失效",
+          "频率": "6.1%",
+          "消费者描述": "尽管宣传防水，但多个用户报告在正常使用中出现进水问题，导致设备损坏",
+          "对我方启发": "加强防水设计的可靠性测试，确保防水性能的一致性和耐用性",
+          "相关评论示例": [
+            "First day I used it the seal failed filling with water",
+            "Purchased as a gift for my son who free dives. He finally took it out today for the first dive. Worked great until his second dive and it stopped working. Turns out the battery door leaked"
+          ]
+        }
+      ],
+      "竞品独有动机": [
+        {
+          "动机点": "替代GoPro的性价比选择",
+          "频率": "18.5%",
+          "消费者描述": "用户明确表示选择DJI是因为相比GoPro具有更好的性价比，功能相似但价格更优惠",
+          "对我方启发": "在定价策略上可以考虑与主流竞品形成差异化，突出性价比优势",
+          "相关评论示例": [
+            "Really was uncertain about this vs Go pro. Very happy with this camera",
+            "I bought this on sale and for the price this is an amazing camera, don't even think about other brands when you can get DJI!!!"
+          ]
+        },
+        {
+          "动机点": "摩托车骑行记录专用",
+          "频率": "11.2%",
+          "消费者描述": "大量用户专门购买用于摩托车骑行记录和moto vlog制作，看重其稳定性和音频表现",
+          "对我方启发": "摩托车骑行是一个重要的细分市场，可以针对性开发相关功能和配件",
+          "相关评论示例": [
+            "Really nice camera for recording motorcycle rides",
+            "Love this action camera! My everyday for Motovlogging!"
+          ]
+        }
+      ],
+      "总结洞察": {
+        "关键发现": "竞品在硬件创新（磁吸快拆、前置屏幕、内置存储）方面表现突出，但在软件生态和用户体验方面存在显著问题，特别是强制激活和隐私担忧成为用户主要痛点",
+        "战略意义": "这些发现揭示了市场对便利性创新的强烈需求，同时也暴露了竞品在用户体验和隐私保护方面的薄弱环节，为我方产品差异化提供了机会",
+        "行动建议": "1. 重点投入磁吸快拆和前置屏幕等硬件创新；2. 确保软件生态的开放性和隐私保护；3. 针对摩托车骑行等细分场景开发专用功能；4. 在性价比定位上形成竞争优势"
+      }
+    }
+  }
+}

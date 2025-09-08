@@ -736,8 +736,8 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
               <CardContent className="spacing-system-lg">
                 <div className="gap-system-md flex flex-col max-h-96 overflow-y-auto">
                   {selectedQuotes.quotes.map((quote, index) => (
-                    <div key={index} className="bg-muted/30 rounded-lg spacing-system-md border-l-4 border-primary/30">
-                      <p className="text-sm leading-relaxed text-foreground italic">
+                    <div key={index} className="spacing-system-sm bg-accent rounded-lg border-clean">
+                      <p className="text-sm text-muted-foreground">
                         "{quote}"
                       </p>
                     </div>

@@ -174,6 +174,20 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
                                 {language === 'en' ? 'Target Users: ' : '目标用户: '}{opportunity.目标用户}
                               </span>
                             </div>
+                            {(opportunity.重要性指标 || opportunity.新颖性指标) && (
+                              <div className="gap-system-xs flex items-center mb-3">
+                                {opportunity.重要性指标 && (
+                                  <Badge variant="secondary" className="text-xs">
+                                    {language === 'en' ? 'Importance: ' : '重要性: '}{opportunity.重要性指标}
+                                  </Badge>
+                                )}
+                                {opportunity.新颖性指标 && (
+                                  <Badge variant="outline" className="text-xs">
+                                    {language === 'en' ? 'Novelty: ' : '新颖性: '}{opportunity.新颖性指标}
+                                  </Badge>
+                                )}
+                              </div>
+                            )}
                           </div>
                           <Badge variant="outline" className="bg-blue-50 dark:bg-blue-950/20 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-700">
                             {language === 'en' ? 'Improvement' : '改进机会'}
@@ -194,6 +208,18 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
                             </p>
                           </div>
                         </div>
+
+                        {opportunity.机会判断依据 && (
+                          <div className="mb-4">
+                            <h5 className="font-medium text-sm mb-2 flex items-center gap-2">
+                              <Info className="h-4 w-4 text-blue-500" />
+                              {language === 'en' ? 'Opportunity Rationale' : '机会判断依据'}
+                            </h5>
+                            <p className="text-sm text-muted-foreground leading-relaxed bg-blue-50 dark:bg-blue-950/20 rounded-lg spacing-system-sm border border-blue-200 dark:border-blue-800">
+                              {opportunity.机会判断依据}
+                            </p>
+                          </div>
+                        )}
 
                         <div className="mb-4">
                           <h5 className="font-medium text-sm mb-2 flex items-center gap-2">
@@ -257,6 +283,20 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
                                 {language === 'en' ? 'Target Users: ' : '目标用户: '}{innovation.目标用户}
                               </span>
                             </div>
+                            {(innovation.重要性指标 || innovation.新颖性指标) && (
+                              <div className="gap-system-xs flex items-center mb-3">
+                                {innovation.重要性指标 && (
+                                  <Badge variant="secondary" className="text-xs">
+                                    {language === 'en' ? 'Importance: ' : '重要性: '}{innovation.重要性指标}
+                                  </Badge>
+                                )}
+                                {innovation.新颖性指标 && (
+                                  <Badge variant="outline" className="text-xs">
+                                    {language === 'en' ? 'Novelty: ' : '新颖性: '}{innovation.新颖性指标}
+                                  </Badge>
+                                )}
+                              </div>
+                            )}
                           </div>
                           <Badge variant="outline" className="bg-purple-50 dark:bg-purple-950/20 text-purple-700 dark:text-purple-300 border-purple-300 dark:border-purple-700">
                             {language === 'en' ? 'Innovation' : '创新机会'}
@@ -277,6 +317,18 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
                             </p>
                           </div>
                         </div>
+
+                        {innovation.机会判断依据 && (
+                          <div className="mb-4">
+                            <h5 className="font-medium text-sm mb-2 flex items-center gap-2">
+                              <Info className="h-4 w-4 text-blue-500" />
+                              {language === 'en' ? 'Opportunity Rationale' : '机会判断依据'}
+                            </h5>
+                            <p className="text-sm text-muted-foreground leading-relaxed bg-blue-50 dark:bg-blue-950/20 rounded-lg spacing-system-sm border border-blue-200 dark:border-blue-800">
+                              {innovation.机会判断依据}
+                            </p>
+                          </div>
+                        )}
 
                         <div className="mb-4">
                           <h5 className="font-medium text-sm mb-2 flex items-center gap-2">
@@ -340,6 +392,20 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
                                 {language === 'en' ? 'Target Users: ' : '目标用户: '}{positioning.目标用户}
                               </span>
                             </div>
+                            {(positioning.重要性指标 || positioning.新颖性指标) && (
+                              <div className="gap-system-xs flex items-center mb-3">
+                                {positioning.重要性指标 && (
+                                  <Badge variant="secondary" className="text-xs">
+                                    {language === 'en' ? 'Importance: ' : '重要性: '}{positioning.重要性指标}
+                                  </Badge>
+                                )}
+                                {positioning.新颖性指标 && (
+                                  <Badge variant="outline" className="text-xs">
+                                    {language === 'en' ? 'Novelty: ' : '新颖性: '}{positioning.新颖性指标}
+                                  </Badge>
+                                )}
+                              </div>
+                            )}
                           </div>
                           <Badge variant="outline" className="bg-green-50 dark:bg-green-950/20 text-green-700 dark:text-green-300 border-green-300 dark:border-green-700">
                             {language === 'en' ? 'Marketing' : '营销定位'}
@@ -360,6 +426,18 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
                             </p>
                           </div>
                         </div>
+
+                        {positioning.机会判断依据 && (
+                          <div className="mb-4">
+                            <h5 className="font-medium text-sm mb-2 flex items-center gap-2">
+                              <Info className="h-4 w-4 text-blue-500" />
+                              {language === 'en' ? 'Opportunity Rationale' : '机会判断依据'}
+                            </h5>
+                            <p className="text-sm text-muted-foreground leading-relaxed bg-blue-50 dark:bg-blue-950/20 rounded-lg spacing-system-sm border border-blue-200 dark:border-blue-800">
+                              {positioning.机会判断依据}
+                            </p>
+                          </div>
+                        )}
 
                         <div className="mb-4">
                           <h5 className="font-medium text-sm mb-2 flex items-center gap-2">
@@ -426,11 +504,9 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.05 }}
-                        className="bg-muted/30 rounded-lg spacing-system-md border-l-4 border-primary/30"
+                        className="spacing-system-sm bg-accent rounded-lg border-clean"
                       >
-                        <p className="text-sm leading-relaxed text-foreground italic">
-                          "{quote}"
-                        </p>
+                        <p className="text-sm text-muted-foreground">"{quote}"</p>
                       </motion.div>
                     ))}
                   </div>

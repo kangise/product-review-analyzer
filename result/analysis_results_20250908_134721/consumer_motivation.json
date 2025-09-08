@@ -1,0 +1,93 @@
+{
+  "购买动机洞察总结": {
+    "技术指标维度": "8K分辨率和360度全景拍摄是最核心的技术驱动因素，消费者被其超高清画质和全方位捕捉能力所吸引，认为这代表了相机技术的前沿水平。PureVideo低光性能和AI芯片处理能力也是重要的技术卖点，让用户在各种光线条件下都能获得专业级的拍摄效果。",
+    "功能属性维度": "隐形自拍杆效果是最具吸引力的杀手级功能，让用户能够创造出类似无人机拍摄的专业视觉效果。可更换镜头设计解决了用户对镜头损坏的担忧，大大降低了维修成本和停机时间。FlowState防抖技术确保了在各种运动场景下的稳定拍摄效果。",
+    "使用场景维度": "摩托车骑行记录是最主要的应用场景，用户看重其能够同时捕捉前后方向和自己的骑行状态。旅行拍摄和极限运动记录也是重要场景，360度拍摄让用户不再担心错过任何精彩瞬间。内容创作者特别青睐其后期重新构图的灵活性，一次拍摄可以产生多个不同角度的作品。"
+  },
+  "具体购买动机": [
+    {
+      "动机": "8K超高清画质体验",
+      "消费者描述": "追求最前沿的拍摄技术，希望通过8K分辨率获得极致清晰的视觉效果和更大的后期处理空间",
+      "动机重要性": "23.5%",
+      "相关评论示例": [
+        "The 8K video quality is off the charts. Since it captures everything around you, you can snag every moment of your travels without stressing about changing angles or camera positions.",
+        "8K looks insane. Took it out for some rail stuff and the tracking actually followed for once. Footage were smooth and didn't shake like with my old camera.",
+        "The 8K footage is so crisp I saw myself blink in real time — from behind.",
+        "Very good, stable, shoot out very clear. X5 blows me away with its 8K sharpness. details in hiking footage now looks almost lifelike.",
+        "The invisible selfie stick effect is nuts. The stabilization and editing tools built into the app make everything look cinematic."
+      ]
+    },
+    {
+      "动机": "360度全景拍摄自由",
+      "消费者描述": "渴望摆脱传统拍摄的构图限制，一次拍摄就能捕捉所有角度，后期可以自由选择最佳视角",
+      "动机重要性": "28.7%",
+      "相关评论示例": [
+        "Normal cameras only record what you're pointing at, something happens next to you and you're not pointing to it, you've missed the moment and it's not coming back. This camera ensures that never happens again.",
+        "I love that the X4 is a tiny, little, lightweight camera! Shooting in 8k30fps 360 mode gives me some peace of mind knowing that as long as I'm recording/vlogging I'm always going to get the shot because I'll be able to reframe it later.",
+        "The ability to shoot first and frame later is everything. I don't have to worry about missing anything, and I can pull clips in any aspect ratio — wide for YouTube, vertical for Reels, square for thumbnails.",
+        "You don't need to worry about where the camera is pointing. You can always fix it all later.",
+        "Since it captures everything around you, you can snag every moment of your travels without stressing about changing angles or camera positions."
+      ]
+    },
+    {
+      "动机": "摩托车骑行专用记录",
+      "消费者描述": "专门为摩托车骑行场景寻找完美的拍摄解决方案，需要同时记录路况、风景和自己的骑行状态",
+      "动机重要性": "18.9%",
+      "相关评论示例": [
+        "As a motorcyclist this is the best camera on the planet, 360 angels with one can capture all the beauty and anything that you want to record.",
+        "I always use Insta360's products for motorcycle riding recording, immediately upgraded to this one as soon as it came out!",
+        "Perfect for any tech or gadget enthusiast in your life who rides motorcycles. The accessory options are solid overall, way more than I expected.",
+        "My X4 collects dust now. The replaceable lenses have reduced a lot of stress when recording. It is nice knowing that if a scratch happens, it's only a ten-minute or so process, and I'm back at it.",
+        "I use this on the back of my show truck. I love the videos it takes."
+      ]
+    },
+    {
+      "动机": "隐形自拍杆魔法效果",
+      "消费者描述": "被隐形自拍杆的神奇效果深深吸引，希望创造出专业无人机拍摄般的视觉冲击力",
+      "动机重要性": "15.2%",
+      "相关评论示例": [
+        "This camera's AI powered stick removal works like witchcraft. No more awkward pole positioning or editing tricks!",
+        "The invisible selfie stick effect is pure sorcery, and stabilization is smoother than my last relationship.",
+        "The Insta360 X5 is pure fun! Just extend the stick, toss it over your shoulder, and walk. The hidden selfie stick creates floating \"drone-like\" angles that wow everyone.",
+        "I stuck this thing on a selfie stick and played with my dog in the backyard. What came out looked like a full-on cinematic chase scene.",
+        "The fact you can use a selfie stick and not see the stick makes it appear like drone footage, which is really neat."
+      ]
+    },
+    {
+      "动机": "可更换镜头安心保障",
+      "消费者描述": "对相机镜头损坏的担忧让他们特别看重可更换镜头设计，这消除了使用中的后顾之忧",
+      "动机重要性": "12.8%",
+      "相关评论示例": [
+        "The replacement lens is the most practical upgrade! My old 360 cam's scratched lens meant weeks without it (and $$$ for repairs). Now $30 and 2 minutes to pop in a fresh lens myself.",
+        "I was a bit nervous about buying the Insta360 X5. Excited to use it but also a bit scared in case I break it. X5's reinforced lenses are a lifesaver! The detachable lens design means I can swap in replacements if something bad happens.",
+        "The replaceable lenses are a lifesaver. I can confidently take the X5 off-road without worrying about scratching the lens.",
+        "Now I don't think I'll go back to \"normal\" cameras for most of my shoots. The ability to shoot first and frame later is everything.",
+        "Having replaceable lenses is a game changer. That feature alone had me hitting the buy button right away."
+      ]
+    },
+    {
+      "动机": "低光夜拍性能突破",
+      "消费者描述": "对夜间和低光环境拍摄有强烈需求，希望突破传统相机在暗光条件下的局限性",
+      "动机重要性": "11.4%",
+      "相关评论示例": [
+        "Nighttime shooting is no joke with this thing. Took it out for a handheld walk through a dimly lit alley and the footage came out looking superb.",
+        "The low-light capabilities worth the upgrade from the X4 alone, the replaceable lenses and improved workflow are outstanding.",
+        "Where the X3 blurred streetlights into glowing blobs, the X5 kept shop signs crisp and shadows detailed.",
+        "PureVideo is wild! I can actually hear the engine now in my videos. That hadn't happened before without using another microphone that was shielded from the wind.",
+        "The AI chip isn't just marketing fluff; it's why this cam outshines my X3 in every dusk ride."
+      ]
+    },
+    {
+      "动机": "内容创作效率提升",
+      "消费者描述": "作为内容创作者，希望通过一台设备解决多角度拍摄需求，大幅提升创作效率和作品质量",
+      "动机重要性": "9.7%",
+      "相关评论示例": [
+        "I always thought 360 video was a gimmick. Like, cool in theory, but not actually useful. The X5 changed that. Now I don't think I'll go back to \"normal\" cameras for most of my shoots.",
+        "This thing is the absolute biggest piece of garbage ever. The unit itself takes great video, but good luck editing it.",
+        "The ability to capture entire spaces in a single shot, giving clients a comprehensive view of the property without the need for an in-person visit.",
+        "Whether you're traveling, adventuring, or just making cool content, this thing delivers.",
+        "Perfect for any content creator and social media lovers the x4 will spend more time exceeding your expectations than disappointing them."
+      ]
+    }
+  ]
+}

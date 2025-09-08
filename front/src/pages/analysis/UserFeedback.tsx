@@ -1031,7 +1031,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.05 }}
-                        className="bg-muted/30 rounded spacing-system-xs border-l-2 border-primary/30"
+                        className="spacing-system-sm bg-accent rounded-lg border-clean"
                       >
                         <p className="text-xs leading-relaxed text-foreground">
                           "{quote}"

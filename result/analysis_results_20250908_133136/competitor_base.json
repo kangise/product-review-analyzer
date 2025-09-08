@@ -1,0 +1,129 @@
+{
+  "竞品消费者喜爱点": [
+    {
+      "赞美点": "卓越的8K画质表现",
+      "频率": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    },
+    {
+      "赞美点": "革命性的360度拍摄体验",
+      "频率": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    },
+    {
+      "赞美点": "出色的低光拍摄能力",
+      "频率": "12.3%",
+      "消费者描述": "竞品用户高度赞扬DJI相机在低光环境下的表现，认为比GoPro等竞品更优秀",
+      "相关评论示例": [
+        "I bought the Osmo Action 4 to replace my GoPro Hero 11, and it completely blew my mind. It outperforms the GoPro in every way, including low light performance.",
+        "The place where it shines the most is in low light conditions. It really is superior to other action cameras I've tried when the light gets dim.",
+        "Surprised by the video quality in the dark environment!!"
+      ]
+    },
+    {
+      "赞美点": "强大的防抖稳定性能",
+      "频率": "18.7%",
+      "消费者描述": "竞品用户普遍称赞DJI相机的防抖和稳定性能，认为效果非常出色",
+      "相关评论示例": [
+        "Buena calidad, imagen muy estable y fluida",
+        "Great camera and awesome video stability",
+        "Excelente cámara, tiene un estabilizador excelente"
+      ]
+    },
+    {
+      "赞美点": "创新的可更换镜头设计",
+      "频率": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    }
+  ],
+  "竞品未满足需求": [],
+  "竞品购买动机": [
+    {
+      "动机": "8K超高清画质体验",
+      "动机重要性": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    },
+    {
+      "动机": "360度全景拍摄自由",
+      "动机重要性": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    },
+    {
+      "动机": "摩托车骑行记录专用",
+      "动机重要性": "8.9%",
+      "消费者描述": "竞品用户购买DJI相机用于摩托车骑行记录和摩托车视频博客制作",
+      "相关评论示例": [
+        "Great Action Camera for a bargain compared to the new model action 5 or go pro 13 great for everything except low light I'd recommend the newer models for that. I'm using mine for a motorcycle poetry vlog",
+        "Really nice camera for recording motorcycle rides. Love everything about it.",
+        "excelente camara, ideal para motoblogers"
+      ]
+    },
+    {
+      "动机": "隐形自拍杆创意效果",
+      "动机重要性": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    },
+    {
+      "动机": "强大防抖稳定性能",
+      "动机重要性": "15.2%",
+      "消费者描述": "竞品用户因为需要稳定的拍摄效果而选择DJI相机",
+      "相关评论示例": [
+        "The stabilization is rock-solid, even during intense movement like biking or running.",
+        "love this camera. use with a chest mount for mountain biking. long battery live and great quality. the image stabilization is amazing as well.",
+        "The camera is still worth buying, great build in features, great 4K resolution. It also has a great stabilization feature."
+      ]
+    },
+    {
+      "动机": "旅行拍摄记录需求",
+      "动机重要性": "11.4%",
+      "消费者描述": "竞品用户购买DJI相机用于旅行记录和度假拍摄",
+      "相关评论示例": [
+        "I primarily use it for my travel videos—whether it's mounted in my car or in rainy conditions",
+        "Bought for our trip to Puerto Rico, and we took it snorkeling, atv riding, and horseback riding.",
+        "This one IS the standout tech for the action camera industry! What a product, over 7 months and countless trips"
+      ]
+    },
+    {
+      "动机": "夜间低光拍摄能力",
+      "动机重要性": "7.6%",
+      "消费者描述": "竞品用户因为需要在低光环境下拍摄而选择DJI相机",
+      "相关评论示例": [
+        "Works great for my son, who does a lot of bow fishing at night.",
+        "Absolutely love it! I got the DJI Osmo Action 4 because I saw it on Tik Tok, and absolutely do not regret the purchase. Camera is spectacular for low light videos!",
+        "La mejor para grabar de noche! Era lo que buscaba"
+      ]
+    },
+    {
+      "动机": "可更换镜头设计优势",
+      "动机重要性": "0%",
+      "消费者描述": "竞品用户未提及此方面",
+      "相关评论示例": []
+    },
+    {
+      "动机": "内容创作和社交分享",
+      "动机重要性": "13.9%",
+      "消费者描述": "竞品用户购买DJI相机用于内容创作、视频博客和社交媒体分享",
+      "相关评论示例": [
+        "Content game changer!!! This small form factor, robust camera is absolutely worth it.",
+        "I use it to record my excavation and sometimes make reels from the footage.",
+        "This is my first action camera and I decided to go with DJI on this. I'm starting to make pov car videos"
+      ]
+    },
+    {
+      "动机": "专业级音频录制效果",
+      "动机重要性": "6.3%",
+      "消费者描述": "竞品用户因为需要良好的音频录制效果而选择DJI相机",
+      "相关评论示例": [
+        "The audio quality is actually quite good.",
+        "love this little camera, great quality video and good battery life, good low light performance, good audio quality",
+        "One of the top in it's class. Great battery, premium materials. Microphone quality is also nice."
+      ]
+    }
+  ]
+}

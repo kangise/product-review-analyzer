@@ -1,0 +1,270 @@
+{
+  "product_category_profile": {
+    "category_name": "运动相机",
+    "primary_purpose": "在极限运动和户外活动中记录高质量视频和照片",
+    "target_user_groups": [
+      "极限运动爱好者",
+      "户外探险者",
+      "旅行博主",
+      "专业摄影师",
+      "普通消费者"
+    ]
+  },
+  "critical_evaluation_dimensions": [
+    {
+      "dimension_name": "画质表现",
+      "importance_level": "极高",
+      "typical_concerns": [
+        "4K录制能力",
+        "色彩还原",
+        "低光表现",
+        "防抖效果"
+      ],
+      "positive_indicators": [
+        "清晰",
+        "色彩鲜艳",
+        "画质优秀",
+        "防抖稳定"
+      ],
+      "negative_indicators": [
+        "模糊",
+        "色彩失真",
+        "画质差",
+        "抖动严重"
+      ]
+    },
+    {
+      "dimension_name": "防水防震",
+      "importance_level": "极高",
+      "typical_concerns": [
+        "防水深度",
+        "抗冲击能力",
+        "密封性",
+        "极端环境适应性"
+      ],
+      "positive_indicators": [
+        "防水好",
+        "结实耐用",
+        "密封性强",
+        "抗摔"
+      ],
+      "negative_indicators": [
+        "进水",
+        "易损坏",
+        "密封不好",
+        "不耐摔"
+      ]
+    },
+    {
+      "dimension_name": "电池续航",
+      "importance_level": "高",
+      "typical_concerns": [
+        "录制时长",
+        "待机时间",
+        "充电速度",
+        "电池更换"
+      ],
+      "positive_indicators": [
+        "续航长",
+        "电池耐用",
+        "充电快",
+        "省电"
+      ],
+      "negative_indicators": [
+        "续航短",
+        "耗电快",
+        "充电慢",
+        "电池不耐用"
+      ]
+    },
+    {
+      "dimension_name": "操作便利性",
+      "importance_level": "高",
+      "typical_concerns": [
+        "按键设计",
+        "触屏响应",
+        "菜单逻辑",
+        "单手操作"
+      ],
+      "positive_indicators": [
+        "操作简单",
+        "按键灵敏",
+        "界面友好",
+        "易上手"
+      ],
+      "negative_indicators": [
+        "操作复杂",
+        "按键不灵",
+        "界面混乱",
+        "难操作"
+      ]
+    },
+    {
+      "dimension_name": "配件生态",
+      "importance_level": "高",
+      "typical_concerns": [
+        "配件丰富度",
+        "安装便利性",
+        "配件质量",
+        "价格合理性"
+      ],
+      "positive_indicators": [
+        "配件丰富",
+        "安装方便",
+        "配件质量好",
+        "性价比高"
+      ],
+      "negative_indicators": [
+        "配件少",
+        "安装困难",
+        "配件质量差",
+        "价格贵"
+      ]
+    },
+    {
+      "dimension_name": "连接稳定性",
+      "importance_level": "中等",
+      "typical_concerns": [
+        "WiFi连接",
+        "蓝牙稳定性",
+        "APP同步",
+        "传输速度"
+      ],
+      "positive_indicators": [
+        "连接稳定",
+        "传输快",
+        "同步方便",
+        "信号强"
+      ],
+      "negative_indicators": [
+        "连接不稳",
+        "传输慢",
+        "同步困难",
+        "信号弱"
+      ]
+    }
+  ],
+  "technical_specifications": [
+    {
+      "name": "视频分辨率",
+      "common_values": [
+        "1080P",
+        "4K",
+        "5.3K",
+        "8K"
+      ],
+      "user_impact": "直接影响画面清晰度和后期处理空间",
+      "importance": "极高"
+    },
+    {
+      "name": "帧率",
+      "common_values": [
+        "30fps",
+        "60fps",
+        "120fps",
+        "240fps"
+      ],
+      "user_impact": "影响慢动作效果和画面流畅度",
+      "importance": "高"
+    },
+    {
+      "name": "防水等级",
+      "common_values": [
+        "IPX7",
+        "IPX8",
+        "10米",
+        "30米",
+        "60米"
+      ],
+      "user_impact": "决定水下使用深度和防护能力",
+      "importance": "极高"
+    },
+    {
+      "name": "电池容量",
+      "common_values": [
+        "1000-1500mAh",
+        "1500-2000mAh",
+        "2000mAh+"
+      ],
+      "user_impact": "直接影响连续使用时长",
+      "importance": "高"
+    }
+  ],
+  "usage_context_framework": {
+    "primary_scenarios": [
+      "水上运动记录",
+      "山地骑行拍摄",
+      "滑雪滑板记录",
+      "旅行风景拍摄"
+    ],
+    "niche_scenarios": [
+      "专业影视制作",
+      "安防监控应用",
+      "宠物行为记录"
+    ],
+    "scenario_specific_requirements": {
+      "水上运动": [
+        "高防水等级",
+        "防雾功能",
+        "浮力配件"
+      ],
+      "极限运动": [
+        "超强防震",
+        "高帧率",
+        "快速启动"
+      ],
+      "旅行拍摄": [
+        "长续航",
+        "便携性",
+        "易分享"
+      ]
+    }
+  },
+  "competitive_analysis_focus": {
+    "key_differentiators": [
+      "画质技术",
+      "防护等级",
+      "防抖算法",
+      "配件生态",
+      "品牌声誉"
+    ],
+    "price_sensitivity_factors": [
+      "功能完整度",
+      "配件成本",
+      "品牌溢价",
+      "技术先进性"
+    ],
+    "brand_loyalty_drivers": [
+      "产品可靠性",
+      "售后服务",
+      "社区生态",
+      "专业认可度"
+    ]
+  },
+  "common_pain_points": {
+    "functional_issues": [
+      "低光画质差",
+      "防抖效果不佳",
+      "音频录制质量低",
+      "过热自动关机"
+    ],
+    "usability_issues": [
+      "按键设计不合理",
+      "菜单复杂难懂",
+      "配件安装困难",
+      "文件管理混乱"
+    ],
+    "reliability_issues": [
+      "防水失效",
+      "电池快速老化",
+      "固件bug频发",
+      "配件易损坏"
+    ],
+    "value_perception_issues": [
+      "配件价格昂贵",
+      "升级成本高",
+      "功能重复冗余",
+      "性价比不高"
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "洞察总结": {
+    "重要度最高的消费场景": [
+      "摩托车骑行记录: 被超过30%的用户提及，是运动相机最核心的使用场景，用户对360度全景记录和防抖性能要求极高",
+      "旅行拍摄记录: 被约25%的用户提及，用户重视便携性和一键记录功能，希望捕捉完整的旅行体验"
+    ],
+    "小众但被忽视的消费场景": [
+      "水下摄影探索: 虽然提及频率仅8%，但用户在此场景下的防水失效抱怨最多，表明存在明显的产品可靠性优化机会"
+    ]
+  },
+  "产品使用场景分析": [
+    {
+      "场景名称": "摩托车骑行全景记录",
+      "场景描述": "摩托车爱好者在日常通勤或长途骑行过程中，将360度运动相机固定在车把或头盔上，连续记录1-3小时的骑行过程。用户需要相机能够承受高速行驶时的风噪和震动，同时希望捕捉道路前方、后方以及骑手本人的完整画面，用于后期制作骑行视频或作为行车记录。",
+      "场景重要性": "32.5%",
+      "相关评论": [
+        "I have a YouTube channel and my 360 is in my camera bag every time I go out. It's great to use in places you're not sure where to point a camera because everything is so beautiful.",
+        "This was definitely an investment, however, having a camera while riding your motorcycle is very important! There are many different options on how to mount it with all of the equipment provided.",
+        "Love to be able to record my travels on motorcycle for my safety. Great quality filming with great App to edit videos.",
+        "Just upgraded from the Insta360 X3 to the X5 the improvement is insane! Sharper image quality, better low-light performance, and the new sensor makes reframing so much smoother.",
+        "My main use for it is recording a 360 video of my car while I drive, and share it on my social media accounts."
+      ]
+    },
+    {
+      "场景名称": "旅行探索记录",
+      "场景描述": "旅行者在游览景点、徒步探险或城市漫步时，使用自拍杆或手持方式进行360度拍摄。用户希望在不需要精确构图的情况下，一键记录周围的完整环境和自己的活动，后期可以从任意角度重新构图，制作旅行视频或分享到社交媒体。特别适合独自旅行或需要同时拍摄多个角度的场景。",
+      "场景重要性": "24.8%",
+      "相关评论": [
+        "This thing has changed the way I capture my vacations and action shots of skateboarding and Crazy Carting. it's awesome!",
+        "This 360 is very easy to use. It was great for our Hawaii vacation. Getting pictures of the whole family was very easy.",
+        "Me gustó mucho y es muy útil para mis viajes.",
+        "Took this camera on a road trip with friends and used it the whole time—on the dash, out the sunroof, everywhere. Super easy to use and perfect for snapping videos to post on Snap or TikTok.",
+        "I bring at least two cameras with me on every trip. And I shoot A LOT of content."
+      ]
+    },
+    {
+      "场景名称": "极限运动记录",
+      "场景描述": "滑雪、冲浪、攀岩、山地自行车等极限运动爱好者在运动过程中，将相机固定在身体、装备或自拍杆上，记录高强度、高风险的运动画面。用户需要相机具备出色的防抖性能、坚固的防护能力和稳定的录制功能，能够在剧烈运动和恶劣环境下正常工作，捕捉刺激的第一人称视角。",
+      "场景重要性": "18.7%",
+      "相关评论": [
+        "Took the X5 mountain biking last weekend. Even bombing down rocky trails, the footage stayed increibly smooth, way better than I expected.",
+        "fantastic camera for the money, highly recommend if you video record a lot, blogging or action videos like riding bikes etc.",
+        "Much better equipment for sports recording",
+        "I have crashed pretty hard, and fast with this camera and it has not gotten a scratch on it. The footage is so clear, compared to my gopro.",
+        "As a fisherman, I want to film the topwater bite and follow the action to the kayak. This is great!"
+      ]
+    },
+    {
+      "场景名称": "内容创作制作",
+      "场景描述": "YouTuber、博主和社交媒体创作者在制作内容时，使用360度相机拍摄多角度素材。创作者可以在一次拍摄中获得多个机位的效果，后期通过重新构图和关键帧编辑，制作出具有电影感的视频内容。特别适合需要展示产品、教程演示或生活方式内容的创作者。",
+      "场景重要性": "15.3%",
+      "相关评论": [
+        "I use the selfie stick to put the camera where I could not reach before and have even used it on a tripod. People tend to ignore a camera that is not being pointed so I am just a guy with a stick unless they look closer.",
+        "The camera itself takes great 360 video and keeps its cool. It's light and can fit in your pocket and pretty durable and I like the screw on lens protection.",
+        "I use this often. It helps me elevate my content with drone-like footage and a fisheye look.",
+        "The best camera I could buy, for my walks, for my video creation it is excellent",
+        "I record gym content and let me just tell you I love this camera !!"
+      ]
+    },
+    {
+      "场景名称": "水下摄影探索",
+      "场景描述": "潜水爱好者或水上运动参与者在游泳池、海滩或潜水时使用相机记录水下场景。用户依赖相机的防水功能，希望在10米以内的水深中正常拍摄，捕捉水下世界的360度景象。这个场景对相机的密封性和防水可靠性要求极高。",
+      "场景重要性": "8.2%",
+      "相关评论": [
+        "Camera stopped working 1 day into vacation in Mexico. Camera only went 12\" under water with all access ports fully closed! Very frustrating when buy a \"waterproof\" camera for vacation",
+        "Waterproof? Jumped in the pool with it and dies. Open up the battery and water pours out. Be warned.",
+        "Water got inside camera on 2nd day of trip to Greece after putting it underwater for 5seconds. All doors were closed. Will not turn on or charge.",
+        "first hit in water and the camera died after 8 hours) but the waterproof function",
+        "Absolutely fantastic camera that helps me capture our dive content. Switching to the Insta360 X4 has completely changed the amount of usable content that my son and I capture when we dive."
+      ]
+    }
+  ]
+}
