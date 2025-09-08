@@ -332,7 +332,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                               {/* 重要性进度条 */}
                               {praise.赞美点重要性 && (
                                 <div className="mb-3">
-                                  <div className="flex items-center justify-between mb-2">
+                                  <div className="flex items-center justify-end mb-1">
                                     <span className="text-xs font-medium">{praise.赞美点重要性}</span>
                                   </div>
                                   <Progress value={importance} className="h-2" />
@@ -342,11 +342,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                               {/* 频率进度条 */}
                               {praise.频率 && (
                                 <div className="mb-3">
-                                  <div className="flex items-center justify-between mb-2">
-                                    <span className="text-xs text-muted-foreground flex items-center gap-1">
-                                      <BarChart3 className="h-3 w-3" />
-                                      {language === 'en' ? 'Frequency' : '提及频率'}
-                                    </span>
+                                  <div className="flex items-center justify-end mb-1">
                                     <span className="text-xs font-medium">{praise.频率}</span>
                                   </div>
                                   <Progress value={frequency} className="h-2" />
@@ -534,7 +530,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                               <div className="mb-3">
                                 <Progress 
                                   value={frequency} 
-                                  className="h-2 bg-red-100 dark:bg-red-900/30"
+                                  className="h-2"
                                 />
                               </div>
                               

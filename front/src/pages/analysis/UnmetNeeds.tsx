@@ -192,7 +192,7 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 + index * 0.1 }}
-                    className="border border-border rounded-lg spacing-system-lg hover:shadow-clean-md transition-shadow"
+                    className="spacing-system-sm bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 relative hover:shadow-clean-md transition-shadow"
                   >
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
@@ -207,22 +207,22 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
                         </p>
                       </div>
                       <div className="flex flex-col items-end gap-2">
-                        <Badge 
-                          variant="outline" 
-                          className={getSeverityColor(need['问题严重性/频率'])}
-                        >
-                          {need['问题严重性/频率']} {language === 'en' ? 'severity' : '严重性'}
-                        </Badge>
+                        {/* Removed Badge to match satisfaction analysis style */}
                       </div>
                     </div>
 
                     {/* Severity Progress Bar */}
-                    <div className="mb-4">
-                      <Progress 
-                        value={parseFloat(need['问题严重性/频率'])} 
-                        className="h-2"
-                      />
-                    </div>
+                    {need['问题严重性/频率'] && (
+                      <div className="mb-2">
+                        <div className="flex items-center justify-end mb-1">
+                          <span className="text-xs font-medium text-red-600">{need['问题严重性/频率']}</span>
+                        </div>
+                        <Progress 
+                          value={parseFloat(need['问题严重性/频率'])} 
+                          className="h-2"
+                        />
+                      </div>
+                    )}
 
                     {/* Supporting Evidence */}
                     {need.相关评论示例 && need.相关评论示例.length > 0 && (

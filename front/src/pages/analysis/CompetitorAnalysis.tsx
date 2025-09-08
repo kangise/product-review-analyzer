@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { BarChart3, TrendingUp, TrendingDown, Users, MessageSquare, ChevronRight, Tag, Target, Lightbulb, Zap } from 'lucide-react'
+import { BarChart3, TrendingUp, TrendingDown, Users, MessageSquare, ChevronRight, Tag, Target, Lightbulb, Zap, Info, ThumbsUp, ThumbsDown } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card'
 import { Badge } from '../../components/ui/badge'
 import { Button } from '../../components/ui/button'
@@ -112,88 +112,94 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
                 
                 {/* 综合竞争力评估 - 放在最顶上 */}
                 {competitorComparison?.综合竞争力评估 && (
-                  <div>
-                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
-                      <TrendingUp className="h-4 w-4 text-green-600" />
+                  <div className="mb-6">
+                    <h4 className="font-semibold text-lg mb-4 flex items-center gap-2">
+                      <TrendingUp className="h-5 w-5 text-blue-600" />
                       {language === 'en' ? 'Comprehensive Competitiveness Assessment' : '综合竞争力评估'}
                     </h4>
-                    <motion.div
-                      className="spacing-system-sm bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800 mb-4"
-                      whileHover={{ scale: 1.01 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <h5 className="font-medium text-sm text-green-700 dark:text-green-300 mb-2">
-                        {language === 'en' ? 'Core Insights' : '核心洞察'}
-                      </h5>
-                      <p className="text-xs text-green-600 dark:text-green-400">
+                    
+                    {/* 核心洞察 */}
+                    <div className="spacing-system-sm bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800 mb-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Info className="h-4 w-4 text-blue-600" />
+                        <h5 className="font-medium text-sm text-blue-700 dark:text-blue-300">
+                          {language === 'en' ? 'Core Insights' : '核心洞察'}
+                        </h5>
+                      </div>
+                      <p className="text-sm text-blue-600 dark:text-blue-400 leading-relaxed">
                         {competitorComparison.综合竞争力评估.核心洞察}
                       </p>
-                    </motion.div>
+                    </div>
                     
-                    {/* 竞争优势分析 */}
-                    {competitorComparison.综合竞争力评估.竞争优势分析 && competitorComparison.综合竞争力评估.竞争优势分析.length > 0 && (
-                      <div className="mb-4">
-                        <h5 className="font-medium text-sm text-green-700 dark:text-green-300 mb-2">
-                          {language === 'en' ? 'Competitive Advantages' : '竞争优势分析'}
-                        </h5>
-                        <div className="gap-2 flex flex-col">
-                          {competitorComparison.综合竞争力评估.竞争优势分析.map((item: any, idx: number) => (
-                            <div key={idx} className="text-xs bg-green-100 dark:bg-green-950/50 rounded px-3 py-2">
-                              <div className="flex justify-between items-center mb-1">
-                                <span className="font-medium">{item.优势领域}</span>
-                                <Badge variant="secondary" className="text-xs">{item.优势程度}</Badge>
+                    <div className="grid gap-4">
+                      {/* 竞争优势分析 */}
+                      {competitorComparison.综合竞争力评估.竞争优势分析 && competitorComparison.综合竞争力评估.竞争优势分析.length > 0 && (
+                        <div>
+                          <h5 className="font-medium text-base text-green-700 dark:text-green-300 mb-3 flex items-center gap-2">
+                            <ThumbsUp className="h-4 w-4" />
+                            {language === 'en' ? 'Competitive Advantages' : '竞争优势分析'}
+                          </h5>
+                          <div className="grid gap-3 md:grid-cols-2">
+                            {competitorComparison.综合竞争力评估.竞争优势分析.map((item: any, idx: number) => (
+                              <div key={idx} className="spacing-system-sm bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                                <div className="flex justify-between items-center mb-2">
+                                  <span className="font-medium text-sm">{item.优势领域}</span>
+                                  <Badge variant="outline" className="text-xs bg-green-100 text-green-700 border-green-300">{item.优势程度}</Badge>
+                                </div>
+                                <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground mb-2">
+                                  <span>我方: {item.我方表现}</span>
+                                  <span>竞品: {item.竞品表现}</span>
+                                </div>
+                                <p className="text-xs text-green-700 dark:text-green-300 leading-relaxed">{item.洞察说明}</p>
                               </div>
-                              <div className="flex justify-between text-xs opacity-80 mb-1">
-                                <span>我方: {item.我方表现}</span>
-                                <span>竞品: {item.竞品表现}</span>
-                              </div>
-                              <p className="text-xs opacity-90">{item.洞察说明}</p>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                    
-                    {/* 竞争劣势分析 */}
-                    {competitorComparison.综合竞争力评估.竞争劣势分析 && competitorComparison.综合竞争力评估.竞争劣势分析.length > 0 && (
-                      <div className="mb-4">
-                        <h5 className="font-medium text-sm text-red-700 dark:text-red-300 mb-2">
-                          {language === 'en' ? 'Competitive Disadvantages' : '竞争劣势分析'}
-                        </h5>
-                        <div className="gap-2 flex flex-col">
-                          {competitorComparison.综合竞争力评估.竞争劣势分析.map((item: any, idx: number) => (
-                            <div key={idx} className="text-xs bg-red-100 dark:bg-red-950/50 rounded px-3 py-2">
-                              <div className="flex justify-between items-center mb-1">
-                                <span className="font-medium">{item.劣势领域}</span>
-                                <Badge variant="destructive" className="text-xs">{item.劣势程度}</Badge>
+                      )}
+                      
+                      {/* 竞争劣势分析 */}
+                      {competitorComparison.综合竞争力评估.竞争劣势分析 && competitorComparison.综合竞争力评估.竞争劣势分析.length > 0 && (
+                        <div>
+                          <h5 className="font-medium text-base text-red-700 dark:text-red-300 mb-3 flex items-center gap-2">
+                            <ThumbsDown className="h-4 w-4" />
+                            {language === 'en' ? 'Competitive Disadvantages' : '竞争劣势分析'}
+                          </h5>
+                          <div className="grid gap-3 md:grid-cols-2">
+                            {competitorComparison.综合竞争力评估.竞争劣势分析.map((item: any, idx: number) => (
+                              <div key={idx} className="spacing-system-sm bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+                                <div className="flex justify-between items-center mb-2">
+                                  <span className="font-medium text-sm">{item.劣势领域}</span>
+                                  <Badge variant="outline" className="text-xs bg-red-100 text-red-700 border-red-300">{item.劣势程度}</Badge>
+                                </div>
+                                <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground mb-2">
+                                  <span>我方: {item.我方表现}</span>
+                                  <span>竞品: {item.竞品表现}</span>
+                                </div>
+                                <p className="text-xs text-red-700 dark:text-red-300 leading-relaxed">{item.改进建议}</p>
                               </div>
-                              <div className="flex justify-between text-xs opacity-80 mb-1">
-                                <span>我方: {item.我方表现}</span>
-                                <span>竞品: {item.竞品表现}</span>
-                              </div>
-                              <p className="text-xs opacity-90">{item.改进建议}</p>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
 
-                    {/* 战略建议 */}
-                    {competitorComparison.综合竞争力评估.战略建议 && (
-                      <div>
-                        <h5 className="font-medium text-sm text-indigo-700 dark:text-indigo-300 mb-2">
-                          {language === 'en' ? 'Strategic Recommendations' : '战略建议'}
-                        </h5>
-                        <div className="gap-2 flex flex-col">
-                          {Object.entries(competitorComparison.综合竞争力评估.战略建议).map(([key, value]: [string, any], idx: number) => (
-                            <div key={idx} className="text-xs bg-indigo-100 dark:bg-indigo-950/50 rounded px-3 py-2">
-                              <div className="font-medium mb-1">{key}</div>
-                              <p className="text-xs opacity-90">{String(value)}</p>
-                            </div>
-                          ))}
+                      {/* 战略建议 */}
+                      {competitorComparison.综合竞争力评估.战略建议 && (
+                        <div>
+                          <h5 className="font-medium text-base text-purple-700 dark:text-purple-300 mb-3 flex items-center gap-2">
+                            <Target className="h-4 w-4" />
+                            {language === 'en' ? 'Strategic Recommendations' : '战略建议'}
+                          </h5>
+                          <div className="grid gap-3 md:grid-cols-2">
+                            {Object.entries(competitorComparison.综合竞争力评估.战略建议).map(([key, value]: [string, any], idx: number) => (
+                              <div key={idx} className="spacing-system-sm bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
+                                <div className="font-medium text-sm mb-2 text-purple-700 dark:text-purple-300">{key}</div>
+                                <p className="text-xs text-purple-600 dark:text-purple-400 leading-relaxed">{String(value)}</p>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 )}
 
