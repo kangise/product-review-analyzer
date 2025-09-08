@@ -709,9 +709,9 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                           <line 
                             key={`h${i}`}
                             x1="10%" 
-                            y1={`${85-i*0.8}%`} 
+                            y1={`${85-i*0.875}%`} 
                             x2="90%" 
-                            y2={`${85-i*0.8}%`} 
+                            y2={`${85-i*0.875}%`} 
                             stroke={isDarkMode ? '#6b7280' : '#e5e7eb'} 
                             strokeDasharray="2,2"
                           />
@@ -725,7 +725,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                           style={{
                             position: 'absolute',
                             left: `${10 + (point.x - 1) * 18}%`,
-                            bottom: `${15 + (point.y / 60) * 70}%`,
+                            bottom: `${15 + (point.y / 80) * 70}%`,
                             width: '8px',
                             height: '8px',
                             backgroundColor: point.type === '满意点' ? '#22c55e' : '#ef4444',
@@ -799,7 +799,7 @@ export const UserFeedback: React.FC<UserFeedbackProps> = ({
                         fontSize: '12px',
                         color: '#6b7280'
                       }}>
-                        <span>60%</span><span>40%</span><span>20%</span><span>0%</span>
+                        <span>80%</span><span>60%</span><span>40%</span><span>20%</span><span>0%</span>
                       </div>
                     </div>
                     

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Button } from '../components/ui/button'
 import { Badge } from '../components/ui/badge'
+import { exportReportToHTML } from '../utils/exportHTML'
 import { Separator } from '../components/ui/separator'
 import { 
   History, 
@@ -156,33 +157,25 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
 
   const exportReport = async (reportId: string) => {
     try {
-      // 调用HTML导出端点
-      const response = await fetch(`http://localhost:8000/reports/${reportId}/export-html`)
+      console.log('📥 Starting HTML export for report:', reportId)
       
+      // 加载报告数据
+      const response = await fetch(`http://localhost:8000/report/${reportId}`)
       if (!response.ok) {
-        throw new Error('Failed to generate HTML report')
+        throw new Error('Failed to load report data')
       }
       
-      // 下载生成的HTML文件
-      const blob = await response.blob()
-      const url = URL.createObjectURL(blob)
-      const link = document.createElement('a')
-      link.href = url
-      link.download = `novochoice-analysis-${reportId}.html`
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      URL.revokeObjectURL(url)
+      const reportData = await response.json()
+      console.log('📊 Report data loaded for export')
       
-      alert(language === 'en' ? 'Complete HTML report exported successfully!' : '完整HTML报告导出成功！')
-      console.log('📥 HTML report exported:', reportId)
+      // 使用前端导出功能
+      await exportReportToHTML(reportData, language)
+      
+      console.log('✅ HTML report exported successfully')
       
     } catch (error) {
-      console.error('Failed to export HTML report:', error)
-      alert(language === 'en' ? 
-        'Failed to export report. Please try again.' :
-        '导出报告失败，请重试。'
-      )
+      console.error('❌ Failed to export HTML report:', error)
+      alert(language === 'en' ? 'Failed to export HTML report' : 'HTML报告导出失败')
     }
   }
 

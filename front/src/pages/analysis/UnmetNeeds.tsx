@@ -116,7 +116,24 @@ export const UnmetNeeds: React.FC<UnmetNeedsProps> = ({
               </CardTitle>
             </CardHeader>
             <CardContent className="spacing-system-lg">
-              <div className="gap-system-md grid md:grid-cols-3">
+              <div className="gap-system-md grid md:grid-cols-2 lg:grid-cols-4">
+                {/* 总结 - 放在第一位 */}
+                <motion.div 
+                  className="spacing-system-md bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-800"
+                  whileHover={{ scale: 1.01 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <Info className="h-4 w-4 text-blue-600" />
+                    <h4 className="font-medium text-sm text-blue-800 dark:text-blue-200">
+                      {language === 'en' ? 'Summary' : '总结'}
+                    </h4>
+                  </div>
+                  <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
+                    {unmetNeedsData.消费者未满足需求洞察.总结}
+                  </p>
+                </motion.div>
+
                 <motion.div 
                   className="spacing-system-md bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-800"
                   whileHover={{ scale: 1.01 }}
