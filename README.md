@@ -1,165 +1,158 @@
-# Novochoice AI - AI-Powered Customer Intelligence Engine
+# Product Review Analyzer
 
-> Transform Product Reviews into Strategic Market Insights
+AI-powered customer intelligence engine that transforms product reviews into actionable business insights.
 
-## 🎯 Project Overview
+## Overview
 
-Novochoice AI is an advanced GenAI-powered platform that transforms raw customer review data into actionable business intelligence. Built for the **WWGS 2025 GenAI Shark Tank**, this system provides comprehensive analysis across product improvement, innovation opportunities, and marketing positioning strategies.
+Product Review Analyzer is an advanced GenAI platform that processes customer review data to generate comprehensive business intelligence across product improvement, innovation opportunities, and marketing positioning strategies.
 
-## 🚀 Key Features
+## Features
 
-### 🧠 AI-Powered Analysis Pipeline (9-Stage)
-1. **Product Classification** - Auto-categorizes products using advanced NLP
-2. **Consumer Profiling** - Creates detailed buyer personas from review patterns  
-3. **Scenario Mapping** - Identifies key use cases and customer journeys
-4. **Motivation Analysis** - Uncovers purchase drivers and decision factors
-5. **Love Point Detection** - Extracts what customers truly value
-6. **Gap Analysis** - Identifies unmet needs and pain points
-7. **Three-Dimensional Opportunity Mining** - Generates insights across:
-   - **Product Improvement Opportunities**
-   - **Product Innovation Opportunities** 
-   - **Marketing Positioning Opportunities**
-8. **Sentiment Root Cause Analysis** - Explains rating patterns with actionable insights
-9. **Competitive Intelligence** - Benchmarks against competitor offerings
+- **9-Stage AI Analysis Pipeline**: Comprehensive analysis from product classification to competitive intelligence
+- **Multi-language Support**: Native processing for English and Chinese markets
+- **Real-time Processing**: Complete analysis in under 5 minutes
+- **Enterprise Integration**: Amazon Q CLI integration with scalable data processing
+- **Interactive Dashboard**: Professional web interface for insight visualization
 
-### 🔧 Technical Architecture
-- **Amazon Q CLI Integration** with enterprise-grade AI processing
-- **Multi-language Support** (English/Chinese) for global market analysis
-- **Intelligent JSON Extraction** with ANSI cleanup and error handling
-- **Scalable Data Processing** - handles 400+ reviews with 125KB+ context windows
-- **Real-time Pipeline** - Complete analysis in <5 minutes vs. weeks of manual work
+## Quick Start
 
-## 📁 Project Structure
+### Prerequisites
 
-```
-Novochoice AI/
-├── 🤖 Core Engine
-│   ├── review_analyzer.py          # Main analysis engine
-│   ├── run_analysis.py            # Quick start script
-│   ├── preprocess_data.py         # Data preprocessing tools
-│   ├── validate_prompts.py        # Parameter validation
-│   └── test_pipeline.py           # Pipeline testing
-├── 🧠 AI Agent Prompts (9 modules)
-│   ├── product_type.md            # Product classification
-│   ├── consumer_profile.md        # Consumer personas
-│   ├── consumer_scenario.md       # Usage scenarios
-│   ├── consumer_motivation.md     # Purchase motivations
-│   ├── consumer_love.md           # Customer satisfaction points
-│   ├── unmet_needs.md            # Gap analysis
-│   ├── opportunity.md            # Three-dimensional opportunities
-│   ├── star_rating_root_cause.md # Rating analysis
-│   └── competitor.md             # Competitive analysis
-├── 📊 Data
-│   ├── Customer ASIN Reviews.csv  # Customer review data
-│   ├── Competitor ASIN Reviews.csv # Competitor review data
-│   └── cleaned/                   # Preprocessed data
-├── 📈 Results
-│   └── analysis_results_*/        # Analysis outputs and reports
-├── 📚 Documentation
-│   └── *.md                       # Historical logs and documentation
-└── 🌐 Frontend
-    └── [React TypeScript Application] # Professional UI interface
+- Python 3.8+
+- Node.js 16+
+- Amazon Q CLI access
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/kangise/product-review-analyzer.git
+cd product-review-analyzer
 ```
 
-## 🚀 Quick Start
+2. Install Python dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-### 1. Run Complete Analysis
+3. Install frontend dependencies:
+```bash
+cd front
+npm install
+```
+
+### Usage
+
+1. Prepare your data:
+```bash
+python3 preprocess_data.py "data/Customer Reviews.csv" "data/Competitor Reviews.csv"
+```
+
+2. Run analysis:
 ```bash
 python3 run_analysis.py
 ```
 
-### 2. Validate System Status
+3. Start the application:
 ```bash
-python3 test_pipeline.py
+# Backend
+python3 api_server.py
+
+# Frontend (in another terminal)
+cd front && npm run dev
 ```
 
-### 3. Validate Parameters
+4. Open http://localhost:3000 in your browser
+
+## Architecture
+
+### Analysis Pipeline
+
+The system processes reviews through 9 specialized AI agents:
+
+1. **Product Classification** - Categorizes products using NLP
+2. **Consumer Profiling** - Creates detailed buyer personas
+3. **Scenario Mapping** - Identifies key use cases
+4. **Motivation Analysis** - Uncovers purchase drivers
+5. **Love Point Detection** - Extracts customer value points
+6. **Gap Analysis** - Identifies unmet needs
+7. **Opportunity Mining** - Generates three-dimensional insights
+8. **Sentiment Analysis** - Explains rating patterns
+9. **Competitive Intelligence** - Benchmarks against competitors
+
+### Technology Stack
+
+- **Backend**: Python, Flask, Amazon Q CLI
+- **Frontend**: React, TypeScript, Tailwind CSS
+- **AI Processing**: Custom prompt engineering with context optimization
+- **Data Processing**: Pandas, intelligent JSON extraction
+
+## Project Structure
+
+```
+product-review-analyzer/
+├── agent/                  # AI agent prompts
+├── data/                   # Input data and preprocessing
+├── front/                  # React frontend application
+├── results/                # Analysis outputs
+├── api_server.py          # Backend API server
+├── review_analyzer.py     # Core analysis engine
+├── run_analysis.py        # Analysis pipeline runner
+└── preprocess_data.py     # Data preprocessing utilities
+```
+
+## Configuration
+
+The system can be configured through environment variables or configuration files:
+
+- `OUTPUT_LANGUAGE`: Analysis output language (en/zh)
+- `CONTEXT_WINDOW_SIZE`: Maximum context size for AI processing
+- `API_PORT`: Backend server port (default: 8000)
+
+## API Reference
+
+### Endpoints
+
+- `GET /reports` - List historical analysis reports
+- `GET /report/{id}` - Get specific analysis report
+- `POST /analyze` - Start new analysis
+- `DELETE /reports/{id}` - Delete analysis report
+
+### Response Format
+
+All API responses follow a consistent JSON structure with proper error handling and status codes.
+
+## Development
+
+### Running Tests
+
 ```bash
+python3 test_pipeline.py
 python3 validate_prompts.py
 ```
 
-## 💰 Business Value & ROI
+### Code Style
 
-### Quantifiable Impact
-- **Time Savings**: 95% reduction in analysis time (40 hours → 2 hours)
-- **Revenue Growth**: 15-25% increase in product success rate through data-driven decisions
-- **Cost Avoidance**: $500K+ saved annually by avoiding failed product launches
-- **Market Speed**: 10x faster time-to-insight for competitive positioning
+This project follows PEP 8 for Python code and Prettier for TypeScript/JavaScript.
 
-### Competitive Advantage vs. Traditional Tools
-| Feature | Novochoice AI | Traditional Tools | Advantage |
-|---------|---------------|-------------------|-----------|
-| **AI Depth** | 9-stage comprehensive analysis | Basic sentiment + keywords | 5x more insights |
-| **Context Processing** | 125KB+ context windows | Limited context | Handles complex products |
-| **Opportunity Discovery** | 3-dimensional analysis | Single-dimension reports | Holistic business strategy |
-| **Integration** | Amazon Q CLI enterprise | Cloud-only | On-premise capability |
-| **Language Support** | Native bilingual | Translation-based | Cultural nuance |
+## Contributing
 
-## 📊 Analysis Output
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-The system generates comprehensive insights across three dimensions:
+## Code of Conduct
 
-### 🔧 Product Improvement Opportunities
-- Enterprise-grade reliability systems
-- Software integration optimization
-- AI accuracy enhancements
+This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
-### 💡 Product Innovation Opportunities  
-- Smart education collaboration ecosystems
-- Creator studio suites
-- Cloud-based intelligent video services
+## License
 
-### 🎯 Marketing Positioning Opportunities
-- Professional meeting image expert
-- Creator success accelerator
-- Education digital transformation partner
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
-## 🎯 Target Markets
+## Support
 
-### Primary Customers
-- **Amazon Sellers** ($50B+ market) - Product optimization and competitive analysis
-- **E-commerce Brands** - Consumer insight generation for R&D
-- **Product Managers** - Data-driven feature prioritization
-- **Market Research Firms** - Automated consumer intelligence services
+- Documentation: [Wiki](https://github.com/kangise/product-review-analyzer/wiki)
+- Issues: [GitHub Issues](https://github.com/kangise/product-review-analyzer/issues)
+- Discussions: [GitHub Discussions](https://github.com/kangise/product-review-analyzer/discussions)
 
-### Real-World Applications
-- **Product Development**: Identify features customers actually want
-- **Competitive Analysis**: Understand competitor strengths/weaknesses
-- **Marketing Strategy**: Discover untapped market segments
-- **Customer Experience**: Prioritize improvements based on impact
+## Acknowledgments
 
-## 🛠 Technology Stack
-
-### GenAI Models
-- **Amazon Q Developer** for enterprise-grade analysis
-- **Custom Prompt Engineering** with 9 specialized analysis agents
-- **Intelligent Context Management** for large dataset processing
-- **Multi-modal Analysis** (text + structured data)
-
-### Key Innovations
-- **Adaptive Context Sizing** - Automatically optimizes prompt length
-- **Cultural Intelligence** - Bilingual analysis preserving cultural context
-- **Pipeline Orchestration** - Dependency-aware analysis sequencing
-- **Error Recovery** - Robust handling of incomplete data
-
-## ✅ System Status
-
-- **Pipeline Status**: Fully Operational ✅
-- **Test Coverage**: 8/8 Passing ✅
-- **Parameter Validation**: 9/9 Passing ✅
-- **Data Processing**: Complete ✅
-
-## 📈 Market Opportunity
-
-### Total Addressable Market
-- **Review Analytics Market**: $2.1B by 2027 (23% CAGR)
-- **Amazon Seller Tools**: $50B+ ecosystem
-- **Enterprise AI Analytics**: $125B market
-
-### Revenue Model
-- **SaaS Subscription**: $99-$999/month based on review volume
-- **Enterprise Licensing**: $50K-$500K annual contracts
-- **API Integration**: $0.10 per review processed
-- **Consulting Services**: $200K+ implementation projects
-
-**Last Updated**: August 27, 2025
+Built for the WWGS 2025 GenAI Shark Tank competition. Special thanks to the Amazon Q team for enterprise AI capabilities.

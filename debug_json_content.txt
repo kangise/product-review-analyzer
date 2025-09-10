@@ -1,37 +1,120 @@
 {
- "消费者洞察总结": {
-   "技术规格": "消费者最称赞8K分辨率带来的超清画质、大传感器在低光环境下的出色表现、以及FlowState防抖技术提供的电影级稳定效果，这些技术规格让用户能够轻松创作专业水准的内容",
-   "功能属性": "360度全景拍摄成为最受好评的杀手级功能，让用户无需担心取景角度，后期可任意重新构图；隐形自拍杆效果让普通用户也能拍出无人机般的航拍视角；可更换镜头设计彻底解决了用户对镜头损坏的担忧",
-   "使用场景": "产品在摩托车骑行记录、极限运动拍摄、旅行vlog制作等场景下提供了峰值体验，特别是在需要同时捕捉多个角度、无法预知最佳拍摄方向的动态场景中表现卓越"
+ "消费者未满足需求洞察": {
+   "总结": "运动相机在可靠性、防水性能和软件体验方面存在严重缺陷，导致用户在关键时刻无法正常使用产品",
+   "技术角度": "防水密封失效和过热问题是最严重的硬件缺陷，多位用户反映相机在水下使用后进水损坏，以及在正常使用中因过热自动关机，严重影响产品的基本功能可靠性",
+   "功能角度": "连接稳定性差和软件应用频繁崩溃是用户抱怨最多的功能问题，用户反映WiFi连接经常断开、应用无法正常加载视频、编辑软件崩溃等问题严重影响使用体验",
+   "场景角度": "产品在户外极限运动和水上活动等核心使用场景下表现不佳，防水失效、过热关机、连接中断等问题在用户最需要记录重要时刻时发生，暴露了产品定位与实际性能的严重不匹配"
  },
- "核心赞美点分析": [
+ "未满足需求分析": [
    {
-     "赞美点": "8K超清画质表现",
-     "消费者描述": "8K分辨率带来令人震撼的清晰度和细节表现，即使后期裁剪放大也能保持出色的画质",
-     "赞美点重要性": "23.8",
+     "痛点/未满足的需求": "防水密封性能不可靠",
+     "消费者描述": "明明宣传防水却在水下使用后进水损坏，让用户在重要的水上活动中失去珍贵的拍摄机会",
+     "问题严重性/频率": "8.2%",
      "相关评论示例": [
-       "The 8K video quality is off the charts. Since it captures everything around you, you can snag every moment of your travels without stressing about changing angles or camera positions.",
-       "8K looks insane. Took it out for some rail stuff and the tracking actually followed for once. Footage were smooth and didn't shake like with my old camera.",
-       "The 8K footage is so crisp I saw myself blink in real time — from behind.",
-       "Very good, stable, shoot out very clear. X5 blows me away with its 8K sharpness. details in hiking footage now looks almost lifelike.",
-       "The invisible selfie stick effect is nuts. The stabilization and editing tools built into the app make everything look cinematic."
+       "Camera stopped working 1 day into vacation in Mexico. Camera only went 12" under water with all access ports fully closed! Very frustrating when buy a "waterproof" camera for vacation",
+       "Waterproof? Jumped in the pool with it and dies. Open up the battery and water pours out. Be warned.",
+       "Water got inside camera on 2nd day of trip to Greece after putting it underwater for 5seconds. All doors were closed. Will not turn on or charge.",
+       "First time I went in the water, water got inside the camera. I noified the seller with no response. This was in april 2025. I spent ove $800 for the camera and accessories and crickets from 
+seller!!!!!!!!",
+       "first hit in water and the camera died after 8 hours) but the waterproof function"
      ]
    },
    {
-     "赞美点": "360度全景拍摄自由度",
-     "消费者描述": "360度拍摄让用户彻底摆脱取景焦虑，先拍摄后构图的模式带来前所未有的创作自由",
-     "赞美点重要性": "31.2",
+     "痛点/未满足的需求": "过热导致自动关机",
+     "消费者描述": "相机在正常使用中频繁过热并自动关机，在重要拍摄时刻突然停止工作让用户措手不及",
+     "问题严重性/频率": "7.8%",
      "相关评论示例": [
-       "Normal cameras only record what you're pointing at, something happens next to you and you're not pointing to it, you've missed the moment and it's not coming back. This camera ensures that never happens 
-again.",
-       "I love that the X4 is a tiny, little, lightweight camera! Shooting in 8k30fps 360 mode gives me some peace of mind knowing that as long as I'm recording/vlogging I'm always going to get the shot because I'
-ll be able to reframe it later.",
-       "The ability to shoot first and frame later is everything. I don't have to worry about missing anything, and I can pull clips in any aspect ratio — wide for YouTube, vertical for Reels, square for 
-thumbnails.",
-       "This camera has two 180 degree cameras back to back, and records video from both of them simultaneously, stitching together the video from both cameras.",
-       "What I love is that it captures everyone at once - I'm not just stuck behind the camera. I get the kids, my wife, and even myself, all in the same shot without needing a separate setup."
+       "I purchased the Insta360 X4 on March 26, 2025, and received it on March 31. I was excited to use this camera, especially after watching numerous positive reviews and reading about its durability and 
+performance in demanding conditions. From day one, I noticed it gets unusually hot during recording, but I initially brushed it off, thinking it was just part of its high-performance nature. Everything worked 
+fairly well until May 1, when I brought it to a major police sports event, a high-profile assignment where I was expected to capture key footage. I recorded in 8K 30fps during midday under a sunny sky. To my shock 
+and embarrassment, the camera overheated and shut down just 3 minutes into recording.",
+       "Does get too hot and turns off for excessive heat it not fair to pay so much money for that cámara It's great to be able to shoot 360 but can't not stay too long on without getting hot",
+       "Camera is very laggy and gets very hot very quickly when recording really bummed with how expensive this product cost for it to perform so poorly",
+       "Este nuevo modelo tiene muchísimos problemas para hacer lo que promete por sobre calentamiento... Puedes perder momentos importantes porque se apaga automáticamente",
+       "I don't know if is just me , but it come defective, overheat and lost charge quickly"
      ]
    },
    {
-     "赞美点": "卓越的低光拍摄能力",
-     "消费者描述": "PureVideo模式和大传感器让夜间拍摄效果远
+     "痛点/未满足的需求": "WiFi连接不稳定",
+     "消费者描述": "相机WiFi连接经常断开或无法连接，严重影响文件传输和远程控制功能的正常使用",
+     "问题严重性/频率": "6.4%",
+     "相关评论示例": [
+       "WIFI connection issues that make it unusable. I have to be within 3-4 feet from the device to keep connection.",
+       "Junk the Wifi stopped working after 3 uses. Tech support is zero and advised me to return it and buy a different model.",
+       "the fact that my camera will not connect to wifi after 10/15 minutes of use. It loses connection and it takes 3/10 restarts and some kind of secret handshake to get it to reconnect.",
+       "The camera arrived with a fault, the Wi-Fi was not working and the firmware was not updating, but Insta360 support followed up by email every day my case until they refunded me",
+       "I donwload the app from insta 360. I have good internet connection. but when I try to download any video from camera to my android phone. app close."
+     ]
+   },
+   {
+     "痛点/未满足的需求": "软件应用频繁崩溃",
+     "消费者描述": "编辑应用经常崩溃或无法正常加载视频，让用户无法完成基本的视频编辑和分享工作",
+     "问题严重性/频率": "5.9%",
+     "相关评论示例": [
+       "Fun camera but horrible app! If they don't fix the Insta360 app soon. I will return it!!! The app is sluggish and keeps crashing. GoProQuick app is much simpler and easy to use!!!",
+       "Camera has cool features it's too bad the app is so terrible that it makes editing almost imposible. I've had my camera for a week and been trying to edit and upload the same video for days.",
+       "The camera itself is a marvel but the software used to edit and export video stops working for many people. For me, the studio software works fine on my laptop but won't export from my desktop.",
+       "Great camera, awful apps. I bought the camera and took it on a trip… The battery life is a joke—nowhere near the advertised 130 minutes. I came back with all my footage, and to my disappointment, even 
+though my computer meets the minimum system requirements, both the Insta360 Studio app and the mobile app are terribly optimized. The desktop software is basically useless—it crashes or throws errors when trying to
+load a simple 3-minute video.",
+       "Editing software doesn't work. Customer service is very fragmented taking weeks without a resolution."
+     ]
+   },
+   {
+     "痛点/未满足的需求": "产品质量控制不佳",
+     "消费者描述": "收到的产品存在明显缺陷或损坏，包括镜头划痕、功能失效等质量问题",
+     "问题严重性/频率": "5.1%",
+     "相关评论示例": [
+       "Don't buy this camera, I couldn't even record my first video. I just created my profile on the app, updated the firmware and left the camera charging, after that, the camera never turned on again. So 
+disappointing!",
+       "Stopped working after 1 month. Stops recording and freezes mid recording. Never been dropped. In perfect condition",
+       "I bought three of their products and two were DOA. They dont support their products and will hassle you instead, I had to send everything back.",
+       "Thought it was adhesive from the protective film over the lens at first, but the camera came with a scuff on one of the lenses.",
+       "The shape it came in looks like someone replaced it for their own that was broken and there was no battery"
+     ]
+   },
+   {
+     "痛点/未满足的需求": "电池续航时间不足",
+     "消费者描述": "电池续航时间远低于宣传，在长时间拍摄活动中频繁需要更换电池或充电",
+     "问题严重性/频率": "4.7%",
+     "相关评论示例": [
+       "Battery life is very short, to pull videos off the card that is provided. It's extremely difficult and if I remember correctly, you have to pay for some type of subscription.",
+       "Great camera, awful apps. I bought the camera and took it on a trip… The battery life is a joke—nowhere near the advertised 130 minutes.",
+       "La bateria a los 3 meses ya estaba muerta la que trae original, y solo la cargué 4 veces.",
+       "The only reason I'm giving you to one star is because of all the permissions you need and rights you have to give away to use this camera. Very unethical and should be banned..0",
+       "Other than an incredibly short battery life, which makes me run it in nothing higher than 4K at 30 FPS, I think it's a great unit."
+     ]
+   },
+   {
+     "痛点/未满足的需求": "客户服务响应差",
+     "消费者描述": "遇到问题时客户服务响应缓慢或无法提供有效解决方案，让用户感到被忽视",
+     "问题严重性/频率": "4.3%",
+     "相关评论示例": [
+       "I hate this product I hate your lack of customer help, you have lied to me a half dozen times making promises that you haven't kept, you have robbed me of money for an iCloud product that does not work",
+       "Insta360 is the worst company I've ever worked with from a support perspective in my entire life and that's saying a lot. To summarize a VERY long story I tried to get help with a single request which took
+literally 2 weeks with zero resolution.",
+       "The clamp is made of cheap material… used it once and the bolt snapped. Company is terrible with customer support.",
+       "this was my second order. the camera and SD card were missing and only the motorcycle mounting kit was in the delivery. ive been working with insta360 since my first order that was from them directly and 
+they are not easy to work with.",
+       "I recently purchased an Insta360 camera, excited to use it on my trip to El Salvador, a place that holds deep personal significance for me. Unfortunately, my experience with the company has been nothing 
+short of a nightmare."
+     ]
+   },
+   {
+     "痛点/未满足的需求": "存储卡兼容性问题",
+     "消费者描述": "相机对存储卡要求严格但说明不清，导致用户购买的存储卡无法正常使用",
+     "问题严重性/频率": "3.8%",
+     "相关评论示例": [
+       "O stars Junk do not purchase. Mine didn't work at all. New memory card 256 and says recording stopped due to low as card speed. No solution for it.",
+       "Le compré una memoria a esta camara y nada que funciona bien la cámara se me recalienta ni videos ni nada acepta la cargo y no e echo nada con ella porque ni muestran que tipo de memoria debe ir con ella 
+para que la jente no briegue",
+       "Issue with the Insta360 X4 — it's simply not reliable and ended up ruining my dream vacation. I bought the camera specifically for a trip through South Korea, Thailand, and Indonesia. It worked fine in 
+South Korea, but once I arrived in Thailand and Indonesia, it repeatedly showed a "no SD card" error. I tried several different SD cards, including the original one that came with the camera, but nothing 
+worked.",
+       "A personal favorite is when you change SD cards, the empty one is recognized, then you turn the camera off, then on, and it will say "No SD card." Or your SD card won't load on your computer, even though
+every other card you have used for the entire time you have owned this ...thing ...will.",
+       "Did not receive my SD card. Can't take pictures or video with out it"
+     ]
+   }
+ ]
+}

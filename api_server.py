@@ -394,11 +394,11 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
         return formatted_result
     
     try:
-        # 查找包含完整结果的result/analysis_results_TIMESTAMP目录
+        # 查找包含完整结果的results/analysis_results_TIMESTAMP目录
         import glob
-        result_dirs = glob.glob('result/analysis_results_*')
+        result_dirs = glob.glob('results/analysis_results_*')
         if not result_dirs:
-            print("No analysis results found, loading demo data from result/demoresult folder...")
+            print("No analysis results found, loading demo data from results/demoresult folder...")
             return load_demo_results()
         
         # 按时间排序，从最新开始查找
@@ -441,7 +441,7 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
                 break
         
         if not results_dir:
-            print("No complete analysis results found, loading demo data from result/demoresult folder...")
+            print("No complete analysis results found, loading demo data from results/demoresult folder...")
             return load_demo_results()
         
         print(f"Loading results from: {results_dir}")
@@ -464,8 +464,8 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
         actual_timestamp = datetime.now().isoformat()
         if results_dir:
             try:
-                # 从目录名提取时间戳 (格式: result/analysis_results_YYYYMMDD_HHMMSS)
-                timestamp_str = results_dir.replace('result/analysis_results_', '')
+                # 从目录名提取时间戳 (格式: results/analysis_results_YYYYMMDD_HHMMSS)
+                timestamp_str = results_dir.replace('results/analysis_results_', '')
                 dt = datetime.strptime(timestamp_str, '%Y%m%d_%H%M%S')
                 actual_timestamp = dt.isoformat()
                 print(f"📅 使用实际分析时间: {actual_timestamp} (从目录 {results_dir})")
@@ -498,7 +498,7 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
             metadata = {
                 'id': analysis_id,
                 'timestamp': datetime.now().isoformat(),
-                'targetCategory': target_category if target_category and target_category.strip() else 'Webcams',
+                'targetCategory': target_category if target_category and target_category.strip() else 'Action Camera',
                 'hasCompetitorData': bool(results.get('competitor', {}))
             }
             metadata_path = os.path.join(results_dir, 'metadata.json')
@@ -670,16 +670,27 @@ def get_reports():
         import os
         from datetime import datetime
         
-        # 获取所有分析结果目录
-        result_dirs = glob.glob('result/analysis_results_*')
+        # 获取所有分析结果目录，包括demoresult
+        result_dirs = glob.glob('results/analysis_results_*')
+        
+        # 添加demoresult作为历史报告
+        if os.path.exists('results/demoresult'):
+            result_dirs.append('results/demoresult')
         result_dirs.sort(reverse=True)  # 按时间倒序
         
         reports = []
         
         for dir_name in result_dirs:
             try:
+                # 检查是否有完整的分析文件
+                required_files = ['metadata.json', 'product_type.json', 'consumer_profile.json']
+                has_complete_analysis = all(os.path.exists(os.path.join(dir_name, f)) for f in required_files)
+                
+                if not has_complete_analysis:
+                    continue  # 跳过不完整的报告
+                
                 # 从目录名提取时间戳
-                timestamp_str = dir_name.replace('result/analysis_results_', '')
+                timestamp_str = dir_name.replace('results/analysis_results_', '')
                 
                 # 解析时间戳
                 try:
@@ -753,6 +764,25 @@ def get_reports():
                 print(f"Error processing directory {dir_name}: {e}")
                 continue
         
+        # 如果没有找到完整的报告，添加demo报告
+        if not reports and os.path.exists('results/demoresult'):
+            try:
+                demo_metadata_path = 'results/demoresult/metadata.json'
+                if os.path.exists(demo_metadata_path):
+                    with open(demo_metadata_path, 'r', encoding='utf-8') as f:
+                        demo_metadata = json.load(f)
+                    
+                    demo_report = {
+                        'id': 'results/demoresult',
+                        'timestamp': demo_metadata.get('timestamp', '2025-08-27T09:46:00.000Z'),
+                        'targetCategory': demo_metadata.get('targetCategory', 'Action Camera'),
+                        'hasCompetitorData': demo_metadata.get('hasCompetitorData', True),
+                        'status': 'completed'
+                    }
+                    reports.append(demo_report)
+            except Exception as e:
+                print(f"Error loading demo report: {e}")
+        
         return jsonify({'reports': reports})
         
     except Exception as e:
@@ -766,7 +796,7 @@ def get_report(report_id):
         print(f"Loading report: {report_id}")
         
         # 确保report_id是安全的路径
-        if not report_id.startswith('result/analysis_results_'):
+        if not (report_id.startswith('results/analysis_results_') or report_id == 'results/demoresult'):
             return jsonify({'error': 'Invalid report ID'}), 400
         
         # 检查目录是否存在
@@ -841,9 +871,9 @@ def get_report(report_id):
         return jsonify({'error': f'Failed to load report: {str(e)}'}), 500
 
 def load_demo_results():
-    """从result/demoresult文件夹加载demo数据"""
+    """从results/demoresult文件夹加载demo数据"""
     try:
-        demo_dir = 'result/demoresult'
+        demo_dir = 'results/demoresult'
         if not os.path.exists(demo_dir):
             raise Exception("Demo results directory not found")
         
@@ -897,7 +927,7 @@ def load_demo_results():
             'id': demo_metadata.get('id', 'demo-analysis'),
             'timestamp': demo_metadata.get('timestamp', datetime.now().isoformat()),
             'hasCompetitorData': demo_metadata.get('hasCompetitorData', bool(results.get('competitor', {}))),
-            'targetCategory': demo_metadata.get('targetCategory', 'Webcams'),
+            'targetCategory': demo_metadata.get('targetCategory', 'Action Camera'),
             'ownBrandAnalysis': {
                 'userInsights': results.get('consumer_profile', {}),
                 'userMotivation': results.get('consumer_motivation', {}),
@@ -922,7 +952,7 @@ def load_demo_results():
             'id': 'demo-analysis',
             'timestamp': datetime.now().isoformat(),
             'hasCompetitorData': False,
-            'targetCategory': 'Webcams',
+            'targetCategory': 'Action Camera',
             'error': f'Failed to load demo data: {str(e)}'
         }
 
