@@ -1,0 +1,37 @@
+{
+ "消费者洞察总结": {
+   "技术规格": "消费者最称赞8K分辨率带来的超清画质、大传感器在低光环境下的出色表现、以及FlowState防抖技术提供的电影级稳定效果，这些技术规格让用户能够轻松创作专业水准的内容",
+   "功能属性": "360度全景拍摄成为最受好评的杀手级功能，让用户无需担心取景角度，后期可任意重新构图；隐形自拍杆效果让普通用户也能拍出无人机般的航拍视角；可更换镜头设计彻底解决了用户对镜头损坏的担忧",
+   "使用场景": "产品在摩托车骑行记录、极限运动拍摄、旅行vlog制作等场景下提供了峰值体验，特别是在需要同时捕捉多个角度、无法预知最佳拍摄方向的动态场景中表现卓越"
+ },
+ "核心赞美点分析": [
+   {
+     "赞美点": "8K超清画质表现",
+     "消费者描述": "8K分辨率带来令人震撼的清晰度和细节表现，即使后期裁剪放大也能保持出色的画质",
+     "赞美点重要性": "23.8",
+     "相关评论示例": [
+       "The 8K video quality is off the charts. Since it captures everything around you, you can snag every moment of your travels without stressing about changing angles or camera positions.",
+       "8K looks insane. Took it out for some rail stuff and the tracking actually followed for once. Footage were smooth and didn't shake like with my old camera.",
+       "The 8K footage is so crisp I saw myself blink in real time — from behind.",
+       "Very good, stable, shoot out very clear. X5 blows me away with its 8K sharpness. details in hiking footage now looks almost lifelike.",
+       "The invisible selfie stick effect is nuts. The stabilization and editing tools built into the app make everything look cinematic."
+     ]
+   },
+   {
+     "赞美点": "360度全景拍摄自由度",
+     "消费者描述": "360度拍摄让用户彻底摆脱取景焦虑，先拍摄后构图的模式带来前所未有的创作自由",
+     "赞美点重要性": "31.2",
+     "相关评论示例": [
+       "Normal cameras only record what you're pointing at, something happens next to you and you're not pointing to it, you've missed the moment and it's not coming back. This camera ensures that never happens 
+again.",
+       "I love that the X4 is a tiny, little, lightweight camera! Shooting in 8k30fps 360 mode gives me some peace of mind knowing that as long as I'm recording/vlogging I'm always going to get the shot because I'
+ll be able to reframe it later.",
+       "The ability to shoot first and frame later is everything. I don't have to worry about missing anything, and I can pull clips in any aspect ratio — wide for YouTube, vertical for Reels, square for 
+thumbnails.",
+       "This camera has two 180 degree cameras back to back, and records video from both of them simultaneously, stitching together the video from both cameras.",
+       "What I love is that it captures everyone at once - I'm not just stuck behind the camera. I get the kids, my wife, and even myself, all in the same shot without needing a separate setup."
+     ]
+   },
+   {
+     "赞美点": "卓越的低光拍摄能力",
+     "消费者描述": "PureVideo模式和大传感器让夜间拍摄效果远

@@ -19,7 +19,7 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
   analysisResult
 }) => {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
-    new Set(['competitor-comparison', 'competitor-unique'])  // 竞品基础分析默认收起
+    new Set(['competitor-base', 'competitor-comparison', 'competitor-unique'])  // 竞品基础分析默认展开
   )
   const [selectedQuotes, setSelectedQuotes] = useState<{quotes: string[], title: string} | null>(null)
 
