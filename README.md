@@ -68,6 +68,43 @@ cd front
 npm install
 ```
 
+## Troubleshooting
+
+### Frontend Issues
+
+**Error: "vite module not found"**
+```bash
+# Solution 1: Clear npm cache and reinstall
+cd front
+rm -rf node_modules package-lock.json
+npm cache clean --force
+npm install
+
+# Solution 2: Use specific Node.js version (if using nvm)
+nvm use 18
+npm install
+
+# Solution 3: Install vite globally (if needed)
+npm install -g vite
+```
+
+**Error: Permission denied**
+```bash
+# On Ubuntu/Linux, you might need to fix npm permissions
+sudo chown -R $(whoami) ~/.npm
+# Or use npx instead of npm run
+npx vite
+```
+
+### Backend Issues
+
+**Error: "Module not found"**
+```bash
+# Make sure you're using the correct Python version
+python3 --version  # Should be 3.8+
+pip3 install -r requirements.txt
+```
+
 ### Usage
 
 ### Usage
