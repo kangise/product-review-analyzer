@@ -40,10 +40,29 @@ cd regeni
 
 2. Install Python dependencies:
 ```bash
+# On macOS/Linux
+pip3 install -r requirements.txt
+
+# On Ubuntu, you might need to install pip first
+sudo apt update
+sudo apt install python3-pip
 pip3 install -r requirements.txt
 ```
 
-3. Install frontend dependencies:
+3. Install Node.js and npm (if not already installed):
+```bash
+# On Ubuntu
+sudo apt install nodejs npm
+
+# On macOS (with Homebrew)
+brew install node
+
+# Verify installation
+node --version
+npm --version
+```
+
+4. Install frontend dependencies:
 ```bash
 cd front
 npm install
