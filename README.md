@@ -1,10 +1,10 @@
-# Product Review Analyzer
+# Regeni
 
 AI-powered customer intelligence engine that transforms product reviews into actionable business insights.
 
 ## Overview
 
-Product Review Analyzer is an advanced GenAI platform that processes customer review data to generate comprehensive business intelligence across product improvement, innovation opportunities, and marketing positioning strategies.
+Regeni is an advanced GenAI platform that processes customer review data to generate comprehensive business intelligence across product improvement, innovation opportunities, and marketing positioning strategies.
 
 ## Features
 
@@ -26,8 +26,8 @@ Product Review Analyzer is an advanced GenAI platform that processes customer re
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/kangise/product-review-analyzer.git
-cd product-review-analyzer
+git clone https://github.com/kangise/regeni.git
+cd regeni
 ```
 
 2. Install Python dependencies:
@@ -90,7 +90,7 @@ The system processes reviews through 9 specialized AI agents:
 ## Project Structure
 
 ```
-product-review-analyzer/
+regeni/
 ├── agent/                  # AI agent prompts
 ├── data/                   # Input data and preprocessing
 ├── front/                  # React frontend application
@@ -149,9 +149,9 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Support
 
-- Documentation: [Wiki](https://github.com/kangise/product-review-analyzer/wiki)
-- Issues: [GitHub Issues](https://github.com/kangise/product-review-analyzer/issues)
-- Discussions: [GitHub Discussions](https://github.com/kangise/product-review-analyzer/discussions)
+- Documentation: [Wiki](https://github.com/kangise/regeni/wiki)
+- Issues: [GitHub Issues](https://github.com/kangise/regeni/issues)
+- Discussions: [GitHub Discussions](https://github.com/kangise/regeni/discussions)
 
 ## Acknowledgments
 

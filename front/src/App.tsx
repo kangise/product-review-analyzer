@@ -31,7 +31,7 @@ import { HistoricalReports } from './pages/HistoricalReports'
 const translations = {
   en: {
     // App title and main branding
-    appTitle: "Regen AI - Customer Intelligence Engine",
+    appTitle: "Regeni - AI-powered Customer Intelligence Engine",
     appSubtitle: "AI-powered deep analysis to uncover user insights and market opportunities from customer reviews",
     
     // Navigation
@@ -48,7 +48,7 @@ const translations = {
       opportunitiesInnovation: "Product Innovation",
       opportunitiesMarketing: "Marketing Positioning",
       history: "Historical Reports",
-      analyticsTools: "Regen AI"
+      analyticsTools: "Regeni"
     },
     
     // Dashboard content
@@ -245,7 +245,7 @@ const translations = {
       opportunitiesInnovation: "产品创新机会", 
       opportunitiesMarketing: "营销定位机会",
       history: "历史报告",
-      analyticsTools: "Regen AI"
+      analyticsTools: "Regeni"
     },
     
     // Dashboard content
@@ -717,7 +717,25 @@ export default function App() {
       const reports = data.reports || []
       console.log('📊 Loaded historical reports:', reports.length)
       console.log('📋 Reports data:', reports.map(r => ({ id: r.id, timestamp: r.timestamp, status: r.status })))
-      setHistoricalReports(reports)
+      
+      // 过滤掉demoresult，它不应该出现在历史报告中
+      const realReports = reports.filter(r => r.id !== 'results/demoresult')
+      setHistoricalReports(realReports)
+      
+      // 如果没有真实的历史报告且当前没有分析结果，自动加载demoresult作为默认数据
+      if (realReports.length === 0 && !analysisResult) {
+        console.log('📊 No real reports found, loading demoresult as default data...')
+        try {
+          const demoResponse = await fetch(`${apiBase}/report/results/demoresult`)
+          if (demoResponse.ok) {
+            const demoResult = await demoResponse.json()
+            console.log('✅ Demo result loaded as default data')
+            setAnalysisResult(demoResult)
+          }
+        } catch (error) {
+          console.error('Failed to load demo result:', error)
+        }
+      }
     } catch (error) {
       console.error('Failed to load historical reports:', error)
     }
@@ -1680,6 +1698,10 @@ export default function App() {
             // 加载选中的报告
             console.log('Loading report:', reportId)
             loadHistoricalReport(reportId)
+          }}
+          onNavigateToUpload={() => {
+            // 导航到上传页面
+            setActiveModule('upload')
           }}
           currentReportId={analysisResult?.id}
         />

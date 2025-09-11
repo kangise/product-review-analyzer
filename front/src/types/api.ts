@@ -1,4 +1,4 @@
-// API Types for Regen AI
+// API Types for Regeni
 export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;

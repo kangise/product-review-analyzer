@@ -246,7 +246,7 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
                         {consumerProfileData.消费者画像分析.使用时刻.细分场景.map((timing: any, index: number) => (
                           <tr key={index} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
                             <td className="spacing-system-sm w-1/4">
-                              <div className="font-medium text-sm">{timing.使用时刻}</div>
+                              <div className="font-medium text-sm">{timing.使用时刻 || timing.用户人群}</div>
                             </td>
                             <td className="spacing-system-sm w-[10%]">
                               <div className="flex items-center gap-2">
@@ -266,7 +266,7 @@ export const UserInsights: React.FC<UserInsightsProps> = ({
                                 <Button
                                   variant="ghost"
                                   size="sm"
-                                  onClick={() => showQuotes(timing.关键review信息, timing.使用时刻)}
+                                  onClick={() => showQuotes(timing.关键review信息, timing.使用时刻 || timing.用户人群)}
                                   className="w-8 h-8 p-0"
                                 >
                                   <MessageSquare className="w-3 h-3" />

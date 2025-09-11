@@ -1,6 +1,6 @@
-# Contributing to Product Review Analyzer
+# Contributing to Regeni
 
-We welcome contributions to Product Review Analyzer! This document provides guidelines for contributing to the project.
+We welcome contributions to Regeni! This document provides guidelines for contributing to the project.
 
 ## Getting Started
 
@@ -155,4 +155,4 @@ If you have questions about contributing, please:
 - Ask in GitHub Discussions
 - Contact maintainers directly
 
-Thank you for contributing to Product Review Analyzer!
+Thank you for contributing to Regeni!

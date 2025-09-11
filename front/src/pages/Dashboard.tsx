@@ -146,8 +146,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ language, onPageChange, on
               </h2>
               <p className="text-xl text-white/60 max-w-2xl mx-auto">
                 {currentLanguage === 'en' 
-                  ? 'Experience how Regen AI transforms thousands of reviews into actionable insights within minutes'
-                  : '体验Regen AI如何在几分钟内将数千条评论转化为可操作的洞察'}
+                  ? 'Experience how Regeni transforms thousands of reviews into actionable insights within minutes'
+                  : '体验Regeni如何在几分钟内将数千条评论转化为可操作的洞察'}
               </p>
             </motion.div>
 
@@ -397,8 +397,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ language, onPageChange, on
               </h2>
               <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
                 {currentLanguage === 'en'
-                  ? 'Transform customer feedback into competitive advantage. Start your journey to data-driven success with Regen AI.'
-                  : '将客户反馈转化为竞争优势。开始您的数据驱动成功之旅，与Regen AI一起。'
+                  ? 'Transform customer feedback into competitive advantage. Start your journey to data-driven success with Regeni.'
+                  : '将客户反馈转化为竞争优势。开始您的数据驱动成功之旅，与Regeni一起。'
                 }
               </p>
               <Button

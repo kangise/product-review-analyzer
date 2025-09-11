@@ -277,52 +277,34 @@ class ReviewAnalyzer:
         """
         import re
         
-        # 先移除ANSI转义序列
-        ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
-        json_str = ansi_escape.sub('', json_str)
-        
-        # 修复常见的JSON格式问题
-        # 1. 移除多余的反斜杠
-        json_str = json_str.replace('\\n', ' ').replace('\\t', ' ').replace('\\"', '"')
-        
-        # 2. 处理多行字符串 - 更严格的逻辑
+        # 将字符串值中的换行符替换为空格，但保持JSON结构的换行
         lines = json_str.split('\n')
         fixed_lines = []
         in_string = False
         current_line = ""
-        quote_count = 0
         
         for line in lines:
             stripped = line.strip()
-            if not stripped:
-                continue
-                
-            # 计算这行中的引号数量（排除转义的引号）
-            line_quotes = len(re.findall(r'(?<!\\)"', stripped))
             
+            # 检查这行是否在字符串内部
             if in_string:
-                # 在字符串内部，合并到当前行
+                # 如果在字符串内部，将内容添加到当前行，用空格连接
                 current_line += " " + stripped
-                quote_count += line_quotes
-                # 如果引号数为奇数，说明字符串结束了
-                if quote_count % 2 == 1:
+                # 检查是否结束字符串
+                if stripped.endswith('",') or stripped.endswith('"'):
                     in_string = False
                     fixed_lines.append(current_line)
                     current_line = ""
-                    quote_count = 0
             else:
-                # 检查是否开始多行字符串
-                if ': "' in stripped and line_quotes % 2 == 1:
-                    # 开始了一个字符串但没有结束
+                # 检查是否开始一个可能跨行的字符串
+                if (': "' in stripped and 
+                    not (stripped.endswith('",') or stripped.endswith('"')) and
+                    not stripped.endswith('": "') and
+                    len(stripped) > 50):  # 长字符串更可能跨行
                     in_string = True
                     current_line = line
-                    quote_count = line_quotes
                 else:
                     fixed_lines.append(line)
-        
-        # 如果还有未完成的字符串，添加它
-        if current_line:
-            fixed_lines.append(current_line)
         
         return '\n'.join(fixed_lines)
 

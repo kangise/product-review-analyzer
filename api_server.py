@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Novochoice AI - Local API Server
+Regeni - Local API Server
 简单的Flask服务器，连接前端和Python分析引擎
 """
 
@@ -46,7 +46,7 @@ def health_check():
     """健康检查端点"""
     return jsonify({
         'status': 'healthy',
-        'message': 'Novochoice AI API Server is running',
+        'message': 'Regeni API Server is running',
         'timestamp': datetime.now().isoformat()
     })
 
@@ -517,14 +517,14 @@ def load_analysis_results(analysis_id, target_category, has_competitor_data):
         print("Loading demo data as fallback...")
         return load_demo_results()
 
-@app.route('/reports/<report_id>', methods=['DELETE'])
+@app.route('/reports/<path:report_id>', methods=['DELETE'])
 def delete_report(report_id):
     """删除指定的历史报告"""
     try:
         import shutil
         
         # 验证报告ID格式
-        if not report_id.startswith('analysis_results_'):
+        if not (report_id.startswith('results/analysis_results_') or report_id == 'results/demoresult'):
             return jsonify({'error': 'Invalid report ID format'}), 400
         
         # 检查目录是否存在
@@ -585,7 +585,7 @@ def export_report_html(report_id):
         response = make_response(send_file(
             temp_html.name,
             as_attachment=True,
-            download_name=f'novochoice-analysis-{report_id}.html',
+            download_name=f'regeni-analysis-{report_id}.html',
             mimetype='text/html'
         ))
         
@@ -670,12 +670,9 @@ def get_reports():
         import os
         from datetime import datetime
         
-        # 获取所有分析结果目录，包括demoresult
+        # 获取所有分析结果目录，但排除demoresult
         result_dirs = glob.glob('results/analysis_results_*')
-        
-        # 添加demoresult作为历史报告
-        if os.path.exists('results/demoresult'):
-            result_dirs.append('results/demoresult')
+        # demoresult不应该出现在历史报告列表中，它只作为前端的默认演示数据
         result_dirs.sort(reverse=True)  # 按时间倒序
         
         reports = []
@@ -744,10 +741,36 @@ def get_reports():
                 else:
                     status = 'failed'
                 
+                # 读取实际的产品类型
+                category = 'Unknown'
+                try:
+                    # 首先尝试从metadata.json读取
+                    metadata_path = os.path.join(dir_name, 'metadata.json')
+                    if os.path.exists(metadata_path):
+                        with open(metadata_path, 'r', encoding='utf-8') as f:
+                            metadata = json.load(f)
+                            category = metadata.get('targetCategory', 'Unknown')
+                    
+                    # 如果metadata没有，尝试从product_type.json读取
+                    if category == 'Unknown':
+                        product_type_path = os.path.join(dir_name, 'product_type.json')
+                        if os.path.exists(product_type_path):
+                            with open(product_type_path, 'r', encoding='utf-8') as f:
+                                product_data = json.load(f)
+                                if isinstance(product_data, dict):
+                                    # 尝试多种可能的路径
+                                    category = (product_data.get('product_category_profile', {}).get('category_name') or
+                                              product_data.get('产品类型分析', {}).get('产品类别', {}).get('类别名称') or
+                                              product_data.get('category_name') or
+                                              'Unknown')
+                except Exception as e:
+                    print(f"Error reading category from {dir_name}: {e}")
+                    category = 'Unknown'
+                
                 report = {
                     'id': dir_name,
                     'timestamp': timestamp,
-                    'category': 'Webcams',  # 默认类别，可以从文件中读取
+                    'category': category,
                     'status': status,
                     'hasCompetitorData': has_competitor,
                     'completedModules': complete_files,
@@ -764,24 +787,6 @@ def get_reports():
                 print(f"Error processing directory {dir_name}: {e}")
                 continue
         
-        # 如果没有找到完整的报告，添加demo报告
-        if not reports and os.path.exists('results/demoresult'):
-            try:
-                demo_metadata_path = 'results/demoresult/metadata.json'
-                if os.path.exists(demo_metadata_path):
-                    with open(demo_metadata_path, 'r', encoding='utf-8') as f:
-                        demo_metadata = json.load(f)
-                    
-                    demo_report = {
-                        'id': 'results/demoresult',
-                        'timestamp': demo_metadata.get('timestamp', '2025-08-27T09:46:00.000Z'),
-                        'targetCategory': demo_metadata.get('targetCategory', 'Action Camera'),
-                        'hasCompetitorData': demo_metadata.get('hasCompetitorData', True),
-                        'status': 'completed'
-                    }
-                    reports.append(demo_report)
-            except Exception as e:
-                print(f"Error loading demo report: {e}")
         
         return jsonify({'reports': reports})
         
@@ -957,7 +962,7 @@ def load_demo_results():
         }
 
 if __name__ == '__main__':
-    print("🚀 Starting Novochoice AI API Server...")
+    print("🚀 Starting Regeni API Server...")
     print("📊 Server will run at: http://localhost:8000")
     print("🔗 Frontend should connect to: http://localhost:8000")
     print("💡 Real-time analysis progress tracking enabled!")

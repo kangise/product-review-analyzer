@@ -201,7 +201,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <span className="text-primary-foreground font-bold text-lg">R</span>
           </div>
           <div>
-            <h1 className="font-semibold text-sidebar-foreground">Regen AI</h1>
+            <h1 className="font-semibold text-sidebar-foreground">Regeni</h1>
             <p className="text-xs text-sidebar-foreground/60">
               {language === 'en' ? 'Customer Intelligence' : '客户智能分析'}
             </p>

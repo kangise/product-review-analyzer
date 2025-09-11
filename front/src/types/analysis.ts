@@ -1,4 +1,4 @@
-// Analysis Types for Regen AI
+// Analysis Types for Regeni
 export interface AnalysisResult {
   id: string;
   timestamp: string;

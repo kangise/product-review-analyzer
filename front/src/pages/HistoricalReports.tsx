@@ -40,6 +40,7 @@ interface HistoricalReportsProps {
   language: 'en' | 'zh'
   t: any
   onSelectReport: (reportId: string) => void
+  onNavigateToUpload: () => void
   currentReportId?: string
 }
 
@@ -47,6 +48,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
   language,
   t,
   onSelectReport,
+  onNavigateToUpload,
   currentReportId
 }) => {
   const [reports, setReports] = useState<HistoricalReport[]>([])
@@ -350,7 +352,7 @@ export const HistoricalReports: React.FC<HistoricalReportsProps> = ({
                   : '开始您的第一次分析以查看报告'
                 }
               </p>
-              <Button onClick={() => window.location.href = '#upload'}>
+              <Button onClick={onNavigateToUpload}>
                 {t.ui.start + (language === 'en' ? ' Analysis' : '分析')}
               </Button>
             </CardContent>

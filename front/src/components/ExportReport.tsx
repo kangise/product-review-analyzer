@@ -130,7 +130,7 @@ export const ExportReport: React.FC<ExportReportProps> = ({
 
       {/* 报告尾部 */}
       <div className="report-footer mt-16 pt-8 border-t border-gray-200 text-center text-gray-500">
-        <p>© 2025 Novochoice AI - AI-Powered Customer Intelligence Engine</p>
+        <p>© 2025 Regeni - AI-Powered Customer Intelligence Engine</p>
       </div>
     </div>
   )
