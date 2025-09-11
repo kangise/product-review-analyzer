@@ -369,27 +369,18 @@ class ReviewAnalyzer:
         # 6. 清理开头的空白，但保留可能的JSON标记
         output = output.strip()
         
-        # 7. 如果以 "> {" 开头，移除开头的 "> "
+        # 7. 如果以 "> {" 或 ">\n{" 开头，移除开头的 "> " 或 ">\n"
         if output.startswith('> {'):
             output = output[2:].strip()
+        elif output.startswith('>\n{') or output.startswith('> \n{'):
+            # 处理 "> " 后面有换行的情况
+            output = re.sub(r'^>\s*\n', '', output).strip()
         
         # 8. 额外清理：处理特殊的ANSI模式
         output = re.sub(r'\\u001b\[[0-9;]*m', '', output)  # 处理所有m结尾的序列
         output = re.sub(r'\\u001b\[', '', output)  # 清理残留的开始标记
         
         print(f"🧹 ANSI清理后的输出长度: {len(output)}")
-        
-        # 方法0: 直接检测以 "> {" 开头的JSON
-        if output.startswith('> {'):
-            potential_json = output[2:].strip()
-            # 修复JSON中的换行符问题
-            potential_json = self.fix_json_newlines(potential_json)
-            try:
-                json.loads(potential_json)
-                print("✅ 直接JSON检测成功（> 前缀）")
-                return potential_json
-            except json.JSONDecodeError:
-                print("❌ 直接JSON检测失败（> 前缀）")
         
         # 方法1: 寻找markdown代码块中的JSON (改进的正则表达式)
         json_block_pattern = r'```(?:json)?\s*(\{.*?\})\s*```'

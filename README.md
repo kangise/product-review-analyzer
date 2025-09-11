@@ -51,6 +51,52 @@ npm install
 
 ### Usage
 
+### Usage
+
+#### Option 1: Terminal Mode
+
+1. Prepare your data:
+```bash
+python3 preprocess_data.py "data/Customer Reviews.csv" "data/Competitor Reviews.csv"
+```
+
+2. Run analysis:
+```bash
+python3 run_analysis.py
+```
+
+3. Start the application:
+```bash
+# Start backend server (Terminal 1)
+python3 api_server.py
+
+# Start frontend (Terminal 2)
+cd front && npm run dev
+```
+
+4. Open http://localhost:3000 in your browser
+
+#### Option 2: Q CLI Mode
+
+If you're using Amazon Q CLI, run these commands in the Q chat:
+
+```bash
+# Start backend server in background
+nohup python3 api_server.py > backend.log 2>&1 &
+
+# Start frontend in background  
+cd front && nohup npm run dev > frontend.log 2>&1 &
+
+# Check if services are running
+curl http://localhost:8000/reports  # Backend health check
+curl http://localhost:3000          # Frontend health check
+```
+
+To stop the services:
+```bash
+pkill -f api_server.py && pkill -f "npm run dev"
+```
+
 1. Prepare your data:
 ```bash
 python3 preprocess_data.py "data/Customer Reviews.csv" "data/Competitor Reviews.csv"
