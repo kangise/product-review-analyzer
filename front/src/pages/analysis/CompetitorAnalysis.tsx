@@ -225,11 +225,12 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
 
                 {/* 消费者喜爱点对比 */}
                 {competitorComparison?.消费者喜爱点对比 && (
-                  <div>
-                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
-                      <TrendingUp className="h-4 w-4 text-blue-600" />
+                  <div className="bg-gradient-to-r from-blue-50/50 to-indigo-50/50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-lg border border-blue-200/50 dark:border-blue-800/50 p-6 mb-8">
+                    <h3 className="font-semibold text-lg mb-6 flex items-center gap-3 text-blue-700 dark:text-blue-300">
+                      <TrendingUp className="h-5 w-5" />
                       {language === 'en' ? 'Consumer Love Points Comparison' : '消费者喜爱点对比'}
-                    </h4>
+                    </h3>
+                    <div className="border-b border-blue-200 dark:border-blue-700 mb-6"></div>
                     {(() => {
                       const items = competitorComparison.消费者喜爱点对比.对比项目 || []
                       const quadrants = {
@@ -396,12 +397,13 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
 
                 {/* 未满足需求对比 */}
                 {competitorComparison?.未满足需求对比 && (
-                  <div>
-                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
-                      <TrendingDown className="h-4 w-4 text-red-600" />
+                  <div className="bg-gradient-to-r from-red-50/50 to-orange-50/50 dark:from-red-950/20 dark:to-orange-950/20 rounded-lg border border-red-200/50 dark:border-red-800/50 p-6 mb-8">
+                    <h3 className="font-semibold text-lg mb-6 flex items-center gap-3 text-red-700 dark:text-red-300">
+                      <TrendingDown className="h-5 w-5" />
                       {language === 'en' ? 'Unmet Needs Comparison' : '未满足需求对比'}
-                      <span className="text-xs text-muted-foreground">({language === 'en' ? 'Lower is better' : '频率越低越好'})</span>
-                    </h4>
+                      <span className="text-sm font-normal text-muted-foreground">({language === 'en' ? 'Lower is better' : '频率越低越好'})</span>
+                    </h3>
+                    <div className="border-b border-red-200 dark:border-red-700 mb-6"></div>
                     {(() => {
                       const items = competitorComparison.未满足需求对比.对比项目 || []
                       const quadrants = {
@@ -568,11 +570,12 @@ export const CompetitorAnalysis: React.FC<CompetitorAnalysisProps> = ({
 
                 {/* 购买动机对比 */}
                 {competitorComparison?.购买动机对比 && (
-                  <div>
-                    <h4 className="font-medium text-sm mb-4 flex items-center gap-2">
-                      <Users className="h-4 w-4 text-purple-600" />
+                  <div className="bg-gradient-to-r from-purple-50/50 to-pink-50/50 dark:from-purple-950/20 dark:to-pink-950/20 rounded-lg border border-purple-200/50 dark:border-purple-800/50 p-6 mb-8">
+                    <h3 className="font-semibold text-lg mb-6 flex items-center gap-3 text-purple-700 dark:text-purple-300">
+                      <Users className="h-5 w-5" />
                       {language === 'en' ? 'Purchase Motivation Comparison' : '购买动机对比'}
-                    </h4>
+                    </h3>
+                    <div className="border-b border-purple-200 dark:border-purple-700 mb-6"></div>
                     {(() => {
                       const items = competitorComparison.购买动机对比.对比项目 || []
                       const quadrants = {
