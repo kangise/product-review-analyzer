@@ -1,4 +1,12 @@
+![Regeni Header](docs/Regeni%20Header.png)
+
 # Regeni
+
+[![GitHub stars](https://img.shields.io/github/stars/kangise/regeni?style=social)](https://github.com/kangise/regeni/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/kangise/regeni?style=social)](https://github.com/kangise/regeni/network/members)
+[![GitHub contributors](https://img.shields.io/github/contributors/kangise/regeni)](https://github.com/kangise/regeni/graphs/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/kangise/regeni)](https://github.com/kangise/regeni/issues)
+[![GitHub license](https://img.shields.io/github/license/kangise/regeni)](https://github.com/kangise/regeni/blob/main/LICENSE.md)
 
 AI-powered customer intelligence engine that transforms product reviews into actionable business insights.
 
